@@ -1,10 +1,11 @@
 import MailingAddress from '@apps/crm/models/mailing_address'
 import EmailAddress from '@apps/crm/models/email_address'
 import PhoneNumber from '@apps/crm/models/phone_number'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Contact from '@apps/crm/models/contact'
 
-const Recipient = new Model({
+const Recipient = new Model(knex, {
 
   databaseName: 'maha',
 

@@ -1,8 +1,9 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Variant from './variant'
 import Order from './order'
 
-const Item = new Model({
+const Item = new Model(knex, {
 
   databaseName: 'maha',
 

@@ -1,9 +1,10 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Link from '@apps/maha/models/link'
 import Attachment from './attachment'
 import User from './user'
 
-const Comment = new Model({
+const Comment = new Model(knex, {
 
   databaseName: 'maha',
 

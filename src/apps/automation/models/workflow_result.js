@@ -1,6 +1,7 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 
-const WorkflowResult = new Model({
+const WorkflowResult = new Model(knex, {
 
   databaseName: 'maha',
 

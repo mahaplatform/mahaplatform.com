@@ -1,3 +1,4 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import MailingAddress from './mailing_address'
 import EmailAddress from './email_address'
@@ -5,7 +6,7 @@ import PhoneNumber from './phone_number'
 import Program from './program'
 import Contact from './contact'
 
-const Channel = new Model({
+const Channel = new Model(knex, {
 
   databaseName: 'maha',
 

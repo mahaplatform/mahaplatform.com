@@ -1,8 +1,9 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import User from '@apps/maha/models/user'
 import Post from './post'
 
-const Like = new Model({
+const Like = new Model(knex, {
 
   databaseName: 'maha',
 

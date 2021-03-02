@@ -1,4 +1,5 @@
 import collectObjects from '@core/utils/collect_objects'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import App from './app'
 import _ from 'lodash'
@@ -17,7 +18,7 @@ const getData = () => {
   return data
 }
 
-const NotificationType = new Model({
+const NotificationType = new Model(knex, {
 
   databaseName: 'maha',
 

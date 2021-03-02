@@ -1,7 +1,8 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import App from './app'
 
-const Installation = new Model({
+const Installation = new Model(knex, {
 
   databaseName: 'maha',
 

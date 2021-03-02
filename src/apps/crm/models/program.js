@@ -1,5 +1,6 @@
 import VoiceCampaign from '@apps/campaigns/models/voice_campaign'
 import PhoneNumber from '@apps/maha/models/phone_number'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Bank from '@apps/finance/models/bank'
 import ProgramAccess from './program_access'
@@ -9,7 +10,7 @@ import Sender from './sender'
 import Topic from './topic'
 import List from './list'
 
-const Program = new Model({
+const Program = new Model(knex, {
 
   databaseName: 'maha',
 

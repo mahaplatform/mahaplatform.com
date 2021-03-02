@@ -1,11 +1,12 @@
 import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
 import Invoice from '@apps/finance/models/invoice'
 import Payment from '@apps/finance/models/payment'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Contact from '@apps/crm/models/contact'
 import Form from './form'
 
-const Response = new Model({
+const Response = new Model(knex, {
 
   databaseName: 'maha',
 

@@ -1,6 +1,7 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 
-const DeviceValue = new Model({
+const DeviceValue = new Model(knex, {
 
   databaseName: 'maha',
 

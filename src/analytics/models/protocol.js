@@ -1,6 +1,7 @@
-import Model from '@core/analytics/objects/model'
+import Model from '@core/objects/model'
+import knex from '@core/vendor/knex/analytics'
 
-const Protocol = new Model({
+const Protocol = new Model(knex, {
 
   databaseName: 'analytics',
 

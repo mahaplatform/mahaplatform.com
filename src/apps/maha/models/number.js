@@ -1,7 +1,8 @@
 import { formatPhoneNumber } from '@core/services/phone_numbers'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 
-const Number = new Model({
+const Number = new Model(knex, {
 
   databaseName: 'maha',
 

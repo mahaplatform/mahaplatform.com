@@ -1,9 +1,10 @@
 import { formatPhoneNumber, spokenPhoneNumber } from '@core/services/phone_numbers'
 import VoiceCampaign from '@apps/campaigns/models/voice_campaign'
 import Program from '@apps/crm/models/program'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 
-const PhoneNumber = new Model({
+const PhoneNumber = new Model(knex, {
 
   databaseName: 'maha',
 

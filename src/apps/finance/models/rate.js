@@ -1,6 +1,7 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 
-const Rate = new Model({
+const Rate = new Model(knex, {
 
   databaseName: 'maha',
 

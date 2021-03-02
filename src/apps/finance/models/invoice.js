@@ -1,16 +1,17 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Program from '@apps/crm/models/program'
 import LineItem from './line_item'
 import Customer from './customer'
 import Payment from './payment'
 
-const InvoiceLineItem = new Model({
+const InvoiceLineItem = new Model(knex, {
 
   databaseName: 'maha',
   tableName: 'finance_invoice_line_items'
 })
 
-const Invoice = new Model({
+const Invoice = new Model(knex, {
 
   databaseName: 'maha',
 

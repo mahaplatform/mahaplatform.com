@@ -1,8 +1,9 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Customer from './customer'
 import Payment from './payment'
 
-const PaymentMethod = new Model({
+const PaymentMethod = new Model(knex, {
 
   databaseName: 'maha',
 

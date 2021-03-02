@@ -1,9 +1,10 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Contact from '@apps/crm/models/contact'
 import Story from './story'
 import User from './user'
 
-const Audit = new Model({
+const Audit = new Model(knex, {
 
   databaseName: 'maha',
 

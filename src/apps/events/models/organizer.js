@@ -1,8 +1,9 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Asset from '@apps/maha/models/asset'
 import Event from './event'
 
-const Organizer = new Model({
+const Organizer = new Model(knex, {
 
   databaseName: 'maha',
 

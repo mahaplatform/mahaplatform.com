@@ -1,8 +1,9 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Asset from '@apps/maha/models/asset'
 import Variant from './variant'
 
-const Photo = new Model({
+const Photo = new Model(knex, {
 
   databaseName: 'maha',
 

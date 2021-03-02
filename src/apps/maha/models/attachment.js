@@ -1,7 +1,8 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Asset from './asset'
 
-const Attachment = new Model({
+const Attachment = new Model(knex, {
 
   databaseName: 'maha',
 

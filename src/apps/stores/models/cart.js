@@ -1,10 +1,11 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import CartItem from './cart_item'
 import Discount from './discount'
 import moment from 'moment'
 import Order from './order'
 
-const Cart = new Model({
+const Cart = new Model(knex, {
 
   databaseName: 'maha',
 

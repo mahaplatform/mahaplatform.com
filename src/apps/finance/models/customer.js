@@ -1,3 +1,4 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Contact from '@apps/crm/models/contact'
 import PaymentMethod from './payment_method'
@@ -5,7 +6,7 @@ import Scholarship from './scholarship'
 import Invoice from './invoice'
 import Credit from './credit'
 
-const Customer = new Model({
+const Customer = new Model(knex, {
 
   databaseName: 'maha',
 

@@ -1,7 +1,8 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Service from './service'
 
-const Listening = new Model({
+const Listening = new Model(knex, {
 
   databaseName: 'maha',
 

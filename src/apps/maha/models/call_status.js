@@ -1,7 +1,8 @@
 import CallConnection from '@apps/maha/models/call_connection'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 
-const CallStatus = new Model({
+const CallStatus = new Model(knex, {
 
   databaseName: 'maha',
 

@@ -1,11 +1,12 @@
 import SecurityQuestion from './security_question'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import bcrypt from 'bcrypt-nodejs'
 import Feature from './feature'
 import Asset from './asset'
 import User from './user'
 
-const Account = new Model({
+const Account = new Model(knex, {
 
   databaseName: 'maha',
 

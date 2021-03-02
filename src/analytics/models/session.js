@@ -1,5 +1,6 @@
+import Model from '@core/objects/model'
 import Manufacturer from './manufacturer'
-import Model from '@core/analytics/objects/model'
+import knex from '@core/vendor/knex/analytics'
 import DomainUser from './domain_user'
 import IPAddress from './ipaddress'
 import Campaign from './campaign'
@@ -15,7 +16,7 @@ import Term from './term'
 import App from './app'
 import OS from './os'
 
-const Session = new Model({
+const Session = new Model(knex, {
 
   databaseName: 'analytics',
 

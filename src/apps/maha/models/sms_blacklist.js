@@ -1,6 +1,7 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 
-const SmsBlacklist = new Model({
+const SmsBlacklist = new Model(knex, {
 
   databaseName: 'maha',
 

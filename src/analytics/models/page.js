@@ -1,7 +1,8 @@
-import Model from '@core/analytics/objects/model'
+import Model from '@core/objects/model'
+import knex from '@core/vendor/knex/analytics'
 import Event from './event'
 
-const Page = new Model({
+const Page = new Model(knex, {
 
   databaseName: 'analytics',
 

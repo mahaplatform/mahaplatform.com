@@ -1,7 +1,8 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Access from './access'
 
-const Folder = new Model({
+const Folder = new Model(knex, {
 
   databaseName: 'maha',
 

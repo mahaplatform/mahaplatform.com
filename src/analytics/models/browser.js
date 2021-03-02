@@ -1,7 +1,8 @@
-import Model from '@core/analytics/objects/model'
+import Model from '@core/objects/model'
+import knex from '@core/vendor/knex/analytics'
 import Session from './session'
 
-const Browser = new Model({
+const Browser = new Model(knex, {
 
   databaseName: 'analytics',
 

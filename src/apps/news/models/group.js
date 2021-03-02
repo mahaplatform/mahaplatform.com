@@ -1,10 +1,11 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Asset from '@apps/maha/models/asset'
 import User from '@apps/maha/models/user'
 import Member from './member'
 import Post from './post'
 
-const Group = new Model({
+const Group = new Model(knex, {
 
   databaseName: 'maha',
 

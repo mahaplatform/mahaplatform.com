@@ -1,8 +1,9 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Contact from '@apps/crm/models/contact'
 import Event from './event'
 
-const Waiting = new Model({
+const Waiting = new Model(knex, {
 
   databaseName: 'maha',
 

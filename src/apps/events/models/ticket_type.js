@@ -1,7 +1,8 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Ticket from './ticket'
 
-const TicketType = new Model({
+const TicketType = new Model(knex, {
 
   databaseName: 'maha',
 

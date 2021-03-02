@@ -1,8 +1,9 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import { s3 } from '@core/vendor/aws'
 import User from './user'
 
-const Assets = new Model({
+const Assets = new Model(knex, {
 
   databaseName: 'maha',
 

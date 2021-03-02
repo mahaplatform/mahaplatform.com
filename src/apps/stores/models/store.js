@@ -1,4 +1,5 @@
 import Workflow from '@apps/automation/models/workflow'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Program from '@apps/crm/models/program'
 import Category from './category'
@@ -6,7 +7,7 @@ import Discount from './discount'
 import Product from './product'
 import Order from './order'
 
-const Store = new Model({
+const Store = new Model(knex, {
 
   databaseName: 'maha',
 

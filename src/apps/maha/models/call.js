@@ -4,9 +4,10 @@ import CallActivity from '@apps/maha/models/call_activity'
 import PhoneNumber from '@apps/crm/models/phone_number'
 import Program from '@apps/crm/models/program'
 import Number from '@apps/maha/models/number'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 
-const Call = new Model({
+const Call = new Model(knex, {
 
   databaseName: 'maha',
 

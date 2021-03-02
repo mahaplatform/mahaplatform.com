@@ -1,4 +1,5 @@
 import collectObjects from '@core/utils/collect_objects'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Role from './role'
 import App from './app'
@@ -18,7 +19,7 @@ const getData = () => {
   return data
 }
 
-const Right = new Model({
+const Right = new Model(knex, {
 
   databaseName: 'maha',
 

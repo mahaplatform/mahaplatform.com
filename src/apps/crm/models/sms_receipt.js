@@ -1,9 +1,10 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import PhoneNumber from './phone_number'
 import Program from './program'
 import Contact from './contact'
 
-const SmsReceipt = new Model({
+const SmsReceipt = new Model(knex, {
 
   databaseName: 'maha',
 

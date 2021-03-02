@@ -2,9 +2,10 @@ import EmailCampaignResult from './email_campaign_result'
 import Workflow from '@apps/automation/models/workflow'
 import MahaEmail from '@apps/maha/models/email'
 import Program from '@apps/crm/models/program'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 
-const EmailCampaign = new Model({
+const EmailCampaign = new Model(knex, {
 
   databaseName: 'maha',
 

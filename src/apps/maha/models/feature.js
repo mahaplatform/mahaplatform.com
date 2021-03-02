@@ -1,6 +1,7 @@
-import Model from '../../../core/objects/model'
+import knex from '@core/vendor/knex/maha'
+import Model from '@core/objects/model'
 
-const Feature = new Model({
+const Feature = new Model(knex, {
 
   databaseName: 'maha',
 

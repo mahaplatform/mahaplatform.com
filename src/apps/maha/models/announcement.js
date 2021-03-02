@@ -1,7 +1,8 @@
-import Model from '../../../core/objects/model'
 import Email from '@apps/maha/models/email'
+import knex from '@core/vendor/knex/maha'
+import Model from '@core/objects/model'
 
-const Announcement = new Model({
+const Announcement = new Model(knex, {
 
   databaseName: 'maha',
 

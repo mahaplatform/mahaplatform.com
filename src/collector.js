@@ -1,5 +1,5 @@
 import '@core/services/environment'
-import app from '@core/analytics/express'
+import app from '@core/lib/express/analytics'
 import log from '@core/utils/log'
 import { Server } from 'http'
 

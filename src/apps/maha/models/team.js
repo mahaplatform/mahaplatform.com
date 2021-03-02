@@ -1,10 +1,11 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Installation from './installation'
 import Domain from './domain'
 import Asset from './asset'
 import App from './app'
 
-const Team = new Model({
+const Team = new Model(knex, {
 
   databaseName: 'maha',
 

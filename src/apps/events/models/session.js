@@ -1,10 +1,11 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Attending from './attending'
 import Location from './location'
 import Event from './event'
 import moment from 'moment'
 
-const Session = new Model({
+const Session = new Model(knex, {
 
   databaseName: 'maha',
 

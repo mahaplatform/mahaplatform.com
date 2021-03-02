@@ -1,3 +1,4 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Attachment from '@apps/maha/models/attachment'
 import Link from '@apps/maha/models/link'
@@ -5,7 +6,7 @@ import User from '@apps/maha/models/user'
 import Channel from './channel'
 import MessageType from './message_type'
 
-const Message = new Model({
+const Message = new Model(knex, {
 
   databaseName: 'maha',
 

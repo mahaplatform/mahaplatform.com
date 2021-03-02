@@ -1,11 +1,12 @@
 import Grouping from '@apps/maha/models/grouping'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Group from '@apps/maha/models/group'
 import User from '@apps/maha/models/user'
 import AccessType from './access_type'
 import Item from './item'
 
-const Access = new Model({
+const Access = new Model(knex, {
 
   databaseName: 'maha',
 

@@ -1,8 +1,9 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import WorkflowAction from './workflow_action'
 import Asset from '@apps/maha/models/asset'
 
-const WorkflowRecording = new Model({
+const WorkflowRecording = new Model(knex, {
 
   databaseName: 'maha',
 

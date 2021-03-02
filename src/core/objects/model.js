@@ -1,11 +1,13 @@
 import registry from '@core/utils/registry'
-import bookshelf from '@core/lib/bookshelf'
+import Bookshelf from '@core/lib/bookshelf'
 import Checkit from  'checkit'
 import _ from 'lodash'
 
 class Model {
 
-  constructor(options) {
+  constructor(knex, options) {
+
+    const bookshelf = Bookshelf(knex)
 
     const model = bookshelf.Model.extend({
 

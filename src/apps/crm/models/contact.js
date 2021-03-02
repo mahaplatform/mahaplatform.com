@@ -3,6 +3,7 @@ import Registration from '@apps/events/models/registration'
 import ImportItem from '@apps/maha/models/import_item'
 import Response from '@apps/forms/models/response'
 import MahaEmail from '@apps/maha/models/email'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import MailingAddress from './mailing_address'
 import Asset from '@apps/maha/models/asset'
@@ -15,7 +16,7 @@ import Note from './contact_note'
 import Topic from './topic'
 import List from './list'
 
-const Contact = new Model({
+const Contact = new Model(knex, {
 
   databaseName: 'maha',
 

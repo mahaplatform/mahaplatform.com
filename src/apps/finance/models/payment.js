@@ -1,3 +1,4 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import PaymentMethod from './payment_method'
 import Asset from '@apps/maha/models/asset'
@@ -9,7 +10,7 @@ import Credit from './credit'
 import Refund from './refund'
 import Bank from './bank'
 
-const Payment = new Model({
+const Payment = new Model(knex, {
 
   databaseName: 'maha',
 

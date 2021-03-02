@@ -1,8 +1,9 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Dataset from './dataset'
 import Record from './record'
 
-const Type = new Model({
+const Type = new Model(knex, {
 
   databaseName: 'maha',
 

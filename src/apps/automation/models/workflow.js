@@ -9,10 +9,11 @@ import Form from '@apps/forms/models/form'
 import WorkflowStep from './workflow_step'
 import Topic from '@apps/crm/models/topic'
 import List from '@apps/crm/models/list'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Email from './email'
 
-const Workflow = new Model({
+const Workflow = new Model(knex, {
 
   databaseName: 'maha',
 

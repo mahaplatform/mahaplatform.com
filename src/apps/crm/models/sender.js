@@ -1,7 +1,8 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Program from './program'
 
-const Sender = new Model({
+const Sender = new Model(knex, {
 
   databaseName: 'maha',
 

@@ -1,8 +1,9 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Account from './account'
 import Asset from './asset'
 
-const Profile = new Model({
+const Profile = new Model(knex, {
 
   databaseName: 'maha',
 

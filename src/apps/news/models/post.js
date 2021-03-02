@@ -1,11 +1,12 @@
 import Attachment from '@apps/maha/models/attachment'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import User from '@apps/maha/models/user'
 import Link from '@apps/maha/models/link'
 import Group from './group'
 import Like from './like'
 
-const Post = new Model({
+const Post = new Model(knex, {
 
   databaseName: 'maha',
 

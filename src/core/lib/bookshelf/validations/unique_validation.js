@@ -1,4 +1,4 @@
-import knex from '@core/vendor/knex'
+import knex from '@core/vendor/knex/maha'
 import Checkit from 'checkit'
 import _ from 'lodash'
 

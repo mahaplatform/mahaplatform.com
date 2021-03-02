@@ -1,4 +1,4 @@
-import knex from '@core/vendor/knex'
+import knex from '@core/vendor/knex/maha'
 
 const chat = async (io, socket) => {
 

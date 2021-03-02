@@ -1,12 +1,13 @@
 import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
 import Invoice from '@apps/finance/models/invoice'
 import Payment from '@apps/finance/models/payment'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Contact from '@apps/crm/models/contact'
 import Ticket from './ticket'
 import Event from './event'
 
-const Registration = new Model({
+const Registration = new Model(knex, {
 
   databaseName: 'maha',
 

@@ -1,8 +1,9 @@
-import Model from '@core/analytics/objects/model'
+import Model from '@core/objects/model'
+import knex from '@core/vendor/knex/analytics'
 import Referer from './referer'
 import Page from './page'
 
-const Domain = new Model({
+const Domain = new Model(knex, {
 
   databaseName: 'analytics',
 

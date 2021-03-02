@@ -1,9 +1,10 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import LineItem from './line_item'
 import Payment from './payment'
 import Refund from './refund'
 
-const Allocation = new Model({
+const Allocation = new Model(knex, {
 
   databaseName: 'maha',
 

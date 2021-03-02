@@ -1,9 +1,10 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import RevenueType from './revenue_type'
 import Project from './project'
 import Invoice from './invoice'
 
-const LineItem = new Model({
+const LineItem = new Model(knex, {
 
   databaseName: 'maha',
 

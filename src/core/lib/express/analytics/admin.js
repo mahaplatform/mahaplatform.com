@@ -1,6 +1,6 @@
-import { Router } from 'express'
 import adminMiddleware from '@analytics/admin/api'
 import transaction from './transaction'
+import { Router } from 'express'
 import logger from './logger'
 
 const router = new Router({ mergeParams: true })

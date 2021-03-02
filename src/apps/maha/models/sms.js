@@ -1,10 +1,11 @@
 import PhoneNumber from '@apps/crm/models/phone_number'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import SMSAttachment from './sms_attachment'
 import Number from './number'
 import User from './user'
 
-const Sms = new Model({
+const Sms = new Model(knex, {
 
   databaseName: 'maha',
 

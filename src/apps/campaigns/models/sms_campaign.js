@@ -2,10 +2,11 @@ import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
 import WorkflowStep from '@apps/automation/models/workflow_step'
 import PhoneNumber from '@apps/maha/models/phone_number'
 import SmsCampaignResult from './sms_campaign_result'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Program from '@apps/crm/models/program'
 
-const SmsCampaign = new Model({
+const SmsCampaign = new Model(knex, {
 
   databaseName: 'maha',
 

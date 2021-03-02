@@ -1,8 +1,9 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Program from './program'
 import Profile from '@apps/maha/models/profile'
 
-const SocialCampaign = new Model({
+const SocialCampaign = new Model(knex, {
 
   databaseName: 'maha',
 

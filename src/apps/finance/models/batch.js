@@ -1,3 +1,4 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import User from '@apps/maha/models/user'
 import Item from './item'
@@ -7,7 +8,7 @@ import Expense from './expense'
 import Reimbursement from './reimbursement'
 import Trip from './trip'
 
-const Batch = new Model({
+const Batch = new Model(knex, {
 
   databaseName: 'maha',
 

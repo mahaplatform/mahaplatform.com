@@ -2,13 +2,14 @@ import WorkflowEnrollment from '@apps/automation/models/workflow_enrollment'
 import Payment from '@apps/finance/models/payment'
 import Invoice from '@apps/finance/models/invoice'
 import Contact from '@apps/crm/models/contact'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Discount from './discount'
 import Store from './store'
 import Item from './item'
 import Cart from './cart'
 
-const Order = new Model({
+const Order = new Model(knex, {
 
   databaseName: 'maha',
 

@@ -1,3 +1,4 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import User from '@apps/maha/models/user'
 import Account from  './account'
@@ -5,7 +6,7 @@ import ExpenseType from  './expense_type'
 import Project from  './project'
 import Vendor from  './vendor'
 
-const Item = new Model({
+const Item = new Model(knex, {
 
   databaseName: 'maha',
 

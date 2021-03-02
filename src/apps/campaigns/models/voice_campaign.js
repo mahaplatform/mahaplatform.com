@@ -3,9 +3,10 @@ import WorkflowStep from '@apps/automation/models/workflow_step'
 import VoiceCampaignResult from './voice_campaign_result'
 import PhoneNumber from '@apps/maha/models/phone_number'
 import Program from '@apps/crm/models/program'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 
-const VoiceCampaign = new Model({
+const VoiceCampaign = new Model(knex, {
 
   databaseName: 'maha',
 

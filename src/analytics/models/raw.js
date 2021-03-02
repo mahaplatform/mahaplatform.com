@@ -1,6 +1,7 @@
-import Model from '@core/analytics/objects/model'
+import Model from '@core/objects/model'
+import knex from '@core/vendor/knex/analytics'
 
-const Raw = new Model({
+const Raw = new Model(knex, {
 
   databaseName: 'analytics',
 

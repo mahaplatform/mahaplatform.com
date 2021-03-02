@@ -1,9 +1,10 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Asset from '@apps/maha/models/asset'
 import Program from './program'
 import Contact from './contact'
 
-const ContactCall = new Model({
+const ContactCall = new Model(knex, {
 
   databaseName: 'maha',
 

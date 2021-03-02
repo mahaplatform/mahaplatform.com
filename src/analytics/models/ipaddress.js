@@ -1,4 +1,5 @@
-import Model from '@core/analytics/objects/model'
+import Model from '@core/objects/model'
+import knex from '@core/vendor/knex/analytics'
 import PostalCode from './postal_code'
 import MetroCode from './metro_code'
 import Session from './session'
@@ -6,7 +7,7 @@ import Country from './country'
 import Region from './region'
 import City from './city'
 
-const IPAddress = new Model({
+const IPAddress = new Model(knex, {
 
   databaseName: 'analytics',
 

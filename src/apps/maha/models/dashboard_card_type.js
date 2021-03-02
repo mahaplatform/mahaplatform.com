@@ -1,7 +1,8 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import App from './app'
 
-const DashboardCardType = new Model({
+const DashboardCardType = new Model(knex, {
 
   databaseName: 'maha',
 

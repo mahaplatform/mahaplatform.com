@@ -1,3 +1,4 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Supervision from './supervision'
 import Session from './session'
@@ -7,7 +8,7 @@ import Group from './group'
 import Role from './role'
 import Team from './team'
 
-const User = new Model({
+const User = new Model(knex, {
 
   databaseName: 'maha',
 

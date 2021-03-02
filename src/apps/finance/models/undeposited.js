@@ -1,7 +1,8 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Invoice from './invoice'
 
-const Undeposited = new Model({
+const Undeposited = new Model(knex, {
 
   databaseName: 'maha',
 

@@ -7,9 +7,10 @@ import Store from '@apps/stores/models/store'
 import Event from '@apps/events/models/event'
 import Form from '@apps/forms/models/form'
 import EmailResult from './email_result'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 
-const Email = new Model({
+const Email = new Model(knex, {
 
   databaseName: 'maha',
 

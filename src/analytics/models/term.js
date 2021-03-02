@@ -1,7 +1,8 @@
-import Model from '@core/analytics/objects/model'
+import Model from '@core/objects/model'
+import knex from '@core/vendor/knex/analytics'
 import Session from './session'
 
-const Term = new Model({
+const Term = new Model(knex, {
 
   databaseName: 'analytics',
 

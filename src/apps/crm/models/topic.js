@@ -1,9 +1,10 @@
 import Workflow from '@apps/automation/models/workflow'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Program from './program'
 import Contact from './contact'
 
-const Topic = new Model({
+const Topic = new Model(knex, {
 
   databaseName: 'maha',
 

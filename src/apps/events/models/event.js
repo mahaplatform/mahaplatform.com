@@ -1,16 +1,16 @@
 import Workflow from '@apps/automation/models/workflow'
 import Email from '@apps/automation/models/email'
-import Model from '@core/objects/model'
 import Program from '@apps/crm/models/program'
-import knex from '@core/vendor/knex'
 import Asset from '@apps/maha/models/asset'
 import Registration from './registration'
+import knex from '@core/vendor/knex/maha'
+import Model from '@core/objects/model'
 import TicketType from './ticket_type'
 import Organizer from './organizer'
 import Session from './session'
 import Waiting from './waiting'
 
-const Event = new Model({
+const Event = new Model(knex, {
 
   databaseName: 'maha',
 

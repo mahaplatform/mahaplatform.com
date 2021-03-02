@@ -1,6 +1,7 @@
-import Model from '@core/analytics/objects/model'
+import Model from '@core/objects/model'
+import knex from '@core/vendor/knex/analytics'
 
-const Context = new Model({
+const Context = new Model(knex, {
 
   databaseName: 'analytics',
 

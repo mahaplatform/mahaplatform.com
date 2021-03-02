@@ -1,9 +1,10 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import User from '@apps/maha/models/user'
 import Channel from './channel'
 import Message from './message'
 
-const Subscription = new Model({
+const Subscription = new Model(knex, {
 
   databaseName: 'maha',
 

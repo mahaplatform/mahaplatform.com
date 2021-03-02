@@ -1,9 +1,10 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Deposit from './deposit'
 import Payment from './payment'
 import Refund from './refund'
 
-const DepositLineItem = new Model({
+const DepositLineItem = new Model(knex, {
 
   databaseName: 'maha',
 

@@ -1,7 +1,8 @@
-import Model from '@core/analytics/objects/model'
+import Model from '@core/objects/model'
+import knex from '@core/vendor/knex/analytics'
 import Event from './event'
 
-const Referer = new Model({
+const Referer = new Model(knex, {
 
   databaseName: 'analytics',
 

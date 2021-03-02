@@ -1,9 +1,10 @@
 import Story from '@apps/maha/models/story'
 import User from '@apps/maha/models/user'
 import Call from '@apps/maha/models/call'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 
-const CallActivity = new Model({
+const CallActivity = new Model(knex, {
 
   databaseName: 'maha',
 

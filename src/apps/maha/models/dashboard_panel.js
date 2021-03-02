@@ -1,9 +1,10 @@
 import DashboardPanelAccess from './dashboard_panel_access'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import DashboardCard from './dashboard_card'
 import User from './user'
 
-const DashboardPanel = new Model({
+const DashboardPanel = new Model(knex, {
 
   databaseName: 'maha',
 

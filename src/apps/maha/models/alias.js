@@ -1,6 +1,7 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 
-const Alias = new Model({
+const Alias = new Model(knex, {
 
   databaseName: 'maha',
 

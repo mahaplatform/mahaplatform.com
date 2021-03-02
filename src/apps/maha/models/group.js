@@ -1,7 +1,8 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import User from './user'
 
-const Group = new Model({
+const Group = new Model(knex, {
 
   databaseName: 'maha',
 

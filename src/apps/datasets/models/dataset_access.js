@@ -1,10 +1,11 @@
 import Grouping from '@apps/maha/models/grouping'
 import Group from '@apps/maha/models/group'
 import User from '@apps/maha/models/user'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Dataset from './dataset'
 
-const DatasetAccess = new Model({
+const DatasetAccess = new Model(knex, {
 
   databaseName: 'maha',
 

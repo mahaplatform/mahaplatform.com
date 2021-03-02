@@ -1,3 +1,4 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Program from '@apps/crm/models/program'
 import ImportItem from './import_item'
@@ -5,7 +6,7 @@ import Asset from './asset'
 import User from './user'
 import moment from 'moment'
 
-const Import = new Model({
+const Import = new Model(knex, {
 
   databaseName: 'maha',
 

@@ -1,10 +1,11 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Grouping from './grouping'
 import Filter from './filter'
 import Group from './group'
 import User from './user'
 
-const FilterAccess = new Model({
+const FilterAccess = new Model(knex, {
 
   databaseName: 'maha',
 

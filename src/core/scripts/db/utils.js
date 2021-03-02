@@ -1,4 +1,5 @@
-import * as knex from '@core/vendor/knex'
+import analytics from '@core/vendor/knex/analytics'
+import maha from '@core/vendor/knex/maha'
 import apps from '@core/utils/apps'
 import log from '@core/utils/log'
 import path from 'path'
@@ -6,7 +7,9 @@ import _ from 'lodash'
 import ejs from 'ejs'
 import fs from 'fs'
 
-const databases = ['analytics','maha']
+const knex = { analytics, maha }
+
+const databases = Object.keys(knex)
 
 const [,,,database] = process.env.DATABASE_URL.match(/(.*):\/\/([^/]*)\/(.*)/)
 

@@ -1,7 +1,8 @@
-import Model from '@core/analytics/objects/model'
+import Model from '@core/objects/model'
+import knex from '@core/vendor/knex/analytics'
 import Session from './session'
 
-const Manufacturer = new Model({
+const Manufacturer = new Model(knex, {
 
   databaseName: 'analytics',
 

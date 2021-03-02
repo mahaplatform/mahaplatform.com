@@ -1,10 +1,11 @@
 import NotificationType from './notification_type'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import App from './app'
 import Story from './story'
 import User from './user'
 
-const Notification = new Model({
+const Notification = new Model(knex, {
 
   databaseName: 'maha',
 

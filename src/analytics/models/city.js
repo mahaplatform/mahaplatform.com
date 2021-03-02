@@ -1,7 +1,8 @@
-import Model from '@core/analytics/objects/model'
+import Model from '@core/objects/model'
+import knex from '@core/vendor/knex/analytics'
 import IPAddress from './ipaddress'
 
-const City = new Model({
+const City = new Model(knex, {
 
   databaseName: 'analytics',
 

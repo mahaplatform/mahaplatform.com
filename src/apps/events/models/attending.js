@@ -1,8 +1,9 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Session from './session'
 import Ticket from './ticket'
 
-const Attending = new Model({
+const Attending = new Model(knex, {
 
   databaseName: 'maha',
 

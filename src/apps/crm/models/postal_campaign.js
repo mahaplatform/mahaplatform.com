@@ -1,7 +1,8 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Program from './program'
 
-const PostalCampaign = new Model({
+const PostalCampaign = new Model(knex, {
 
   databaseName: 'maha',
 

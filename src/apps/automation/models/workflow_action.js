@@ -9,10 +9,11 @@ import Topic from '@apps/crm/models/topic'
 import User from '@apps/maha/models/user'
 import List from '@apps/crm/models/list'
 import Sms from '@apps/maha/models/sms'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Workflow from './workflow'
 
-const WorkflowAction = new Model({
+const WorkflowAction = new Model(knex, {
 
   databaseName: 'maha',
 

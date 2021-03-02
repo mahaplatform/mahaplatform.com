@@ -1,11 +1,12 @@
 import Workflow from '@apps/automation/models/workflow'
 import Email from '@apps/automation/models/email'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Program from '@apps/crm/models/program'
 import Response from './response'
 import moment from 'moment'
 
-const Form = new Model({
+const Form = new Model(knex, {
 
   databaseName: 'maha',
 

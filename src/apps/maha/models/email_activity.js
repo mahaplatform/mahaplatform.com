@@ -1,8 +1,9 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import EmailLink from './email_link'
 import Email from './email'
 
-const EmailActivity = new Model({
+const EmailActivity = new Model(knex, {
 
   databaseName: 'maha',
 

@@ -2,7 +2,7 @@ import createRedisClient from '@core/utils/create_redis_client'
 import socket from '@core/services/routes/emitter'
 import Logger from '@core/services/logger'
 import Team from '@apps/maha/models/team'
-import knex from '@core/vendor/knex'
+import knex from '@core/vendor/knex/maha'
 import moment from 'moment'
 import Bull from 'bull'
 
@@ -17,9 +17,10 @@ const getQueue = (name) => {
 }
 
 const getDefaultConcurrency = (name) => {
-  if(name === 'analytics') return 10
+  if(name === 'analytics') return 25
+  if(name === 'worker') return 25
   if(name === 'twilio') return 1
-  return 5
+  if(name === 'cron') return 1
 }
 
 const getConcurrency = (name) => {

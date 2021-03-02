@@ -1,7 +1,8 @@
-import Model from '../../../core/objects/model'
+import knex from '@core/vendor/knex/maha'
+import Model from '@core/objects/model'
 import User from './user'
 
-const Version = new Model({
+const Version = new Model(knex, {
 
   databaseName: 'maha',
 

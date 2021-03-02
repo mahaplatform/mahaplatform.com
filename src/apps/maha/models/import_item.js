@@ -1,7 +1,8 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Import from './import'
 
-const ImportItem = new Model({
+const ImportItem = new Model(knex, {
 
   databaseName: 'maha',
 

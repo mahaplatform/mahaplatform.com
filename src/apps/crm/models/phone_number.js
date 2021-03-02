@@ -1,9 +1,10 @@
 import { formatPhoneNumber, spokenPhoneNumber } from '@core/services/phone_numbers'
 import Subscription from './subscription'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Contact from './contact'
 
-const PhoneNumber = new Model({
+const PhoneNumber = new Model(knex, {
 
   databaseName: 'maha',
 

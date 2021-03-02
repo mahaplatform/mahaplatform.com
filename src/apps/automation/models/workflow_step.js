@@ -1,10 +1,11 @@
 import VoiceCampaign from '@apps/campaigns/models/voice_campaign'
 import SmsCampaign from '@apps/campaigns/models/sms_campaign'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import WorkflowAction from './workflow_action'
 import Workflow from './workflow'
 
-const WorkflowStep = new Model({
+const WorkflowStep = new Model(knex, {
 
   databaseName: 'maha',
 

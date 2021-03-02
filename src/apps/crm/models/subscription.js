@@ -1,8 +1,9 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Contact from './contact'
 import List from './list'
 
-const Subscription = new Model({
+const Subscription = new Model(knex, {
 
   databaseName: 'maha',
 

@@ -1,8 +1,9 @@
 import DeviceValue from './device_value'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Session from './session'
 
-const Device = new Model({
+const Device = new Model(knex, {
 
   databaseName: 'maha',
 

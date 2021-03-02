@@ -1,5 +1,6 @@
 import RevenueType from '@apps/finance/models/revenue_type'
 import Project from '@apps/finance/models/project'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Asset from '@apps/maha/models/asset'
 import Reservation from './reservation'
@@ -9,7 +10,7 @@ import Product from './product'
 import Photo from './photo'
 import Item from './item'
 
-const Variant = new Model({
+const Variant = new Model(knex, {
 
   databaseName: 'maha',
 

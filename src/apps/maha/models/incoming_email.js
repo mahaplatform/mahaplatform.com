@@ -1,8 +1,9 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Asset from './asset'
 import User from './user'
 
-const IncomingEmail = new Model({
+const IncomingEmail = new Model(knex, {
 
   databaseName: 'maha',
 

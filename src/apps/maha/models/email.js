@@ -1,12 +1,13 @@
 import EmailCampaign from '@apps/campaigns/models/email_campaign'
 import EmailAddress from '@apps/crm/models/email_address'
 import CrmEmail from '@apps/automation/models/email'
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Contact from '@apps/crm/models/contact'
 import EmailActivity from './email_activity'
 import User from './user'
 
-const Email = new Model({
+const Email = new Model(knex, {
 
   databaseName: 'maha',
 

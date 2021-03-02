@@ -1,7 +1,8 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Member from './member'
 
-const Project = new Model({
+const Project = new Model(knex, {
 
   databaseName: 'maha',
 

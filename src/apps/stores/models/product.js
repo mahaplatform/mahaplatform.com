@@ -1,9 +1,10 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Category from './category'
 import Variant from './variant'
 import Store from './store'
 
-const Product = new Model({
+const Product = new Model(knex, {
 
   databaseName: 'maha',
 

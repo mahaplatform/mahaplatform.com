@@ -1,8 +1,9 @@
+import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
 import Channel from './channel'
 import Message from './message'
 
-const Result = new Model({
+const Result = new Model(knex, {
 
   databaseName: 'maha',
 
