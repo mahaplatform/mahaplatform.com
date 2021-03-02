@@ -45,7 +45,7 @@ const sdkport = parseInt(process.env.DEVSERVER_PORT) + subapps.length + 2
 const serverWatch = async () => {
 
   const nodemon = [
-    path.resolve('src','scripts','entities.js'),
+    path.join('src','scripts','entities.js'),
     '--inspect',
     '--color',
     '--quiet',
@@ -54,11 +54,15 @@ const serverWatch = async () => {
     '--config-file=./src/core/utils/babel.config.js'
   ]
   nodemon.push('--watch')
-  nodemon.push(path.resolve('src','apps'))
+  nodemon.push(path.join('src','analytics'))
   nodemon.push('--watch')
-  nodemon.push(path.resolve('src','core'))
+  nodemon.push(path.join('src','apps'))
   nodemon.push('--watch')
-  nodemon.push(path.resolve('src','web'))
+  nodemon.push(path.join('src','core'))
+  nodemon.push('--ignore')
+  nodemon.push(path.join('src','core','admin','app.js'))
+  nodemon.push('--ignore')
+  nodemon.push(path.join('src','core','admin','index.less'))
 
   const proc = spawn('nodemon', nodemon, {
     stdio: ['pipe', 'pipe', 'pipe', 'ipc']
@@ -82,16 +86,16 @@ const serverWatch = async () => {
 
 }
 
-const desktopWatch = async () => {
-  const watchDir = path.resolve('src','desktop','app')
-  await watch('desktop', watchDir, desktopConfig)
-}
-
-const mobileWatch = async () => {
-  const watchDir = path.resolve('src','mobile','app')
-  await watch('mobile', watchDir, mobileConfig)
-}
-
+// const desktopWatch = async () => {
+//   const watchDir = path.resolve('src','desktop','app')
+//   await watch('desktop', watchDir, desktopConfig)
+// }
+//
+// const mobileWatch = async () => {
+//   const watchDir = path.resolve('src','mobile','app')
+//   await watch('mobile', watchDir, mobileConfig)
+// }
+//
 const watch = async (module, watchDir, config) => {
   let compiling = false
   chokidar.watch(watchDir).on('all', (event, path) => {
@@ -118,6 +122,7 @@ const webWatch = async () => {
       disableHostCheck: true,
       hot: true,
       publicPath,
+      clientLogLevel: 'warn',
       quiet: true,
       historyApiFallback: {
         disableDotRule: true,
@@ -211,7 +216,9 @@ const adminWatch = async () => {
       disableDotRule: true
     }
   })
-  devserver.listen(process.env.DEVSERVER_PORT)
+  devserver.listen(process.env.DEVSERVER_PORT, null, () => {
+    log('info', 'admin', `Listening on port ${process.env.DEVSERVER_PORT}`)
+  })
 }
 
 const connectNgrok = async () => {

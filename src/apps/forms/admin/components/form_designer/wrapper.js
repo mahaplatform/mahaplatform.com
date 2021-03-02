@@ -41,11 +41,14 @@ class FormDesignerWrapper extends React.Component {
       { label: 'Voice Consent', field: { name: { token: 'voice_consent', value: 'Voice Consent' }, prompt: '<p>Please call me</p>', contactfield: { name: 'consent.voice', type: 'checkbox' } } },
       { label: 'Postal Consent', field: { name: { token: 'postal_consent', value: 'Postal Consent' }, prompt: '<p>Please send me mail</p>', contactfield: { name: 'consent.postal', type: 'checkbox' } } },
       ...fields.map(field => ({
-        label: field.label,
+        label: field.config.label,
         field: {
-          label: field.label,
+          label: field.config.label,
           name: field.name,
-          contactfield: field.config
+          contactfield: {
+            type: field.type,
+            ...field.config
+          }
         }
       }))
     ]
