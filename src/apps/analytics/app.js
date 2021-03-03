@@ -3,7 +3,7 @@ const app = {
   title: 'Analytics',
   path: '/analytics',
   description: '',
-  icon: ''
+  icon: 'line-chart'
 }
 
 export default app

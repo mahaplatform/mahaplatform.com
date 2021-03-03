@@ -130,6 +130,7 @@ const updateRefunds = async (req) => {
     qb.where('type', 'card')
     qb.whereNotIn('status',['deposited','voided'])
   }).fetchAll({
+    withRelated: ['team'],
     transacting: req.trx
   }).then(results => results.toArray())
 
@@ -138,6 +139,8 @@ const updateRefunds = async (req) => {
   }))
 
   await Promise.mapSeries(refunds, async(refund) => {
+
+    req.team = refund.related('team')
 
     const transaction = transactions[refund.get('braintree_id')]
 
