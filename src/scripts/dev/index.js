@@ -123,6 +123,13 @@ const webWatch = async () => {
         rewrites: [
           { from: /.*/, to: publicPath }
         ]
+      },
+      sockHost: process.env.DOMAIN,
+      transportMode: 'ws',
+      watchOptions: {
+        ignored: [
+          path.resolve('node_modules')
+        ]
       }
     })
     devserver.listen(port, null, () => {
@@ -208,6 +215,15 @@ const adminWatch = async () => {
     quiet: true,
     historyApiFallback: {
       disableDotRule: true
+    },
+    sockHost: process.env.DOMAIN,
+    transportMode: 'ws',
+    watchOptions: {
+      ignored: [
+        path.resolve('node_modules'),
+        path.resolve('src','core','admin','app.js'),
+        path.resolve('src','core','admin','index.less')
+      ]
     }
   })
   devserver.listen(process.env.DEVSERVER_PORT, null, () => {

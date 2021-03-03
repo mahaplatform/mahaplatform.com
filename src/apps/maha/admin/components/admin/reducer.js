@@ -4,7 +4,6 @@ const INITIAL_STATE = {
   active_status: 'pending',
   active: null,
   apps: [],
-  devices: null,
   preferences: null,
   redirect: null,
   rights: null,

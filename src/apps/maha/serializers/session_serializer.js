@@ -1,16 +1,5 @@
 const SessionSerializer = (req, session) => ({
   apps: session.apps,
-  devices: session.sessions.map(session => ({
-    session_id: session.get('id'),
-    id: session.related('device').get('id'),
-    device: session.related('device').related('device_type').get('text'),
-    platform: session.related('device').related('platform_type').get('text'),
-    display_name: session.related('device').related('display_name').get('text'),
-    fingerprint: session.related('device').get('fingerprint'),
-    push_enabled: session.related('device').get('push_enabled'),
-    last_active_at: session.get('last_active_at'),
-    icon: session.related('device').get('icon')
-  })),
   preferences: {
     notifications_enabled: session.user.get('notifications_enabled'),
     in_app_notifications_enabled: session.user.get('in_app_notifications_enabled'),

@@ -9,7 +9,7 @@ import path from 'path'
 const webpackConfig = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    `webpack-dev-server/client?${process.env.WEB_HOST}`,
+    `webpack-dev-server/client?http://${process.env.DOMAIN}:${process.env.DEVSERVER_PORT}`,
     'webpack/hot/only-dev-server',
     path.resolve('src','core','admin','index.js'),
     path.resolve('src','core','admin','index.less')
@@ -88,7 +88,8 @@ const webpackConfig = {
     alias: {
       '@apps': path.resolve('src','apps'),
       '@core': path.resolve('src','core'),
-      '@admin': path.resolve('src','admin')
+      '@admin': path.resolve('src','admin'),
+      'react-dom': '@hot-loader/react-dom'
     },
     modules: [
       path.resolve('node_modules')

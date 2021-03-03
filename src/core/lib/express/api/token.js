@@ -1,8 +1,10 @@
+import Account from '@apps/maha/models/account'
 import Session from '@apps/maha/models/session'
 import Device from '@apps/maha/models/device'
+import { decode } from '@core/services/jwt'
+import Rollbar from '@core/vendor/rollbar'
+import Team from '@apps/maha/models/team'
 import User from '@apps/maha/models/user'
-import Rollbar from '../../../vendor/rollbar'
-import { decode } from '../../../services/jwt'
 import moment from 'moment'
 
 const getToken = (req) => {
@@ -37,8 +39,7 @@ const route = async (req, res, next) => {
   req.user = await User.where({
     id: data.user_id
   }).fetch({
-    transacting: req.trx,
-    withRelated: ['photo','team.logo','account.features','account.photo']
+    transacting: req.trx
   })
 
   if(!req.user) return res.status(401).json({
@@ -46,9 +47,17 @@ const route = async (req, res, next) => {
     message: 'Invalid user'
   })
 
-  req.account = req.user.related('account')
+  req.account = await Account.where({
+    id: req.user.get('account_id')
+  }).fetch({
+    transacting: req.trx
+  })
 
-  req.team = req.user.related('team')
+  req.team = await Team.where({
+    id: req.user.get('team_id')
+  }).fetch({
+    transacting: req.trx
+  })
 
   if(req.team.get('deleted_at')) return res.status(401).json({
     status: 401,

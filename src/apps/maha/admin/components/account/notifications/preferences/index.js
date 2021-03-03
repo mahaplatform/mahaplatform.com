@@ -1,4 +1,3 @@
-import { devices, desktops, mobiles } from '../selectors'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from '@admin'
@@ -18,10 +17,7 @@ class Preferences extends React.Component {
   }
 
   static propTypes = {
-    device: PropTypes.object,
-    devices: PropTypes.array,
-    desktops: PropTypes.array,
-    mobiles: PropTypes.array
+    device: PropTypes.object
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -69,10 +65,7 @@ class Preferences extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  device: state.maha.device,
-  devices: devices(state, props),
-  desktops: desktops(state, props),
-  mobiles: mobiles(state, props)
+  device: state.maha.device
 })
 
 export default connect(mapStateToProps)(Preferences)

@@ -4,7 +4,6 @@ import collectObjects from '@core/utils/collect_objects'
 import getUserAccess from '@core/utils/get_user_access'
 import { createSession } from '@apps/maha/services/sessions'
 import Session from '@apps/maha/models/session'
-import Program from '@apps/crm/models/program'
 import Device from '@apps/maha/models/device'
 import signer from '@core/vendor/aws/signer'
 import moment from 'moment'
@@ -54,6 +53,14 @@ const _findOrCreateSession = async (req) => {
 
 const showRoute = async (req, res) => {
 
+  await req.user.load(['photo'], {
+    transacting: req.trx
+  })
+
+  await req.team.load(['logo'], {
+    transacting: req.trx
+  })
+
   const session = {
     user: req.user,
     team: req.team
@@ -77,15 +84,6 @@ const showRoute = async (req, res) => {
 
   session.token = createUserToken(req.user, 'user_id', {
     session_id: session.session.get('id')
-  })
-
-  session.sessions = await Session.query(qb => {
-    qb.innerJoin('maha_devices', 'maha_devices.id', 'maha_sessions.device_id')
-    qb.where('maha_sessions.user_id', req.user.get('id'))
-    qb.orderBy('maha_sessions.last_active_at', 'desc')
-  }).fetchAll({
-    withRelated: ['device.platform_type','device.display_name'],
-    transacting: req.trx
   })
 
   session.notification_types = await req.trx('maha_users_notification_types')

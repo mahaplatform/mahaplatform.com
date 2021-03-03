@@ -52,9 +52,9 @@ server.use(shortlinkMiddleware)
 
 server.use('/.well-known', deeplinkMiddleware)
 
-server.use(serverMiddleware)
-
 server.use('/api', apiMiddleware)
+
+server.use(serverMiddleware)
 
 server.use('/*', homeMiddleware)
 

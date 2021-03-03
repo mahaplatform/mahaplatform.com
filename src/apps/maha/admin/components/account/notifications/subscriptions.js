@@ -9,13 +9,6 @@ class Subscriptions extends React.Component {
     modal: PropTypes.object
   }
 
-  static propTypes = {
-    device: PropTypes.object,
-    devices: PropTypes.array,
-    desktops: PropTypes.array,
-    mobiles: PropTypes.array
-  }
-
   _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 

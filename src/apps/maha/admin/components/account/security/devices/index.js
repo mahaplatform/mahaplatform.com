@@ -1,6 +1,4 @@
-import { devices } from './selectors'
-import { connect } from 'react-redux'
-import { ModalPanel } from '@admin'
+import { Container, ModalPanel } from '@admin'
 import PropTypes from 'prop-types'
 import Device from './device'
 import moment from 'moment'
@@ -9,13 +7,13 @@ import React from 'react'
 class Devices extends React.Component {
 
   static contextTypes = {
+    device: PropTypes.object,
     flash: PropTypes.object,
     modal: PropTypes.object,
     network: PropTypes.object
   }
 
   static propTypes = {
-    device: PropTypes.object,
     devices: PropTypes.array
   }
 
@@ -23,7 +21,8 @@ class Devices extends React.Component {
   _handleClick = this._handleClick.bind(this)
 
   render() {
-    const { devices, device } = this.props
+    const { device } = this.context
+    const { devices } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-devices">
@@ -87,7 +86,7 @@ class Devices extends React.Component {
   }
 
   _getStatus(device) {
-    if(device.fingerprint === this.props.device.fingerprint) return <em>THIS DEVICE</em>
+    if(device.fingerprint === this.context.device.fingerprint) return <em>THIS DEVICE</em>
     if(device.status === 'active' ) return <span>Active now</span>
     return <span>Last active { moment(device.last_active_at).fromNow() }</span>
   }
@@ -98,15 +97,14 @@ class Devices extends React.Component {
 
   _handleClick(index) {
     const device = this.props.devices[index]
-    const is_this_device = device.fingerprint === this.props.device.fingerprint
+    const is_this_device = device.fingerprint === this.context.device.fingerprint
     this.context.modal.push(<Device { ...device } is_this_device={ is_this_device } />)
   }
 
 }
 
-const mapStateToProps = (state, props) => ({
-  device: state.maha.device,
-  devices: devices(state, props)
+const mapResources = (props, context) => ({
+  devices: '/api/admin/devices'
 })
 
-export default connect(mapStateToProps)(Devices)
+export default Container(mapResources)(Devices)

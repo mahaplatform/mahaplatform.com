@@ -2997,6 +2997,40 @@ const schema = {
       table.foreign('topic_id').references('crm_topics.id')
     })
 
+    await knex.schema.table('datasets_apikeys', table => {
+      table.foreign('dataset_id').references('datasets_datasets.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('datasets_dataset_accesses', table => {
+      table.foreign('dataset_id').references('datasets_datasets.id')
+      table.foreign('group_id').references('maha_groups.id')
+      table.foreign('grouping_id').references('maha_groupings.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('datasets_datasets', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('datasets_records', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('type_id').references('datasets_types.id')
+    })
+
+    await knex.schema.table('datasets_responses', table => {
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('record_id').references('datasets_records.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('type_id').references('datasets_types.id')
+    })
+
+    await knex.schema.table('datasets_types', table => {
+      table.foreign('dataset_id').references('datasets_datasets.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('drive_access', table => {
       table.foreign('access_type_id').references('drive_access_types.id')
       table.foreign('group_id').references('maha_groups.id')
@@ -3840,40 +3874,6 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('datasets_datasets', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('datasets_dataset_accesses', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('dataset_id').references('datasets_datasets.id')
-      table.foreign('grouping_id').references('maha_groupings.id')
-      table.foreign('group_id').references('maha_groups.id')
-      table.foreign('user_id').references('maha_users.id')
-    })
-
-    await knex.schema.table('datasets_types', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('dataset_id').references('datasets_datasets.id')
-    })
-
-    await knex.schema.table('datasets_records', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('type_id').references('datasets_types.id')
-    })
-
-    await knex.schema.table('datasets_apikeys', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('dataset_id').references('datasets_datasets.id')
-    })
-
-    await knex.schema.table('datasets_responses', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('type_id').references('datasets_types.id')
-      table.foreign('record_id').references('datasets_records.id')
-      table.foreign('contact_id').references('crm_contacts.id')
     })
 
 

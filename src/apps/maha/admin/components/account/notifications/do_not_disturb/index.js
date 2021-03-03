@@ -7,16 +7,7 @@ import Mute from './mute'
 class DoNotDisturb extends React.Component {
 
   static contextTypes = {
-    device: PropTypes.object,
-    host: PropTypes.object,
     modal: PropTypes.object
-  }
-
-  static propTypes = {
-    device: PropTypes.object,
-    devices: PropTypes.array,
-    desktops: PropTypes.array,
-    mobiles: PropTypes.array
   }
 
   _handleCancel = this._handleCancel.bind(this)
