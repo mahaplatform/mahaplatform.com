@@ -1,3 +1,4 @@
+import exp from './export'
 import payments from './payments'
 import { Router } from 'express'
 import payment from './payment'
@@ -13,6 +14,8 @@ import send from './send'
 const router = new Router({ mergeParams: true })
 
 router.get('/', list)
+
+router.post('/export', exp)
 
 router.post('/', create)
 

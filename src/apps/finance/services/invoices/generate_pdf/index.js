@@ -7,9 +7,11 @@ import _ from 'lodash'
 import ejs from 'ejs'
 import fs from 'fs'
 
+const template = fs.readFileSync(path.join(__dirname, 'invoice.ejs'), 'utf8')
+
 const generatePDF = async (req, { invoice }) => {
 
-  const template = fs.readFileSync(path.join(__dirname, 'invoice.ejs'), 'utf8')
+  console.log('generate', invoice.get('id'))
 
   const html = ejs.render(template, {
     host: process.env.WEB_HOST,

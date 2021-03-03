@@ -1,6 +1,8 @@
-import StatusToken from '../../tokens/status_token'
-import Status from '../../tokens/status'
+import StatusToken from '@apps/finance/admin/tokens/status_token'
+import Export from '@apps/finance/admin/components/export'
+import Status from '@apps/finance/admin/tokens/status'
 import { Page } from '@admin'
+import React from 'react'
 import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
@@ -21,6 +23,9 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Program', name: 'program_id', type: 'select', multiple: true, endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', sort: { key: 'title', order: 'asc' } },
       { label: 'Customer', name: 'customer_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/customers', value: 'id', text: 'display_name', sort: { key: 'last_name', order: 'asc' } },
       { label: 'Project', name: 'project_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/projects', value: 'id', text: 'title', sort: { key: 'title', order: 'asc' } },
+      { label: 'Form', name: 'form_id', type: 'select', multiple: true, endpoint: '/api/admin/forms/forms', value: 'id', text: 'title', sort: { key: 'created_at', order: 'desc' } },
+      { label: 'Event', name: 'event_id', type: 'select', multiple: true, endpoint: '/api/admin/events/events', value: 'id', text: 'title', sort: { key: 'created_at', order: 'desc' } },
+      { label: 'Store', name: 'store_id', type: 'select', multiple: true, endpoint: '/api/admin/stores/stores', value: 'id', text: 'title', sort: { key: 'created_at', order: 'desc' } },
       { label: 'Date Range', name: 'date', type: 'daterange', include: ['this','last'] },
       { label: 'Status', name: 'status', type: 'select', multiple: true, options: ['paid','unpaid','voided'], padded: true, format: StatusToken }
     ],
@@ -34,7 +39,15 @@ const mapPropsToPage = (props, context, resources, page) => ({
         { label: 'Create Invoice', modal: New }
       ]
     },
-    entity: 'invoice'
+    entity: 'invoice',
+    selectable: true,
+    buttons: (selected, onSuccess) => [
+      {
+        label: 'Export Invoices',
+        color: 'red',
+        modal: <Export filter={ selected.filter } onSuccess={ onSuccess } />
+      }
+    ]
   },
   task: {
     label: 'New Invoice',
