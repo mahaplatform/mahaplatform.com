@@ -7,13 +7,7 @@ import url from 'url'
 import qs from 'qs'
 import fs from 'fs'
 
-const getRoot = (env) => {
-  const root = path.resolve(__dirname,'..','..','..')
-  if(env === 'production') return path.join(root,'..','public')
-  return path.join(root,'admin','public')
-}
-
-const root = getRoot(process.env.NODE_ENV)
+const root = path.resolve(__dirname,'..','..','..','..','public')
 
 const getOriginal = async (url) => {
   const fm = url.transforms ? url.transforms.fm : null
