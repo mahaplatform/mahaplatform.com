@@ -5,9 +5,9 @@ import { spawn } from 'child_process'
 import babelrc from './dev.babel'
 import chokidar from 'chokidar'
 import mkdirp from 'mkdirp'
+import crypto from 'crypto'
 import path from 'path'
 import _ from 'lodash'
-import ncp from 'ncp'
 import fs from 'fs'
 
 const srcDir = path.resolve('src')
@@ -16,15 +16,32 @@ let backend = null
 
 const dest = (src) => src.replace('/src','/.src')
 
+const getHashpath = (destpath) => {
+  const filename = destpath.replace(`${srcDir}/`, '').replace(`${srcDir}/`, '').split('/').join('.')+'.hash'
+  return path.join(dest(srcDir),'hash',filename)
+}
+
 const unlink = (src) => {
   const destpath = dest(src)
   fs.unlinkSync(destpath)
 }
 
+const write = (src, destpath, content) => {
+  const hashpath = getHashpath(src)
+  const hash = crypto.createHash('sha256').update(content, 'utf8').digest()
+  if(fs.existsSync(hashpath)) {
+    const oldhash = fs.readFileSync(hashpath, 'utf8')
+    if(hash.toString('utf8')  === oldhash) return
+  }
+  fs.writeFileSync(destpath, content)
+  fs.writeFileSync(hashpath, hash)
+}
+
 const copy = (src) => {
   const destpath = dest(src)
   if(fs.existsSync(destpath) && fs.statSync(src).mtime <= fs.statSync(destpath).mtime) return
-  Promise.promisify(ncp)(src, destpath)
+  const content = fs.readFileSync(src)
+  write(src, destpath, content)
 }
 
 const transpile = (src) => {
@@ -32,7 +49,12 @@ const transpile = (src) => {
   if(fs.existsSync(destpath) && fs.statSync(src).mtime <= fs.statSync(destpath).mtime) return
   const source = fs.readFileSync(src, 'utf8')
   const transpiled = transform(source, babelrc)
-  fs.writeFileSync(destpath, transpiled.code)
+  write(src, destpath, transpiled.code)
+}
+
+const buildFile = async (filepath) => {
+  if(path.extname(filepath) === '.js') return transpile(filepath)
+  await copy(filepath)
 }
 
 const buildItem = async (root) => {
@@ -42,18 +64,19 @@ const buildItem = async (root) => {
     const filepath = path.join(root, file)
     if(file.match(/_test.js$/)) return
     if(fs.lstatSync(filepath).isDirectory()) return await buildItem(filepath)
-    if(path.extname(file) === '.js') return transpile(filepath)
-    await copy(filepath)
+    await buildFile(filepath)
   })
 }
 
-const buildRoot = async (root) => {
+const buildRoot = async () => {
   log('info', 'backend', 'Compiling src')
-  mkdirp.sync(dest(root))
-  await Promise.map(fs.readdirSync(root), async (file) => {
-    const filepath = path.join(root, file)
+  const destDir = dest(srcDir)
+  mkdirp.sync(dest(srcDir))
+  mkdirp.sync(path.join(destDir,'hash'))
+  await Promise.map(fs.readdirSync(srcDir), async (file) => {
+    const filepath = path.join(srcDir, file)
     if(_.includes(['analytics','apps','core'], file)) return await buildItem(filepath)
-    if(path.extname(file) === '.js') return transpile(filepath)
+    if(path.extname(file) === '.js') await buildFile(filepath)
   })
 }
 
@@ -66,17 +89,18 @@ const watchSrc = async () => {
     path.resolve(srcDir,'core')
   ], {
     ignoreInitial: true
-  }).on('all', (event, absolute) => {
+  }).on('all', async (event, absolute) => {
     const pathname = absolute.replace(srcDir,'src')
     if(pathname.match(/admin\/(activities|badges|components|roots|tokens|views)/)) return
+    if(pathname.match(/core\/admin\/(app.js|index.less)$/)) return
     if(pathname.match(/_test.js$/)) return
     if(event === 'add') {
       log('info', 'backend', `Adding ${pathname}`)
-      return transpile(absolute)
+      return await buildFile(absolute)
     }
     if(event === 'change') {
       log('info', 'backend', `Recompiling ${pathname}`)
-      return transpile(absolute)
+      return await buildFile(absolute)
     }
     if(event === 'unlink') {
       log('info', 'backend', `Removing ${pathname}`)
@@ -122,7 +146,7 @@ const watchDotSrc = async () => {
 }
 
 const watchBackend = async () => {
-  await buildRoot(srcDir)
+  await buildRoot()
   await watchSrc()
   await watchDotSrc()
 }
