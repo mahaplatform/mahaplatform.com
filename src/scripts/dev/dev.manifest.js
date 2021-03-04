@@ -25,8 +25,8 @@ const configs = apps.reduce((configs, app) => {
 }, {})
 
 const collectObjects = (pattern) => [
-  ...glob.sync(`src/admin/${pattern}`),
-  ...glob.sync(`src/admin/${pattern}/index.js`),
+  ...glob.sync(`src/lib/admin/${pattern}`),
+  ...glob.sync(`src/lib/admin/${pattern}/index.js`),
   ...glob.sync(`src/apps/*/admin/${pattern}`),
   ...glob.sync(`src/apps/*/admin/${pattern}/index.js`)
 ]
@@ -38,11 +38,11 @@ const extract = (pattern) => collectObjects(pattern).map(file => {
     name: _.camelCase(appMatches[1].replace('/',' ')),
     filepath: `../../apps/${appMatches[1]}`
   }
-  const matches = file.match(/src\/admin\/(([^/]*).*)/)
+  const matches = file.match(/src\/lib\/admin\/(([^/]*).*)/)
   return {
     code: 'admin',
     name: _.camelCase(matches[1].replace('/',' ')),
-    filepath: `../../admin/${matches[1]}`
+    filepath: `../../lib/admin/${matches[1]}`
   }
 })
 
@@ -53,11 +53,11 @@ const reducers = (pattern) => collectObjects(pattern).map(file => {
     name: _.camelCase(appMatches[4].replace('/',' ')),
     filepath: `../../apps/${appMatches[1]}`
   }
-  const matches = file.match(/src\/admin\/(([^/]*)\/(.*))\/reducer.js/)
+  const matches = file.match(/src\/lib\/admin\/(([^/]*)\/(.*))\/reducer.js/)
   return {
     code: 'admin',
     name: _.camelCase(matches[3].replace('/',' ')),
-    filepath: `../../admin/${matches[1]}`
+    filepath: `../../lib/admin/${matches[1]}`
   }
 })
 
@@ -99,12 +99,12 @@ const buildManifest = _.debounce(() => {
 const watchManifest = async () => {
   log('info', 'frontend', 'Watching manifest')
   chokidar.watch([
-    path.join(srcDir,'admin'),
+    path.join(srcDir,'lib','admin'),
     path.join(srcDir,'apps','*','admin','+(activities|badges|components|roots|tokens|views)/**')
   ], {
     ignoreInitial: true,
     ignored: /gitkeep$/
-  }).on('all', buildManifest)
+  }).on('all', buildManifest).on('ready', buildManifest)
 }
 
 export default watchManifest

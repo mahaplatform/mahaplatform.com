@@ -12,12 +12,12 @@ module.exports = {
     'transform-promise-to-bluebird',
     ['module-resolver', {
       alias: {
-        '@admin': './src/admin',
+        '@admin': './src/lib/admin',
         '@analytics': './src/analytics',
         '@apps': './src/apps',
         '@core': './src/core',
-        '@client': './src/client',
-        '@public': './src/public'
+        '@client': './src/lib/client',
+        '@public': './src/lib/public'
       }
     }]
   ]

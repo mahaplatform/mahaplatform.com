@@ -83,7 +83,7 @@ const webpackConfig = {
     alias: {
       '@apps': path.resolve('src','apps'),
       '@core': path.resolve('src','core'),
-      '@admin': path.resolve('src','admin'),
+      '@admin': path.resolve('src','lib','admin'),
       'react-dom': '@hot-loader/react-dom'
     },
     modules: [

@@ -5,7 +5,7 @@ const webpack = require('webpack')
 const cssnano = require('cssnano')
 const path = require('path')
 
-const root = path.resolve(__dirname,'..')
+const root = path.resolve('src','platforms','desktop')
 const src = path.join(root,'app')
 const www = path.join(root,'www')
 const dist = path.join(root,'dist','www')

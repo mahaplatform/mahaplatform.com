@@ -7,8 +7,8 @@ import path from 'path'
 
 const config = {
   entry: [
-    path.resolve('src','mobile','app','index.js'),
-    path.resolve('src','mobile','app','index.less')
+    path.resolve('src','platforms','mobile','app','index.js'),
+    path.resolve('src','platforms','mobile','app','index.less')
   ],
   module: {
     rules: [
@@ -40,16 +40,16 @@ const config = {
   },
   mode: 'production',
   output: {
-    path: path.resolve('src','mobile','www'),
+    path: path.resolve('src','platforms','mobile','www'),
     filename: path.join('js','index.js')
   },
   plugins: [
     new MiniCssExtractPlugin({
-      path: path.resolve('src','mobile','www'),
+      path: path.resolve('src','platforms','mobile','www'),
       filename: path.join('css','index.css')
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve('src','mobile','app','index.html')
+      template: path.resolve('src','platforms','mobile','app','index.html')
     }),
     new webpack.DefinePlugin({
       'process.env': {

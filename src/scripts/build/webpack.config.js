@@ -109,8 +109,8 @@ const webpackConfig = (app, name, root, port) => ({
     alias: {
       '@apps': path.resolve('src','apps'),
       '@core': path.resolve('src','core'),
-      '@client': path.resolve('src','client','index.js'),
-      '@public': path.resolve('src','public','index.js')
+      '@client': path.resolve('src','lib','client'),
+      '@public': path.resolve('src','lib','public')
     },
     modules: [
       path.resolve('node_modules')
