@@ -1,9 +1,9 @@
-import MahaPlugin from '../../core/lib/webpack/maha_plugin'
+import MahaPlugin from '@core/lib/webpack/maha_plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import autoprefixer from 'autoprefixer'
+import babel from './webpack.babel'
 import webpack from 'webpack'
 import cssnano from 'cssnano'
-import babel from './babel'
 import path from 'path'
 
 const webpackConfig = {
@@ -31,9 +31,6 @@ const webpackConfig = {
           },
           'less-loader'
         ]
-      }, {
-        test: /^caman$/,
-        use: 'imports-loader?exports=>undefined,require=>false,this=>window'
       }, {
         test: /\.js$/,
         exclude: /(node_modules)/,
