@@ -6,9 +6,9 @@ import fs from 'fs'
 
 const icons = async () => {
 
-  const src = path.join('src','core','assets','icon.png')
+  const src = path.join(__dirname,'icon.png')
 
-  const output = path.join('src','mobile','res')
+  const output = path.join('src','platforms','mobile','res')
 
   const icons = [
     { platform: 'android', width: 36, name: 'ldpi', sizes: 1 },

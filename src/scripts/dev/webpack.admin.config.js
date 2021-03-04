@@ -10,8 +10,8 @@ const webpackConfig = {
   entry: [
     `webpack-dev-server/client?https://${process.env.DOMAIN}:${process.env.DEVSERVER_PORT}`,
     'webpack/hot/only-dev-server',
-    path.resolve('src','core','admin','index.js'),
-    path.resolve('src','core','admin','index.less')
+    path.resolve('src','admin','index.js'),
+    path.resolve('src','admin','index.less')
   ],
   externals: ['canvas'],
   mode: 'development',
@@ -51,7 +51,7 @@ const webpackConfig = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve('src','core','admin','index.html')
+      template: path.resolve('src','admin','index.html')
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({

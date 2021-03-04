@@ -6,16 +6,9 @@ import _ from 'lodash'
 import ejs from 'ejs'
 import fs from 'fs'
 
-const getRoot = () => {
-  const root = path.resolve(__dirname,'..','..','..','..')
-  if(process.env.NODE_ENV === 'production') return path.join(root,'public','css')
-  return path.join(root,'core','admin','public','css')
-}
-
-const root = getRoot()
 const template  = fs.readFileSync(path.join(__dirname, 'email.ejs'), 'utf8')
-const core = fs.readFileSync(path.join(root,'foundation-emails.min.css')).toString()
-const overrides = fs.readFileSync(path.join(root,'foundation-overrides.min.css')).toString()
+const core = fs.readFileSync(path.join(__dirname,'foundation-emails.min.css')).toString()
+const overrides = fs.readFileSync(path.join(__dirname,'foundation-overrides.min.css')).toString()
 
 const getObjectsOfType = async (req, { model, ids }) => {
   if(ids.length === 0) return {}

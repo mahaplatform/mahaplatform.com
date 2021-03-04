@@ -4,16 +4,7 @@ import UAParser from 'ua-parser-js'
 import moment from 'moment'
 import path from 'path'
 
-const getRoot = () => {
-  if(process.env.NODE_ENV === 'production') {
-    return path.resolve(__dirname,'..','..','..','..','..','public')
-  }
-  return path.resolve(__dirname,'..','..','..','..','..','core','admin','public')
-}
-
-const root = getRoot()
-
-const trackerFile = path.join(root,'images','tracker.png')
+const trackerFile = path.join(__dirname,'tracker.png')
 
 const openRoute = async (req, res) => {
 

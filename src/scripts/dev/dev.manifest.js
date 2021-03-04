@@ -36,13 +36,13 @@ const extract = (pattern) => collectObjects(pattern).map(file => {
   if(appMatches) return {
     ...configs[appMatches[2]],
     name: _.camelCase(appMatches[1].replace('/',' ')),
-    filepath: `../../apps/${appMatches[1]}`
+    filepath: `../apps/${appMatches[1]}`
   }
   const matches = file.match(/src\/lib\/admin\/(([^/]*).*)/)
   return {
     code: 'admin',
     name: _.camelCase(matches[1].replace('/',' ')),
-    filepath: `../../lib/admin/${matches[1]}`
+    filepath: `../lib/admin/${matches[1]}`
   }
 })
 
@@ -51,13 +51,13 @@ const reducers = (pattern) => collectObjects(pattern).map(file => {
   if(appMatches) return {
     ...configs[appMatches[2]],
     name: _.camelCase(appMatches[4].replace('/',' ')),
-    filepath: `../../apps/${appMatches[1]}`
+    filepath: `../apps/${appMatches[1]}`
   }
   const matches = file.match(/src\/lib\/admin\/(([^/]*)\/(.*))\/reducer.js/)
   return {
     code: 'admin',
     name: _.camelCase(matches[3].replace('/',' ')),
-    filepath: `../../lib/admin/${matches[1]}`
+    filepath: `../lib/admin/${matches[1]}`
   }
 })
 
@@ -69,7 +69,7 @@ const renderTemplate = (templateName, variables) => {
   const templatePath = path.join(templateDir,`${templateName}.ejs`)
   const template = fs.readFileSync(templatePath,'utf8')
   const data = ejs.render(template, variables)
-  const destPath = path.join(srcDir,'core','admin',templateName)
+  const destPath = path.join(srcDir,'admin',templateName)
   const oldhash = getHash(fs.readFileSync(destPath,'utf8'))
   const newhash = getHash(data)
   if(newhash === oldhash) return

@@ -1,6 +1,6 @@
 import '../../core/services/environment'
 import adminConfig from './webpack.admin.config'
-import webpackConfig from './webpack.config'
+import subappConfig from './webpack.subapp.config'
 import sdkConfig from './webpack.sdk.config'
 import apps from '../../core/utils/apps'
 import { transform } from '@babel/core'
@@ -140,7 +140,7 @@ const buildAdmin = async (environment) => {
 const buildApps = async (environment) => {
   await Promise.mapSeries(subapps, async (item) => {
     const { app, subapp, dir } = item
-    const config = webpackConfig(app, subapp, dir)
+    const config = subappConfig(app, subapp, dir)
     await compile(`${app}:${subapp}`, config)
   })
 }

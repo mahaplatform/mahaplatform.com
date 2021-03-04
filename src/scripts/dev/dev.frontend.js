@@ -38,7 +38,7 @@ const devserver = ({ name, config, port, options }) => {
     },
     disableHostCheck: true,
     clientLogLevel: 'info',
-    contentBase: path.resolve('src','core','admin','public'),
+    contentBase: path.resolve('src','admin','public'),
     sockHost: process.env.DOMAIN,
     transportMode: 'ws',
     quiet: true,
@@ -67,7 +67,6 @@ const watchAdmin = async () => {
       if(/^\/cce/.test(req.url)) return req.url
       if(/^\/(fo|op|li|wv|vw|so|ns|nv|si)\//.test(req.url)) return null
       if(/^\/(admin|adobesign|api|aws|imagecache|jobs|qr|sms|shortlinks|twilio|voice|mt|collect)/.test(req.url)) return null
-      if(/^\/notifications.js/.test(req.url)) return null
       if(appregex.test(req.url)) return null
       return req.url
     },

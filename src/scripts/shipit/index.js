@@ -205,14 +205,14 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'deploy:bootstrap', async () => {
-    await shipit.remote('NODE_ENV=production node ./core/scripts/bootstrap/index.js', {
+    await shipit.remote('NODE_ENV=production node ./core/services/bootstrap/index.js', {
       roles: ['controller'],
       cwd: path.join(releaseDir, 'platform')
     })
   })
 
   utils.registerTask(shipit, 'deploy:migrate', async () => {
-    await shipit.remote('NODE_ENV=production node ./core/scripts/db/index.js migrate:up', {
+    await shipit.remote('NODE_ENV=production node ./core/services/db/index.js migrate:up', {
       roles: ['controller'],
       cwd: path.join(releaseDir, 'platform')
     })

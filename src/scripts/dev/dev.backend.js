@@ -93,7 +93,6 @@ const watchSrc = async () => {
       const pathname = absolute.replace(srcDir,'src')
       if(pathname.match(/web/)) return true
       if(pathname.match(/admin\/(activities|badges|components|roots|tokens|views)/)) return true
-      if(pathname.match(/core\/admin\/(app.js|index.less)$/)) return true
       if(pathname.match(/_test.js$/)) return true
       return false
     }
@@ -143,8 +142,6 @@ const watchDotSrc = async () => {
   chokidar.watch(dest(srcDir), {
     ignoreInitial: true
   }).on('all', (event, absolute) => {
-    const pathname = absolute.replace(dest(srcDir),'.src')
-    if(pathname.match(/core\/admin\/(app.js|index.less)$/)) return
     log('info', 'backend', `${event} ${absolute}`)
     restartBackend()
   })

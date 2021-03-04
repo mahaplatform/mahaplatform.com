@@ -16,8 +16,8 @@ const gitRevisionPlugin = new GitRevisionPlugin()
 const webpackConfig = {
   devtool: false,
   entry: [
-    path.resolve('src','core','admin','index.js'),
-    path.resolve('src','core','admin','index.less')
+    path.resolve('src','admin','index.js'),
+    path.resolve('src','admin','index.less')
   ],
   externals: ['canvas'],
   mode: 'production',
@@ -88,11 +88,11 @@ const webpackConfig = {
       filename: 'css/[name]-[hash].min.css'
     }),
     new CopyWebpackPlugin([{
-      from: path.resolve('src','core','admin','public'),
+      from: path.resolve('src','admin','public'),
       to: path.resolve('dist.staged','platform','public')
     }]),
     new HtmlWebpackPlugin({
-      template: path.resolve('src','core','admin','index.html')
+      template: path.resolve('src','admin','index.html')
     }),
     new HtmlWebpackExcludeAssetsPlugin(),
     new webpack.DefinePlugin({

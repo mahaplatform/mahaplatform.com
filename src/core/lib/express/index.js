@@ -6,7 +6,6 @@ import deeplinkMiddleware from './deeplink'
 import rollbarMiddleware from './rollbar'
 import transaction from './transaction'
 import serverMiddleware from './server'
-import staticMiddleware from './static'
 import mediaMiddleware from './media'
 import bodyParser from 'body-parser'
 import homeMiddleware from './home'
@@ -33,8 +32,6 @@ server.use(multiparty({ uploadDir: './tmp' }))
 server.use('/ping', ping)
 
 server.use(mediaMiddleware)
-
-server.use(staticMiddleware)
 
 server.use(arena)
 

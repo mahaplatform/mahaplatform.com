@@ -1,5 +1,5 @@
-import '../core/services/environment'
-import { bootstrap } from '../core/scripts/bootstrap/bootstrap'
+import '@core/services/environment'
+import { bootstrap } from '@core/services/bootstrap/bootstrap'
 
 const processor = async () => {
 

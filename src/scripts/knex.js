@@ -1,5 +1,5 @@
-import '../core/services/environment'
-import db from '../core/scripts/db/db'
+import '@core/services/environment'
+import db from '@core/services/db/db'
 
 const processor = async () => {
 
