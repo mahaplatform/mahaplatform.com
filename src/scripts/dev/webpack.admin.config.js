@@ -1,4 +1,3 @@
-import MahaPlugin from '@core/lib/webpack/maha_plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 import babel from './webpack.babel'
@@ -51,7 +50,6 @@ const webpackConfig = {
     publicPath: '/'
   },
   plugins: [
-    new MahaPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve('src','core','admin','index.html')
     }),

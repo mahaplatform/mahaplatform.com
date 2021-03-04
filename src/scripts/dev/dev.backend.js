@@ -88,12 +88,17 @@ const watchSrc = async () => {
     path.resolve(srcDir,'apps'),
     path.resolve(srcDir,'core')
   ], {
-    ignoreInitial: true
+    ignoreInitial: true,
+    ignored: (absolute) => {
+      const pathname = absolute.replace(srcDir,'src')
+      if(pathname.match(/web/)) return true
+      if(pathname.match(/admin\/(activities|badges|components|roots|tokens|views)/)) return true
+      if(pathname.match(/core\/admin\/(app.js|index.less)$/)) return true
+      if(pathname.match(/_test.js$/)) return true
+      return false
+    }
   }).on('all', async (event, absolute) => {
     const pathname = absolute.replace(srcDir,'src')
-    if(pathname.match(/admin\/(activities|badges|components|roots|tokens|views)/)) return
-    if(pathname.match(/core\/admin\/(app.js|index.less)$/)) return
-    if(pathname.match(/_test.js$/)) return
     if(event === 'add') {
       log('info', 'backend', `Adding ${pathname}`)
       return await buildFile(absolute)

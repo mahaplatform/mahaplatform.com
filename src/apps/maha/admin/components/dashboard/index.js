@@ -30,7 +30,7 @@ class Dashboard extends React.Component {
         <div className={`dashboard-welcome ${ this._getTimeOfDay() }`}>
           <div className="dashboard-wrapper">
             <div className="welcome">
-              { this._getSalutation(this.state.time) }, { first_name }!
+              { this._getSalutation(this.state.time) }, { first_name }!!!
             </div>
             <div className="time">
               { this.state.time }

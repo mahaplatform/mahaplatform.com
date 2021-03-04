@@ -3,6 +3,7 @@ import subappConfig from './webpack.subapp.config'
 import adminConfig from './webpack.admin.config'
 import sdkConfig from './webpack.sdk.config'
 import devServer from 'webpack-dev-server'
+import watchManifest from './dev.manifest'
 import log from '@core/utils/log'
 import webpack from 'webpack'
 import glob from 'glob'
@@ -110,13 +111,6 @@ const watchAdmin = async () => {
       },
       historyApiFallback: {
         disableDotRule: true
-      },
-      watchOptions: {
-        ignored: [
-          path.resolve('node_modules'),
-          path.resolve('src','core','admin','app.js'),
-          path.resolve('src','core','admin','index.less')
-        ]
       }
     }
   })
@@ -155,8 +149,9 @@ const watchSubapps = async () => {
 }
 
 const watchFrontend = async () => {
+  await watchManifest()
   await watchAdmin()
-  // await watchSdk()
+  await watchSdk()
   // await watchSubapps()
 }
 
