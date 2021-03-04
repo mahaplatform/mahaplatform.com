@@ -9,7 +9,7 @@ import fs from 'fs'
 const webpackConfig = (app, name, root, port) => ({
   devtool: 'none',
   entry: [
-    `webpack-dev-server/client?http://${process.env.DOMAIN}:${port}`,
+    `webpack-dev-server/client?https://${process.env.DOMAIN}:${port}`,
     'webpack/hot/only-dev-server',
     path.resolve(root,'index.js'),
     ...fs.existsSync(path.resolve(root,'index.less')) ? [

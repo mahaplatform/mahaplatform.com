@@ -8,7 +8,7 @@ import path from 'path'
 const webpackConfig = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    `webpack-dev-server/client?http://${process.env.DOMAIN}:${process.env.DEVSERVER_PORT}`,
+    `webpack-dev-server/client?https://${process.env.DOMAIN}:${process.env.DEVSERVER_PORT}`,
     'webpack/hot/only-dev-server',
     path.resolve('src','core','admin','index.js'),
     path.resolve('src','core','admin','index.less')

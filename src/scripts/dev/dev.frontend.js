@@ -32,8 +32,13 @@ const sdkport = parseInt(process.env.DEVSERVER_PORT) + subapps.length + 2
 const devserver = ({ name, config, port, options }) => {
 
   const server = new devServer(webpack(config), {
+    https: {
+      key: fs.readFileSync(path.join('keys','dev.mahaplatform.com.key')),
+      cert: fs.readFileSync(path.join('keys','dev.mahaplatform.com.crt'))
+    },
     disableHostCheck: true,
     clientLogLevel: 'info',
+    contentBase: path.resolve('src','core','admin','public'),
     sockHost: process.env.DOMAIN,
     transportMode: 'ws',
     quiet: true,
@@ -74,25 +79,20 @@ const watchAdmin = async () => {
     config: adminConfig,
     port: process.env.DEVSERVER_PORT,
     options: {
-      https: {
-        key: fs.readFileSync(path.join('keys','dev.mahaplatform.com.key')),
-        cert: fs.readFileSync(path.join('keys','dev.mahaplatform.com.crt'))
-      },
-      contentBase: path.resolve('src','core','admin','public'),
       proxy: {
         '/socket': {
-          target: `http://${process.env.DOMAIN}:${process.env.SERVER_PORT}`,
+          target: `https://${process.env.DOMAIN}:${process.env.SERVER_PORT}`,
           ws: true,
           onError: proxyError
         },
         '/mt': {
-          target: `http://${process.env.DOMAIN}:${process.env.ANALYTICS_PORT}`,
+          target: `https://${process.env.DOMAIN}:${process.env.ANALYTICS_PORT}`,
           secure: false
         },
         ...subapps.reduce((proxies, proxy) => ({
           ...proxies,
           [`/apps/${proxy.app}/${proxy.subapp}/**`]: {
-            target: `http://${process.env.DOMAIN}:${proxy.port}`,
+            target: `https://${process.env.DOMAIN}:${proxy.port}`,
             secure: false,
             onError: proxyError
           }
@@ -100,7 +100,7 @@ const watchAdmin = async () => {
         ...['css','js'].reduce((proxies, ext) => ({
           ...proxies,
           [`/maha.${ext}`]: {
-            target: `http://${process.env.DOMAIN}:${sdkport}`,
+            target: `https://${process.env.DOMAIN}:${sdkport}`,
             secure: false,
             onError: proxyError
           }
@@ -137,11 +137,6 @@ const watchSubapps = async () => {
           rewrites: [
             { from: /.*/, to: publicPath }
           ]
-        },
-        watchOptions: {
-          ignored: [
-            path.resolve('node_modules')
-          ]
         }
       }
     })
@@ -152,7 +147,7 @@ const watchFrontend = async () => {
   await watchManifest()
   await watchAdmin()
   await watchSdk()
-  // await watchSubapps()
+  await watchSubapps()
 }
 
 export default watchFrontend
