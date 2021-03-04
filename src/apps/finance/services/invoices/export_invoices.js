@@ -1,6 +1,7 @@
 import { generatePDF } from '@apps/finance/services/invoices'
 import Invoice from '@apps/finance/models/invoice'
 import { sendMail } from '@core/services/email'
+import { upload } from '@core/services/aws/s3'
 import { zip } from '@core/services/zip'
 import moment from 'moment'
 
@@ -28,15 +29,25 @@ const sendInvoices = async (req, job) => {
 
   const timestamp = moment().format('YYYYMMDDhhmmss')
 
+  const key = `attachments/invoices-${timestamp}.zip`
+
+  await upload(req, {
+    acl: 'public-read',
+    bucket: process.env.AWS_BUCKET,
+    key,
+    file_data: data,
+    expires: moment().add(2, 'weeks').toISOString()
+  })
+
   await sendMail({
     from: req.team.get('rfc822'),
     to: job.data.to,
     subject: job.data.subject,
-    html: job.data.message,
-    attachments: [{
-      filename: `invoices-${timestamp}.zip`,
-      content: data
-    }]
+    html: `
+      ${job.data.message}
+
+      ${process.env.AWS_BUCKET}/${key}
+    `
   })
 
 }
