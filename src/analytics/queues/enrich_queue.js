@@ -1,5 +1,5 @@
+import Queue from '@core/objects/analyticsqueue'
 import enrich from '@analytics/services/enrich'
-import Queue from '@core/analytics/objects/queue'
 import knex from '@core/vendor/knex/analytics'
 
 const EnrichQueue = new Queue(knex, {

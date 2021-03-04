@@ -1,4 +1,4 @@
-import '../../core/services/environment'
+import '@core/services/environment'
 import adminConfig from './webpack.admin.config'
 import subappConfig from './webpack.subapp.config'
 import sdkConfig from './webpack.sdk.config'
@@ -85,12 +85,7 @@ const listItems = (root) => fs.readdirSync(root).reduce((items, item) => [
   if(item.src.match(/\.git/)) return false
   if(item.src.match(/\.DS_Store/)) return false
   if(item.src.match(/_test.js$/)) return false
-  if(item.src.match(/apps\/[^/]*\/admin\/badges/)) return false
-  if(item.src.match(/apps\/[^/]*\/admin\/components/)) return false
-  if(item.src.match(/apps\/[^/]*\/admin\/roots/)) return false
-  if(item.src.match(/apps\/[^/]*\/admin\/routes/)) return false
-  if(item.src.match(/apps\/[^/]*\/admin\/tokens/)) return false
-  if(item.src.match(/apps\/[^/]*\/admin\/views/)) return false
+  if(item.src.match(/apps\/[^/]*\/admin\/(activities|badges|components|roots|tokens|views)/)) return false
   return true
 })
 
@@ -152,12 +147,10 @@ const buildSdk = async () => {
 const buildServer = async (environment, babelrc) => {
   log('info', 'server', 'Compiling...')
   const appDirs = apps.map(app => `apps/${app}`)
-  const coreDirs = ['analytics','lib','objects','scripts','services','utils','vendor'].map(dir => `core/${dir}`)
-  const analyticsDirs = ['analytics']
   const entries = fs.readdirSync(srcDir).filter(item => {
     return !fs.lstatSync(path.join(srcDir,item)).isDirectory()
   })
-  await Promise.map([...analyticsDirs, ...appDirs, ...coreDirs], buildDir(babelrc))
+  await Promise.map(['core','analytics',...appDirs], buildDir(babelrc))
   await Promise.map(entries, buildEntry(babelrc))
   const template = fs.readFileSync(path.join(__dirname, 'ecosystem.config.js.ejs'), 'utf8')
   const data = ejs.render(template, { environment })

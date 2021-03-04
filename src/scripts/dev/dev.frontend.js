@@ -38,7 +38,7 @@ const devserver = ({ name, config, port, options }) => {
     },
     disableHostCheck: true,
     clientLogLevel: 'info',
-    contentBase: path.resolve('src','admin','public'),
+    contentBase: path.resolve('src','public'),
     sockHost: process.env.DOMAIN,
     transportMode: 'ws',
     quiet: true,

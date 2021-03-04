@@ -1,5 +1,5 @@
+import Queue from '@core/objects/analyticsqueue'
 import model from '@analytics/services/model'
-import Queue from '@core/analytics/objects/queue'
 import knex from '@core/vendor/knex/analytics'
 
 const ModelQueue = new Queue(knex, {

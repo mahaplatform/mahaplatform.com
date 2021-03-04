@@ -1,5 +1,5 @@
+import Queue from '@core/objects/analyticsqueue'
 import { updateDatabase } from '@analytics/services/maxmind'
-import Queue from '@core/analytics/objects/queue'
 import knex from '@core/vendor/knex/analytics'
 
 const updateMaxmindCron = new Queue(knex, {

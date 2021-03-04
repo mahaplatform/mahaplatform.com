@@ -1,5 +1,5 @@
+import Queue from '@core/objects/analyticsqueue'
 import { archiveRaws } from '@analytics/services/raws'
-import Queue from '@core/analytics/objects/queue'
 import knex from '@core/vendor/knex/analytics'
 
 const archiveRawsCron = new Queue(knex, {

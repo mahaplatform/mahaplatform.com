@@ -1,6 +1,5 @@
 import HtmlWebpackExcludeAssetsPlugin from 'html-webpack-exclude-assets-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import MahaPlugin from '../../core/lib/webpack/maha_plugin'
 import GitRevisionPlugin from 'git-revision-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
@@ -83,12 +82,11 @@ const webpackConfig = {
   },
   plugins: [
     gitRevisionPlugin,
-    new MahaPlugin(),
     new MiniCssExtractPlugin({
       filename: 'css/[name]-[hash].min.css'
     }),
     new CopyWebpackPlugin([{
-      from: path.resolve('src','admin','public'),
+      from: path.resolve('src','public'),
       to: path.resolve('dist.staged','platform','public')
     }]),
     new HtmlWebpackPlugin({

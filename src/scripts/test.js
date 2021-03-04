@@ -1,5 +1,5 @@
 import '@core/services/environment'
-import { setup } from '@core/scripts/db/utils'
+import { setup } from '@core/services/db/utils'
 import knex from '@core/vendor/knex/maha'
 import Mocha from 'mocha'
 import glob from 'glob'
