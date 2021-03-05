@@ -45,8 +45,8 @@ class Sounds extends React.Component {
         <div className="maha-preference" onClick={ this._handleToggle }>
           <div className="maha-preference-icon">
             { notification_sound_enabled ?
-              <i className="fa fa-fw fa-check-circle" /> :
-              <i className="fa fa-fw fa-circle-o" />
+              <i className="fa fa-check-circle" /> :
+              <i className="fa fa-circle-o" />
             }
           </div>
           <div className="maha-preference-label">
@@ -97,7 +97,7 @@ class Sounds extends React.Component {
   _handlePlay(e) {
     const { notification_sound } = this.state
     e.stopPropagation()
-    const audio = new Audio(`/admin/audio/${notification_sound}.mp3`)
+    const audio = new Audio(`/audio/${notification_sound}.mp3`)
     audio.play()
   }
 

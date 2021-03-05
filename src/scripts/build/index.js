@@ -6,6 +6,7 @@ import apps from '../../core/utils/apps'
 import { transform } from '@babel/core'
 import log from '../../core/utils/log'
 import move from 'move-concurrently'
+import babel from './build.babel'
 import webpack from 'webpack'
 import env from '../env/env'
 import rimraf from 'rimraf'
@@ -15,6 +16,8 @@ import _ from 'lodash'
 import ncp from 'ncp'
 import ejs from 'ejs'
 import fs from 'fs'
+
+let babelrc = null
 
 const srcDir = path.resolve('src')
 
@@ -42,28 +45,6 @@ const subapps = fs.readdirSync(appsDir).reduce((apps, app) => {
   ]
 }, [])
 
-const getBabelRc = (root) => {
-  const file = path.resolve('src','core','utils','babel.config.js')
-  const babelrc = require(file)
-  babelrc.plugins = babelrc.plugins.map(plugin => {
-    if(typeof(plugin) === 'string') return plugin
-    if(plugin[0] !== 'module-resolver') return plugin
-    return [
-      'module-resolver',
-      {
-        alias: Object.keys(plugin[1].alias).reduce((aliases, key) => ({
-          ...aliases,
-          [key]: plugin[1].alias[key].replace('./src', root)
-        }), {})
-      }
-    ]
-  })
-  return {
-    ...babelrc,
-    sourceMaps: 'inline'
-  }
-}
-
 const getItemType = (item) => {
   return path.extname(item).length > 0 ? path.extname(item).substr(1) : 'dir'
 }
@@ -89,32 +70,35 @@ const listItems = (root) => fs.readdirSync(root).reduce((items, item) => [
   return true
 })
 
-const transpileFile = (babelrc, src, dest) => {
+const transpileFile = (src, dest) => {
   const source = fs.readFileSync(src, 'utf8')
-  const transpiled = transform(source, babelrc)
+  const transpiled = transform(source, {
+    ...babelrc,
+    filename: path.basename(src)
+  })
   fs.writeFileSync(dest, transpiled.code)
 }
 
-const buildItem = async (babelrc, item, srcPath, destPath) => {
+const buildItem = async (item, srcPath, destPath) => {
   const dest = item.src.replace(srcPath, destPath)
   const file = path.basename(item.src)
-  if(!_.includes(jswhitelist, file) && item.type === 'js') return transpileFile(babelrc, item.src, dest)
+  if(!_.includes(jswhitelist, file) && item.type === 'js') return transpileFile(item.src, dest)
   if(item.type === 'dir') return mkdirp.sync(dest)
   return await copy(item.src, dest)
 }
 
-const buildEntry = (babelrc) => async (entry) => {
+const buildEntry = async (entry) => {
   const srcPath = path.resolve('src',entry)
   const destPath = path.join(staged,'platform',entry)
-  await transpileFile(babelrc, srcPath, destPath)
+  await transpileFile(srcPath, destPath)
 }
 
-const buildDir = (babelrc) => async (dir) => {
+const buildDir = async (dir) => {
   const srcPath = path.resolve('src',dir)
   const destPath = path.join(staged,'platform',dir)
   mkdirp.sync(destPath)
   const items = listItems(srcPath)
-  await Promise.mapSeries(items, item => buildItem(babelrc, item, srcPath, destPath))
+  await Promise.mapSeries(items, item => buildItem(item, srcPath, destPath))
 }
 
 const compile = async (module, config) => {
@@ -144,14 +128,14 @@ const buildSdk = async () => {
   await compile('sdk', sdkConfig)
 }
 
-const buildServer = async (environment, babelrc) => {
+const buildServer = async (environment) => {
   log('info', 'server', 'Compiling...')
   const appDirs = apps.map(app => `apps/${app}`)
   const entries = fs.readdirSync(srcDir).filter(item => {
     return !fs.lstatSync(path.join(srcDir,item)).isDirectory()
   })
-  await Promise.map(['core','analytics',...appDirs], buildDir(babelrc))
-  await Promise.map(entries, buildEntry(babelrc))
+  await Promise.map(['core','analytics',...appDirs], buildDir)
+  await Promise.map(entries, buildEntry)
   const template = fs.readFileSync(path.join(__dirname, 'ecosystem.config.js.ejs'), 'utf8')
   const data = ejs.render(template, { environment })
   fs.writeFileSync(path.join(staged,'platform','ecosystem.config.js'), data, 'utf8')
@@ -177,12 +161,12 @@ const build = async () => {
   const args = process.argv.slice(2)
   const environment = args[0] || 'production'
   const root = args[1] || path.join(dist, 'platform')
-  const babelrc = getBabelRc(root)
   const start = process.hrtime()
+  babelrc = babel(root)
   rimraf.sync(staged)
   mkdirp.sync(path.join(staged,'platform','public'))
   await Promise.all([
-    buildServer(environment, babelrc),
+    buildServer(environment),
     buildSdk(),
     buildEnv(environment),
     buildAdmin(environment)

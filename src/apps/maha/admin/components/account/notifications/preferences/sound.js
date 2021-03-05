@@ -106,7 +106,7 @@ class Sound extends React.Component {
 
   _handlePlay(index) {
     const sound = this.sounds[index]
-    const audio = new Audio(`/admin/audio/${sound.value}.mp3`)
+    const audio = new Audio(`/audio/${sound.value}.mp3`)
     audio.play()
   }
 

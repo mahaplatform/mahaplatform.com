@@ -1,6 +1,6 @@
-importScripts('https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js')
+importScripts('https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js')
 
-importScripts('https://www.gstatic.com/firebasejs/7.14.2/firebase-messaging.js')
+importScripts('https://www.gstatic.com/firebasejs/8.2.10/firebase-messaging.js')
 
 function getParameterByName(key) {
   var url = location.href
@@ -27,15 +27,14 @@ self.firebase.initializeApp({
 
 const messaging = self.firebase.messaging()
 
-messaging.setBackgroundMessageHandler((notification) => {
-
-  const { title } = notification.data
-
-  return self.registration.showNotification(title, {
-    body: notification.data.body,
-    data: notification.data
-  })
-
+messaging.onBackgroundMessage((payload) => {
+  return self.registration.showNotification(
+    payload.data.title,
+    {
+      body: payload.data.body,
+      data: payload.data
+    }
+  )
 })
 
 self.addEventListener('notificationclick', event => {
@@ -51,7 +50,7 @@ self.addEventListener('notificationclick', event => {
 
       const client = clientList.find(client => {
         const url = new URL(client.url)
-        return url.host === host && 'focus' in client && 'postMessage' in client
+        return url.origin === host && 'focus' in client && 'postMessage' in client
       })
 
       if(!client) return self.clients.openWindow(host + pathname)

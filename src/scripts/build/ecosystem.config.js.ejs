@@ -7,6 +7,7 @@ module.exports = {
     error_file: './logs/analytics.err.log',
     out_file: './logs/analytics.out.log',
     exec_mode: 'fork_mode',
+    source_map_support: true,
     env: {
       NODE_ENV: '<%= environment %>'
     }
@@ -18,6 +19,7 @@ module.exports = {
     error_file: './logs/cron.err.log',
     out_file: './logs/cron.out.log',
     exec_mode: 'fork_mode',
+    source_map_support: true,
     env: {
       NODE_ENV: '<%= environment %>'
     }
@@ -29,6 +31,7 @@ module.exports = {
     error_file: './logs/twilio.err.log',
     out_file: './logs/twilio.out.log',
     exec_mode: 'fork_mode',
+    source_map_support: true,
     env: {
       NODE_ENV: '<%= environment %>'
     }
@@ -40,6 +43,7 @@ module.exports = {
     error_file: './logs/worker.err.log',
     out_file: './logs/worker.out.log',
     exec_mode: 'fork_mode',
+    source_map_support: true,
     env: {
       NODE_ENV: '<%= environment %>'
     }

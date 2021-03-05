@@ -1,6 +1,6 @@
 import { CSSTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
-import { Avatar } from '@admin'
+import { Avatar, Logo } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -49,7 +49,7 @@ class Notifications extends React.Component {
                     { this._getImage(notification) }
                   </div>
                   <div className="maha-notifications-item-label">
-                    <strong>{ notification.title }</strong><br />
+                    <strong>{ this._getTitle(notification) }</strong><br />
                     { notification.body }
                   </div>
                   <div className="maha-notifications-item-remove" onClick={ this._handleRemove.bind(this, notification.code) }>
@@ -89,9 +89,17 @@ class Notifications extends React.Component {
     }
   }
 
+  _getTitle(notification) {
+    const { team, title } = notification
+    if(team && team.title) return team.title
+    return title
+  }
+
   _getImage(notification) {
-    if(notification.user) return <Avatar user={ notification.user } presence={ false } />
-    if(notification.image) return <img src={ notification.image } />
+    const { image, team, user } = notification
+    if(team && team.logo) return <Logo team={ team } />
+    if(user && user.photo) return <Avatar user={ user } presence={ false } />
+    if(image) return <img src={ notification.image } />
     return <img src="/images/maha.png" />
   }
 
@@ -146,13 +154,8 @@ class Notifications extends React.Component {
     setTimeout(() => onRemove(code), 5000)
   }
 
-  _handlePushDesktop(data) {
-    this.context.host.pushNotification({
-      title: data.title,
-      body: data.body,
-      icon: `${process.env.WEB_HOST}/images/maha.png`,
-      sound: `${process.env.WEB_HOST}/admin/audio/boing.mp3`
-    })
+  _handlePushDesktop(notification) {
+    this.context.host.pushNotification(notification)
   }
 
   _handleRemove(code, e) {

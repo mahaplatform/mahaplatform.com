@@ -1,4 +1,3 @@
-import '@core/vendor/sourcemaps'
 import '@core/services/environment'
 import log from '@core/utils/log'
 import archiveRawsCron from '@analytics/cron/archive_raws_cron'

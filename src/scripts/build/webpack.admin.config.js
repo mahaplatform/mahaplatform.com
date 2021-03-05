@@ -5,9 +5,9 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
 import autoprefixer from 'autoprefixer'
+import babel from './webpack.babel'
 import webpack from 'webpack'
 import cssnano from 'cssnano'
-import babel from './babel'
 import path from 'path'
 
 const gitRevisionPlugin = new GitRevisionPlugin()

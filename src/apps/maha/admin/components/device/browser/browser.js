@@ -35,6 +35,7 @@ class Browser extends React.Component {
   _handleMessage = this._handleMessage.bind(this)
   _handleOpenWindow = this._handleOpenWindow.bind(this)
   _handlePushRoute = this._handlePushRoute.bind(this)
+  _handlePushNotification = this._handlePushNotification.bind(this)
   _handleSetTitle = this._handleSetTitle.bind(this)
   _handleSignin = this._handleSignin.bind(this)
   _handleUpdateHead = this._handleUpdateHead.bind(this)
@@ -85,6 +86,7 @@ class Browser extends React.Component {
         hasFocus: this._handleHasFocus,
         installUpdate: () => {},
         openWindow: this._handleOpenWindow,
+        pushNotification: this._handlePushNotification,
         setTitle: this._handleSetTitle,
         signin: this._handleSignin,
         updateUnseen: this._handleUpdateUnseen
@@ -125,6 +127,19 @@ class Browser extends React.Component {
 
   _handlePushRoute(route) {
     this.context.router.history.push(route)
+  }
+
+  _handlePushNotification(notification) {
+    const title = notification.team.title
+    const image = notification.team.logo
+    if(notification.sound) {
+      const sound = new Audio(`${process.env.WEB_HOST}/audio/${notification.sound}.mp3`)
+      sound.play()
+    }
+    new Notification(title, {
+      body: notification.body,
+      iconUrl: `${process.env.WEB_HOST}${image}`
+    })
   }
 
   _handleSetTitle(title) {

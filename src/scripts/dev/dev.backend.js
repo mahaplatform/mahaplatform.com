@@ -54,7 +54,10 @@ const transpile = (src) => {
   const destpath = dest(src)
   if(fs.existsSync(destpath) && fs.statSync(src).mtime <= fs.statSync(destpath).mtime) return
   const source = fs.readFileSync(src, 'utf8')
-  const transpiled = transform(source, babelrc)
+  const transpiled = transform(source, {
+    ...babelrc,
+    filename: path.basename(src)
+  })
   write(src, destpath, transpiled.code, 'Compiling')
 }
 
@@ -133,7 +136,7 @@ const watchSrc = async () => {
 }
 
 const start = () => {
-  const proc = spawn('node', ['.src/backend.js','--inspect','--color','--quiet'], {
+  const proc = spawn('node', ['--enable-source-maps','--inspect','.src/backend.js','--color','--quiet'], {
     stdio: ['pipe', 'pipe', 'pipe', 'ipc'],
     env: {
       ...process.env,

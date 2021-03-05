@@ -212,7 +212,6 @@
     "socket.io": "^3.0.4",
     "socket.io-emitter": "^3.1.1",
     "socket.io-redis": "^6.0.1",
-    "source-map-support": "^0.5.19",
     "ssh-pool": "^5.3.0",
     "tar-stream": "^2.2.0",
     "tempfile": "^2.0.0",

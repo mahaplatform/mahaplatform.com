@@ -22,8 +22,8 @@ class Status extends React.Component {
         <div className="maha-preference" onClick={ this._handleChoose.bind(this, true) }>
           <div className="maha-preference-icon">
             { value === true ?
-              <i className="fa fa-fw fa-check-circle" /> :
-              <i className="fa fa-fw fa-circle-o" />
+              <i className="fa fa-check-circle" /> :
+              <i className="fa fa-circle-o" />
             }
           </div>
           <div className="maha-preference-label">
@@ -33,8 +33,8 @@ class Status extends React.Component {
         <div className="maha-preference" onClick={ this._handleChoose.bind(this, false) }>
           <div className="maha-preference-icon">
             { value === false ?
-              <i className="fa fa-fw fa-check-circle" /> :
-              <i className="fa fa-fw fa-circle-o" />
+              <i className="fa fa-check-circle" /> :
+              <i className="fa fa-circle-o" />
             }
           </div>
           <div className="maha-preference-label">

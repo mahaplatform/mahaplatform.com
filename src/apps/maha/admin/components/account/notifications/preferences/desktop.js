@@ -6,6 +6,7 @@ import React from 'react'
 class Desktop extends React.Component {
 
   static contextTypes = {
+    admin: PropTypes.object,
     notifications: PropTypes.object,
     push: PropTypes.object
   }
@@ -13,7 +14,6 @@ class Desktop extends React.Component {
   static propTypes = {
     defaultValue: PropTypes.bool,
     permission: PropTypes.string,
-    preferences: PropTypes.object,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
@@ -31,7 +31,16 @@ class Desktop extends React.Component {
     return (
       <div className="maha-desktop">
         { permission === 'unknown' &&
-          <Button { ...this._getEnable() } />
+          <div className="maha-preferences">
+            <div className="maha-preference">
+              <div className="maha-preference-icon">
+                <i className="fa fa-bell" />
+              </div>
+              <div className="maha-preference-label">
+                <Button { ...this._getEnable() } />
+              </div>
+            </div>
+          </div>
         }
         { permission === 'denied' &&
           <div className="maha-desktop-panel denied">
@@ -48,8 +57,8 @@ class Desktop extends React.Component {
             <div className="maha-preference" onClick={ this._handleToggle }>
               <div className="maha-preference-icon">
                 { value ?
-                  <i className="fa fa-fw fa-check-circle" /> :
-                  <i className="fa fa-fw fa-circle-o" />
+                  <i className="fa fa-check-circle" /> :
+                  <i className="fa fa-circle-o" />
                 }
               </div>
               <div className="maha-preference-label">
@@ -79,19 +88,18 @@ class Desktop extends React.Component {
 
   _getEnable() {
     return {
-      className: 'ui blue button',
-      icon: 'bell',
       label: 'Enable desktop notifications',
+      className: 'link',
       handler: this.context.push.requestPermission
     }
   }
 
   _handleDemo(e) {
+    const { team } = this.context.admin
     e.stopPropagation()
     this.context.notifications.pushDesktop({
-      title: 'Desktop Notification',
-      body: 'This is a desktop notification',
-      sound: null
+      team,
+      body: 'This is an desktop notification'
     })
   }
 

@@ -22,8 +22,8 @@ class Email extends React.Component {
         <div className="maha-preference" onClick={ this._handleChoose.bind(this, 'none') }>
           <div className="maha-preference-icon">
             { value === 'none' ?
-              <i className="fa fa-fw fa-check-circle" /> :
-              <i className="fa fa-fw fa-circle-o" />
+              <i className="fa fa-check-circle" /> :
+              <i className="fa fa-circle-o" />
             }
           </div>
           <div className="maha-preference-label">
@@ -34,8 +34,8 @@ class Email extends React.Component {
         <div className="maha-preference" onClick={ this._handleChoose.bind(this, 'ondemand') }>
           <div className="maha-preference-icon">
             { value === 'ondemand' ?
-              <i className="fa fa-fw fa-check-circle" /> :
-              <i className="fa fa-fw fa-circle-o" />
+              <i className="fa fa-check-circle" /> :
+              <i className="fa fa-circle-o" />
             }
           </div>
           <div className="maha-preference-label">
@@ -46,8 +46,8 @@ class Email extends React.Component {
         <div className="maha-preference" onClick={ this._handleChoose.bind(this, 'digest') }>
           <div className="maha-preference-icon">
             { value === 'digest' ?
-              <i className="fa fa-fw fa-check-circle" /> :
-              <i className="fa fa-fw fa-circle-o" />
+              <i className="fa fa-check-circle" /> :
+              <i className="fa fa-circle-o" />
             }
           </div>
           <div className="maha-preference-label">
