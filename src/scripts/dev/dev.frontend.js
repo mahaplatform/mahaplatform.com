@@ -31,13 +31,22 @@ const sdkport = parseInt(process.env.DEVSERVER_PORT) + subapps.length + 2
 
 const devserver = ({ name, config, port, options }) => {
 
-  const server = new devServer(webpack(config), {
+  const compiler = webpack(config)
+
+  compiler.hooks.invalid.tap('invalid', () => {
+    log('info', 'wds', `Compiling ${name}...`)
+  })
+
+  compiler.hooks.done.tap('done', () => {
+    log('info', 'wds', `Finished compiling ${name}`)
+  })
+
+  const server = new devServer(compiler, {
     https: {
       key: fs.readFileSync(path.join('keys','dev.mahaplatform.com.key')),
       cert: fs.readFileSync(path.join('keys','dev.mahaplatform.com.crt'))
     },
     disableHostCheck: true,
-    clientLogLevel: 'info',
     contentBase: path.resolve('src','public'),
     sockHost: process.env.DOMAIN,
     transportMode: 'ws',
@@ -54,7 +63,7 @@ const devserver = ({ name, config, port, options }) => {
 
 const watchAdmin = async () => {
 
-  const proxyError = (err) => {}
+  const proxyError = (err, req, res) => res.end('')
 
   const appregex = new RegExp(`^/(${apps.map(app => app).join('|')})`)
 
@@ -78,9 +87,10 @@ const watchAdmin = async () => {
     config: adminConfig,
     port: process.env.DEVSERVER_PORT,
     options: {
+      publicPath: '/',
       proxy: {
         '/socket': {
-          target: `https://${process.env.DOMAIN}:${process.env.SERVER_PORT}`,
+          target: `http://${process.env.DOMAIN}:${process.env.SERVER_PORT}`,
           ws: true,
           onError: proxyError
         },
@@ -115,7 +125,7 @@ const watchAdmin = async () => {
   })
 }
 
-const watchSdk = async () => {
+export const watchSdk = async () => {
   devserver({
     name: 'sdk',
     config: sdkConfig,
@@ -142,11 +152,8 @@ const watchSubapps = async () => {
   })
 }
 
-const watchFrontend = async () => {
+export const watchFrontend = async () => {
   await watchManifest()
   await watchAdmin()
-  await watchSdk()
   await watchSubapps()
 }
-
-export default watchFrontend
