@@ -115,14 +115,23 @@ class Browser extends React.Component {
 
   _handleMessage(e) {
     const message = e.data
+    console.log(message)
     if(message.action === 'pushRoute') {
       this._handlePushRoute(message.data.route)
+    }
+    if(message.action === 'playSound') {
+      this._handlePlaySound(message.data.sound)
     }
   }
 
   _handleOpenWindow(url) {
     this.link.href = url
     this.link.click()
+  }
+
+  _handlePlaySound(sound) {
+    const audio = new Audio(`${process.env.WEB_HOST}/audio/${sound}.mp3`)
+    audio.play()
   }
 
   _handlePushRoute(route) {
@@ -132,10 +141,7 @@ class Browser extends React.Component {
   _handlePushNotification(notification) {
     const title = notification.team.title
     const image = notification.team.logo
-    if(notification.sound) {
-      const sound = new Audio(`${process.env.WEB_HOST}/audio/${notification.sound}.mp3`)
-      sound.play()
-    }
+    if(notification.sound) this._handlePlaySound(notification.sound)
     new Notification(title, {
       body: notification.body,
       iconUrl: `${process.env.WEB_HOST}${image}`

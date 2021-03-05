@@ -27,14 +27,38 @@ self.firebase.initializeApp({
 
 const messaging = self.firebase.messaging()
 
+const showNotification = (data) => {
+  self.registration.showNotification(data.title, {
+    body: data.body,
+    data: data
+  })
+}
+
+const playSound = (sound) => {
+  self.clients.matchAll({
+    includeUncontrolled: true,
+    type: 'window'
+  }).then(clientList => {
+
+    const client = clientList.find(client => {
+      const url = new URL(client.url)
+      return url.origin === host && 'focus' in client && 'postMessage' in client
+    })
+
+    if(!client) return
+
+    client.postMessage({
+      action: 'playSound',
+      data: { sound }
+    })
+
+  })
+}
+
 messaging.onBackgroundMessage((payload) => {
-  return self.registration.showNotification(
-    payload.data.title,
-    {
-      body: payload.data.body,
-      data: payload.data
-    }
-  )
+  console.log(payload)
+  showNotification(payload.data)
+  if(payload.data.sound) playSound(payload.data.sound)
 })
 
 self.addEventListener('notificationclick', event => {

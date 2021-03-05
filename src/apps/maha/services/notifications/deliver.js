@@ -52,10 +52,10 @@ const sendViaSocket = async (req, { session, notification }) => {
 
 export const sendViaFirebase = async (req, { user, session, device, notification }) => {
   const { title, body, route, code } = notification
-  const sound = `${user.get('notification_sound')}.mp3`
+  const sound = user.get('notification_sound')
   try {
     await messaging.send({
-      data: route ? { title, body, code, route } : { title, body, code },
+      data: { title, body, code, route, sound },
       token: device.get('push_token'),
       ...device.related('platform_type').get('text') === 'cordova' ? {
         notification: { title, body },
