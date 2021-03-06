@@ -34,11 +34,11 @@ const devserver = ({ name, config, port, options }) => {
   const compiler = webpack(config)
 
   compiler.hooks.invalid.tap('invalid', () => {
-    log('info', 'wds', `Compiling ${name}...`)
+    log('info', name, 'Compiling...')
   })
 
   compiler.hooks.done.tap('done', () => {
-    log('info', 'wds', `Finished compiling ${name}`)
+    log('info', name, 'Finished compiling')
   })
 
   const server = new devServer(compiler, {
@@ -56,7 +56,7 @@ const devserver = ({ name, config, port, options }) => {
   })
 
   server.listen(port, null, () => {
-    log('info', 'frontend', `${name} listening on port ${port}`)
+    log('info', name, `Listening on port ${port}`)
   })
 
 }

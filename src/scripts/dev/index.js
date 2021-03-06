@@ -17,14 +17,14 @@ const connectNgrok = async () => {
 
 const processor = async () => {
   const argv = process.argv.slice(2)
-  const platform = argv.length > 0 ? argv[0] : ['backend','admin']
+  const entities = argv.length > 0 ? argv[0].split(',') : ['backend','frontend']
   await bootstrap()
   await connectNgrok()
-  if(_.includes(platform,'backend')) await watchBackend()
-  if(_.includes(platform,'admin')) await watchFrontend()
-  if(_.includes(platform,'sdk')) await watchSdk()
-  if(_.includes(platform,'mobile')) await watchPlatform('mobile')
-  if(_.includes(platform,'desktop')) await watchPlatform('desktop')
+  if(_.includes(entities,'backend')) await watchBackend()
+  if(_.includes(entities,'frontend')) await watchFrontend()
+  if(_.includes(entities,'sdk')) await watchSdk()
+  if(_.includes(entities,'mobile')) await watchPlatform('mobile')
+  if(_.includes(entities,'desktop')) await watchPlatform('desktop')
 }
 
 processor()
