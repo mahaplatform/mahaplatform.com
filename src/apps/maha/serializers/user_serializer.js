@@ -1,5 +1,6 @@
 const userSerializer = (req, result) => ({
   id: result.get('id'),
+  account_id: result.get('account_id'),
   full_name: result.get('full_name'),
   first_name: result.get('first_name'),
   last_name: result.get('last_name'),

@@ -16,6 +16,7 @@ const user = (user) => {
   if(!user.id) return
   return {
     id: user.get('id'),
+    account_id: user.get('account_id'),
     full_name: user.get('full_name'),
     initials: user.get('initials'),
     photo: user.related('photo') ? user.related('photo').get('path') : null

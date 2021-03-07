@@ -7,6 +7,7 @@ const sessionSerializer = (req, result) => ({
 
 const user = (user) => ({
   id: user.get('id'),
+  account_id: user.get('account_id'),
   initials: user.get('initials'),
   full_name: user.get('full_name'),
   photo: user.related('photo').get('path')

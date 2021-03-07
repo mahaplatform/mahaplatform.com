@@ -10,7 +10,7 @@ class Token extends React.Component {
   }
 
   static propTypes = {
-    id: PropTypes.number,
+    account_id: PropTypes.number,
     presence: PropTypes.array
   }
 
@@ -24,10 +24,10 @@ class Token extends React.Component {
   }
 
   _getStatus() {
-    const user_id = this.props.id
-    const active = _.find(this.props.presence, { user_id, status: 'active' })
+    const { account_id } = this.props
+    const active = _.find(this.props.presence, { account_id, status: 'active' })
     if(active) return 'active'
-    const absent = _.find(this.props.presence, { user_id, status: 'absent' })
+    const absent = _.find(this.props.presence, { account_id, status: 'absent' })
     return absent ? 'absent' : null
   }
 

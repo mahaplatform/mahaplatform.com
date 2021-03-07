@@ -81,6 +81,7 @@ const user = (user) => {
   if(!user.id) return null
   return {
     id: user.get('id'),
+    account_id: user.get('account_id'),
     full_name: user.get('full_name'),
     cell_phone: user.get('cell_phone')
   }

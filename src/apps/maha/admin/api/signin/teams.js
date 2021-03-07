@@ -59,6 +59,7 @@ const teamsRoute = async (req, res, next) => {
       }),
       user: {
         id: user.get('id'),
+        account_id: user.get('account_id'),
         full_name: user.get('full_name'),
         email: user.get('email'),
         photo: user.related('photo') ? user.related('photo').get('path') : null
