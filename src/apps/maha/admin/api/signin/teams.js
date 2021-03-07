@@ -54,7 +54,9 @@ const teamsRoute = async (req, res, next) => {
       logo: team.related('logo') ? team.related('logo').get('path') : null,
       title: team.get('title'),
       subdomain: team.get('subdomain'),
-      token: createUserToken(user, 'user_id'),
+      token: createUserToken({
+        user_id: user.get('id')
+      }),
       user: {
         id: user.get('id'),
         full_name: user.get('full_name'),

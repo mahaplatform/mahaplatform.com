@@ -49,7 +49,9 @@ const loadMembers = async(req, { list, profile }) => {
 const getContacts = async (req, { profile, user, list_id }) => {
   const service = profile.get('source')
   const list = getList(service)
-  req.token = createUserToken(user, 'user_id')
+  req.token = createUserToken({
+    user_id: user.get('id')
+  })
   if(_.includes(['constantcontact', 'mailchimp'], service)) {
     req.params = { id: list_id }
     const members = await loadMembers(req, { list, profile })

@@ -172,7 +172,7 @@ class Channel extends React.Component {
   _handleHello({ channel_id, user }) {
     if(channel_id !== this.props.channel.id) return
     if(user.id === this.context.admin.user.id ) return
-    this.context.network.emit('chat', {
+    this.context.network.emit('chat', null, {
       action: 'hello',
       exclude: [this.context.admin.user.id],
       data: {
@@ -192,7 +192,7 @@ class Channel extends React.Component {
   }
 
   _handleAppear() {
-    this.context.network.emit('chat', {
+    this.context.network.emit('chat', null, {
       action: 'appear',
       data: {
         channel_id: this.props.channel.id,
@@ -204,7 +204,7 @@ class Channel extends React.Component {
   }
 
   _handleDisappear() {
-    this.context.network.emit('chat', {
+    this.context.network.emit('chat', null, {
       action: 'disappear',
       data: {
         channel_id: this.props.channel.id,

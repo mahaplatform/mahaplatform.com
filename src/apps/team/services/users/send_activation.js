@@ -7,7 +7,9 @@ const sendActivation = async (req, { user }) => {
     transacting: req.trx
   })
 
-  const token = createUserToken(user, 'activation_id')
+  const token = createUserToken({
+    activation_id: user
+  })
 
   await sendEmail(req, {
     from: user.related('team').get('rfc822'),

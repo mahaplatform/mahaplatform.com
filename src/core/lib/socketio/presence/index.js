@@ -1,4 +1,4 @@
-import { getPresence, setPresence, removePresence } from '../../services/presence'
+import { getPresence, setPresence, removePresence } from '@core/services/presence'
 import { authenticate } from './utils'
 import moment from 'moment'
 
@@ -18,22 +18,22 @@ const presence = async (io, socket) => {
 
     auth = authenticated
 
-    if(!auth.user) return
+    if(!auth.account) return
 
-    const users = await getPresence()
+    const accounts = await getPresence()
 
     const deviceValue = (property, type) => {
-      const record = auth.session.related('device').related(property)
+      const record = auth.signin.related('device').related(property)
       return record.get(type)
     }
 
     const presence = await setPresence([
-      ...users.filter(item => item.session_id !== auth.session.get('id')),
+      ...accounts.filter(item => item.signin_id !== auth.signin.get('id')),
       {
-        user_id: auth.user.get('id'),
-        session_id: auth.session.get('id'),
-        device_id: auth.session.get('device_id'),
+        account_id: auth.account.get('id'),
+        signin_id: auth.signin.get('id'),
         device: {
+          id: auth.signin.get('device_id'),
           platform_type: deviceValue('platform_type', 'text'),
           device_type: deviceValue('device_type', 'text'),
           device_name: deviceValue('device_type', 'display'),
@@ -53,12 +53,10 @@ const presence = async (io, socket) => {
 
     if(!auth) return
 
-    const users = await getPresence()
+    const accounts = await getPresence()
 
-    const presence = await setPresence(users.filter(item => {
-
-      return item.session_id !== auth.session.get('id')
-
+    const presence = await setPresence(accounts.filter(item => {
+      return item.signin_id !== auth.signin.get('id')
     }))
 
     io.emit('presence', presence)
@@ -71,12 +69,12 @@ const presence = async (io, socket) => {
 
     auth = authentication
 
-    if(!auth.user) return
+    if(!auth.account) return
 
-    const users = await getPresence()
+    const accounts = await getPresence()
 
-    const presence = await setPresence(users.map(item => {
-      if(!auth.session || item.session_id !== auth.session.get('id')) return item
+    const presence = await setPresence(accounts.map(item => {
+      if(!auth.signin || item.signin_id !== auth.signin.get('id')) return item
       return {
         ...item,
         status: data.status,
@@ -90,9 +88,9 @@ const presence = async (io, socket) => {
 
   socket.on('disconnect', async () => {
 
-    if(!auth || !auth.session) return
+    if(!auth || !auth.signin) return
 
-    const presence = await removePresence(auth.session.get('id'))
+    const presence = await removePresence(auth.signin.get('id'))
 
     auth = null
 

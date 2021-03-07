@@ -146,8 +146,8 @@ class Network extends React.Component {
     this.props.onDisconnect()
   }
 
-  _handleEmit(verb, data) {
-    this.props.onEmit(verb, null, data)
+  _handleEmit(verb, token, data) {
+    this.props.onEmit(verb, null, token, data)
   }
 
   _handleJoin(channels) {

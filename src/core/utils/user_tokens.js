@@ -3,13 +3,8 @@ import User from '@apps/maha/models/user'
 
 const TWO_WEEKS = 60 * 60 * 24 * 7 * 2
 
-export const createUserToken = (user, key, data = {}) => {
-
-  return jwt.encode({
-    [key]: user.get('id'),
-    ...data
-  }, TWO_WEEKS)
-
+export const createUserToken = (data = {}) => {
+  return jwt.encode(data, TWO_WEEKS)
 }
 
 export const loadUserFromToken = async (key, token, trx) => {

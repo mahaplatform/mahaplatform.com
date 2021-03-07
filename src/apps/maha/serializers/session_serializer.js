@@ -17,7 +17,6 @@ const SessionSerializer = (req, session) => ({
   },
   user: {
     id: session.user.get('id'),
-    session_id: session.session.get('id'),
     full_name: session.user.get('full_name'),
     first_name: session.user.get('first_name'),
     last_name: session.user.get('last_name'),

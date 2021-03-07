@@ -1,4 +1,4 @@
-import formatObjectForTransport from '../../utils/format_object_for_transport'
+import formatObjectForTransport from '@core/utils/format_object_for_transport'
 import { authenticate } from './utils'
 import _ from 'lodash'
 

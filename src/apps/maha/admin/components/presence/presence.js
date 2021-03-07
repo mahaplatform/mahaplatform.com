@@ -11,10 +11,9 @@ class Presence extends React.Component {
   }
 
   static propTypes = {
+    account: PropTypes.object,
     children: PropTypes.any,
     presence: PropTypes.array,
-    session_id: PropTypes.number,
-    user_id: PropTypes.number,
     onSetPresence: PropTypes.func
   }
 
@@ -39,10 +38,11 @@ class Presence extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { user_id } = this.props
-    if(user_id !== prevProps.user_id) {
-      if(user_id !== null) this._handleSignin()
-      if(user_id === null) this._handleSignout()
+    const { account } = this.props
+    if(!_.isEqual(account, prevProps.account)) {
+      console.log(account, prevProps.account)
+      if(account !== null) this._handleSignin()
+      if(account === null) this._handleSignout()
     }
   }
 
@@ -62,8 +62,8 @@ class Presence extends React.Component {
   }
 
   _handleConnect() {
-    const { user_id } = this.props
-    if(user_id !== null) this._handleSignin()
+    const { account } = this.props
+    if(account !== null) this._handleSignin()
   }
 
   _handleMessage(e) {
@@ -77,32 +77,37 @@ class Presence extends React.Component {
   }
 
   _handlePresence(presence) {
-    const { session_id } = this.props
-    if(!session_id) return this.props.onSetPresence(presence)
-    const found = presence.find(presence => presence.session_id === session_id)
+    const { account } = this.props
+    if(!account.signin_id) return this.props.onSetPresence(presence)
+    const found = presence.find(presence => presence.signin_id === account.signin_id)
     if(!found) this._handleSignin()
     this.props.onSetPresence(presence)
+  }
+
+  _handleEmit(verb, data) {
+    const { account } = this.props
+    const token = account ? account.token : null
+    this.context.network.emit(verb, token, data)
   }
 
   _handleSignin() {
     const { host } = this.context
     const status = host.hasFocus() ? 'active' : 'absent'
-    this.context.network.emit('signin', { status })
+    this._handleEmit('signin', { status })
   }
 
   _handleSignout() {
-    this.context.network.emit('signout')
+    this._handleEmit('signout')
   }
 
   _handleStatus(status) {
-    this.context.network.emit('status', { status })
+    this._handleEmit('status', { status })
   }
 
 }
 
 const mapStateToProps = (state, props) => ({
-  session_id: _.get(state, 'maha.admin.session.id') || null,
-  user_id: _.get(state, 'maha.admin.user.id') || null
+  account: _.get(state, 'maha.admin.account') || null
 })
 
 export default connect(mapStateToProps)(Presence)

@@ -1,5 +1,7 @@
 import AccountSerializer from '@apps/maha/serializers/account_serializer'
 import { createUserToken } from '@core/utils/user_tokens'
+import { getSignin } from '@apps/maha/services/signins'
+import { getDevice } from '@apps/maha/services/devices'
 import Account from '@apps/maha/models/account'
 import { decode } from '@core/services/jwt'
 
@@ -44,7 +46,21 @@ const accountRoute = async (req, res, next) => {
     message: 'Invalid account'
   })
 
-  account.set('token', createUserToken(account, 'account_id'))
+  const device = await getDevice(req, {
+    fingerprint: req.headers.fingerprint
+  })
+
+  const signin = await getSignin(req, {
+    device,
+    account
+  })
+
+  account.set('signin_id', signin.get('id'))
+
+  account.set('token', createUserToken({
+    account_id: account.get('id'),
+    signin_id: signin.get('id')
+  }))
 
   res.status(200).respond(account, AccountSerializer)
 

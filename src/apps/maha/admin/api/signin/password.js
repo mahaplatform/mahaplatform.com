@@ -37,7 +37,9 @@ const passwordRoute = async (req, res) => {
   })
 
   res.status(200).respond({
-    token: createUserToken(account, 'account_id')
+    token: createUserToken({
+      account_id: account.get('id')
+    })
   })
 
 }

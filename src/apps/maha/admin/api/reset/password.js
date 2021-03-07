@@ -23,7 +23,9 @@ const passwordRoute = async (req, res, next) => {
     transacting: req.trx
   })
 
-  const token = createUserToken(req.account, 'account_id')
+  const token = createUserToken({
+    account_id: req.account.get('id')
+  })
 
   res.status(200).respond({
     token

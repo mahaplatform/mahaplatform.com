@@ -34,7 +34,7 @@ export const removePresence = async (session_id) => {
 export const setPresence = async (presences) => {
   const unlock = await lock()
   const presence = await Promise.map(presences, async (presence) => {
-    const key = `presence:${presence.session_id}`
+    const key = `presence:${presence.signin_id}`
     await redis.setAsync(key, JSON.stringify(presence), 'EX', 60 * 5)
     return presence
   })

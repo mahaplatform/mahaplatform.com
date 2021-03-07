@@ -43,7 +43,9 @@ const notificationsRoute = async (req, res) => {
       initials: req.account.get('initials'),
       email: req.account.get('email'),
       photo: req.account.related('photo') ? req.account.related('photo').get('path') : null,
-      token: createUserToken(req.account, 'account_id')
+      token: createUserToken({
+        account_id: req.account.get('id')
+      })
     }
   })
 

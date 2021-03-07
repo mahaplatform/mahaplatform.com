@@ -1,6 +1,6 @@
+import { getSignin } from '@apps/maha/services/signins'
+import { getDevice } from '@apps/maha/services/devices'
 import Account from '@apps/maha/models/account'
-import Session from '@apps/maha/models/session'
-import Device from '@apps/maha/models/device'
 import { decode } from '@core/services/jwt'
 import Rollbar from '@core/vendor/rollbar'
 import Team from '@apps/maha/models/team'
@@ -66,21 +66,16 @@ const route = async (req, res, next) => {
 
   if(req.headers.fingerprint) {
 
-    req.device = await Device.where({
+    req.device = await getDevice(req, {
       fingerprint: req.headers.fingerprint
-    }).fetch({
-      transacting: req.trx,
-      withRelated: ['display_name']
     })
 
-    req.session = await Session.where({
-      device_id: req.device.get('id'),
-      user_id: req.user.get('id')
-    }).fetch({
-      transacting: req.trx
+    req.signin = await getSignin(req, {
+      device: req.device,
+      account: req.account
     })
 
-    if(req.session) await req.session.save({
+    await req.signin.save({
       last_active_at: moment()
     }, {
       patch: true,

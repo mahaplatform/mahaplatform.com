@@ -27,7 +27,9 @@ const lockoutRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const token = createUserToken(account, 'reset_id')
+  const token = createUserToken({
+    reset_id: account.get('id')
+  })
 
   await sendAlert(req, account, 'maha:lockout', {
     first_name: account.get('first_name'),

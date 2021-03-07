@@ -2,9 +2,6 @@ import SessionSerializer from '@apps/maha/serializers/session_serializer'
 import { createUserToken } from '@core/utils/user_tokens'
 import collectObjects from '@core/utils/collect_objects'
 import getUserAccess from '@core/utils/get_user_access'
-import { createSession } from '@apps/maha/services/sessions'
-import Session from '@apps/maha/models/session'
-import Device from '@apps/maha/models/device'
 import signer from '@core/vendor/aws/signer'
 import moment from 'moment'
 import _ from 'lodash'
@@ -40,17 +37,6 @@ const _expandNavigation = (req, prefix, items) => {
   }, [])
 }
 
-const _findOrCreateSession = async (req) => {
-  const session = await Session.where({
-    device_id: req.device.get('id'),
-    user_id: req.user.get('id')
-  }).fetch({
-    transacting: req.trx
-  })
-  if(session) return session
-  return await createSession(req)
-}
-
 const showRoute = async (req, res) => {
 
   await req.user.load(['photo'], {
@@ -63,27 +49,13 @@ const showRoute = async (req, res) => {
 
   const session = {
     user: req.user,
-    team: req.team
+    team: req.team,
+    signin: req.signin
   }
 
-  req.device = await Device.where({
-    fingerprint: req.headers.fingerprint
-  }).fetch({
-    transacting: req.trx ,
-    withRelated: ['platform_type','display_name']
-  })
-
-  session.session = await _findOrCreateSession(req)
-
-  session.session.save({
-    is_active: true
-  }, {
-    patch: true,
-    transacting: req.trx
-  })
-
-  session.token = createUserToken(req.user, 'user_id', {
-    session_id: session.session.get('id')
+  session.token = createUserToken({
+    user_id: req.user.get('id'),
+    signin_id: req.signin.get('id')
   })
 
   session.notification_types = await req.trx('maha_users_notification_types')

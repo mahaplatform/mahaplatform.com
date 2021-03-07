@@ -1,22 +1,13 @@
-import Device from '@apps/maha/models/device'
+import DeviceSerializer from '@apps/maha/serializers/device_serializer'
+import { getDevice } from '@apps/maha/services/devices'
 
 const showRoute = async (req, res) => {
 
-  const device = await Device.where({
-    fingerprint: req.params.fingerprint
-  }).fetch({
-    withRelated: ['platform_type','device_type','os_name','browser_name'],
-    transacting: req.trx
+  const device = await getDevice(req, {
+    fingerprint: req.body.fingerprint
   })
 
-  res.status(200).respond({
-    browser: device.related('browser_name').get('text'),
-    device: device.related('device_type').get('text'),
-    id: device.get('id'),
-    os: device.related('os_name').get('text'),
-    platform: device.related('platform_type').get('text'),
-    push_enabled: device.get('push_enabled')
-  })
+  res.status(200).respond(device, DeviceSerializer)
 
 }
 

@@ -16,7 +16,9 @@ const emailRoute = async (req, res, next) => {
     transacting: req.trx
   })
 
-  const token = createUserToken(account, 'reset_id')
+  const token = createUserToken({
+    reset_id: account.get('id')
+  })
 
   const { subject, html } = await renderTemplate(req, {
     template: 'team:reset',

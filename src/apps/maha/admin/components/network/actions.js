@@ -45,10 +45,11 @@ export const left = (channels) => ({
   channels
 })
 
-export const emit = (verb, channel, data) => ({
+export const emit = (verb, channel, token, data) => ({
   type: 'SOCKETIO_EMIT',
   verb,
   channel,
+  token,
   data,
   request: 'EMIT'
 })

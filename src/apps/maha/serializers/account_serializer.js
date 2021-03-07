@@ -11,6 +11,7 @@ const accountSerializer = (req, result) => ({
   locked_out_at: result.get('locked_out_at'),
   token: result.get('token'),
   preferences: result.get('preferences'),
+  signin_id: result.get('signin_id'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

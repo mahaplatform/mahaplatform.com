@@ -2044,23 +2044,22 @@ const schema = {
       table.string('url', 255)
     })
 
-    await knex.schema.createTable('maha_sessions', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('device_id').unsigned()
-      table.integer('user_id').unsigned()
-      table.timestamp('last_active_at')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-      table.string('code', 255)
-      table.boolean('is_active').defaultsTo(false)
-    })
-
     await knex.schema.createTable('maha_shortlinks', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.string('code', 255)
       table.text('url')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('maha_signins', (table) => {
+      table.increments('id').primary()
+      table.integer('account_id').unsigned()
+      table.integer('device_id').unsigned()
+      table.string('code', 255)
+      table.boolean('is_active')
+      table.timestamp('last_active_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
@@ -3556,12 +3555,6 @@ const schema = {
       table.foreign('user_id').references('maha_users.id')
     })
 
-    await knex.schema.table('maha_sessions', table => {
-      table.foreign('device_id').references('maha_devices.id')
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('user_id').references('maha_users.id')
-    })
-
     await knex.schema.table('maha_shortlinks', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
@@ -3865,6 +3858,11 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_signins', table => {
+      table.foreign('account_id').references('maha_accounts.id')
+      table.foreign('device_id').references('maha_devices.id')
     })
 
 
@@ -6404,6 +6402,21 @@ union
       maha_imports.object_type
       from (maha_import_items
       join maha_imports on ((maha_imports.id = maha_import_items.import_id)));
+    `)
+
+    await knex.raw(`
+      create view maha_sessions AS
+      select maha_signins.id as signin_id,
+      maha_users.team_id,
+      maha_users.id as user_id,
+      maha_signins.device_id,
+      maha_signins.code,
+      maha_signins.is_active,
+      maha_signins.last_active_at,
+      maha_signins.created_at,
+      maha_signins.updated_at
+      from (maha_signins
+      join maha_users on ((maha_users.account_id = maha_signins.account_id)));
     `)
 
     await knex.raw(`
