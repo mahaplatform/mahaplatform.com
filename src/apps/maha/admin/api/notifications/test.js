@@ -1,6 +1,5 @@
 import { sendViaFirebase } from '@apps/maha/services/notifications/deliver'
 import { sendNotification } from '@apps/maha/services/notifications'
-import _ from 'lodash'
 
 const testRoute = async (req, res) => {
 
@@ -10,9 +9,8 @@ const testRoute = async (req, res) => {
       session: req.session,
       device: req.device,
       notification: {
-        title: req.body.title,
+        subject: req.body.subject,
         body: req.body.body,
-        code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
         route: req.body.route
       }
     })
@@ -20,9 +18,8 @@ const testRoute = async (req, res) => {
     await sendNotification(req, {
       user: req.user,
       notification: {
-        title: req.body.title,
+        subject: req.body.subject,
         body: req.body.body,
-        code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
         route: req.body.route
       }
     })

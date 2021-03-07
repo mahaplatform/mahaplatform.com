@@ -1,4 +1,4 @@
-import ChatNotificationQueue from '@apps/chat/queues/chat_notification_queue'
+import SendChatNotificationQueue from '@apps/chat/queues/send_chat_notification_queue'
 import MessageSerializer from '@apps/chat/serializers/message_serializer'
 import { whitelist } from '@core/services/routes/params'
 import socket from '@core/services/routes/emitter'
@@ -49,7 +49,7 @@ const createRoute = async (req, res) => {
     })
   })
 
-  await ChatNotificationQueue.enqueue(req, {
+  await SendChatNotificationQueue.enqueue(req, {
     message_id: message.get('id')
   })
 

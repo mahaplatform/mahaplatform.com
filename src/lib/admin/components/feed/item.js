@@ -23,9 +23,6 @@ class Item extends React.Component {
     if(object) __html = __html.replace(`${object.owner_full_name}'s`, `<span class="maha-feed-item-object">${object.owner_full_name}'s</span>`)
     __html = __html.replace(subject_text, `<span class="maha-feed-item-subject">${subject_text}</span>`)
     let classes = ['maha-feed-item', item.app.color]
-    if(context === 'feed' && item.is_visited === false) {
-      classes.push('unread')
-    }
     const color = item.app.color || 'blue'
     const icon = item.app.icon || 'user'
     return (
@@ -35,7 +32,7 @@ class Item extends React.Component {
         </div>
         <div className="maha-feed-item-details">
           <div className="maha-feed-item-story">
-            <span dangerouslySetInnerHTML={{ __html }} />
+            <strong>{ item.subject_text }</strong> <span dangerouslySetInnerHTML={{ __html }} />
             { item.team &&
               <div className="maha-feed-item-team">
                 <Logo team={ item.team } />
@@ -50,9 +47,11 @@ class Item extends React.Component {
             { this._formatRelativeTime(item.created_at) }
           </div>
         </div>
-        <div className="maha-feed-item-icon">
-          <i className="chevron right icon" />
-        </div>
+        { context === 'feed' && item.is_visited === false &&
+          <div className="maha-feed-item-icon">
+            <i className="fa fa-circle" />
+          </div>
+        }
       </a>
     )
   }

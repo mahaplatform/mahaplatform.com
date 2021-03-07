@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 const INITIAL_STATE = {
   account_status: 'pending',
   account: null,
@@ -65,7 +67,8 @@ export default (state = INITIAL_STATE, action) => {
   case 'FETCH_ACCOUNT_SUCCESS':
     return {
       ...state,
-      account: action.result.data,
+      account: _.omit(action.result.data, 'preferences'),
+      preferences: action.result.data.preferences,
       account_status: 'success'
     }
 

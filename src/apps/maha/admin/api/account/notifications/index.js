@@ -1,4 +1,3 @@
-import do_not_disturb from './do_not_disturb'
 import subscriptions from './subscriptions'
 import preferences from './preferences'
 import { Router } from 'express'
@@ -15,8 +14,6 @@ router.get('/types', types)
 router.post('/push', push)
 
 router.patch('/preferences', preferences)
-
-router.patch('/do_not_disturb', do_not_disturb)
 
 router.patch('/subscriptions', subscriptions)
 

@@ -122,7 +122,7 @@ class Notifications extends React.Component {
   _handlePlaySound(notification) {
     const { preferences } = this.props
     const sound = notification.sound || preferences.notification_sound || 'notification'
-    const audio = new Audio(`/admin/audio/${sound}.mp3`)
+    const audio = new Audio(`/audio/${sound}.mp3`)
     audio.play()
   }
 
@@ -155,6 +155,7 @@ class Notifications extends React.Component {
   }
 
   _handlePushDesktop(notification) {
+    console.log(notification)
     this.context.host.pushNotification(notification)
   }
 

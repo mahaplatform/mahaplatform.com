@@ -1,23 +1,11 @@
 const SessionSerializer = (req, session) => ({
   apps: session.apps,
-  preferences: {
-    notifications_enabled: session.user.get('notifications_enabled'),
-    in_app_notifications_enabled: session.user.get('in_app_notifications_enabled'),
-    notification_sound_enabled: session.user.get('notification_sound_enabled'),
-    notification_sound: session.user.get('notification_sound'),
-    push_notifications_enabled: session.user.get('in_app_notifications_enabled'),
-    email_notifications_method: session.user.get('email_notifications_method'),
-    mute_evenings: session.user.get('mute_evenings'),
-    mute_evenings_end_time: session.user.get('mute_evenings_end_time'),
-    mute_evenings_start_time: session.user.get('mute_evenings_start_time'),
-    mute_weekends: session.user.get('mute_weekends'),
-    notification_types: session.notification_types.map(type => ({
-      type: `${type.appcode}:${type.notificationcode}`,
-      inapp_enabled: type.inapp_enabled,
-      push_enabled: type.push_enabled,
-      email_enabled: type.email_enabled
-    }))
-  },
+  notification_types: session.notification_types.map(type => ({
+    type: `${type.appcode}:${type.notificationcode}`,
+    inapp_enabled: type.inapp_enabled,
+    push_enabled: type.push_enabled,
+    email_enabled: type.email_enabled
+  })),
   rights: session.access.rights,
   team: {
     id: session.team.get('id'),

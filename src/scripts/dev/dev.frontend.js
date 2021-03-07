@@ -44,7 +44,8 @@ const devserver = ({ name, config, port, options }) => {
   const server = new devServer(compiler, {
     https: {
       key: fs.readFileSync(path.join('keys','dev.mahaplatform.com.key')),
-      cert: fs.readFileSync(path.join('keys','dev.mahaplatform.com.crt'))
+      cert: fs.readFileSync(path.join('keys','dev.mahaplatform.com.crt')),
+      ca: fs.readFileSync(path.join('keys','digicert.pem'))
     },
     disableHostCheck: true,
     contentBase: path.resolve('src','public'),

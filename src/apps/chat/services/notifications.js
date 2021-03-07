@@ -8,7 +8,7 @@ export const sendChatNotification = async (req, { message_id }) => {
   const message = await Message.where({
     id: message_id
   }).fetch({
-    withRelated: ['user.photo'],
+    withRelated: ['team','user.photo'],
     transacting: req.trx
   })
 
@@ -29,11 +29,10 @@ export const sendChatNotification = async (req, { message_id }) => {
     await sendNotification(req, {
       user: subscription.related('user'),
       notification: {
-        title: `New Message from ${serialized.user.full_name}`,
         type: 'chat:message_received',
-        body: serialized.text,
+        body: `New Message from ${serialized.user.full_name}\n${serialized.text}`,
         route: `/${subscription.related('team').get('subdomain')}/chat/channels/${serialized.channel_id}`,
-        user: serialized.user,
+        subject: serialized.user,
         created_at: serialized.created_at
       }
     })

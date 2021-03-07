@@ -2,11 +2,11 @@ import NotificationSerializer from '@apps/maha/serializers/notification_serializ
 import socket from '@core/services/routes/emitter'
 import Notification from '@apps/maha/models/notification'
 
-const seenRoute = async (req, res) => {
+const visitedRoute = async (req, res) => {
 
   const notification = await Notification.query(qb => {
     qb.where('team_id', req.team.get('id'))
-    qb.where('maha_notifications.user_id', req.user.get('id'))
+    qb.where('user_id', req.user.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['subject.photo','app','story','object_owner','user'],
@@ -18,7 +18,7 @@ const seenRoute = async (req, res) => {
     message: 'Unable to find notification'
   })
 
-  await req.resource.save({
+  await notification.save({
     is_visited: true
   }, {
     patch: true,
@@ -34,4 +34,4 @@ const seenRoute = async (req, res) => {
 
 }
 
-export default seenRoute
+export default visitedRoute

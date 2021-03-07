@@ -115,7 +115,6 @@ class Browser extends React.Component {
 
   _handleMessage(e) {
     const message = e.data
-    console.log(message)
     if(message.action === 'pushRoute') {
       this._handlePushRoute(message.data.route)
     }
@@ -139,8 +138,8 @@ class Browser extends React.Component {
   }
 
   _handlePushNotification(notification) {
-    const title = notification.team.title
-    const image = notification.team.logo
+    const title = notification.title
+    const image = notification.image
     if(notification.sound) this._handlePlaySound(notification.sound)
     new Notification(title, {
       body: notification.body,

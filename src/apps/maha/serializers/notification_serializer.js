@@ -16,8 +16,6 @@ const notificationSerializer = (req, result) => {
 
   const description = []
 
-  if(subject_text) description.push(subject_text)
-
   description.push(story.replace('{object}', `${article_text}${object_text}`))
 
   return {

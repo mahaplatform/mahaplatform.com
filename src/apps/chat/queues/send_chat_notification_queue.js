@@ -9,10 +9,10 @@ const processor = async (req, job) => {
 
 }
 
-const ChatNotificationQueue = new Queue({
+const SendChatNotificationQueue = new Queue({
   queue: 'worker',
   name: 'chat_notification',
   processor
 })
 
-export default ChatNotificationQueue
+export default SendChatNotificationQueue

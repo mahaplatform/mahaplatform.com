@@ -1,5 +1,5 @@
 import formatObjectForTransport from '@core/utils/format_object_for_transport'
-import ChatNotificationQueue from '../queues/chat_notification_queue'
+import SendChatNotificationQueue from '../queues/send_chat_notification_queue'
 import { extractAttachments } from '@apps/maha/services/attachments'
 import ChannelSerializer from '../serializers/channel_serializer'
 import MessageSerializer from '../serializers/message_serializer'
@@ -166,7 +166,7 @@ export const sendMessage = async (req, params) => {
 
   })
 
-  await ChatNotificationQueue.enqueue(req, {
+  await SendChatNotificationQueue.enqueue(req, {
     message_id: message.get('id')
   })
 

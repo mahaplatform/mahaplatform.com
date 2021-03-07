@@ -12,9 +12,13 @@ import knex from '@core/vendor/knex/maha'
 // import PhoneNumber from '@apps/maha/models/phone_number'
 // import { upload } from '@core/services/aws/s3'
 
-import { executeEnrollment } from '@apps/automation/services/workflows'
-import Enrollment from '@apps/automation/models/workflow_enrollment'
-import Team from '@apps/maha/models/team'
+// import { executeEnrollment } from '@apps/automation/services/workflows'
+// import Enrollment from '@apps/automation/models/workflow_enrollment'
+// import Team from '@apps/maha/models/team'
+
+import * as notification from '@apps/maha/cron/send_digests_cron'
+
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0
 
 const processor = async () => {
 
@@ -96,24 +100,26 @@ const processor = async () => {
 
     const req = { trx }
 
-    req.team = await Team.query(qb => {
-      qb.where('id', 1)
-    }).fetch({
-      transacting: req.trx
-    })
-
-    const enrollment = await Enrollment.query(qb => {
-      qb.where('id', 133904)
-    }).fetch({
-      transacting: req.trx
-    })
-
-    const result = await executeEnrollment(req, {
-      enrollment_id: enrollment.get('id'),
-      state: 'steps.0'
-    })
-
-    console.log(result)
+    await notification.processor(req)
+    //
+    // req.team = await Team.query(qb => {
+    //   qb.where('id', 1)
+    // }).fetch({
+    //   transacting: req.trx
+    // })
+    //
+    // const enrollment = await Enrollment.query(qb => {
+    //   qb.where('id', 133904)
+    // }).fetch({
+    //   transacting: req.trx
+    // })
+    //
+    // const result = await executeEnrollment(req, {
+    //   enrollment_id: enrollment.get('id'),
+    //   state: 'steps.0'
+    // })
+    //
+    // console.log(result)
 
   })
 

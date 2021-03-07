@@ -24,7 +24,18 @@ const getAccount = async (req, { account_id, first_name, last_name, email }) => 
     first_name,
     last_name,
     email,
-    use_twofactor: false
+    use_twofactor: false,
+    preferences: {
+      notifications_enabled: true,
+      in_app_notifications_enabled: true,
+      notification_sound_enabled: true,
+      notification_sound: 'ding',
+      push_notifications_enabled: true,
+      mute_evenings: true,
+      mute_evenings_start_time: '18:00',
+      mute_evenings_end_time: '9:00',
+      mute_weekends: true
+    }
   }).save(null, {
     transacting: req.trx
   })
@@ -48,15 +59,6 @@ const createUser = async(req, params) => {
     email: account.get('email'),
     photo_id: account.get('photo_id'),
     is_active: true,
-    notifications_enabled: true,
-    in_app_notifications_enabled: true,
-    notification_sound_enabled: true,
-    notification_sound: 'ding',
-    push_notifications_enabled: true,
-    mute_evenings: true,
-    mute_evenings_start_time: '18:00',
-    mute_evenings_end_time: '9:00',
-    mute_weekends: true,
     values: {},
     ...whitelist(params, ['email_notifications_method','values'])
   }).save(null, {

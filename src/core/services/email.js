@@ -1,5 +1,4 @@
 import nodemailer from '../vendor/nodemailer'
-import htmlToText from 'html-email-to-text'
 import inline from 'inline-css'
 import moment from 'moment'
 
@@ -19,8 +18,7 @@ export const sendMail = async (email) => {
       to: process.env.EMAIL_REDIRECT || email.to,
       cc: email.cc ? (process.env.EMAIL_REDIRECT || email.cc) : null,
       bcc: email.bcc ? (process.env.EMAIL_REDIRECT || email.bcc) : null,
-      html,
-      text: htmlToText(email.html)
+      html
     }, async (err, info) => {
       if(err) reject(err)
       resolve(info)

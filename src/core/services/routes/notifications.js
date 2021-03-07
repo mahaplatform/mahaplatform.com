@@ -1,4 +1,4 @@
-import NotificationQueue from '@apps/maha/queues/notification_queue'
+import SendNotificationQueue from '@apps/maha/queues/send_notification_queue'
 import NotificationType from '@apps/maha/models/notification_type'
 import Notification from '@apps/maha/models/notification'
 import Story from '@apps/maha/models/story'
@@ -34,7 +34,7 @@ export const notifications = async (req, notifications) => {
         transacting: req.trx
       })
 
-      NotificationQueue.enqueue(req, {
+      SendNotificationQueue.enqueue(req, {
         id: notificationObject.get('id')
       })
 

@@ -13,13 +13,13 @@ class Status extends React.Component {
     value: true
   }
 
-  _handleChoose = this._handleChoose.bind(this)
+  _handleToggle = this._handleToggle.bind(this)
 
   render() {
     const { value } = this.state
     return (
       <div className="maha-preferences">
-        <div className="maha-preference" onClick={ this._handleChoose.bind(this, true) }>
+        <div className="maha-preference" onClick={ this._handleToggle }>
           <div className="maha-preference-icon">
             { value === true ?
               <i className="fa fa-check-circle" /> :
@@ -28,17 +28,6 @@ class Status extends React.Component {
           </div>
           <div className="maha-preference-label">
             Notifications are enabled
-          </div>
-        </div>
-        <div className="maha-preference" onClick={ this._handleChoose.bind(this, false) }>
-          <div className="maha-preference-icon">
-            { value === false ?
-              <i className="fa fa-check-circle" /> :
-              <i className="fa fa-circle-o" />
-            }
-          </div>
-          <div className="maha-preference-label">
-            Notifications are paused
           </div>
         </div>
       </div>
@@ -59,9 +48,10 @@ class Status extends React.Component {
     }
   }
 
-  _handleChoose(value) {
+  _handleToggle() {
+    const { value } = this.state
     this.setState({
-      value
+      value: !value
     })
   }
 

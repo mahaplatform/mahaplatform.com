@@ -1,91 +1,114 @@
-<table align="center" class="container intro">
-  <tbody>
-    <tr>
-      <td class="small-12 large-12 columns first last">
-        <p>Hi <%= first_name %>,</p>
-        <p>You missed the following <%= pluralize('notification', notifications.length) %>:</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<table align="center" class="container body-border float-center">
-  <tbody>
-    <tr>
-      <td>
-        <table class="row">
-          <tbody>
-            <tr>
-              <th class="small-12 large-12 columns first last notifications">
-                <table>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link href="https://dev.mahaplatform.com:8080/css/foundation-emails.min.css" rel="stylesheet" />
+    <title>Here&#39;s what you&#39;ve missed!</title>
+    <link href="https://dev.mahaplatform.com:8080/css/maha-emails.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <table class="body">
+      <tbody>
+        <tr>
+          <td class="float-center" align="center" valign="top">
+            <center>
+              <table class="spacer">
+                <tbody>
                   <tr>
-                    <th>
-                      <table align="center">
+                    <td height="16" style="font-size:16px;line-height:16px;">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table align="center" class="container float-center">
+                <tbody>
+                  <tr>
+                    <td>
+                      <table class="row notifications-header">
                         <tbody>
                           <tr>
-                            <td>
-                              <% notifications.map((notification, j) => { %>
-                                <div class="notification">
-                                  <table class="row">
-                                    <tbody>
-                                      <tr>
-                                        <td class="small-2 large-2 columns first">
-                                          <a href="<%= host %><%= notification.route %>">
-                                            <% if(notification.user && notification.user.photo) { %>
-                                              <img src="<%= host %>/imagecache/fit=cover&w=40&h=40&dpi=2<%= notification.user.photo -%>" />
-                                            <% } else { %>
-                                              <img src="<%= host %>/images/maha.png" />
-                                            <% } %>
+                            <td class="small-12 large-12 columns first last">
+                              <p>Hi <%= account.get('first_name') %>,</p>
+                              <p>You missed the following notifications yesterday:</p>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <% Object.values(teams).map(({ team, subjects }) => { %>
+                        <table>
+                          <tbody>
+                            <tr>
+                              <td class="large-12 columns first last notifications-team">
+                                <p class="text-center">
+                                  <%= team.get('title') %>
+                                </p>
+                              </td>
+                              <td class="expander"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <% Object.values(subjects).map(({ subject, notifications }) => { %>
+                          <table class="row notifications-subject">
+                            <tbody>
+                              <tr>
+                                <td class="small-2 large-1 columns first notifications-subject-avatar">
+                                  <% if(subject && subject.photo) { %>
+                                    <img width="30" height="30" alt="<%= subject.full_name %>" src="<%= host %>/imagecache/fit=cover&w=40&h=40&dpi=2<%= subject.photo -%>" />
+                                  <% } else { %>
+                                    <img width="30" height="30" src="<%= host %>/imagecache/fit=cover&w=40&h=40&dpi=2/images/maha.png" />
+                                  <% } %>
+                                </td>
+                                <td class="small-10 large-11 columns last notifications-subject-details">
+                                  <p><%= subject.full_name %></p>
+                                  <ul>
+                                    <% notifications.map((notification) => { %>
+                                      <li>
+                                        <span class="notifications-notification">
+                                          <a href="<%= host %><%= notification.url %>">
+                                            <%= notification.body %>
                                           </a>
-                                        </td>
-                                        <td class="small-9 large-9 columns">
-                                          <a href="<%= host %><%= notification.route %>">
-                                            <% if(notification.title !== undefined) { %>
-                                              <strong><%= notification.title %></strong><br />
-                                            <% } %>
-                                            <%= notification.body %><br />
-                                            <span class="timestamp"><%= moment(notification.created_at).format('MMM DD, YYYY @ h:mm a') -%></span>
-                                          </a>
-                                        </td>
-                                        <td class="small-1 large-1 columns last" align="right" valign="middle">
-                                          <a href="<%= host %><%= notification.route %>">
-                                            <img src="<%= host %>/images/chevron.jpg" />
-                                          </a>
-                                        </td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
-                              <% }) %>
+                                        </span>
+                                        <span class="notifications-timestamp">
+                                          <%= moment(notification.created_at).format('h:mmA') -%>
+                                        </span>
+                                      </li>
+                                    <% }) %>
+                                  </ul>
+                                </td>
+                                <td class="expander"></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        <% }) -%>
+                      <% }) -%>
+                      <table class="row notifications-footer">
+                        <tbody>
+                          <tr>
+                            <td class="small-12 large-12 columns first last">
+                              <p class="text-center">
+                                &copy; Copyright 2021 The Maha Platform. All rights Reserved.
+                              </p>
                             </td>
                           </tr>
                         </tbody>
                       </table>
-                    </th>
-                    <th class="expander"></th>
+                    </td>
                   </tr>
-                </table>
-              </th>
-            </tr>
-          </tbody>
-        </table>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<table align="center" class="container preferences">
-  <tbody>
-    <tr>
-      <td class="small-12 large-12 columns first last">
-        <% if(email_notifications_method === 'digest') { %>
-          You're receiving this email because you indicated that you'd like to
-          receive a daily digest of missed notifications.
-        <% } else if(email_notifications_method === 'ondemand') { %>
-          You're receiving this email because you indicated that you'd like to
-          receive an email each time you miss a notification.
-        <% } %>
-        You can <a href="<%= host %>/admin#preferences">adjust your notification preferences</a> at any time.
-      </td>
-    </tr>
-  </tbody>
-</table>
-<img src="<%= host %>/ns/<%= notifications.slice(0, 6).reduce((codes, notification) => `${codes}${notification.code}`, '') %>" />
+                </tbody>
+              </table>
+              <table class="spacer">
+                <tbody>
+                  <tr>
+                    <td height="16" style="font-size:16px;line-height:16px;">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </center>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+  <img src="<%= host %>/ns/<%= account.get('id') %>" />
+</html>

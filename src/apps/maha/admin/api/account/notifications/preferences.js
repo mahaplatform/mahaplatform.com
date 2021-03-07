@@ -4,14 +4,18 @@ import socket from '@core/services/routes/emitter'
 
 const preferencesRoute = async (req, res) => {
 
-  await req.user.save({
-    ...whitelist({
-      ...req.body,
-      ...req.body.sounds
-    }, ['in_app_notifications_enabled','notification_sound_enabled','notification_sound','push_notifications_enabled','email_notifications_method'])
+  await req.account.save({
+    preferences: {
+      ...req.account.get('preferences'),
+      ...whitelist({
+        ...req.body,
+        ...req.body.sounds,
+        ...req.body.mute
+      }, ['in_app_notifications_enabled','notification_sound_enabled','notification_sound','push_notifications_enabled','email_notifications_method','notifications_enabled','mute_evenings','mute_evenings_end_time','mute_evenings_start_time','mute_weekends'])
+    }
   }, {
-    patch: true,
-    transacting: req.trx
+    transacting: req.trx,
+    patch: true
   })
 
   await socket.message(req, {

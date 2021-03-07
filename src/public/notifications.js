@@ -56,7 +56,6 @@ const playSound = (sound) => {
 }
 
 messaging.onBackgroundMessage((payload) => {
-  console.log(payload)
   showNotification(payload.data)
   if(payload.data.sound) playSound(payload.data.sound)
 })

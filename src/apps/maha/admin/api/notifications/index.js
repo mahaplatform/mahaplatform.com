@@ -9,7 +9,7 @@ const router = new Router({ mergeParams: true })
 
 router.get('/', list)
 
-router.get('/:id/visited', visited)
+router.patch('/:id/visited', visited)
 
 router.get('/unread', unread)
 

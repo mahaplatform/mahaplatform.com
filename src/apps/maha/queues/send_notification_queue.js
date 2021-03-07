@@ -18,11 +18,10 @@ const processor = async (req, job) => {
     user: notification.related('user'),
     notification: {
       id: serialized.id,
-      title: 'New Notification',
       type: notification.get('type'),
       body: serialized.description,
       route: `/${notification.related('team').get('subdomain')}${serialized.url}`,
-      user: serialized.subject,
+      subject: serialized.subject,
       created_at: serialized.created_at
     }
   })
@@ -31,10 +30,10 @@ const processor = async (req, job) => {
 
 }
 
-const NotificationQueue = new Queue({
+const SendNotificationQueue = new Queue({
   queue: 'worker',
-  name: 'notification',
+  name: 'send_notification',
   processor
 })
 
-export default NotificationQueue
+export default SendNotificationQueue

@@ -24,17 +24,12 @@ class Notifications extends React.Component {
   }
 
   componentDidMount() {
-    const { network } = this.context
-    network.subscribe([
-      { target: '/admin/notifications', action: 'add', handler: this._handleRefresh }
-    ])
+    this._handleJoin()
+    this._handleSeen()
   }
 
   componentWillUnmount() {
-    const { network } = this.context
-    network.unsubscribe([
-      { target: '/admin/notifications', action: 'add', handler: this._handleRefresh }
-    ])
+    this._handleLeave()
   }
 
   _getInfinite() {
@@ -61,9 +56,30 @@ class Notifications extends React.Component {
     router.history.push(notification.url)
   }
 
+  _handleJoin() {
+    this.context.network.subscribe([
+      { target: '/admin/notifications', action: 'refresh', handler: this._handleRefresh }
+    ])
+  }
+
+  _handleLeave() {
+    this.context.network.unsubscribe([
+      { target: '/admin/notifications', action: 'refresh', handler: this._handleRefresh }
+    ])
+  }
+
   _handleRefresh() {
     this.setState({
       cacheKey: _.random(100000, 999999).toString(36)
+    })
+  }
+
+  _handleSeen() {
+    this.context.network.request({
+      endpoint: '/api/admin/notifications/seen',
+      method: 'patch',
+      onSuccess: () => {},
+      onFailure: () => {}
     })
   }
 

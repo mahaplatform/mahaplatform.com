@@ -1401,6 +1401,7 @@ const schema = {
       table.timestamp('reset_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.jsonb('preferences')
     })
 
     await knex.schema.createTable('maha_accounts_features', (table) => {
@@ -2169,18 +2170,8 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.jsonb('values').defaultsTo('{}')
-      table.boolean('notifications_enabled').defaultsTo(false)
-      table.boolean('in_app_notifications_enabled').defaultsTo(false)
-      table.boolean('notification_sound_enabled').defaultsTo(false)
-      table.boolean('push_notifications_enabled').defaultsTo(false)
-      table.boolean('mute_evenings').defaultsTo(false)
-      table.time('mute_evenings_end_time')
-      table.time('mute_evenings_start_time')
-      table.boolean('mute_weekends').defaultsTo(false)
       table.integer('user_type_id').unsigned()
       table.string('cell_phone', 255)
-      table.USER-DEFINED('email_notifications_method')
-      table.USER-DEFINED('notification_sound')
       table.integer('account_id').unsigned()
     })
 

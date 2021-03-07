@@ -92,9 +92,11 @@ class Admin extends React.Component {
       if(user === null) {
         this._handleLeave(prevProps.account, prevProps.team, prevProps.user)
       } else {
-        this._handleJoin(account, team, user)
         this._handleLoggerLogin(user)
         this._handleRedirectToSaved()
+        setTimeout(() => {
+          this._handleJoin(account, team, user)
+        }, 100)
       }
     }
   }

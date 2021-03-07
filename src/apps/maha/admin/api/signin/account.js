@@ -1,6 +1,7 @@
+import AccountSerializer from '@apps/maha/serializers/account_serializer'
 import { createUserToken } from '@core/utils/user_tokens'
-import { decode } from '@core/services/jwt'
 import Account from '@apps/maha/models/account'
+import { decode } from '@core/services/jwt'
 
 const getToken = (req) => {
   if(req.query.token) return req.query.token
@@ -43,19 +44,9 @@ const accountRoute = async (req, res, next) => {
     message: 'Invalid account'
   })
 
-  res.status(200).respond({
-    id: account.get('id'),
-    full_name: account.get('full_name'),
-    initials: account.get('initials'),
-    email: account.get('email'),
-    photo: account.related('photo') ? account.related('photo').get('path') : null,
-    authentication_strategy: account.get('authentication_strategy'),
-    features: account.related('features').map(feature => feature.get('title')),
-    use_twofactor: account.get('use_twofactor'),
-    is_blocked: account.get('is_blocked'),
-    locked_out_at: account.get('locked_out_at'),
-    token: createUserToken(account, 'account_id')
-  })
+  account.set('token', createUserToken(account, 'account_id'))
+
+  res.status(200).respond(account, AccountSerializer)
 
 }
 

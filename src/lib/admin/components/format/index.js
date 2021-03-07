@@ -105,11 +105,16 @@ const Status = (props) => {
   return props.value ? <span className={ props.value.toLowerCase() }>{ props.value.toUpperCase() }</span> : <span />
 }
 
-const Check = (props, times) => {
-  if(props.value === true) return <i className="icon green check" />
-  if(times && props.value === false) return <i className="icon red remove" />
-  return <span />
-}
+const Check = (props, times) => (
+  <span className="checktimes">
+    { props.value === true &&
+      <i className="fa fa-check" />
+    }
+    { times && props.value === false&&
+      <i className="fa fa-times" />
+    }
+  </span>
+)
 
 const YesNo = (props) => {
   if(props.value === false) return <span className="no">NO</span>
