@@ -30,8 +30,8 @@ export const sendChatNotification = async (req, { message_id }) => {
       user: subscription.related('user'),
       notification: {
         type: 'chat:message_received',
-        body: `New Message from ${serialized.user.full_name}\n${serialized.text}`,
-        route: `/${subscription.related('team').get('subdomain')}/chat/channels/${serialized.channel_id}`,
+        body: `said ${serialized.text}`,
+        route: `/chat/channels/${serialized.channel_id}`,
         subject: serialized.user,
         created_at: serialized.created_at
       }

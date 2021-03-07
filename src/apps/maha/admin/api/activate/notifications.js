@@ -1,5 +1,5 @@
+import { getAccountToken } from '@apps/maha/services/accounts'
 import { activity } from '@core/services/routes/activities'
-import { createUserToken } from '@core/utils/user_tokens'
 import { validate } from '@core/utils/validation'
 import moment from 'moment'
 
@@ -43,8 +43,8 @@ const notificationsRoute = async (req, res) => {
       initials: req.account.get('initials'),
       email: req.account.get('email'),
       photo: req.account.related('photo') ? req.account.related('photo').get('path') : null,
-      token: createUserToken({
-        account_id: req.account.get('id')
+      token: getAccountToken(req, {
+        account_id: req.account
       })
     }
   })

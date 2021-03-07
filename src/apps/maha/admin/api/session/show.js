@@ -54,8 +54,7 @@ const showRoute = async (req, res) => {
   }
 
   session.token = createUserToken({
-    user_id: req.user.get('id'),
-    signin_id: req.signin.get('id')
+    user_id: req.user.get('id')
   })
 
   session.notification_types = await req.trx('maha_users_notification_types')

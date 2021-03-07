@@ -11,12 +11,14 @@ const serialize = (req, { notification, preferences, team }) => ({
   code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
   sound: preferences.notification_sound_enabled ? preferences.notification_sound : null,
   subject: notification.subject,
-  route: `${team.get('subdomain')}${notification.route}`
+  route: `/${team.get('subdomain')}${notification.route}`
 })
 
 const deliver = async (req, params) => {
 
   const { account, instructions, team, user } = params
+
+  console.log(instructions)
 
   const preferences = account.get('preferences')
 
@@ -26,23 +28,22 @@ const deliver = async (req, params) => {
     team
   })
 
-  console.log(notification)
-
   if(instructions.socket.length > 0) {
-    await Promise.map(instructions.socket, async (session) => {
+    await Promise.map(instructions.socket, async (signin) => {
       await sendViaSocket(req, {
         account,
-        notification
+        notification,
+        signin
       })
     })
   }
 
   if(instructions.firebase.length > 0) {
-    await Promise.map(instructions.firebase, async (session) => {
+    await Promise.map(instructions.firebase, async (signin) => {
       await sendViaFirebase(req, {
         account,
         notification,
-        session,
+        signin,
         team,
         user
       })
@@ -77,8 +78,8 @@ const sendViaSocket = async (req, { account, notification }) => {
   })
 }
 
-export const sendViaFirebase = async (req, { account, notification, session, team, user }) => {
-  const device = session.related('device')
+export const sendViaFirebase = async (req, { account, notification, signin, team, user }) => {
+  const device = signin.related('device')
   const { title, body, code, route, sound } = notification
   const platform = device.related('platform_type').get('text')
   try {
@@ -102,7 +103,7 @@ export const sendViaFirebase = async (req, { account, notification, session, tea
   } catch(err) {
     if(err.errorInfo && err.errorInfo.code !== 'messaging/registration-token-not-registered') return
     await disablePush(req, {
-      session,
+      signin,
       device
     })
   }

@@ -40,7 +40,6 @@ class Presence extends React.Component {
   componentDidUpdate(prevProps) {
     const { account } = this.props
     if(!_.isEqual(account, prevProps.account)) {
-      console.log(account, prevProps.account)
       if(account !== null) this._handleSignin()
       if(account === null) this._handleSignout()
     }
@@ -78,7 +77,7 @@ class Presence extends React.Component {
 
   _handlePresence(presence) {
     const { account } = this.props
-    if(!account.signin_id) return this.props.onSetPresence(presence)
+    if(!account) return this.props.onSetPresence(presence)
     const found = presence.find(presence => presence.signin_id === account.signin_id)
     if(!found) this._handleSignin()
     this.props.onSetPresence(presence)

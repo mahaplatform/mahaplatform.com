@@ -1,4 +1,4 @@
-import { createUserToken } from '@core/utils/user_tokens'
+import { getAccountToken } from '@apps/maha/services/accounts'
 import moment from 'moment'
 
 const passwordRoute = async (req, res, next) => {
@@ -23,12 +23,10 @@ const passwordRoute = async (req, res, next) => {
     transacting: req.trx
   })
 
-  const token = createUserToken({
-    account_id: req.account.get('id')
-  })
-
   res.status(200).respond({
-    token
+    token: getAccountToken(req, {
+      account: req.account
+    })
   })
 
 }

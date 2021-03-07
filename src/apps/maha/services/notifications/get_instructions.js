@@ -1,11 +1,11 @@
 import { getPresence } from '@core/services/presence'
-import Session from '@apps/maha/models/session'
+import Signin from '@apps/maha/models/signin'
 import moment from 'moment'
 
 const getInstructions = async (req, { account, user }) => {
 
-  const sessions = await Session.query(qb => {
-    qb.where('user_id', user.get('id'))
+  const signins = await Signin.query(qb => {
+    qb.where('account_id', account.get('id'))
     qb.whereRaw('last_active_at > ?', moment().subtract(2, 'weeks'))
     qb.orderBy('last_active_at')
   }).fetchAll({
@@ -15,27 +15,27 @@ const getInstructions = async (req, { account, user }) => {
 
   const presences = await Promise.reduce(await getPresence(), async (presences, presence) => ({
     ...presences,
-    [presence.session_id]: presence
+    [presence.signin_id]: presence
   }), {})
 
-  const sessions_with_activity = sessions.toArray().map(session => {
-    const presence = presences[session.get('id')]
-    session.status = presence ? presence.status : null
-    session.last_active_at = presence ? presence.last_active_at : session.get('last_active_at')
-    return session
+  const signins_with_activity = signins.toArray().map(signin => {
+    const presence = presences[signin.get('id')]
+    signin.status = presence ? presence.status : null
+    signin.last_active_at = presence ? presence.last_active_at : signin.get('last_active_at')
+    return signin
   })
 
   const is_muted = getMuted(req, {
     account
   })
 
-  return await Promise.reduce(sessions_with_activity, async (results, session) => {
-    const strategy = getNotificationStrategy({ account, user, session, is_muted })
+  return await Promise.reduce(signins_with_activity, async (results, signin) => {
+    const strategy = getNotificationStrategy({ account, user, signin, is_muted })
     return {
       ...results,
       [strategy]: [
         ...results[strategy],
-        session
+        signin
       ],
       total: results.total + (strategy !== 'email' ? 1 : 0)
     }
@@ -43,24 +43,24 @@ const getInstructions = async (req, { account, user }) => {
 
 }
 
-const getNotificationStrategy = ({ account, user, session, muted }) => {
+const getNotificationStrategy = ({ account, user, signin, muted }) => {
 
   if(muted) return 'email'
 
   const preferences = account.get('preferences')
 
-  const device = session.related('device')
+  const device = signin.related('device')
 
   const platform = device.related('platform_type').get('text')
 
-  // is the session signed in?
-  if(!session.get('is_active')) return 'email'
+  // is the signin signed in?
+  if(!signin.get('is_active')) return 'email'
 
   // is this active or absent desktop device
-  if(platform !== 'cordova' && session.status !== null) return 'socket'
+  if(platform !== 'cordova' && signin.status !== null) return 'socket'
 
-  // is this and active mobile session
-  if(platform === 'cordova' && session.status === 'active') return 'socket'
+  // is this and active mobile signin
+  if(platform === 'cordova' && signin.status === 'active') return 'socket'
 
   // is push enabled for this user?
   if(device.get('push_token') && preferences.push_notifications_enabled) return 'firebase'

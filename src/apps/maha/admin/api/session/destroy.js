@@ -1,15 +1,20 @@
-import Session from '@apps/maha/models/session'
+import Signin from '@apps/maha/models/signin'
 
 const destroyRoute = async (req, res) => {
 
-  const session = await Session.where({
-    device_id: req.device.get('id'),
-    user_id: req.user.get('id')
-  }).fetch({ transacting: req.trx })
+  const signin = await Signin.where({
+    account_id: req.account.get('id'),
+    device_id: req.device.get('id')
+  }).fetch({
+    transacting: req.trx
+  })
 
-  await session.save({
+  await signin.save({
     is_active: false
-  }, { patch: true, transacting: req.trx })
+  }, {
+    transacting: req.trx,
+    patch: true
+  })
 
   res.status(200).respond({
     team_id: req.team.get('id')
