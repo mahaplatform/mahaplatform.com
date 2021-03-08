@@ -65,7 +65,7 @@ class Program extends React.Component {
         { label: 'Lists', content: lists.length > 0 ? lists.map(list => list.title).join(', ') : '' },
         { label: 'Topics', content: topics.length > 0 ? topics.map(topic => topic.title).join(', ') : '' },
         ...fields.map(field => ({
-          label: field.label,
+          label: field.name.value,
           content: <Content data={ contact.values } field={ field } />
         }))
       ]

@@ -20,7 +20,7 @@ const getSignin = async (req, { account, device }) => {
   })
 
   const newsignin = await Signin.forge({
-    device_id: req.device.get('id'),
+    device_id: device.get('id'),
     account_id: account.get('id'),
     is_active: true,
     code,

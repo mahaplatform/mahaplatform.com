@@ -3996,6 +3996,7 @@ union
       from ((crm_programs
       join crm_email_addresses on ((crm_email_addresses.team_id = crm_programs.team_id)))
       left join crm_consents on (((crm_consents.email_address_id = crm_email_addresses.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'email'::crm_consent_type))))
+      where (crm_email_addresses.deleted_at is null)
       union
       select 2 as priority,
       crm_programs.team_id,
@@ -4016,6 +4017,7 @@ union
       from ((crm_programs
       join crm_phone_numbers on ((crm_phone_numbers.team_id = crm_programs.team_id)))
       left join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'sms'::crm_consent_type))))
+      where (crm_phone_numbers.deleted_at is null)
       union
       select 3 as priority,
       crm_programs.team_id,
@@ -4036,6 +4038,7 @@ union
       from ((crm_programs
       join crm_phone_numbers on ((crm_phone_numbers.team_id = crm_programs.team_id)))
       left join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'voice'::crm_consent_type))))
+      where (crm_phone_numbers.deleted_at is null)
       union
       select 4 as priority,
       crm_programs.team_id,
@@ -4055,7 +4058,8 @@ union
       ((crm_consents.id is not null) and (crm_consents.optedout_at is null)) as has_consented
       from ((crm_programs
       join crm_mailing_addresses on ((crm_mailing_addresses.team_id = crm_programs.team_id)))
-      left join crm_consents on (((crm_consents.mailing_address_id = crm_mailing_addresses.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'mail'::crm_consent_type))))) crm_channels
+      left join crm_consents on (((crm_consents.mailing_address_id = crm_mailing_addresses.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'mail'::crm_consent_type))))
+      where (crm_mailing_addresses.deleted_at is null)) crm_channels
       order by crm_channels.priority;
     `)
 
@@ -4346,6 +4350,34 @@ union
     `)
 
     await knex.raw(`
+      create view crm_email_recipients AS
+      select distinct on (crm_email_addresses.id, crm_consents.program_id) 'marketing'::text as purpose,
+      crm_email_addresses.team_id,
+      crm_contacts.id as contact_id,
+      crm_email_addresses.id as email_address_id,
+      null::integer as phone_number_id,
+      null::integer as mailing_address_id,
+      crm_consents.program_id,
+      crm_contacts.photo_id
+      from ((crm_email_addresses
+      join crm_contacts on ((crm_contacts.id = crm_email_addresses.contact_id)))
+      join crm_consents on (((crm_consents.email_address_id = crm_email_addresses.id) and (crm_consents.type = 'email'::crm_consent_type))))
+      where ((crm_email_addresses.deleted_at is null) and crm_email_addresses.is_valid)
+union
+      select distinct on (crm_email_addresses.id) 'transactional'::text as purpose,
+      crm_email_addresses.team_id,
+      crm_email_addresses.contact_id,
+      crm_email_addresses.id as email_address_id,
+      null::integer as phone_number_id,
+      null::integer as mailing_address_id,
+      null::integer as program_id,
+      crm_contacts.photo_id
+      from ((crm_email_addresses
+      join crm_contact_primaries on ((crm_contact_primaries.email_id = crm_email_addresses.id)))
+      join crm_contacts on ((crm_contacts.id = crm_contact_primaries.contact_id)));
+    `)
+
+    await knex.raw(`
       create view crm_email_results AS
       with sent as (
       select maha_emails.email_id,
@@ -4627,6 +4659,34 @@ union
     `)
 
     await knex.raw(`
+      create view crm_mail_recipients AS
+      select distinct on (crm_mailing_addresses.id, crm_consents.program_id) 'marketing'::text as purpose,
+      crm_mailing_addresses.team_id,
+      crm_contacts.id as contact_id,
+      null::integer as email_address_id,
+      null::integer as phone_number_id,
+      crm_mailing_addresses.id as mailing_address_id,
+      crm_consents.program_id,
+      crm_contacts.photo_id
+      from ((crm_mailing_addresses
+      join crm_contacts on ((crm_contacts.id = crm_mailing_addresses.contact_id)))
+      join crm_consents on (((crm_consents.email_address_id = crm_mailing_addresses.id) and (crm_consents.type = 'mail'::crm_consent_type))))
+      where (crm_mailing_addresses.deleted_at is null)
+union
+      select distinct on (crm_mailing_addresses.id) 'transactional'::text as purpose,
+      crm_mailing_addresses.team_id,
+      crm_contacts.id as contact_id,
+      null::integer as email_address_id,
+      null::integer as phone_number_id,
+      crm_mailing_addresses.id as mailing_address_id,
+      null::integer as program_id,
+      crm_contacts.photo_id
+      from ((crm_mailing_addresses
+      join crm_contact_primaries on ((crm_contact_primaries.address_id = crm_mailing_addresses.id)))
+      join crm_contacts on ((crm_contacts.id = crm_contact_primaries.contact_id)));
+    `)
+
+    await knex.raw(`
       create view crm_program_receipts AS
       with recipients as (
       select distinct on (maha_smses.program_id, maha_smses.phone_number_id) crm_phone_numbers.contact_id,
@@ -4763,30 +4823,6 @@ union
 
     await knex.raw(`
       create view crm_recipients AS
-      select 'all'::text as type,
-      'marketing'::text as purpose,
-      crm_contacts.team_id,
-      crm_contacts.id as contact_id,
-      null::integer as email_address_id,
-      null::integer as phone_number_id,
-      null::integer as mailing_address_id,
-      crm_programs.id as program_id,
-      crm_contacts.photo_id
-      from (crm_contacts
-      cross join crm_programs)
-union
-      select 'all'::text as type,
-      'transactional'::text as purpose,
-      crm_contacts.team_id,
-      crm_contacts.id as contact_id,
-      null::integer as email_address_id,
-      null::integer as phone_number_id,
-      null::integer as mailing_address_id,
-      crm_programs.id as program_id,
-      crm_contacts.photo_id
-      from (crm_contacts
-      cross join crm_programs)
-union
       select 'email'::text as type,
       'marketing'::text as purpose,
       crm_email_addresses.team_id,
@@ -4799,20 +4835,19 @@ union
       from ((crm_email_addresses
       join crm_contacts on ((crm_contacts.id = crm_email_addresses.contact_id)))
       join crm_consents on (((crm_consents.email_address_id = crm_email_addresses.id) and (crm_consents.type = 'email'::crm_consent_type))))
-      where ((crm_email_addresses.deleted_at is null) and crm_email_addresses.is_valid)
 union
       select 'email'::text as type,
       'transactional'::text as purpose,
       crm_email_addresses.team_id,
-      crm_email_addresses.contact_id,
+      crm_contacts.id as contact_id,
       crm_email_addresses.id as email_address_id,
       null::integer as phone_number_id,
       null::integer as mailing_address_id,
       null::integer as program_id,
       crm_contacts.photo_id
-      from ((crm_email_addresses
-      join crm_contact_primaries on ((crm_contact_primaries.email_id = crm_email_addresses.id)))
-      join crm_contacts on ((crm_contacts.id = crm_contact_primaries.contact_id)))
+      from (crm_email_addresses
+      join crm_contacts on ((crm_contacts.id = crm_email_addresses.contact_id)))
+      where crm_email_addresses.is_primary
 union
       select 'sms'::text as type,
       'marketing'::text as purpose,
@@ -4825,8 +4860,7 @@ union
       crm_contacts.photo_id
       from ((crm_phone_numbers
       join crm_contacts on ((crm_contacts.id = crm_phone_numbers.contact_id)))
-      join crm_consents on (((crm_consents.email_address_id = crm_phone_numbers.id) and (crm_consents.type = 'sms'::crm_consent_type))))
-      where ((crm_phone_numbers.deleted_at is null) and (crm_phone_numbers.can_text = true))
+      join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.type = 'sms'::crm_consent_type))))
 union
       select 'sms'::text as type,
       'transactional'::text as purpose,
@@ -4837,9 +4871,9 @@ union
       null::integer as mailing_address_id,
       null::integer as program_id,
       crm_contacts.photo_id
-      from ((crm_phone_numbers
-      join crm_contact_primaries on ((crm_contact_primaries.cell_phone_id = crm_phone_numbers.id)))
-      join crm_contacts on ((crm_contacts.id = crm_contact_primaries.contact_id)))
+      from (crm_phone_numbers
+      join crm_contacts on ((crm_contacts.id = crm_phone_numbers.contact_id)))
+      where crm_phone_numbers.is_primary
 union
       select 'voice'::text as type,
       'marketing'::text as purpose,
@@ -4852,8 +4886,7 @@ union
       crm_contacts.photo_id
       from ((crm_phone_numbers
       join crm_contacts on ((crm_contacts.id = crm_phone_numbers.contact_id)))
-      join crm_consents on (((crm_consents.email_address_id = crm_phone_numbers.id) and (crm_consents.type = 'voice'::crm_consent_type))))
-      where (crm_phone_numbers.deleted_at is null)
+      join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.type = 'voice'::crm_consent_type))))
 union
       select 'voice'::text as type,
       'transactional'::text as purpose,
@@ -4864,9 +4897,9 @@ union
       null::integer as mailing_address_id,
       null::integer as program_id,
       crm_contacts.photo_id
-      from ((crm_phone_numbers
-      join crm_contact_primaries on ((crm_contact_primaries.phone_id = crm_phone_numbers.id)))
-      join crm_contacts on ((crm_contacts.id = crm_contact_primaries.contact_id)))
+      from (crm_phone_numbers
+      join crm_contacts on ((crm_contacts.id = crm_phone_numbers.contact_id)))
+      where crm_phone_numbers.is_primary
 union
       select 'mail'::text as type,
       'marketing'::text as purpose,
@@ -4879,8 +4912,7 @@ union
       crm_contacts.photo_id
       from ((crm_mailing_addresses
       join crm_contacts on ((crm_contacts.id = crm_mailing_addresses.contact_id)))
-      join crm_consents on (((crm_consents.email_address_id = crm_mailing_addresses.id) and (crm_consents.type = 'mail'::crm_consent_type))))
-      where (crm_mailing_addresses.deleted_at is null)
+      join crm_consents on (((crm_consents.mailing_address_id = crm_mailing_addresses.id) and (crm_consents.type = 'mail'::crm_consent_type))))
 union
       select 'mail'::text as type,
       'transactional'::text as purpose,
@@ -4891,9 +4923,31 @@ union
       crm_mailing_addresses.id as mailing_address_id,
       null::integer as program_id,
       crm_contacts.photo_id
-      from ((crm_mailing_addresses
-      join crm_contact_primaries on ((crm_contact_primaries.address_id = crm_mailing_addresses.id)))
-      join crm_contacts on ((crm_contacts.id = crm_contact_primaries.contact_id)));
+      from (crm_mailing_addresses
+      join crm_contacts on ((crm_contacts.id = crm_mailing_addresses.contact_id)))
+      where crm_mailing_addresses.is_primary
+union
+      select 'all'::text as type,
+      'transactional'::text as purpose,
+      crm_contacts.team_id,
+      crm_contacts.id as contact_id,
+      null::integer as email_address_id,
+      null::integer as phone_number_id,
+      null::integer as mailing_address_id,
+      null::integer as program_id,
+      crm_contacts.photo_id
+      from crm_contacts
+union
+      select 'all'::text as type,
+      'marketing'::text as purpose,
+      crm_contacts.team_id,
+      crm_contacts.id as contact_id,
+      null::integer as email_address_id,
+      null::integer as phone_number_id,
+      null::integer as mailing_address_id,
+      null::integer as program_id,
+      crm_contacts.photo_id
+      from crm_contacts;
     `)
 
     await knex.raw(`
@@ -5041,6 +5095,34 @@ union
     `)
 
     await knex.raw(`
+      create view crm_sms_recipients AS
+      select distinct on (crm_phone_numbers.id, crm_consents.program_id) 'marketing'::text as purpose,
+      crm_phone_numbers.team_id,
+      crm_contacts.id as contact_id,
+      null::integer as email_address_id,
+      crm_phone_numbers.id as phone_number_id,
+      null::integer as mailing_address_id,
+      crm_consents.program_id,
+      crm_contacts.photo_id
+      from ((crm_phone_numbers
+      join crm_contacts on ((crm_contacts.id = crm_phone_numbers.contact_id)))
+      join crm_consents on (((crm_consents.email_address_id = crm_phone_numbers.id) and (crm_consents.type = 'sms'::crm_consent_type))))
+      where ((crm_phone_numbers.deleted_at is null) and (crm_phone_numbers.can_text = true))
+union
+      select distinct on (crm_phone_numbers.id) 'transactional'::text as purpose,
+      crm_phone_numbers.team_id,
+      crm_contacts.id as contact_id,
+      null::integer as email_address_id,
+      crm_phone_numbers.id as phone_number_id,
+      null::integer as mailing_address_id,
+      null::integer as program_id,
+      crm_contacts.photo_id
+      from ((crm_phone_numbers
+      join crm_contact_primaries on ((crm_contact_primaries.cell_phone_id = crm_phone_numbers.id)))
+      join crm_contacts on ((crm_contacts.id = crm_contact_primaries.contact_id)));
+    `)
+
+    await knex.raw(`
       create view crm_subscription_counts AS
       select crm_lists.id as list_id,
       (count(crm_subscriptions.*))::integer as subscription_count
@@ -5119,6 +5201,34 @@ union
       left join answering_machines on ((answering_machines.voice_campaign_id = crm_voice_campaigns.id)))
       left join converted on ((converted.voice_campaign_id = crm_voice_campaigns.id)))
       left join completed on ((completed.voice_campaign_id = crm_voice_campaigns.id)));
+    `)
+
+    await knex.raw(`
+      create view crm_voice_recipients AS
+      select distinct on (crm_phone_numbers.id, crm_consents.program_id) 'marketing'::text as purpose,
+      crm_phone_numbers.team_id,
+      crm_contacts.id as contact_id,
+      null::integer as email_address_id,
+      crm_phone_numbers.id as phone_number_id,
+      null::integer as mailing_address_id,
+      crm_consents.program_id,
+      crm_contacts.photo_id
+      from ((crm_phone_numbers
+      join crm_contacts on ((crm_contacts.id = crm_phone_numbers.contact_id)))
+      join crm_consents on (((crm_consents.email_address_id = crm_phone_numbers.id) and (crm_consents.type = 'voice'::crm_consent_type))))
+      where (crm_phone_numbers.deleted_at is null)
+union
+      select distinct on (crm_phone_numbers.id) 'transactional'::text as purpose,
+      crm_phone_numbers.team_id,
+      crm_contacts.id as contact_id,
+      null::integer as email_address_id,
+      crm_phone_numbers.id as phone_number_id,
+      null::integer as mailing_address_id,
+      null::integer as program_id,
+      crm_contacts.photo_id
+      from ((crm_phone_numbers
+      join crm_contact_primaries on ((crm_contact_primaries.phone_id = crm_phone_numbers.id)))
+      join crm_contacts on ((crm_contacts.id = crm_contact_primaries.contact_id)));
     `)
 
     await knex.raw(`
