@@ -13,8 +13,10 @@ const propertyStep = async (req, { config, contact, state, step }) => {
 
   return {
     action: {
-      key: name,
-      value
+      data: {
+        key: name,
+        value
+      }
     },
     next: getNext(req, { config, state })
   }
