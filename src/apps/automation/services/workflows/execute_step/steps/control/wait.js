@@ -18,9 +18,9 @@ const waitStep = async (req, { config, state, step }) => {
 
   return {
     action: {
-      waited_until: until,
       data: { until }
     },
+    until,
     next: getNext(req, { config, state })
   }
 }
