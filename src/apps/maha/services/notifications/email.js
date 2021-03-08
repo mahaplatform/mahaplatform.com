@@ -13,6 +13,7 @@ export const sendNotificationEmail = async (req, { digest }) => {
     to: digest.account.get('rfc822'),
     subject: 'Here\'s what you\'ve missed!',
     html: ejs.render(messageTemplate, {
+      subject: 'Here\'s what you\'ve missed!',
       account: digest.account,
       host: process.env.WEB_HOST,
       teams: digest.teams,
