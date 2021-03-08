@@ -27,15 +27,6 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await Promise.map(device.related('sessions').toArray(), async (session) => {
-
-    await socket.message(req, {
-      channel: `/admin/users/${session.get('user_id')}`,
-      action: 'session'
-    })
-
-  })
-
   res.status(200).respond(true)
 
 }

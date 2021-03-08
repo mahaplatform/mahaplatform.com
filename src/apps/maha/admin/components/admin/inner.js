@@ -140,7 +140,6 @@ class Admin extends React.Component {
   }
 
   _handleFetchAccount() {
-    console.log('here')
     const { account } = this.props
     this.props.onFetchAccount(account.token)
   }

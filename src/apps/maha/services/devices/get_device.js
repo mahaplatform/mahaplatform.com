@@ -6,7 +6,6 @@ import getDeviceName from './get_device_name'
 import UAParser from 'ua-parser-js'
 
 export const findOrCreateDeviceValueId = async (req, type, text) => {
-  console.log({ type, text })
   const value = await DeviceValue.fetchOrCreate({
     type,
     text
