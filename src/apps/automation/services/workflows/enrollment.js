@@ -93,6 +93,9 @@ export const enrollInWorkflow = async (req, { contact, workflow, email, response
   }
 
   await ExecuteEnrollmentQueue.enqueue(req, {
+    workflow_id: enrollment.get('workflow_id'),
+    sms_campaign_id: enrollment.get('sms_campaign_id'),
+    voice_campaign_id: enrollment.get('voice_campaign_id'),
     enrollment_id: enrollment.get('id')
   })
 

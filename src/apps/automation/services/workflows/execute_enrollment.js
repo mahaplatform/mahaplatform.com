@@ -54,6 +54,9 @@ const executeEnrollment = async (req, { enrollment_id, state }) => {
     }
 
     await ExecuteEnrollmentQueue.enqueue(req, {
+      workflow_id: enrollment.get('workflow_id'),
+      sms_campaign_id: enrollment.get('sms_campaign_id'),
+      voice_campaign_id: enrollment.get('voice_campaign_id'),
       enrollment_id: enrollment.get('id'),
       state: enrollment.get('next')
     }, {
