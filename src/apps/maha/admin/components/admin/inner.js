@@ -41,8 +41,8 @@ class Admin extends React.Component {
   }
 
   _handleChooseTeam = this._handleChooseTeam.bind(this)
-  _handleFetchSession = this._handleFetchSession.bind(this)
-  _handleFetchAccount = this._handleFetchAccount.bind(this)
+  _handleFetchSession = _.debounce(this._handleFetchSession.bind(this), 250)
+  _handleFetchAccount = _.debounce(this._handleFetchAccount.bind(this), 250)
   _handleForceSignout = this._handleForceSignout.bind(this)
   _handleJoin = this._handleJoin.bind(this)
   _handleLeave = this._handleLeave.bind(this)
