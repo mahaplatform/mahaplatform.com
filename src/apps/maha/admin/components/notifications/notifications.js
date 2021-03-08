@@ -139,12 +139,14 @@ class Notifications extends React.Component {
     const { push_notifications_enabled, in_app_notifications_enabled, notification_sound_enabled, notification_types } = preferences
     const hasFocus = host.hasFocus()
     const notification_type = _.find(notification_types, { type: notification.type })
-    const inapp_enabled = !notification_type || notification_type.inapp_enabled
-    const push_enabled = !notification_type || notification_type.push_enabled
-    const sound_enabled = inapp_enabled || push_enabled
-    if(notification_sound_enabled && sound_enabled) this._handlePlaySound(notification)
-    if(hasFocus && in_app_notifications_enabled && inapp_enabled) return this._handlePushInApp(notification)
-    if(!hasFocus && push_notifications_enabled && push_enabled) return this._handlePushDesktop(notification)
+    const inapp_enabled = (!notification_type || notification_type.inapp_enabled) && in_app_notifications_enabled
+    const push_enabled = (!notification_type || notification_type.push_enabled) && push_notifications_enabled
+    const inapp = hasFocus && inapp_enabled
+    const push = !hasFocus && push_enabled
+    const sound = (inapp || push) && notification_sound_enabled
+    if(sound) this._handlePlaySound(notification)
+    if(inapp) return this._handlePushInApp(notification)
+    if(push) return this._handlePushDesktop(notification)
   }
 
   _handlePushInApp(notification) {
@@ -155,7 +157,6 @@ class Notifications extends React.Component {
   }
 
   _handlePushDesktop(notification) {
-    console.log(notification)
     this.context.host.pushNotification(notification)
   }
 

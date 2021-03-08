@@ -19,8 +19,8 @@ const preferencesRoute = async (req, res) => {
   })
 
   await socket.message(req, {
-    channel: 'user',
-    action: 'session'
+    channel: 'account',
+    action: 'account'
   })
 
   await activity(req, {

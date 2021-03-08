@@ -41,11 +41,12 @@ class Admin extends React.Component {
   }
 
   _handleChooseTeam = this._handleChooseTeam.bind(this)
+  _handleFetchSession = this._handleFetchSession.bind(this)
+  _handleFetchAccount = this._handleFetchAccount.bind(this)
   _handleForceSignout = this._handleForceSignout.bind(this)
   _handleJoin = this._handleJoin.bind(this)
   _handleLeave = this._handleLeave.bind(this)
   _handleRedirectToSignin = this._handleRedirectToSignin.bind(this)
-  _handleReloadSession = this._handleReloadSession.bind(this)
   _handleSaveAccount = this._handleSaveAccount.bind(this)
   _handleSignin = this._handleSignin.bind(this)
   _handleSignout = this._handleSignout.bind(this)
@@ -116,12 +117,12 @@ class Admin extends React.Component {
     this.context.network.join([
       `/admin/accounts/${account.id}`,
       `/admin/teams/${team.id}`,
-      `/admin/users/${user.id}`,
-      `/admin/sessions/${user.session_id}`
+      `/admin/users/${user.id}`
     ])
     this.context.network.subscribe([
-      { action: 'session', handler: this._handleReloadSession },
-      { action: 'signout', handler: this._handleForceSignout }
+      { target: `/admin/accounts/${account.id}`, action: 'account', handler: this._handleFetchAccount },
+      { target: `/admin/users/${user.id}`, action: 'session', handler: this._handleFetchSession },
+      { target: `/admin/users/${user.id}`, action: 'signout', handler: this._handleForceSignout }
     ])
   }
 
@@ -129,16 +130,17 @@ class Admin extends React.Component {
     this.context.network.leave([
       `/admin/accounts/${account.id}`,
       `/admin/teams/${team.id}`,
-      `/admin/users/${user.id}`,
-      `/admin/sessions/${user.session_id}`
+      `/admin/users/${user.id}`
     ])
     this.context.network.unsubscribe([
-      { action: 'session', handler: this._handleReloadSession },
-      { action: 'signout', handler: this._handleForceSignout }
+      { target: `/admin/accounts/${account.id}`, action: 'account', handler: this._handleFetchAccount },
+      { target: `/admin/users/${user.id}`, action: 'session', handler: this._handleFetchSession },
+      { target: `/admin/users/${user.id}`, action: 'signout', handler: this._handleForceSignout }
     ])
   }
 
   _handleFetchAccount() {
+    console.log('here')
     const { account } = this.props
     this.props.onFetchAccount(account.token)
   }
@@ -191,11 +193,6 @@ class Admin extends React.Component {
     const route = redirect || { pathname: '/' }
     if(route.pathname === pathname) return router.history.replace(route)
     router.history.push(route)
-  }
-
-  _handleReloadSession() {
-    const { team, onFetchSession } = this.props
-    onFetchSession(team.token)
   }
 
   _handleSaveAccount() {

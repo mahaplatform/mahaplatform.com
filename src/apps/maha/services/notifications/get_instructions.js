@@ -4,73 +4,129 @@ import moment from 'moment'
 
 const getInstructions = async (req, { account, user }) => {
 
+  const preferences = account.get('preferences')
+
+  const presences = await getPresence().then(presenses => {
+    return presenses.reduce((presences, presence) => ({
+      ...presences,
+      [presence.signin_id]: presence
+    }), {})
+  })
+
   const signins = await Signin.query(qb => {
     qb.where('account_id', account.get('id'))
     qb.whereRaw('last_active_at > ?', moment().subtract(2, 'weeks'))
-    qb.orderBy('last_active_at')
+    qb.orderBy('last_active_at', 'desc')
   }).fetchAll({
     transacting: req.trx,
     withRelated: ['device.platform_type']
-  })
-
-  const presences = await Promise.reduce(await getPresence(), async (presences, presence) => ({
-    ...presences,
-    [presence.signin_id]: presence
-  }), {})
-
-  const signins_with_activity = signins.toArray().map(signin => {
+  }).then(results => results.map(signin => {
     const presence = presences[signin.get('id')]
     signin.status = presence ? presence.status : null
     signin.last_active_at = presence ? presence.last_active_at : signin.get('last_active_at')
+    signin.platform = signin.related('device').related('platform_type').get('text')
+    signin.push_enabled = signin.related('device').get('push_enabled')
     return signin
+  }))
+
+  if(!preferences.notifications_enabled || isMuted(preferences)) return null
+
+  const active = getActive(req, {
+    preferences,
+    signins
   })
 
-  const is_muted = getMuted(req, {
-    account
+  if(active) return active
+
+  const absent = getAbsent(req, {
+    preferences,
+    signins
   })
 
-  return await Promise.reduce(signins_with_activity, async (results, signin) => {
-    const strategy = getNotificationStrategy({ account, user, signin, is_muted })
-    return {
-      ...results,
-      [strategy]: [
-        ...results[strategy],
-        signin
-      ],
-      total: results.total + (strategy !== 'email' ? 1 : 0)
-    }
-  }, { socket: [], firebase: [], email: [], total: 0 })
+  if(absent) return absent
+
+  const cordova = getCordova(req, {
+    preferences,
+    signins
+  })
+
+  if(cordova) return cordova
+
+  const browser = getBrowser(req, {
+    preferences,
+    signins
+  })
+
+  if(browser) return browser
+
+  const ondemand = getOnDemand(req, {
+    preferences,
+    signins
+  })
+
+  if(ondemand) return ondemand
+
+  return null
 
 }
 
-const getNotificationStrategy = ({ account, user, signin, muted }) => {
-
-  if(muted) return 'email'
-
-  const preferences = account.get('preferences')
-
-  const device = signin.related('device')
-
-  const platform = device.related('platform_type').get('text')
-
-  // is the signin signed in?
-  if(!signin.get('is_active')) return 'email'
-
-  // is this active or absent desktop device
-  if(platform !== 'cordova' && signin.status !== null) return 'socket'
-
-  // is this and active mobile signin
-  if(platform === 'cordova' && signin.status === 'active') return 'socket'
-
-  // is push enabled for this user?
-  if(device.get('push_token') && preferences.push_notifications_enabled) return 'firebase'
-
-  return 'email'
-
+const getOnDemand = (req, { preferences, signins }) => {
+  const { email_notifications_method } = preferences
+  if(email_notifications_method !== 'ondemand') return null
+  return {
+    strategy: 'email'
+  }
 }
 
-const getMuted = (req, { account }) => {
-  const preferences = account.get('preferences')
+const getBrowser = (req, { preferences, signins }) => {
+  const { push_notifications_enabled } = preferences
+  if(!push_notifications_enabled) return null
+  const browser = signins.find(signin => {
+    return signin.platform === 'web' && signin.push_enabled
+  })
+  return browser ? {
+    signin: browser,
+    strategy: 'firebase'
+  } : null
+}
+
+const getCordova = (req, { preferences, signins }) => {
+  const { push_notifications_enabled } = preferences
+  if(!push_notifications_enabled) return null
+  const cordova = signins.find(signin => {
+    return signin.platform === 'cordova' && signin.push_enabled
+  })
+  return cordova ? {
+    signin: cordova,
+    strategy: 'firebase'
+  } : null
+}
+
+const getAbsent = (req, { preferences, signins }) => {
+  const { push_notifications_enabled, in_app_notifications_enabled } = preferences
+  if(!push_notifications_enabled && !in_app_notifications_enabled) return null
+  const absent = signins.find(signin => {
+    return signin.status === 'absent'
+  })
+  return absent ? {
+    signin: absent,
+    strategy: 'socket'
+  } : null
+}
+
+const getActive = (req, { preferences, signins }) => {
+  const { push_notifications_enabled, in_app_notifications_enabled } = preferences
+  if(!push_notifications_enabled && !in_app_notifications_enabled) return null
+  const active = signins.find(signin => {
+    return signin.status === 'active'
+  })
+  return active ? {
+    signin: active,
+    strategy: 'socket'
+  } : null
+}
+
+const isMuted = (preferences) => {
   const now = moment()
   const is_weekend = now.format('e') % 6 === 0
   if(preferences.mute_weekends && is_weekend) return true

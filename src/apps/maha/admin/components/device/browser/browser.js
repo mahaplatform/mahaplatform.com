@@ -137,14 +137,18 @@ class Browser extends React.Component {
     this.context.router.history.push(route)
   }
 
-  _handlePushNotification(notification) {
-    const title = notification.title
-    const image = notification.image
-    if(notification.sound) this._handlePlaySound(notification.sound)
-    new Notification(title, {
-      body: notification.body,
+  _handlePushNotification({ title, body, image, sound, route }) {
+    if(sound) this._handlePlaySound(sound)
+    const notification = new Notification(title, {
+      body,
       iconUrl: `${process.env.WEB_HOST}${image}`
     })
+    if(route) {
+      notification.onclick = () => {
+        this._handlePushRoute(route)
+        notification.close()
+      }
+    }
   }
 
   _handleSetTitle(title) {

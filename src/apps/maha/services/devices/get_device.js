@@ -6,6 +6,7 @@ import getDeviceName from './get_device_name'
 import UAParser from 'ua-parser-js'
 
 export const findOrCreateDeviceValueId = async (req, type, text) => {
+  console.log({ type, text })
   const value = await DeviceValue.fetchOrCreate({
     type,
     text
@@ -17,11 +18,7 @@ export const findOrCreateDeviceValueId = async (req, type, text) => {
 
 const getDevice = async (req, { fingerprint }) => {
 
-  const ua = UAParser(req.headers['user-agent'])
-
-  const os_version_id = await findOrCreateDeviceValueId(req, 'os_version', ua.os.version)
-
-  const browser_version_id = await findOrCreateDeviceValueId(req, 'browser_version', ua.browser.version)
+  const user_agent = req.headers['user-agent']
 
   const device = await Device.where({
     fingerprint
@@ -29,6 +26,14 @@ const getDevice = async (req, { fingerprint }) => {
     withReleated: ['platform_type','device_type','os_name','browser_name'],
     transacting: req.trx
   })
+
+  if(!user_agent && device) return device
+
+  const ua = UAParser(req.headers['user-agent'])
+
+  const os_version_id = await findOrCreateDeviceValueId(req, 'os_version', ua.os.version)
+
+  const browser_version_id = await findOrCreateDeviceValueId(req, 'browser_version', ua.browser.version)
 
   if(device) {
     return await device.save({

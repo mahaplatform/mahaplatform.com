@@ -27,72 +27,26 @@ self.firebase.initializeApp({
 
 const messaging = self.firebase.messaging()
 
-const showNotification = (data) => {
-  self.registration.showNotification(data.title, {
-    body: data.body,
-    data: data
-  })
-}
-
-const playSound = (sound) => {
-  self.clients.matchAll({
-    includeUncontrolled: true,
-    type: 'window'
-  }).then(clientList => {
-
-    const client = clientList.find(client => {
-      const url = new URL(client.url)
-      return url.origin === host && 'focus' in client && 'postMessage' in client
-    })
-
-    if(!client) return
-
-    client.postMessage({
-      action: 'playSound',
-      data: { sound }
-    })
-
-  })
-}
-
 messaging.onBackgroundMessage((payload) => {
-  showNotification(payload.data)
-  if(payload.data.sound) playSound(payload.data.sound)
+  const { body, data, title } = payload.data
+  self.registration.showNotification(title, {
+    body,
+    data
+  })
 })
 
 self.addEventListener('notificationclick', event => {
 
-  const pathname = event.notification.data.route
+  const data = JSON.parse(event.notification.data)
 
   event.waitUntil(
-
     self.clients.matchAll({
       includeUncontrolled: true,
       type: 'window'
     }).then(clientList => {
-
-      const client = clientList.find(client => {
-        const url = new URL(client.url)
-        return url.origin === host && 'focus' in client && 'postMessage' in client
-      })
-
-      if(!client) return self.clients.openWindow(host + pathname)
-
-      client.focus()
-
-      if(client.url === host + pathname) return
-
-      client.postMessage({
-        action: 'pushRoute',
-        data: {
-          route: {
-            pathname
-          }
-        }
-      })
-
+      console.log(host + data.route)
+      self.clients.openWindow(host + data.route)
     })
-
   )
 
   event.notification.close()

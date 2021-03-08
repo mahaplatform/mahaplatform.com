@@ -12,6 +12,10 @@ export const sendNotification = async (req, { user, notification }) => {
     user
   })
 
+  console.log(instructions)
+
+  if(!instructions) return
+
   await deliver(req, {
     account: user.related('account'),
     instructions,

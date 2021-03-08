@@ -3,6 +3,8 @@ import { sendNotification } from '@apps/maha/services/notifications'
 
 const testRoute = async (req, res) => {
 
+  await new Promise((rs) => setTimeout(rs, 1000))
+
   if(req.body.type === 'firebase') {
     await sendViaFirebase(req, {
       user: req.user,

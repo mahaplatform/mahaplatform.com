@@ -1,13 +1,13 @@
 import formatObjectForTransport from '@core/utils/format_object_for_transport'
-import { sendNotificationEmail } from './email'
 import { messaging } from '@core/vendor/firebase'
+import { sendNotificationEmail } from './email'
 import socket from '@core/vendor/emitter'
 import _ from 'lodash'
 
 const serialize = (req, { notification, preferences, team }) => ({
   title: team.get('title'),
   image: team.related('logo').get('path'),
-  body: `${notification.subject.full_name} ${notification.body}`,
+  body: notification.body,
   code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
   sound: preferences.notification_sound_enabled ? preferences.notification_sound : null,
   subject: notification.subject,
@@ -18,48 +18,40 @@ const deliver = async (req, params) => {
 
   const { account, instructions, team, user } = params
 
-  console.log(instructions)
-
-  const preferences = account.get('preferences')
+  const { signin, strategy } = instructions
 
   const notification = serialize(req, {
     notification: params.notification,
-    preferences,
+    preferences: account.get('preferences'),
     team
   })
 
-  if(instructions.socket.length > 0) {
-    await Promise.map(instructions.socket, async (signin) => {
-      await sendViaSocket(req, {
-        account,
-        notification,
-        signin
-      })
+  if(strategy === 'socket') {
+    await sendViaSocket(req, {
+      account,
+      notification,
+      signin
     })
   }
 
-  if(instructions.firebase.length > 0) {
-    await Promise.map(instructions.firebase, async (signin) => {
-      await sendViaFirebase(req, {
-        account,
-        notification,
-        signin,
-        team,
-        user
-      })
+  if(strategy === 'firebase') {
+    await sendViaFirebase(req, {
+      account,
+      notification,
+      signin,
+      team,
+      user
     })
   }
 
-  if(instructions.total === 0 && preferences.email_notifications_method === 'ondemand') {
-    return await sendViaEmail(req, {
+  if(strategy === 'email') {
+    await sendViaEmail(req, {
       account,
       notification,
       team,
       user
     })
   }
-
-  if(preferences.email_notifications_method === 'digest') return
 
   if(notification.id) {
     await req.trx('maha_notifications').where({
@@ -72,19 +64,23 @@ const deliver = async (req, params) => {
 }
 
 const sendViaSocket = async (req, { account, notification }) => {
-  await socket.in(`/admin/account/${account.get('id')}`).emit('message', {
+  await socket.in(`/admin/accounts/${account.get('id')}`).emit('message', {
     action: 'add_notification',
-    data: formatObjectForTransport(notification)
+    data: formatObjectForTransport({
+      ...notification,
+      body: `${notification.subject.full_name} ${notification.body}`
+    })
   })
 }
 
 export const sendViaFirebase = async (req, { account, notification, signin, team, user }) => {
   const device = signin.related('device')
-  const { title, body, code, route, sound } = notification
+  const { title, code, route, sound } = notification
+  const body =`${notification.subject.full_name} ${notification.body}`
   const platform = device.related('platform_type').get('text')
   try {
     await messaging.send({
-      data: { title, body, code, route, sound },
+      data: { title, body, code, data: JSON.stringify({ route, sound }) },
       token: device.get('push_token'),
       ...platform === 'cordova' ? {
         notification: { title, body },
@@ -101,11 +97,12 @@ export const sendViaFirebase = async (req, { account, notification, signin, team
       } : {}
     })
   } catch(err) {
-    if(err.errorInfo && err.errorInfo.code !== 'messaging/registration-token-not-registered') return
-    await disablePush(req, {
-      signin,
-      device
-    })
+    console.log(err)
+    // if(err.errorInfo && err.errorInfo.code !== 'messaging/registration-token-not-registered') return
+    // await disablePush(req, {
+    //   signin,
+    //   device
+    // })
   }
 }
 
