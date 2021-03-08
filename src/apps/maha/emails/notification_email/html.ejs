@@ -1,116 +1,61 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width">
-    <link href="https://dev.mahaplatform.com/css/foundation-emails.min.css" rel="stylesheet" />
-    <title><%= subject || 'Email' %></title>
-    <link href="https://dev.mahaplatform.com/css/maha-emails.min.css" rel="stylesheet" />
-  </head>
-  <body>
-    <table class="body">
+<table class="row maha-header">
+  <tbody>
+    <tr>
+      <td class="small-12 large-12 columns first last">
+        <p>Hi <%= account.get('first_name') %>,</p>
+        <p>You missed the following notifications yesterday:</p>
+      </td>
+      <td class="expander"></td>
+    </tr>
+  </tbody>
+</table>
+<% Object.values(teams).map(({ team, subjects }) => { %>
+  <% if(Object.values(teams).length > 1) { -%>
+    <table>
       <tbody>
         <tr>
-          <td class="float-center" align="center" valign="top">
-            <center>
-              <table class="spacer">
-                <tbody>
-                  <tr>
-                    <td height="16" style="font-size:16px;line-height:16px;">&nbsp;</td>
-                  </tr>
-                </tbody>
-              </table>
-              <table align="center" class="container float-center">
-                <tbody>
-                  <tr>
-                    <td>
-                      <table class="row notifications-header">
-                        <tbody>
-                          <tr>
-                            <td class="small-12 large-12 columns first last">
-                              <p>Hi <%= account.get('first_name') %>,</p>
-                              <p>You missed the following notifications yesterday:</p>
-                            </td>
-                            <td class="expander"></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <% Object.values(teams).map(({ team, subjects }) => { %>
-                        <% if(Object.values(teams).length > 1) { -%>
-                          <table>
-                            <tbody>
-                              <tr>
-                                <td class="large-12 columns first last notifications-team">
-                                  <p class="text-center">
-                                    <%= team.get('title') %>
-                                  </p>
-                                </td>
-                                <td class="expander"></td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        <% } -%>
-                        <% Object.values(subjects).map(({ subject, notifications }) => { %>
-                          <table class="row notifications-subject">
-                            <tbody>
-                              <tr>
-                                <td class="small-2 large-1 columns first notifications-subject-avatar">
-                                  <% if(subject && subject.photo) { %>
-                                    <img width="30" height="30" alt="<%= subject.full_name %>" src="<%= host %>/imagecache/fit=cover&w=40&h=40&dpi=2<%= subject.photo -%>" />
-                                  <% } else { %>
-                                    <img width="30" height="30" src="<%= host %>/imagecache/fit=cover&w=40&h=40&dpi=2/images/maha.png" />
-                                  <% } %>
-                                </td>
-                                <td class="small-10 large-11 columns last notifications-subject-details">
-                                  <p><%= subject.full_name %></p>
-                                  <ul>
-                                    <% notifications.map((notification) => { %>
-                                      <% last = notification %>
-                                      <li>
-                                        <span class="notifications-notification">
-                                          <a href="<%= host %><%= notification.route %>">
-                                            <%= notification.body %>
-                                          </a>
-                                        </span>
-                                        <span class="notifications-timestamp">
-                                          <%= moment(notification.created_at).format('h:mmA') -%>
-                                        </span>
-                                      </li>
-                                    <% }) %>
-                                  </ul>
-                                </td>
-                                <td class="expander"></td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        <% }) -%>
-                      <% }) -%>
-                      <table class="row notifications-footer">
-                        <tbody>
-                          <tr>
-                            <td class="small-12 large-12 columns first last">
-                              <p class="text-center">
-                                &copy; Copyright 2021 The Maha Platform. All rights Reserved.
-                              </p>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <table class="spacer">
-                <tbody>
-                  <tr>
-                    <td height="16" style="font-size:16px;line-height:16px;">&nbsp;</td>
-                  </tr>
-                </tbody>
-              </table>
-            </center>
+          <td class="large-12 columns first last notifications-team">
+            <p class="text-center">
+              <%= team.get('title') %>
+            </p>
           </td>
+          <td class="expander"></td>
         </tr>
       </tbody>
     </table>
-  </body>
-</html>
+  <% } -%>
+  <% Object.values(subjects).map(({ subject, notifications }) => { %>
+    <table class="row notifications-subject">
+      <tbody>
+        <tr>
+          <td class="small-2 large-1 columns first notifications-subject-avatar">
+            <% if(subject && subject.photo) { %>
+              <img width="30" height="30" alt="<%= subject.full_name %>" src="<%= host %>/imagecache/fit=cover&w=40&h=40&dpi=2<%= subject.photo -%>" />
+            <% } else { %>
+              <img width="30" height="30" src="<%= host %>/imagecache/fit=cover&w=40&h=40&dpi=2/images/maha.png" />
+            <% } %>
+          </td>
+          <td class="small-10 large-11 columns last notifications-subject-details">
+            <p><%= subject.full_name %></p>
+            <ul>
+              <% notifications.map((notification) => { %>
+                <% last = notification %>
+                <li>
+                  <span class="notifications-notification">
+                    <a href="<%= host %><%= notification.route %>">
+                      <%= notification.body %>
+                    </a>
+                  </span>
+                  <span class="notifications-timestamp">
+                    <%= moment(notification.created_at).format('h:mmA') -%>
+                  </span>
+                </li>
+              <% }) %>
+            </ul>
+          </td>
+          <td class="expander"></td>
+        </tr>
+      </tbody>
+    </table>
+  <% }) -%>
+<% }) -%>

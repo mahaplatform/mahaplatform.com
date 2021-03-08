@@ -8,7 +8,7 @@ const sendActivation = async (req, { user }) => {
   })
 
   const token = createUserToken({
-    activation_id: user
+    activation_id: user.get('id')
   })
 
   await sendEmail(req, {

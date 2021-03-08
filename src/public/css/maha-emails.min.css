@@ -7,17 +7,33 @@ html,
   border-radius: 5px;
   overflow: hidden;
 }
-.notifications-header {
+
+.maha-header {
   background-color: #FFFFFF !important;
   border-bottom: 1px solid #EEEEEE;
 }
-.notifications-header td {
+.maha-header .first {
   padding: 16px 16px 0 !important;
 }
-.notifications-header p {
+.maha-header p {
   color: #666666;
   font-size: 14px;
 }
+
+.maha-footer {
+  background-color: #2185d0 !important;
+}
+.maha-footer td {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.maha-footer p {
+  color: #FFFFFF !important;
+  margin: 0 !important;
+  font-size: 12px;
+  line-height: 20px;
+}
+
 .notifications-team {
   background-color: #F2F2F2;
   border-bottom: 1px solid #EEEEEE;
@@ -80,17 +96,4 @@ html,
 }
 .notifications-timestamp {
   color: #AAAAAA !important;
-}
-.notifications-footer {
-  background-color: #2185d0 !important;
-}
-.notifications-footer td {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-.notifications-footer p {
-  color: #FFFFFF !important;
-  margin: 0 !important;
-  font-size: 12px;
-  line-height: 20px;
 }

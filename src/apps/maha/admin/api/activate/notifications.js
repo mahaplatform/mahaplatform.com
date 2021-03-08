@@ -15,7 +15,7 @@ const notificationsRoute = async (req, res) => {
     is_blocked: false,
     preferences: {
       ...req.account.get('preferences'),
-      email_notifications_method: req.body.email_notifications_method      
+      email_notifications_method: req.body.email_notifications_method
     }
   }, {
     patch: true,
@@ -37,6 +37,10 @@ const notificationsRoute = async (req, res) => {
     object_type: null
   })
 
+  const token = await getAccountToken(req, {
+    account: req.account
+  })
+
   res.status(200).respond({
     account: {
       id: req.account.get('id'),
@@ -46,9 +50,7 @@ const notificationsRoute = async (req, res) => {
       initials: req.account.get('initials'),
       email: req.account.get('email'),
       photo: req.account.related('photo') ? req.account.related('photo').get('path') : null,
-      token: getAccountToken(req, {
-        account_id: req.account
-      })
+      token
     }
   })
 

@@ -11,31 +11,50 @@
   </head>
   <body>
     <table class="body">
-      <tr>
-        <td class="float-center" align="center" valign="top">
-          <center data-parsed="">
-            <table class="spacer float-center">
-              <tbody>
-                <tr>
-                  <td height="16px" style="font-size:16px;line-height:16px;">&#xA0;</td>
-                </tr>
-              </tbody>
-            </table>
-            <%- content %>
-            <% if(maha) { %>
-              <table align="center" class="container copyright">
+      <tbody>
+        <tr>
+          <td class="float-center" align="center" valign="top">
+            <center>
+              <table class="spacer">
                 <tbody>
                   <tr>
-                    <td class="small-12 large-12 columns first last">
-                      &copy; Copyright <%= moment().format('Y') %> The Maha Platform. All rights Reserved.
+                    <td height="16" style="font-size:16px;line-height:16px;">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table align="center" class="container float-center">
+                <tbody>
+                  <tr>
+                    <td>
+                      <%- content %>
+                      <% if(maha) { %>
+                        <table class="row maha-footer">
+                          <tbody>
+                            <tr>
+                              <td class="small-12 large-12 columns first last">
+                                <p class="text-center">
+                                  &copy; Copyright <%= moment().format('YYYYYY') %> The Maha Platform. All rights Reserved.
+                                </p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      <% } %>
                     </td>
                   </tr>
                 </tbody>
               </table>
-            <% } %>
-          </center>
-        </td>
-      </tr>
+              <table class="spacer">
+                <tbody>
+                  <tr>
+                    <td height="16" style="font-size:16px;line-height:16px;">&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </center>
+          </td>
+        </tr>
+      </tbody>
     </table>
   </body>
 </html>

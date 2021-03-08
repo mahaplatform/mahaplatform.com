@@ -23,10 +23,12 @@ const passwordRoute = async (req, res, next) => {
     transacting: req.trx
   })
 
+  const token = await getAccountToken(req, {
+    account: req.account
+  })
+
   res.status(200).respond({
-    token: getAccountToken(req, {
-      account: req.account
-    })
+    token
   })
 
 }
