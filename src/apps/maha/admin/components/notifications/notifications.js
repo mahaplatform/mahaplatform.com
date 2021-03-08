@@ -1,4 +1,5 @@
 import { CSSTransition } from 'react-transition-group'
+import Notification from './notification'
 import { connect } from 'react-redux'
 import { Avatar, Logo } from '@admin'
 import PropTypes from 'prop-types'
@@ -44,18 +45,7 @@ class Notifications extends React.Component {
           <div className="maha-notifications-frame">
             <div className="maha-notifications-panel">
               { notifications.map((notification, index) => (
-                <div className="maha-notifications-item" key={ `notification_${index}` } onClick={ this._handleClick.bind(this, index) }>
-                  <div className="maha-notifications-item-avatar">
-                    { this._getImage(notification) }
-                  </div>
-                  <div className="maha-notifications-item-label">
-                    <strong>{ this._getTitle(notification) }</strong><br />
-                    { notification.body }
-                  </div>
-                  <div className="maha-notifications-item-remove" onClick={ this._handleRemove.bind(this, notification.code) }>
-                    <i className="fa fa-fw fa-remove" />
-                  </div>
-                </div>
+                <Notification { ...this._getNotification(notification, index) } key={ `notification_${index}` } />
               )) }
             </div>
           </div>
@@ -89,18 +79,12 @@ class Notifications extends React.Component {
     }
   }
 
-  _getTitle(notification) {
-    const { team, title } = notification
-    if(team && team.title) return team.title
-    return title
-  }
-
-  _getImage(notification) {
-    const { image, team, user } = notification
-    if(team && team.logo) return <Logo team={ team } />
-    if(user && user.photo) return <Avatar user={ user } presence={ false } />
-    if(image) return <img src={ notification.image } />
-    return <img src="/images/maha.png" />
+  _getNotification(notification, index) {
+    return {
+      notification,
+      onClick: this._handleClick.bind(this, index),
+      onRemove: this._handleRemove.bind(this, notification.code)
+    }
   }
 
   _handleClear() {
@@ -150,18 +134,16 @@ class Notifications extends React.Component {
   }
 
   _handlePushInApp(notification) {
-    const { onPush, onRemove } = this.props
+    const { onPush } = this.props
     const code = _.random(Math.pow(36,9).toString(36), Math.pow(36, 10) - 1).toString(36)
     onPush(code, notification)
-    setTimeout(() => onRemove(code), 5000)
   }
 
   _handlePushDesktop(notification) {
     this.context.host.pushNotification(notification)
   }
 
-  _handleRemove(code, e) {
-    e.stopPropagation()
+  _handleRemove(code) {
     this.props.onRemove(code)
   }
 

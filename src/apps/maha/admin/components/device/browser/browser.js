@@ -145,6 +145,7 @@ class Browser extends React.Component {
     })
     if(route) {
       notification.onclick = () => {
+        window.focus()
         this._handlePushRoute(route)
         notification.close()
       }
