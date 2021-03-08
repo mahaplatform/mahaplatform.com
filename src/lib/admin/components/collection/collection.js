@@ -22,7 +22,6 @@ class Collection extends React.Component {
   static propTypes = {
     buttons: PropTypes.any,
     cacheKey: PropTypes.string,
-    code: PropTypes.string,
     criteria: PropTypes.object,
     data: PropTypes.array,
     defaultSort: PropTypes.object,
@@ -69,7 +68,6 @@ class Collection extends React.Component {
   }
 
   static defaultProps = {
-    code: window.location.pathname.substr(1).replace(/\//g,'-'),
     cacheKey: null,
     entity: 'record',
     footer: true,
@@ -82,6 +80,7 @@ class Collection extends React.Component {
   infinite = null
 
   state = {
+    code: window.location.pathname.substr(1).replace(/\//g,'-'),
     cacheKey: _.random(100000, 999999).toString(36)
   }
 
@@ -163,7 +162,8 @@ class Collection extends React.Component {
   }
 
   _getFilter() {
-    const { code, criteria, entity, filter, onSetFilter, onToggleFilter } = this.props
+    const { criteria, entity, filter, onSetFilter, onToggleFilter } = this.props
+    const { code } = this.state
     return {
       code,
       entity,

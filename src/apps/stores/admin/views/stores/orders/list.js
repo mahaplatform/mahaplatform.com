@@ -40,6 +40,13 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: 'No orders',
       text: 'There are no orders for this store'
     },
+    criteria: {
+      fields: [
+        { label: 'Order', fields: [
+          {  name: 'Product', key: 'product_id',type: 'select', endpoint: `/api/admin/stores/stores/${resources.store.id}/products`, value: 'id', text: 'title' }
+        ] }
+      ]
+    },
     export: [
       { label: 'ID', key: 'id' },
       { label: 'First Name', key: 'data.first_name' },
