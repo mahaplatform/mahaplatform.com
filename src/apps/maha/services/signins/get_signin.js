@@ -36,10 +36,10 @@ const getSignin = async (req, { account, device }) => {
   //   display_name: req.device.related('display_name').get('text'),
   //   terminate_url: `/so${signin.get('code')}`
   // })
-
-  socket.in(`/admin/users/${req.user.get('id')}`).emit('message', {
-    action: 'signin'
-  })
+  //
+  // socket.in(`/admin/users/${req.user.get('id')}`).emit('message', {
+  //   action: 'signin'
+  // })
 
   return newsignin
 
