@@ -12,14 +12,17 @@ const notificationsRoute = async (req, res) => {
 
   await req.account.save({
     activated_at: moment(),
-    is_blocked: false
+    is_blocked: false,
+    preferences: {
+      ...req.account.get('preferences'),
+      email_notifications_method: req.body.email_notifications_method      
+    }
   }, {
     patch: true,
     transacting: req.trx
   })
 
   await req.user.save({
-    email_notifications_method: req.body.email_notifications_method,
     activated_at: moment()
   }, {
     patch: true,

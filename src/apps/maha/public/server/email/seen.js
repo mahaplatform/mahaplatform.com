@@ -1,7 +1,7 @@
 import Notification from '@apps/maha/models/notification'
 import path from 'path'
 
-const trackerFile = path.resolve(__dirname,'..','..','..','admin','public','images','tracker.png')
+const trackerFile = path.resolve(__dirname,'tracker.png')
 
 const seenRoute = async (req, res) => {
 

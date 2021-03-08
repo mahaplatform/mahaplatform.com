@@ -1402,6 +1402,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.jsonb('preferences')
+      table.string('code', 255)
     })
 
     await knex.schema.createTable('maha_accounts_features', (table) => {

@@ -36,18 +36,20 @@
                         </tbody>
                       </table>
                       <% Object.values(teams).map(({ team, subjects }) => { %>
-                        <table>
-                          <tbody>
-                            <tr>
-                              <td class="large-12 columns first last notifications-team">
-                                <p class="text-center">
-                                  <%= team.get('title') %>
-                                </p>
-                              </td>
-                              <td class="expander"></td>
-                            </tr>
-                          </tbody>
-                        </table>
+                        <% if(Object.values(teams).length > 1) { -%>
+                          <table>
+                            <tbody>
+                              <tr>
+                                <td class="large-12 columns first last notifications-team">
+                                  <p class="text-center">
+                                    <%= team.get('title') %>
+                                  </p>
+                                </td>
+                                <td class="expander"></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        <% } -%>
                         <% Object.values(subjects).map(({ subject, notifications }) => { %>
                           <table class="row notifications-subject">
                             <tbody>
@@ -63,6 +65,7 @@
                                   <p><%= subject.full_name %></p>
                                   <ul>
                                     <% notifications.map((notification) => { %>
+                                      <% last = notification %>
                                       <li>
                                         <span class="notifications-notification">
                                           <a href="<%= host %><%= notification.url %>">
@@ -110,5 +113,4 @@
       </tbody>
     </table>
   </body>
-  <img src="<%= host %>/ns/<%= account.get('id') %>" />
 </html>

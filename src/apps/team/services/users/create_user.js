@@ -3,6 +3,7 @@ import DashboardCardType from '@apps/maha/models/dashboard_card_type'
 import { whitelist } from '@core/services/routes/params'
 import DashboardPanel from '@apps/maha/models/dashboard_panel'
 import DashboardCard from '@apps/maha/models/dashboard_card'
+import generateCode from '@core/utils/generate_code'
 import Account from '@apps/maha/models/account'
 import User from '@apps/maha/models/user'
 
@@ -20,10 +21,15 @@ const getAccount = async (req, { account_id, first_name, last_name, email }) => 
 
   if(account) return account
 
+  const code = await generateCode(req, {
+    table: 'maha_accounts'
+  })
+
   return await Account.forge({
     first_name,
     last_name,
     email,
+    code,
     use_twofactor: false,
     preferences: {
       notifications_enabled: true,

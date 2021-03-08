@@ -8,14 +8,18 @@ html,
   overflow: hidden;
 }
 .notifications-header {
-  background-color: #EEEEEE !important;
+  background-color: #FFFFFF !important;
   border-bottom: 1px solid #EEEEEE;
 }
 .notifications-header td {
-  padding: 16px 16px 0;
+  padding: 16px 16px 0 !important;
+}
+.notifications-header p {
+  color: #666666;
+  font-size: 14px;
 }
 .notifications-team {
-  background-color: #CCCCCC;
+  background-color: #F2F2F2;
   border-bottom: 1px solid #EEEEEE;
   text-transform: uppercase;
 }
@@ -32,7 +36,7 @@ html,
   line-height: 20px;
   text-transform: uppercase;
   font-weight: bold;
-  color: #666666;
+  color: #888888;
 }
 .notifications-team-title {
   padding-top: 5px !important;
