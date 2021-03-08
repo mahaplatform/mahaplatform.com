@@ -24,7 +24,8 @@ const triggers = {
   outbound_sms: { icon: 'envelope', text: 'Contact enrolled in outbound SMS campaign' },
   inbound_sms: { icon: 'envelope', text: 'Contact enrolled in inbound SMS campaign' },
   outbound_voice: { icon: 'phone', text: 'Contact enrolled in outbound voice campaign' },
-  inbound_voice: { icon: 'phone', text: 'Contact called program' }
+  inbound_voice: { icon: 'phone', text: 'Contact called program' },
+  manual: { icon: 'user', text: 'User was manually enrolled' }
 }
 
 class WorkflowActions extends React.PureComponent {

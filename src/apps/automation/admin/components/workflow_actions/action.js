@@ -86,7 +86,7 @@ class Action extends React.PureComponent {
                 <span>{ data.token } = { data.value }</span>
               }
               { step.type === 'control' && step.action === 'wait' &&
-                <span>Waited until { moment(action.waited_until).format('MM/DD/YY, hh:mmA') }</span>
+                <span>Wait until { moment(action.waited_until).format('MM/DD/YY, hh:mmA') }</span>
               }
               { step.type === 'sms' && step.action === 'question' && !data &&
                 <span>Q: { action.sms.body }</span>

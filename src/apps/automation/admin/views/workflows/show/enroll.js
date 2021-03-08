@@ -33,7 +33,7 @@ class Resend extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Contacts', name: 'to', type: ToField, program_id: workflow.program.id, channel: 'all', purpose: 'transactional' }
+            { label: 'Contacts', name: 'to', type: ToField, program_id: workflow.program.id, channel: 'email', purpose: 'transactional' }
           ]
         }
       ]

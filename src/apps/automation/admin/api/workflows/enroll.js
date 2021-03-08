@@ -19,7 +19,7 @@ const enrollRoute = async (req, res) => {
   })
 
   const recipients = await getRecipients(req, {
-    type: 'all',
+    type: 'email',
     program_id: workflow.get('program_id'),
     purpose: 'transactional',
     ...req.body.to
