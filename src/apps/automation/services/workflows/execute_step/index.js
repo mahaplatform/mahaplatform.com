@@ -40,8 +40,12 @@ const executeStep = async (req, params) => {
   }
 
   await enrollment.save({
-    ...enrollment.get('data') || {},
-    ...result.data ? { data: result.data } : {},
+    ...result.data ? {
+      data: {
+        ...enrollment.get('data'),
+        ...result.data
+      }
+    } : {},
     ...result.converted ? { was_converted: result.true } : {},
     ...result.session ? { session: result.session } : {},
     next: result.next || state
