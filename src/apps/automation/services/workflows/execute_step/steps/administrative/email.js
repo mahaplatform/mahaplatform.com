@@ -31,7 +31,10 @@ const emailStep = async (req, { config, state, step, tokens }) => {
   return {
     action: {
       email_id: sent.get('id'),
-      user_id
+      user_id,
+      data: {
+        email
+      }
     },
     next: getNext(req, { config, state })
   }
