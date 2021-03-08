@@ -4,6 +4,7 @@ const WorkflowSerializer = (req, result) => ({
   display_name: result.get('display_name'),
   editable: result.get('editable'),
   code: result.get('code'),
+  purpose: result.get('purpose'),
   program: program(result.related('program')),
   email: email(result.related('email')),
   email_campaign: email_campaign(result.related('email_campaign')),

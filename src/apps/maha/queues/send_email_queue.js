@@ -11,6 +11,8 @@ const processor = async (req, job) => {
     transacting: req.trx
   })
 
+  if(!email) return
+
   const encoded = await encodeEmail(req, {
     html: email.get('html'),
     code: email.get('code')

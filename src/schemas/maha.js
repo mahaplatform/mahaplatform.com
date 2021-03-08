@@ -4763,6 +4763,30 @@ union
 
     await knex.raw(`
       create view crm_recipients AS
+      select 'all'::text as type,
+      'marketing'::text as purpose,
+      crm_contacts.team_id,
+      crm_contacts.id as contact_id,
+      null::integer as email_address_id,
+      null::integer as phone_number_id,
+      null::integer as mailing_address_id,
+      crm_programs.id as program_id,
+      crm_contacts.photo_id
+      from (crm_contacts
+      cross join crm_programs)
+union
+      select 'all'::text as type,
+      'transactional'::text as purpose,
+      crm_contacts.team_id,
+      crm_contacts.id as contact_id,
+      null::integer as email_address_id,
+      null::integer as phone_number_id,
+      null::integer as mailing_address_id,
+      crm_programs.id as program_id,
+      crm_contacts.photo_id
+      from (crm_contacts
+      cross join crm_programs)
+union
       select 'email'::text as type,
       'marketing'::text as purpose,
       crm_email_addresses.team_id,
