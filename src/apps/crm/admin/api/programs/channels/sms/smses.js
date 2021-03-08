@@ -40,13 +40,13 @@ const smsesRoute = async (req, res) => {
       allowed: ['created_at']
     },
     page: req.query.$page,
-    withRelated: ['to','from','attachments.asset','user.photo'],
+    withRelated: ['to_number','from_number','attachments.asset','user.photo'],
     transacting: req.trx
   })
 
   res.status(200).respond(smses, (req, sms) => ({
     id: sms.get('id'),
-    contact: sms.related('from').get('number') === phone.get('number') ? {
+    contact: sms.related('from_number').get('number') === phone.get('number') ? {
       id: contact.get('id'),
       display_name: contact.get('display_name'),
       initials: contact.get('initials'),
@@ -54,7 +54,7 @@ const smsesRoute = async (req, res) => {
       email: contact.get('email'),
       photo: contact.related('photo') ? contact.related('photo').get('path') : null
     } : null,
-    program: sms.related('to').get('number') === phone.get('number') ? {
+    program: sms.related('to_number').get('number') === phone.get('number') ? {
       id: program.get('id'),
       title: program.get('title'),
       logo: program.related('logo') ? program.related('logo').get('path') : null
