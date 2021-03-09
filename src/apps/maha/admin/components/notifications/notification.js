@@ -49,11 +49,25 @@ class Notification extends React.Component {
     }
   }
 
+  _getImage() {
+    const { image, team, user } = this.props.notification
+    if(team && team.logo) return <Logo team={ team } />
+    if(user && user.photo) return <Avatar user={ user } presence={ false } />
+    if(image) return <img src={ image } />
+    return <img src="/images/maha.png" />
+  }
+
   _getStyle() {
     const { offset } = this.state
     if(!offset) return {}
     if(offset < 0) return { transform: `translateY(${offset}px)` }
     if(offset > 0) return { transform: `scale(${parseFloat(100 + Math.min(offset / 10, 10)) / 100})` }
+  }
+
+  _getTitle() {
+    const { team, title } = this.props.notification
+    if(team && team.title) return team.title
+    return title
   }
 
   _handleClick(e) {
@@ -84,20 +98,6 @@ class Notification extends React.Component {
     const { offset } = this.state
     if(offset < -20) return this.props.onRemove()
     this.setState({ y0: 0, offset: 0 })
-  }
-
-  _getTitle() {
-    const { team, title } = this.props.notification
-    if(team && team.title) return team.title
-    return title
-  }
-
-  _getImage() {
-    const { image, team, user } = this.props.notification
-    if(team && team.logo) return <Logo team={ team } />
-    if(user && user.photo) return <Avatar user={ user } presence={ false } />
-    if(image) return <img src={ image } />
-    return <img src="/images/maha.png" />
   }
 
 }
