@@ -1,4 +1,5 @@
-import desktopConfig from './webpack.desktop.config'
+import desktopRendererConfig from './webpack.desktop.renderer.config'
+import desktopMainConfig from './webpack.desktop.main.config'
 import mobileConfig from './webpack.mobile.config'
 import { spawn } from 'child_process'
 import log from '@core/utils/log'
@@ -9,7 +10,7 @@ import _ from 'lodash'
 
 let platform = null
 
-const watch = async (name, watchDir, config) => {
+const watch = async (name, watchDir, config, restart = true) => {
   let compiling = false
   chokidar.watch(watchDir).on('all', (event, path) => {
     if(compiling) return
@@ -22,7 +23,7 @@ const watch = async (name, watchDir, config) => {
       const info = stats.toJson()
       if(stats.hasErrors()) return log('error', name, info.errors)
       log('info', name, 'Compiled successfully.')
-      restartPlatform(name)
+      if(restart) restartPlatform(name)
     })
   })
 }
@@ -53,7 +54,8 @@ const start = () => {
 
 export const watchDesktop = async () => {
   const watchDir = path.resolve('src','platforms','desktop','app')
-  await watch('desktop', watchDir, desktopConfig)
+  await watch('desktop-main', watchDir, desktopMainConfig)
+  await watch('desktop-renderer', watchDir, desktopRendererConfig, false)
 }
 
 export const watchMobile = async () => {

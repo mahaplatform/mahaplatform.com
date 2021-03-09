@@ -1,8 +1,4 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CopyPlugin = require('copy-webpack-plugin')
-const autoprefixer = require('autoprefixer')
 const webpack = require('webpack')
-const cssnano = require('cssnano')
 const path = require('path')
 const babelrc = require('./babel.platform')
 
@@ -14,23 +10,11 @@ const dest = process.env.NODE_ENV === 'production' ? dist : www
 
 const config = {
   entry: {
-    renderer: path.join(src,'renderer.js'),
     main: path.join(src,'main.js')
   },
   module: {
     rules: [
       {
-        test: /\.less$/,
-        exclude: /node_modules/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader?url=false',
-          { loader: 'postcss-loader', options: {
-            plugins: [autoprefixer, cssnano] }
-          },
-          'less-loader'
-        ]
-      }, {
         test: /\.js$/,
         exclude: /node_modules/,
         use: [
@@ -48,17 +32,9 @@ const config = {
   mode: 'production',
   output: {
     path: dest,
-    filename: '[name].js'
+    filename: 'main.js'
   },
   plugins: [
-    new CopyPlugin(['package.json','index.html'].map(file => ({
-      from: path.join(src,file),
-      to: path.join(dest,file)
-    }))),
-    new MiniCssExtractPlugin({
-      path: dest,
-      filename: '[name].css'
-    }),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
@@ -69,7 +45,7 @@ const config = {
       }
     })
   ],
-  target: 'electron-renderer'
+  target: 'electron-main'
 }
 
 module.exports = config

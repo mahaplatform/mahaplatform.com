@@ -30,7 +30,7 @@ class App {
   render() {
     const host = process.env.NODE_ENV !== 'production' ? 'https://dev.mahaplatform.com:8080' : 'https://mahaplatform.com'
     this.iframe = document.createElement('iframe')
-    this.iframe.setAttribute('src', host + '/admin?log=true')
+    this.iframe.setAttribute('src', host + '/log=true')
     this.iframe.setAttribute('border', 0)
     this.body = document.getElementById('body')
     this.body.appendChild(this.iframe)
