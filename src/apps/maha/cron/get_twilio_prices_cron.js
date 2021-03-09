@@ -9,6 +9,7 @@ export const processor = async (req) => {
   const smses = await SMS.query(qb => {
     qb.whereNotNull('sid')
     qb.whereNull('price')
+    qb.whereNotNull('sid')
   }).fetchAll({
     transacting: req.trx
   })
@@ -37,6 +38,7 @@ export const processor = async (req) => {
   const connections = await CallConnection.query(qb => {
     qb.whereNotNull('sid')
     qb.whereNull('price')
+    qb.whereNotNull('sid')
   }).fetchAll({
     transacting: req.trx
   })
