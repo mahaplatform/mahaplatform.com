@@ -17,7 +17,7 @@ const getTasks = ({ deposit }, { team, rights }) => {
     items: [
       {
         label: 'Download Export',
-        url: `/api/admin/finance/deposits/${deposit.id}/export.csv?$page[limit]=0&download=true&token=${team.token}`
+        url: `/api/admin/finance/deposits/${deposit.id}/export.xlsx?$page[limit]=0&download=true&token=${team.token}`
       }
     ]
   }
@@ -35,7 +35,7 @@ const getButtons = ({ deposit }, { team, rights }) => {
           endpoint: `/api/admin/finance/deposits/${deposit.id}/export`,
           method: 'post',
           onSuccess: () => {
-            window.location.href = `/api/admin/finance/deposits/${deposit.id}/export.csv?$page[limit]=0&download=true&token=${team.token}`
+            window.location.href = `/api/admin/finance/deposits/${deposit.id}/export.xlsx?$page[limit]=0&download=true&token=${team.token}`
           }
         }
       }

@@ -1,4 +1,5 @@
-import AccpacExpenseSerializer from '@apps/finance/serializers/accpac_expense_serializer'
+import AccumaticaSerializer from '@apps/finance/serializers/accumatica_expense_serializer'
+import AccpacSerializer from '@apps/finance/serializers/accpac_expense_serializer'
 import ExpenseType from '@apps/finance/models/expense_type'
 import Batch from '@apps/finance/models/batch'
 import Item from '@apps/finance/models/item'
@@ -31,7 +32,14 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond({ batch, items }, AccpacExpenseSerializer)
+  const { settings } = req.apps.finance
+
+  const serializer = settings.inegration === 'accpac' ? AccpacSerializer : AccumaticaSerializer
+
+  res.status(200).respond({
+    batch,
+    items
+  }, serializer)
 
 }
 

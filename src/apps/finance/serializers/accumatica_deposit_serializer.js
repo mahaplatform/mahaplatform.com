@@ -51,7 +51,7 @@ const getFee = (deposit, allocation) => [
   subaccount(allocation)
 ]
 
-const accpaccDepositSerializer = async (req, { allocations, deposit }) => {
+const accumaticaDepositSerializer = async (req, { allocations, deposit }) => {
   return allocations.reduce((revenues, allocation, index) => [
     ...revenues,
     getTransaction(deposit, allocation, index),
@@ -71,4 +71,4 @@ const accpaccDepositSerializer = async (req, { allocations, deposit }) => {
   ]])
 }
 
-export default accpaccDepositSerializer
+export default accumaticaDepositSerializer

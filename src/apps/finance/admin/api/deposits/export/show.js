@@ -1,6 +1,5 @@
 import AccumaticaSerializer from '@apps/finance/serializers/accumatica_deposit_serializer'
 import AccpacSerializer from '@apps/finance/serializers/accpac_deposit_serializer'
-import RevenueType from '@apps/finance/models/revenue_type'
 import Allocation from '@apps/finance/models/allocation'
 import Deposit from '@apps/finance/models/deposit'
 

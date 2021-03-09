@@ -15,9 +15,12 @@ class XlsxResponder extends Responder {
     const workbook = new Excel.Workbook()
     const worksheet = workbook.addWorksheet('test')
     worksheet.addRow(labels)
-    records.map(record => worksheet.addRow(keys.map(key => {
-      return _.get(record, key)
-    })))
+    records.map((record, index) => {
+      if(index === 0) return
+      return worksheet.addRow(keys.map(key => {
+        return _.get(record, key)
+      }))
+    })
     const tempFilePath = tempfile('.xlsx')
     await workbook.xlsx.writeFile(tempFilePath)
     return fs.readFileSync(tempFilePath)

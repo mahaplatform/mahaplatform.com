@@ -66,14 +66,16 @@ class Responder {
 
   _getSelectedLabels(select, record) {
     if(_.isPlainObject(select)) return Object.keys(select)
-    if(_.isNil(select)) return this._flattenKeys(record)
-    return _.castArray(select)
+    if(!_.isNil(select)) _.castArray(select)
+    if(_.isArray(record)) return record
+    return this._flattenKeys(record)
   }
 
   _getSelectedKeys(select, record) {
     if(_.isPlainObject(select)) return Object.values(select)
-    if(_.isNil(select)) return this._flattenKeys(record)
-    return _.castArray(select)
+    if(!_.isNil(select)) _.castArray(select)
+    if(_.isArray(record)) return Array(record.length).fill(0).map((i,j) => j)
+    return this._flattenKeys(record)
   }
 
   _flattenKeys(hash, prefix = '') {
