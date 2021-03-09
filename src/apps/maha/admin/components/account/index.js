@@ -34,30 +34,27 @@ class AccountSidebar extends React.Component {
   render() {
     const { user } = this.props
     return (
-      <Fragment>
-        <div className="maha-portal-overlay" />
-        <div className="maha-account" { ...this._getSidebar() }>
-          <div className="maha-account-identity">
-            <Avatar user={ user } width="150" presence={ false } />
-            <h2>{ user.full_name }</h2>
-            <p>{ user.email }</p>
+      <div className="maha-account" { ...this._getSidebar() }>
+        <div className="maha-account-identity">
+          <Avatar user={ user } width="150" presence={ false } />
+          <h2>{ user.full_name }</h2>
+          <p>{ user.email }</p>
+        </div>
+        <div className="maha-account-tasks">
+          <div className="maha-account-task" onClick={ this._handleAccount }>
+            <i className="fa fa-fw fa-id-card" /> Manage Account
           </div>
-          <div className="maha-account-tasks">
-            <div className="maha-account-task" onClick={ this._handleAccount }>
-              <i className="fa fa-fw fa-id-card" /> Manage Account
-            </div>
-            <div className="maha-account-task" onClick={ this._handleSecurity }>
-              <i className="fa fa-fw fa-shield" /> Manage Security
-            </div>
-            <div className="maha-account-task" onClick={ this._handleNotifications }>
-              <i className="fa fa-fw fa-bell" /> Manage Notifications
-            </div>
-            <div className="maha-account-task" onClick={ this._handleSignout }>
-              <i className="fa fa-fw fa-power-off" /> Sign Out
-            </div>
+          <div className="maha-account-task" onClick={ this._handleSecurity }>
+            <i className="fa fa-fw fa-shield" /> Manage Security
+          </div>
+          <div className="maha-account-task" onClick={ this._handleNotifications }>
+            <i className="fa fa-fw fa-bell" /> Manage Notifications
+          </div>
+          <div className="maha-account-task" onClick={ this._handleSignout }>
+            <i className="fa fa-fw fa-power-off" /> Sign Out
           </div>
         </div>
-      </Fragment>
+      </div>
     )
   }
 
