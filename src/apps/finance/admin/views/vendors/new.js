@@ -1,6 +1,7 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import { Form } from '@admin'
+import React from 'react'
+import _ from 'lodash'
 
 class VendorsNew extends React.Component {
 
@@ -39,15 +40,14 @@ class VendorsNew extends React.Component {
   }
 
   _getIntegration() {
-    if(this.props.integration === 'accpac') {
-      return [
-        {
-          label: 'ACCPAC Details',
-          fields: [
-            { label: 'Vendor ID', name: 'integration.vendor_id', type: 'textfield', required: true, placeholder: 'Enter a vendor ID' }
-          ]
-        }
-      ]
+    const { integration } = this.props
+    if(_.includes(['accpac','accumatica'], integration)) {
+      return [{
+        label: integration === 'accpac' ? 'ACCPAC Details' : 'Accumatica Details',
+        fields: [
+          { label: 'Vendor ID', name: 'integration.vendor_id', type: 'textfield', required: true, placeholder: 'Enter a vendor ID' }
+        ]
+      }]
     }
     return []
   }

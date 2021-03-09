@@ -4,9 +4,10 @@ import Merge from './merge'
 import Edit from './edit'
 import React from 'react'
 import New from './new'
+import _ from 'lodash'
 
 const _getIntegrationColumns = (integration) => {
-  if(integration === 'accpac') {
+  if(_.includes(['accpac','accumatica'], integration)) {
     return [
       { label: 'Main Project Code', key: 'integration.main_project_code', collapsing: true, visible: false  },
       { label: 'Project Code', key: 'integration.project_code', collapsing: true, visible: false  },
@@ -19,7 +20,7 @@ const _getIntegrationColumns = (integration) => {
 }
 
 const _getIntegrationExports = (integration) => {
-  if(integration === 'accpac') {
+  if(_.includes(['accpac','accumatica'], integration)) {
     return [
       { label: 'Main Project Code', key: 'integration.main_project_code' },
       { label: 'Project Code', key: 'integration.project_code' },

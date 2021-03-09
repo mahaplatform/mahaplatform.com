@@ -2,6 +2,7 @@ import RoutingNumberField from '../../components/routingnumberfield'
 import PropTypes from 'prop-types'
 import { Form } from '@admin'
 import React from 'react'
+import _ from 'lodash'
 
 class New extends React.Component {
 
@@ -42,9 +43,10 @@ class New extends React.Component {
   }
 
   _getIntegration() {
-    if(this.props.integration === 'accpac') {
+    const { integration } = this.props
+    if(_.includes(['accpac','accumatica'], integration)) {
       return [{
-        label: 'ACCPAC Details',
+        label: integration === 'accpac' ? 'ACCPAC Details' : 'Accumatica Details',
         fields: [
           { label: 'Bank Code', name: 'integration.bank_code', type: 'textfield', placeholder: 'Enter a bank code' }
         ]

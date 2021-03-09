@@ -195,8 +195,8 @@ class Collection extends React.Component {
   }
 
   _getInfinite() {
-    const { code, empty, endpoint, entity, failure, layout, loading, q, recordTasks, selectable, selectValue, sort, table, onSetSelected, onClick, onSort } = this.props
-    const { cacheKey } = this.state
+    const { empty, endpoint, entity, failure, layout, loading, q, recordTasks, selectable, selectValue, sort, table, onSetSelected, onClick, onSort } = this.props
+    const { code, cacheKey } = this.state
     return {
       reference: node => this.infinite = node,
       cacheKey,

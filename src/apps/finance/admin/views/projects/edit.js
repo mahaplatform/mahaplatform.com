@@ -1,7 +1,8 @@
-import ProjectToken from '../../tokens/project'
+import ProjectToken from '@apps/finance/admin/tokens/project'
 import PropTypes from 'prop-types'
 import { Form } from '@admin'
 import React from 'react'
+import _ from 'lodash'
 
 class Edit extends React.Component {
 
@@ -58,9 +59,10 @@ class Edit extends React.Component {
   }
 
   _getIntegration() {
-    if(this.props.integration === 'accpac') {
+    const { integration } = this.props
+    if(_.includes(['accpac','accumatica'], integration)) {
       return [{
-        label: 'ACCPAC Details',
+        label: integration === 'accpac' ? 'ACCPAC Details' : 'Accumatica Details',
         fields: [
           { label: 'Program Code', name: 'integration.program_code', type: 'textfield', placeholder: 'Enter a program code' },
           { label: 'Source Code', name: 'integration.source_code', type: 'textfield', placeholder: 'Enter a source code' },

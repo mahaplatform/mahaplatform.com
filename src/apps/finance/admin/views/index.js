@@ -9,7 +9,6 @@ import CreditShow from './customers/credits/show'
 import DepositList from './deposits/list'
 import DepositShow from './deposits/show'
 import ExpenseShow from './expenses/show'
-import ExpenseTypeList from './expense_types/list'
 import InvoiceList from './invoices/list'
 import InvoiceShow from './invoices/show'
 import ItemList from './items/list'
@@ -25,7 +24,6 @@ import RefundList from './refunds/list'
 import RefundShow from './refunds/show'
 import ReimbursementShow from './reimbursements/show'
 import ReportList from './reports/expense'
-import RevenueTypeList from './revenue_types/list'
 import RevenueReport from './reports/revenue'
 import TaxList from './items/tax'
 import TripShow from './trips/show'
@@ -44,7 +42,6 @@ const routes = [
   { path: '/expenses/:id', component: ExpenseShow },
   { path: '/deposits', component: DepositList },
   { path: '/deposits/:id', component: DepositShow },
-  { path: '/expense_types', component: ExpenseTypeList },
   { path: '/invoices', component: InvoiceList },
   { path: '/invoices/:id', component: InvoiceShow },
   { path: '/items', component: ItemList },
@@ -61,7 +58,6 @@ const routes = [
   { path: '/reports', component: ReportList },
   { path: '/tax', component: TaxList },
   { path: '/receipts/:id', component: ReceiptShow },
-  { path: '/revenue_types', component: RevenueTypeList },
   { path: '/reports/revenue', component: RevenueReport },
   { path: '/trips/:id', component: TripShow },
   { path: '/vendors', component: VendorList },
