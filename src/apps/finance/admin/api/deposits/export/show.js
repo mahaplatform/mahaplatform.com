@@ -1,6 +1,8 @@
-import AccpacDepositSerializer from '@apps/finance/serializers/accpac_deposit_serializer'
-import Deposit from '@apps/finance/models/deposit'
+import AccumaticaSerializer from '@apps/finance/serializers/accumatica_deposit_serializer'
+import AccpacSerializer from '@apps/finance/serializers/accpac_deposit_serializer'
+import RevenueType from '@apps/finance/models/revenue_type'
 import Allocation from '@apps/finance/models/allocation'
+import Deposit from '@apps/finance/models/deposit'
 
 const showRoute = async (req, res) => {
 
@@ -30,7 +32,14 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond({ deposit, allocations }, AccpacDepositSerializer)
+  const { settings } = req.apps.finance
+
+  const serializer = settings.inegration === 'accpac' ? AccpacSerializer : AccumaticaSerializer
+
+  res.status(200).respond({
+    allocations,
+    deposit
+  }, serializer)
 
 }
 

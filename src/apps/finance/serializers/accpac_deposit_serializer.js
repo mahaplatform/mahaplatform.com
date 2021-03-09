@@ -42,25 +42,15 @@ const getFormatted = (allocation, key) => {
 }
 
 const getSummary = (deposit, allocation, index) => {
-
   const date = moment(allocation.related('payment').get('date'))
-
   const deposit_date = moment(deposit.get('date'))
-
   const month = parseInt(moment(deposit.get('date')).format('M'))
-
   const year = parseInt(moment(deposit.get('date')).format('YYYY'))
-
   const startMonth = 10
-
   const fiscYear = (month >= startMonth) ? year + 1 : year
-
   const fiscPer = Math.ceil((month + (month >= startMonth ? 1 : 13) - startMonth) / 3)
-
   const payment = getPayment(allocation)
-
   const customer = payment.related('invoice').related('customer')
-
 
   return [
     1,
@@ -175,7 +165,7 @@ const getFee = (deposit, allocation, index) => [
   index + 1,
   40,
   '',
-  idglacct(allocation, 61110),
+  idglacct(allocation, '61110'),
   '',
   getLineItemDescription(allocation, 'Processing Fee'),
   ...Array(26).fill(0),
@@ -188,27 +178,19 @@ const getFee = (deposit, allocation, index) => [
   0
 ]
 
-const accpaccDepositSerializer = async (req, { deposit, allocations }) => {
-
-  const headers = [
+const accpaccDepositSerializer = async (req, { allocations, deposit }) => {
+  return allocations.reduce((revenues, allocation, index) => [
+    ...revenues,
+    getSummary(deposit, allocation, index),
+    getAmount(deposit, allocation, index),
+    ...allocation.get('fee') > 0 ? [getFee(deposit, allocation, index)] : []
+  ], [
     ['RECTYPE','CODEPYMTYP','CNTBTCH','CNTITEM','IDRMIT','IDCUST','DATERMIT','TEXTRMIT','TXTRMITREF','AMTRMIT','AMTRMITTC','RATEEXCHTC','SWRATETC','CNTPAYMETR','AMTPAYMTC','AMTDISCTC','CODEPAYM','CODECURN','RATETYPEHC','RATEEXCHHC','SWRATEHC','RMITTYPE','DOCTYPE','IDINVCMTCH','CNTLSTLINE','FISCYR','FISCPER','TEXTPAYOR','DATERATETC','RATETYPETC','AMTADJENT','DATERATEHC','PAYMTYPE','REMUNAPLTC','REMUNAPL','AMTRMITHC','DOCNBR','AMTADJHC','OPERBANK','OPERCUST','AMTDISCHC','AMTDBADJHC','AMTCRADJHC','AMTDBADJTC','AMTCRADJTC','SWJOB','APPLYMETH','ERRBATCH','ERRENTRY','VALUES','PROCESSCMD','SRCEAPPL','IDBANK','CODECURNBC','DRILLAPP','DRILLTYPE','DRILLDWNLK','SWPRINTED','SWTXAMTCTL','CODETAXGRP','TAXVERSION','CODETAX1','CODETAX2','CODETAX3','CODETAX4','CODETAX5','TAXCLASS1','TAXCLASS2','TAXCLASS3','TAXCLASS4','TAXCLASS5','TXBSE1TC','TXBSE2TC','TXBSE3TC','TXBSE4TC','TXBSE5TC','TXAMT1TC','TXAMT2TC','TXAMT3TC','TXAMT4TC','TXAMT5TC','TXTOTTC','AMTNETTC','DEPSEQ','DEPLINE','CODECURNRC','SWTXCTLRC','RATERC','RATETYPERC','RATEDATERC','RATEOPRC','SWRATERC','TXAMT1RC','TXAMT2RC','TXAMT3RC','TXAMT4RC','TXAMT5RC','TXTOTRC','CNTACC','AMTACCTC','AMTACCHC','AMTPAYMHC','REMUNAPLHC','TXBSE1HC','TXBSE2HC','TXBSE3HC','TXBSE4HC','TXBSE5HC','TXAMT1HC','TXAMT2HC','TXAMT3HC','TXAMT4HC','TXAMT5HC','TXTOTHC','AMTNETHC','ARVERSION','ENTEREDBY','DATEBUS','IDACCTSET','CCPREVID','CCPREVSTTS','CCTRANID','CCTRANSTTS','PROCESSCOD'],
     ['RECTYPE','CODEPAYM','CNTBTCH','CNTITEM','CNTLINE','DOCNBR','TEXTDESC','TEXTREF','AMTACCTC','AMTACCHC','IDCUST'],
     ['RECTYPE','CODEPAYM','CNTBTCH','CNTITEM','CNTLINE','IDDISTCODE','IDACCT','GLREF','GLDESC','TAXCLASS1','TAXCLASS2','TAXCLASS3','TAXCLASS4','TAXCLASS5','SWTAXINCL1','SWTAXINCL2','SWTAXINCL3','SWTAXINCL4','SWTAXINCL5','TXBSE1TC','TXBSE2TC','TXBSE3TC','TXBSE4TC','TXBSE5TC','RATETAX1','RATETAX2','RATETAX3','RATETAX4','RATETAX5','TXAMT1TC','TXAMT2TC','TXAMT3TC','TXAMT4TC','TXAMT5TC','TXTOTTC','AMTDISTTC','AMTNETTC','AMTDISTHC','AMTNETHC','AMTCOGS','ALTBASETAX','TXAMT1RC','TXAMT2RC','TXAMT3RC','TXAMT4RC','TXAMT5RC','TXTOTRC','TXBSE1HC','TXBSE2HC','TXBSE3HC','TXBSE4HC','TXBSE5HC','TXAMT1HC','TXAMT2HC','TXAMT3HC','TXAMT4HC','TXAMT5HC','TXTOTHC','CONTRACT','PROJECT','CATEGORY','RESOURCE','COSTCLASS','BILLDATE'],
     ['RECTYPE','CODEPAYM','CNTBTCH','CNTITEM','CNTLINE','IDCUST','IDINVC','CNTPAYM','TRXTYPE','PYMTRESL','AMTPAYM','AMTERNDISC','CNTLASTSEQ','AMTADJTOT','CNTADJ','TEXTADJ','GLREF','IDPPD','IDDOCMTCH','CDAPPLYTO','OBSPAYMAMT','OBSDISCAMT','OBSNETBAL','PNDPAYTOT','PNDDSCTOT','PNDADJTOT','AMTDBADJTC','AMTCRADJTC','DOCTYPE','SWJOB','AMTPAYMTOT','AMTDISCTOT','APPLYMETH','RTGTOTDBTC','RTGTOTCRTC','RTGAMT','RTGDATEDUE','RTGTERMS','SWRTGRATE','PROCESSCMD','UNAPLPAYM','UNAPLDISC','TRXTYPEID','RMITTYPE','SWRTG','RTGBAL','RTGAPPLYTO','AMTADJNET','EXCHRATEHC','DATEINVC','AMTPAYMHC','AMTDISCHC','AMTADJHC','RTGAMTHC','ARVERSION','CODECURN'],
     ['RECTYPE','CODEPAYM','CNTBTCH','CNTITEM','CNTLINE','CNTSEQ','CODTRXTYPE','AMTDIST','IDDISTCODE','IDACCT','CONTRACT','PROJECT','CATEGORY','RESOURCE','TRANSNBR','COSTCLASS','AMTDISC','AMTPAYM','IDITEM','UNITMEAS','QTYINVC','AMTCOST','BILLDATE','RTGAMT','RTGDATEDUE','SWRTG','AMTDISTHC','AMTDISCHC','AMTPAYMHC','RTGAMTHC','TEXTDESC','TEXTREF','DOCLINE','AMTDUETC']
-  ]
-
-  return allocations.reduce((revenues, allocation, index) => {
-
-    return [
-      ...revenues,
-      getSummary(deposit, allocation, index),
-      getAmount(deposit, allocation, index),
-      ...allocation.get('fee') > 0 ? [getFee(deposit, allocation, index)] : []
-    ]
-
-  }, headers)
-
+  ])
 }
 
 export default accpaccDepositSerializer
