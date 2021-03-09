@@ -4,6 +4,7 @@ const autoprefixer = require('autoprefixer')
 const webpack = require('webpack')
 const cssnano = require('cssnano')
 const path = require('path')
+const babelrc = require('./babel.platform')
 
 const root = path.resolve('src','platforms','desktop')
 const src = path.join(root,'app')
@@ -36,8 +37,8 @@ const config = {
           {
             loader: 'babel-loader',
             options: {
-              cacheDirectory: path.join('tmp', '.cache'),
-              presets: ['es2015', 'stage-0']
+              cacheDirectory: true,
+              ...babelrc
             }
           }
         ]

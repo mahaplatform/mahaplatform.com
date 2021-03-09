@@ -1,6 +1,6 @@
 import '@core/services/environment'
 import { bootstrap } from '@core/services/bootstrap/bootstrap'
-import watchPlatform from './dev.platform'
+import { watchDesktop, watchMobile } from './dev.platform'
 import { watchFrontend, watchSdk } from './dev.frontend'
 import watchBackend from './dev.backend'
 import ngrok from 'ngrok'
@@ -18,13 +18,13 @@ const connectNgrok = async () => {
 const processor = async () => {
   const argv = process.argv.slice(2)
   const entities = argv.length > 0 ? argv[0].split(',') : ['backend','frontend']
-  await bootstrap()
-  await connectNgrok()
+  if(_.includes(entities,'backend')) await bootstrap()
+  if(_.includes(entities,'frontend')) await connectNgrok()
   if(_.includes(entities,'backend')) await watchBackend()
   if(_.includes(entities,'frontend')) await watchFrontend()
   if(_.includes(entities,'sdk')) await watchSdk()
-  if(_.includes(entities,'mobile')) await watchPlatform('mobile')
-  if(_.includes(entities,'desktop')) await watchPlatform('desktop')
+  if(_.includes(entities,'mobile')) await watchMobile()
+  if(_.includes(entities,'desktop')) await watchDesktop()
 }
 
 processor()

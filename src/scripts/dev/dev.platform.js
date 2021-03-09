@@ -1,41 +1,62 @@
 import desktopConfig from './webpack.desktop.config'
 import mobileConfig from './webpack.mobile.config'
+import { spawn } from 'child_process'
 import log from '@core/utils/log'
 import chokidar from 'chokidar'
 import webpack from 'webpack'
 import path from 'path'
 import _ from 'lodash'
 
-const watch = async (module, watchDir, config) => {
+let platform = null
+
+const watch = async (name, watchDir, config) => {
   let compiling = false
   chokidar.watch(watchDir).on('all', (event, path) => {
     if(compiling) return
     if(!_.includes(['add','change'], event)) return
     compiling = true
-    log('info', module, 'Compiling...')
+    log('info', name, 'Compiling...')
     webpack(config).run((err, stats) => {
       compiling = false
-      if(err) return log('error', module, err)
+      if(err) return log('error', name, err)
       const info = stats.toJson()
-      if(stats.hasErrors()) return log('error', module, info.errors)
-      log('info', module, 'Compiled successfully.')
+      if(stats.hasErrors()) return log('error', name, info.errors)
+      log('info', name, 'Compiled successfully.')
+      restartPlatform(name)
     })
   })
 }
 
-const watchDesktop = async () => {
-  const watchDir = path.resolve('src','desktop','app')
+const restartPlatform = _.debounce((name) => {
+  log('info', name, `Restarting ${name}`)
+  if(platform) platform.kill('sighup')
+  platform = start()
+}, 500)
+
+
+const start = () => {
+  const proc = spawn('npx', ['electron','./src/platforms/desktop/www'], {
+    stdio: ['pipe', 'pipe', 'pipe', 'ipc'],
+    env: {
+      ...process.env,
+      NODE_ENV: 'development'
+    }
+  })
+  proc.stdout.on('data', (data) => {
+    process.stdout.write(data)
+  })
+  proc.stderr.on('data', (data) => {
+    process.stdout.write(data)
+  })
+  return proc
+}
+
+export const watchDesktop = async () => {
+  const watchDir = path.resolve('src','platforms','desktop','app')
   await watch('desktop', watchDir, desktopConfig)
 }
 
-const watchMobile = async () => {
-  const watchDir = path.resolve('src','mobile','app')
+export const watchMobile = async () => {
+  const watchDir = path.resolve('src','platforms','mobile','app')
   await watch('mobile', watchDir, mobileConfig)
 }
-
-const watchPlatforms = async (platform) => {
-  if(platform === 'desktop') await watchDesktop()
-  if(platform === 'mobile') await watchMobile()
-}
-
-export default watchPlatforms

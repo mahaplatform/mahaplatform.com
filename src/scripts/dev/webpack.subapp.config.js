@@ -1,6 +1,6 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import autoprefixer from 'autoprefixer'
-import babel from './webpack.babel'
+import babelrc from './babel.frontend'
 import webpack from 'webpack'
 import cssnano from 'cssnano'
 import path from 'path'
@@ -38,7 +38,7 @@ const webpackConfig = (app, name, root, port) => ({
         loader: 'babel-loader',
         options: {
           cacheDirectory: true,
-          ...babel
+          ...babelrc
         }
       }
     ]
