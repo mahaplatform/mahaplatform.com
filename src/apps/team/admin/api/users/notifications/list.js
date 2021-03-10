@@ -49,7 +49,7 @@ const listRoute = async (req, res) => {
     return 0
   })
 
-  res.status(200).respond(sorted)
+  await res.status(200).respond(sorted)
 
 }
 

@@ -33,7 +33,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(email_campaigns, EmailCampaignSerializer)
+  await res.status(200).respond(email_campaigns, EmailCampaignSerializer)
 
 }
 

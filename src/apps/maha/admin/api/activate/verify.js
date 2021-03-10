@@ -25,7 +25,7 @@ const verifyRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond({
+  await res.status(200).respond({
     account: {
       id: req.account.get('id'),
       first_name: req.account.get('first_name'),

@@ -86,7 +86,7 @@ const updateRoute = async (req, res) => {
     `/admin/finance/projects/${req.params.project_id}`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

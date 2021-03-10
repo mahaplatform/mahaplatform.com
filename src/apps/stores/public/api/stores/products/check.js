@@ -29,7 +29,7 @@ const checkRoute = async (req, res) => {
 
   const available = variant ? variant.get('inventory_onhand') : 0
 
-  res.status(200).respond(available === null || available > 0)
+  await res.status(200).respond(available === null || available > 0)
 }
 
 export default checkRoute

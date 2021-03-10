@@ -15,7 +15,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load vendor'
   })
 
-  res.status(200).respond(vendor, VendorSerializer)
+  await res.status(200).respond(vendor, VendorSerializer)
 
 }
 

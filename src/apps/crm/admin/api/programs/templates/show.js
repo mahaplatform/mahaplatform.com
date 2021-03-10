@@ -24,7 +24,7 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(template, TemplateSerializer)
+  await res.status(200).respond(template, TemplateSerializer)
 
 }
 

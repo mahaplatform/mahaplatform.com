@@ -18,7 +18,7 @@ const destroyRoute = async (req, res) => {
 
   await destroyFolder(req, folder)
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

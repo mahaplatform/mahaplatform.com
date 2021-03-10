@@ -7,7 +7,7 @@ const authorizeRoute = async (req, res) => {
     cell_phone: req.body.cell_phone
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

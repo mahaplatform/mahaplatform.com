@@ -13,7 +13,7 @@ const receiptsRoute = async (req, res) => {
     message: 'Unable to load receipts'
   })
 
-  res.status(200).respond(receipts, (req, receipt) => ({
+  await res.status(200).respond(receipts, (req, receipt) => ({
     unread_messages: receipt.get('unread_messages'),
     unheard_voicemails: receipt.get('unheard_voicemails')
   }))

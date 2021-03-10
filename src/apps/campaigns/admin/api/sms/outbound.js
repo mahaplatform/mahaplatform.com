@@ -30,7 +30,7 @@ const outboundRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(sms_campaigns, SmsCampaignSerializer)
+  await res.status(200).respond(sms_campaigns, SmsCampaignSerializer)
 
 }
 

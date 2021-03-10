@@ -36,7 +36,7 @@ const createRoute = async (req, res) => {
     asset
   })
 
-  res.status(200).respond(agreement, AgreementSerializer)
+  await res.status(200).respond(agreement, AgreementSerializer)
 
 }
 

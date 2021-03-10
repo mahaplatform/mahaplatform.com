@@ -40,7 +40,7 @@ const updateRoute = async (req, res) => {
     `/admin/platform/help/articles/${article.get('id')}`
   ])
 
-  res.status(200).respond(article, HelpArticleSerializer)
+  await res.status(200).respond(article, HelpArticleSerializer)
 
 }
 

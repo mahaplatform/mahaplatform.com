@@ -4,7 +4,7 @@ const tokenRoute = async (req, res) => {
 
   const token = await getToken(req)
 
-  res.status(200).respond(token)
+  await res.status(200).respond(token)
 
 }
 

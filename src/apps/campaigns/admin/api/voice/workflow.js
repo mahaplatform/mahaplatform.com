@@ -40,7 +40,7 @@ const updateRoute = async (req, res) => {
     file_data: JSON.stringify(rendered)
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

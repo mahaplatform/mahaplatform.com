@@ -15,7 +15,7 @@ const retryRoute = async (req, res) => {
     `/admin/platform/queues/${req.params.name}/jobs/${req.params.id}`
   ])
 
-  res.status(200).respond(result)
+  await res.status(200).respond(result)
 
 }
 

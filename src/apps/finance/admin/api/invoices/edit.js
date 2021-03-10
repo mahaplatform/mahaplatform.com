@@ -17,7 +17,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load invoice'
   })
 
-  res.status(200).respond(invoice, (req, invoice) => ({
+  await res.status(200).respond(invoice, (req, invoice) => ({
     date: invoice.get('date'),
     due: invoice.get('due'),
     customer_id: invoice.get('customer_id'),

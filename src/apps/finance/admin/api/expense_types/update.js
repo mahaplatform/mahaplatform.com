@@ -31,7 +31,7 @@ const updateRoute = async (req, res) => {
     '/admin/finance/expense_types'
   ])
 
-  res.status(200).respond(expense_type, ExpenseTypeSerializer)
+  await res.status(200).respond(expense_type, ExpenseTypeSerializer)
 
 }
 

@@ -45,7 +45,7 @@ const deleteAllRoute = async (req, res) => {
     `/admin/sites/sites/${req.params.site_id}/types/${req.params.type_id}/items`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

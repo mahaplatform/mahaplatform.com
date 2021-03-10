@@ -40,7 +40,7 @@ const createRoute = async (req, res) => {
     `/admin/crm/programs/${req.params.program_id}`
   ])
 
-  res.status(200).respond(topic, TopicSerializer)
+  await res.status(200).respond(topic, TopicSerializer)
 
 }
 

@@ -12,8 +12,8 @@ const getResponderClass = (req) => {
   return JsonResponder
 }
 
-express.response.respond = function(data, serializer) {
+express.response.respond = async function(data, serializer) {
   const responderClass = getResponderClass(this.req)
   const responder =  new responderClass(this, data, serializer)
-  responder.render()
+  await responder.render()
 }

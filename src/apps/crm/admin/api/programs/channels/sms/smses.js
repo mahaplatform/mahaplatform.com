@@ -44,7 +44,7 @@ const smsesRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(smses, (req, sms) => ({
+  await res.status(200).respond(smses, (req, sms) => ({
     id: sms.get('id'),
     contact: sms.related('from_number').get('number') === phone.get('number') ? {
       id: contact.get('id'),

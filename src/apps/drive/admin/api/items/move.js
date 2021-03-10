@@ -65,7 +65,7 @@ const moveRoute = async (req, res) => {
     `/admin/drive/folders/${folder.get('code') || 'drive'}`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

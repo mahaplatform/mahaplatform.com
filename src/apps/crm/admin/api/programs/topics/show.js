@@ -26,7 +26,7 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(topic, TopicSerializer)
+  await res.status(200).respond(topic, TopicSerializer)
 
 }
 

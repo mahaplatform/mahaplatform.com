@@ -22,7 +22,7 @@ const updateRoute = async (req, res) => {
     object_type: null
   })
 
-  res.status(200).respond(req.user, {
+  await res.status(200).respond(req.user, {
     fields: ['photo_id']
   })
 

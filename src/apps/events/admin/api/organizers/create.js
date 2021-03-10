@@ -32,7 +32,7 @@ const createRoute = async (req, res) => {
     '/admin/events/organizers'
   ])
 
-  res.status(200).respond(organizer, OrganizerSerializer)
+  await res.status(200).respond(organizer, OrganizerSerializer)
 
 }
 

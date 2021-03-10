@@ -15,7 +15,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load customer'
   })
 
-  res.status(200).respond(customer, CustomerSerializer)
+  await res.status(200).respond(customer, CustomerSerializer)
 
 }
 

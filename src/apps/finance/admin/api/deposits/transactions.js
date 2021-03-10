@@ -16,7 +16,7 @@ const transactionsRoute = async (req, res) => {
     message: 'Unable to load deposit'
   })
 
-  res.status(200).respond(deposit.related('line_items'), DepositLineItemSerializer)
+  await res.status(200).respond(deposit.related('line_items'), DepositLineItemSerializer)
 
 }
 

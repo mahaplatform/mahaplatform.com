@@ -35,7 +35,7 @@ const updateRoute = async (req, res) => {
     `/admin/events/organizers/${organizer.get('id')}`
   ])
 
-  res.status(200).respond(organizer, OrganizerSerializer)
+  await res.status(200).respond(organizer, OrganizerSerializer)
 
 }
 

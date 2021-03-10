@@ -13,7 +13,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load dataset'
   })
 
-  res.status(200).respond({
+  await res.status(200).respond({
     title: dataset.get('title')
   })
 

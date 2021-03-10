@@ -101,7 +101,7 @@ const updateRoute = async (req, res) => {
     object: user
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

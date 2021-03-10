@@ -32,7 +32,7 @@ const voidRoute = async (req, res) => {
     `/admin/finance/refunds/${refund.get('id')}`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

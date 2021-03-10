@@ -28,7 +28,7 @@ const updateRoute = async (req, res) => {
     members: req.body.members
   })
 
-  res.status(200).respond(group, GroupSerializer)
+  await res.status(200).respond(group, GroupSerializer)
 
 }
 

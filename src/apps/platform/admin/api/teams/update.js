@@ -38,7 +38,7 @@ const updateRoute = async (req, res) => {
     { channel: `/admin/teams/${team.get('id')}`, target: '/admin/team/settings' }
   ])
 
-  res.status(200).respond(team, TeamSerializer)
+  await res.status(200).respond(team, TeamSerializer)
 
 }
 

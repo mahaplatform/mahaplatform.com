@@ -22,7 +22,7 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(sender, SenderSerializer)
+  await res.status(200).respond(sender, SenderSerializer)
 
 }
 

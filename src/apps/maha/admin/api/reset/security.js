@@ -12,7 +12,7 @@ const securityRoute = async (req, res, next) => {
     message: 'Invalid securty answer'
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

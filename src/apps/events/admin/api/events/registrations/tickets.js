@@ -19,7 +19,7 @@ const ticketsRoute = async (req, res) => {
     message: 'Unable to load registration'
   })
 
-  res.status(200).respond(registration.related('tickets'), TicketSerializer)
+  await res.status(200).respond(registration.related('tickets'), TicketSerializer)
 
 }
 

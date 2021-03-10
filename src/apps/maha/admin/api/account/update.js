@@ -24,7 +24,7 @@ const updateRoute = async (req, res) => {
     object_type: null
   })
 
-  res.status(200).respond(req.user, {
+  await res.status(200).respond(req.user, {
     fields: ['first_name','last_name','email','cell_phone']
   })
 

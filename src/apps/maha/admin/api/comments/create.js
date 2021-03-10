@@ -63,7 +63,7 @@ const createRoute = async (req, res) => {
     object
   })
 
-  res.status(200).respond(comment, CommentSerializer)
+  await res.status(200).respond(comment, CommentSerializer)
 
 }
 

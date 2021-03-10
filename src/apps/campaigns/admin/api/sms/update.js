@@ -52,7 +52,7 @@ const updateRoute = async (req, res) => {
     `/admin/campaigns/sms/${sms_campaign.get('id')}`
   ])
 
-  res.status(200).respond(sms_campaign, SmsCampaignSerializer)
+  await res.status(200).respond(sms_campaign, SmsCampaignSerializer)
 
 }
 

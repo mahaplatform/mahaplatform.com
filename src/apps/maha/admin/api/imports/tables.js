@@ -8,7 +8,7 @@ const tablesRoute = async (req, res) => {
     WHERE tc.constraint_type=? AND tc.table_name=?
   `, ['FOREIGN KEY', req.params.tablename])
 
-  res.status(200).respond(related_tables.rows.map(table => ({
+  await res.status(200).respond(related_tables.rows.map(table => ({
     table: table.table_name,
     field: table.column_name
   })))

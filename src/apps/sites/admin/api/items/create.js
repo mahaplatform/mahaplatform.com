@@ -55,7 +55,7 @@ const createRoute = async (req, res) => {
     `/admin/sites/sites/${req.params.site_id}/types/${req.params.type_id}/items/${item.get('id')}`
   ])
 
-  res.status(200).respond(item, ItemSerializer)
+  await res.status(200).respond(item, ItemSerializer)
 
 }
 

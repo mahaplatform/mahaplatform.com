@@ -16,7 +16,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load note'
   })
 
-  res.status(200).respond(note, ContactNoteSerializer)
+  await res.status(200).respond(note, ContactNoteSerializer)
 
 }
 

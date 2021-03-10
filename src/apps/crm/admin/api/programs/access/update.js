@@ -70,7 +70,7 @@ const updateRoute = async (req, res) => {
     `/admin/crm/programs/${req.params.program_id}`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

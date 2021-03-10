@@ -18,7 +18,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load event'
   })
 
-  res.status(200).respond(event, EventSerializer)
+  await res.status(200).respond(event, EventSerializer)
 
 }
 

@@ -57,7 +57,7 @@ const hangupRoute = async (req, res) => {
 
   twilio.calls(call.get('sid')).update({ twiml })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

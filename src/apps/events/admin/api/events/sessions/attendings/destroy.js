@@ -32,7 +32,7 @@ const destroyRoute = async (req, res) => {
     `/admin/events/events/${req.params.event_id}/sessions/${req.params.session_id}`
   ])
 
-  res.status(200).respond(ticket, TicketSerializer)
+  await res.status(200).respond(ticket, TicketSerializer)
 
 }
 

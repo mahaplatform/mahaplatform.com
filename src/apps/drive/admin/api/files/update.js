@@ -18,7 +18,7 @@ const updateRoute = async (req, res) => {
 
   await updateFile(req, file, req.body)
 
-  res.status(200).respond(file, FileSerializer)
+  await res.status(200).respond(file, FileSerializer)
 
 }
 

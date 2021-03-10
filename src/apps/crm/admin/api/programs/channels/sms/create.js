@@ -47,7 +47,7 @@ const createRoute = async (req, res) => {
     `/admin/crm/programs/${program.get('id')}/channels/sms/${to.get('id')}/smses`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

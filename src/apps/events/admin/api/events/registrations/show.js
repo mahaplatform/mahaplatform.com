@@ -19,7 +19,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load registration'
   })
 
-  res.status(200).respond(registration, RegistrationSerializer)
+  await res.status(200).respond(registration, RegistrationSerializer)
 
 }
 

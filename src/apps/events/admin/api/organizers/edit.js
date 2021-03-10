@@ -15,7 +15,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load organizer'
   })
 
-  res.status(200).respond({
+  await res.status(200).respond({
     name: organizer.get('name'),
     email: organizer.get('email'),
     phone: organizer.get('phone'),

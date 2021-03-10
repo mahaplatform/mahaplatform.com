@@ -28,7 +28,7 @@ const createRoute = async (req, res) => {
     object: _import
   })
 
-  res.status(200).respond(_import, ImportSerializer)
+  await res.status(200).respond(_import, ImportSerializer)
 
 }
 

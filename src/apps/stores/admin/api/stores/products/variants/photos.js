@@ -45,7 +45,7 @@ const photosRoute = async (req, res) => {
     message: 'Unable to load variant'
   })
 
-  res.status(200).respond(variant.related('photos'), PhotoSerializer)
+  await res.status(200).respond(variant.related('photos'), PhotoSerializer)
 
 }
 

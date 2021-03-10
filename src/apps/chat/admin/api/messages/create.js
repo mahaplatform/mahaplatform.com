@@ -89,7 +89,7 @@ const createRoute = async (req, res) => {
     ...updateUnread
   ])
 
-  res.status(200).respond(message, MessageSerializer)
+  await res.status(200).respond(message, MessageSerializer)
 
 }
 

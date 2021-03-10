@@ -26,7 +26,7 @@ const destroyRoute = async (req, res) => {
     '/admin/platform/teams'
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

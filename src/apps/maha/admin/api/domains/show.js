@@ -15,7 +15,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load domain'
   })
 
-  res.status(200).respond(domain, DomainSerializer)
+  await res.status(200).respond(domain, DomainSerializer)
 
 }
 

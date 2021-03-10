@@ -15,7 +15,7 @@ const transferRoute = async (req, res) => {
     strategy: req.body.strategy
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

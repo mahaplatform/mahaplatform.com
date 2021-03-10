@@ -16,7 +16,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load advance'
   })
 
-  res.status(200).respond(advance, AdvanceSerializer)
+  await res.status(200).respond(advance, AdvanceSerializer)
 
 }
 

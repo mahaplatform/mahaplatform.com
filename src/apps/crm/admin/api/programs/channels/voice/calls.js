@@ -35,7 +35,7 @@ const callsRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(calls, CallSerializer)
+  await res.status(200).respond(calls, CallSerializer)
 
 }
 

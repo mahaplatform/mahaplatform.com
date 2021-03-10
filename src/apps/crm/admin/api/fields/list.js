@@ -41,7 +41,7 @@ const listRoute = async (req, res) => {
     return a.title > b.title ? 1 : -1
   })
 
-  res.status(200).respond(data)
+  await res.status(200).respond(data)
 
 }
 

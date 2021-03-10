@@ -37,7 +37,7 @@ const createRoute = async (req, res) => {
     object: phone_number
   })
 
-  res.status(200).respond(phone_number, PhoneNumberSerializer)
+  await res.status(200).respond(phone_number, PhoneNumberSerializer)
 
 }
 

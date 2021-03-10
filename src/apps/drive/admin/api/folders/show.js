@@ -16,7 +16,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load folder'
   })
 
-  res.status(200).respond(folder, FolderSerializer)
+  await res.status(200).respond(folder, FolderSerializer)
 
 }
 

@@ -17,7 +17,7 @@ const enrollmentRoute = async (req, res) => {
     message: 'Unable to load response'
   })
 
-  res.status(200).respond(response.related('enrollment'), EnrollmentSerializer)
+  await res.status(200).respond(response.related('enrollment'), EnrollmentSerializer)
 
 }
 

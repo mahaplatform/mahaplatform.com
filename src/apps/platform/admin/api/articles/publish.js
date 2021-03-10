@@ -26,7 +26,7 @@ const publishRoute = async (req, res) => {
     `/admin/platform/help/articles/${req.params.id}`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

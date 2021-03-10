@@ -4,7 +4,7 @@ const adminOverviewRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
   }).then(rows => rows[0])
 
-  res.status(200).respond(admin_overview_counts)
+  await res.status(200).respond(admin_overview_counts)
 }
 
 export default adminOverviewRoute

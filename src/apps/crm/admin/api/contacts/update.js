@@ -107,7 +107,7 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(_contact, ContactSerializer)
+  await res.status(200).respond(_contact, ContactSerializer)
 
 }
 

@@ -64,7 +64,7 @@ const destroyRoute = async (req, res) => {
 
   await socket.message(req, removeChannel)
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

@@ -11,7 +11,7 @@ const pushRoute = async (req, res, next) => {
     cell_phone: req.account.get('cell_phone')
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

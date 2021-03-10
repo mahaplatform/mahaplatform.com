@@ -73,7 +73,7 @@ const downloadRoute = async (req, res) => {
 
   const { fields } = event.get('contact_config')
 
-  res.status(200).respond(registrations, (req, registration) => {
+  await res.status(200).respond(registrations, (req, registration) => {
     const tickets = registration.related('tickets').reduce((tickets, ticket) => ({
       ...tickets,
       [ticket.get('ticket_type_id')]: 1 + (tickets[ticket.get('ticket_type_id')] || 0)

@@ -16,7 +16,7 @@ const listRoute = async (req, res) => {
     message: 'Unable to load event'
   })
 
-  res.status(200).respond(event.related('sessions'), SessionSerializer)
+  await res.status(200).respond(event.related('sessions'), SessionSerializer)
 
 }
 

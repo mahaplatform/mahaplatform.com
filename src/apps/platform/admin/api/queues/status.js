@@ -16,7 +16,7 @@ const statusRoute = async (req, res) => {
     limit: 100
   }
 
-  res.status(200).respond(jobs, (req, job) => ({
+  await res.status(200).respond(jobs, (req, job) => ({
     id: job.id,
     created_at: moment(job.timestamp).format('MM/DD/YY hh:mmA'),
     attempts: job.attemptsMade,

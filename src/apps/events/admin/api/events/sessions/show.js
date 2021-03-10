@@ -17,7 +17,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load session'
   })
 
-  res.status(200).respond(session, SessionSerializer)
+  await res.status(200).respond(session, SessionSerializer)
 
 }
 

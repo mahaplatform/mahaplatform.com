@@ -25,7 +25,7 @@ const listRoute = async (req, res) => {
 
   const records = await list(req, profile)
 
-  res.status(200).respond(records)
+  await res.status(200).respond(records)
 
 }
 

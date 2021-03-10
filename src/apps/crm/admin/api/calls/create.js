@@ -40,7 +40,7 @@ const createRoute = async (req, res) => {
     `/admin/crm/programs/${req.body.program_id}/channels/voice/calls`
   ])
 
-  res.status(200).respond(call, CallSerializer)
+  await res.status(200).respond(call, CallSerializer)
 
 }
 

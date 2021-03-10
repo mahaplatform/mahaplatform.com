@@ -39,7 +39,7 @@ export default (state = INITIAL_STATE, action) => {
       resources: {
         ...state.resources,
         [action.prop]: {
-          status: (action.result.meta.status === 'FORBIDDEN') ? 'forbidden' : 'failure',
+          status: (action.result.status === '403') ? 'forbidden' : 'failure',
           data: null
         }
       }

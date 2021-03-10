@@ -96,7 +96,7 @@ const createRoute = async (req, res) => {
     '/admin/forms/forms'
   ])
 
-  res.status(200).respond(form, FormSerializer)
+  await res.status(200).respond(form, FormSerializer)
 
 }
 

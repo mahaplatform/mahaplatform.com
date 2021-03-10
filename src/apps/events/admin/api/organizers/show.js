@@ -16,7 +16,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load organizer'
   })
 
-  res.status(200).respond(organizer, OrganizerSerializer)
+  await res.status(200).respond(organizer, OrganizerSerializer)
 
 }
 

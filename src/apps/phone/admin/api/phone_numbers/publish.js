@@ -41,7 +41,7 @@ const publishRoute = async (req, res) => {
     patch: true
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

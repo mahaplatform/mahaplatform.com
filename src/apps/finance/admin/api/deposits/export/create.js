@@ -42,7 +42,7 @@ const createRoute = async (req, res) => {
     `/admin/finance/deposits/${deposit.id}`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

@@ -11,7 +11,7 @@ const lookupRoute = async (req, res) => {
     limit: 20
   })
 
-  res.status(200).respond(numbers.sort((a,b) => {
+  await res.status(200).respond(numbers.sort((a,b) => {
     return a.locality > b.locality ? 1 : -1
   }))
 

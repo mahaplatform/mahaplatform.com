@@ -12,7 +12,7 @@ const destroyRoute = async (req, res) => {
     message: 'You dont have sufficient access to perform this action'
   })
 
-  res.status(200).respond()
+  await res.status(200).respond()
 
 }
 

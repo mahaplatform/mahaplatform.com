@@ -28,7 +28,7 @@ const submitRoute = async (req, res) => {
     message: req.body.message
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

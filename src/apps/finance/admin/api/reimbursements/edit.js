@@ -21,7 +21,7 @@ const editRoute = async (req, res) => {
 
   const is_admin = _.includes(access.rights, 'finance:access_expense_reports')
 
-  res.status(200).respond(reimbursement, (req, reimbursement) => ({
+  await res.status(200).respond(reimbursement, (req, reimbursement) => ({
     date: reimbursement.get('date'),
     receipt_ids: reimbursement.get('receipt_ids'),
     vendor_id: reimbursement.get('vendor_id'),

@@ -15,7 +15,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load event'
   })
 
-  res.status(200).respond({
+  await res.status(200).respond({
     code: event.get('code'),
     title: event.get('title'),
     permalink: event.get('permalink'),

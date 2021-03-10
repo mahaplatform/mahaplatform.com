@@ -29,7 +29,7 @@ const createRoute = async (req, res) => {
     '/admin/team/shortlinks'
   ])
 
-  res.status(200).respond(shortlink, ShortLinkSerializer)
+  await res.status(200).respond(shortlink, ShortLinkSerializer)
 
 }
 

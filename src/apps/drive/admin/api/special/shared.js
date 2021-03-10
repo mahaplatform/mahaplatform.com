@@ -33,7 +33,7 @@ const sharedRoute = async (req, res) => {
     return star.code
   }))
 
-  res.status(200).respond(items, ItemSerializer)
+  await res.status(200).respond(items, ItemSerializer)
 
 }
 

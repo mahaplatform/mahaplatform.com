@@ -37,7 +37,7 @@ const omitRoute = async (req, res) => {
     `/admin/imports/${_import.get('id')}`
   ])
 
-  res.status(200).respond(_import, ImportSerializer)
+  await res.status(200).respond(_import, ImportSerializer)
 
 }
 

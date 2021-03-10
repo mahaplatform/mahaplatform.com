@@ -10,7 +10,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load link'
   })
 
-  res.status(200).respond(link, LinkSerializer)
+  await res.status(200).respond(link, LinkSerializer)
 
 }
 

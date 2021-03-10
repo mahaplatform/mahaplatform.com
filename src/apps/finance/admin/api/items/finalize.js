@@ -88,7 +88,7 @@ const finalizeRoute = async (req, res) => {
     data: ImportSerializer(null, imp)
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

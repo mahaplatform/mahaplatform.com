@@ -16,7 +16,7 @@ const emailRoute  = async (req, res) => {
     message: 'Unable to load form'
   })
 
-  res.status(200).respond(form.related('email'), EmailSerializer)
+  await res.status(200).respond(form.related('email'), EmailSerializer)
 
 }
 

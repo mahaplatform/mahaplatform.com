@@ -14,7 +14,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load rate'
   })
 
-  res.status(200).respond(rate, RateSerializer)
+  await res.status(200).respond(rate, RateSerializer)
 
 }
 

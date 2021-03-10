@@ -25,7 +25,7 @@ const editRoute = async (req, res) => {
     transacting: req.trx
   }).then(result => result.toArray())
 
-  res.status(200).respond(contact, (req, contact) => ({
+  await res.status(200).respond(contact, (req, contact) => ({
     first_name: contact.get('first_name'),
     last_name: contact.get('last_name'),
     organization: contact.get('organization'),

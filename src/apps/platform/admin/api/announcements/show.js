@@ -43,7 +43,7 @@ const showRoute = async (req, res) => {
 
   announcement.set('recipients', recipient_count)
 
-  res.status(200).respond(announcement, AnnouncementSerializer)
+  await res.status(200).respond(announcement, AnnouncementSerializer)
 
 }
 

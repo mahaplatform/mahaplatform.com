@@ -35,7 +35,7 @@ const createRoute = async (req, res) => {
     `/admin/platform/banks/${bank.get('id')}`
   ])
 
-  res.status(200).respond(bank, BankSerializer)
+  await res.status(200).respond(bank, BankSerializer)
 
 }
 

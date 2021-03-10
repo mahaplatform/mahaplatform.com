@@ -84,7 +84,7 @@ const createRoute = async (req, res) => {
     '/admin/platform/announcements'
   ])
 
-  res.status(200).respond(announcement, AnnouncementSerializer)
+  await res.status(200).respond(announcement, AnnouncementSerializer)
 
 }
 

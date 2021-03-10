@@ -10,7 +10,7 @@ const createRoute = async (req, res) => {
     message: 'partly done'
   })
 
-  res.status(200).respond(asset, AssetSerializer)
+  await res.status(200).respond(asset, AssetSerializer)
 
 }
 

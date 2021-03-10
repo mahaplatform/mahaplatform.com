@@ -18,7 +18,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load call'
   })
 
-  res.status(200).respond(call, CallSerializer)
+  await res.status(200).respond(call, CallSerializer)
 
 }
 

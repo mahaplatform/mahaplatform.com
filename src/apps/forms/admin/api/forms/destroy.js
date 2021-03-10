@@ -31,7 +31,7 @@ const destroyRoute = async (req, res) => {
     `/admin/forms/forms/${form.id}`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

@@ -24,7 +24,7 @@ const uploadRoute = async (req, res) => {
     message: 'partly done'
   })
 
-  res.status(200).respond(asset, (req, asset) => ({
+  await res.status(200).respond(asset, (req, asset) => ({
     id: asset.get('id'),
     content_type: asset.get('content_type'),
     file_name: asset.get('file_name')

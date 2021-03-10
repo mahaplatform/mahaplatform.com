@@ -39,7 +39,7 @@ const destroyRoute = async (req, res) => {
     '/admin/dashboard'
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

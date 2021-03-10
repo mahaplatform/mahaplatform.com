@@ -16,7 +16,7 @@ const taxRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(projects, ProjectSerializer)
+  await res.status(200).respond(projects, ProjectSerializer)
 
 }
 

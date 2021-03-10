@@ -58,7 +58,7 @@ const submitAllRoute = async (req, res) => {
     '/admin/finance/items'
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

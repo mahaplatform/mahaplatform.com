@@ -75,7 +75,7 @@ const updateRoute = async (req, res) => {
     `/admin/events/events/${event.get('id')}`
   ])
 
-  res.status(200).respond(event, EventSerializer)
+  await res.status(200).respond(event, EventSerializer)
 
 }
 

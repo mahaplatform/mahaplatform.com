@@ -28,7 +28,7 @@ const createRoute = async (req, res) => {
     '/admin/platform/help/articles'
   ])
 
-  res.status(200).respond(article, HelpArticleSerializer)
+  await res.status(200).respond(article, HelpArticleSerializer)
 
 }
 

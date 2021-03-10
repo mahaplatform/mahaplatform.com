@@ -27,7 +27,7 @@ const showRoute = async (req, res) => {
     object: installation.related('app')
   })
 
-  res.status(200).respond(installation.related('app'))
+  await res.status(200).respond(installation.related('app'))
 
 }
 

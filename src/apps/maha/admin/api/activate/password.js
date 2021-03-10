@@ -15,7 +15,7 @@ const passwordRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

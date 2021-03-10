@@ -16,7 +16,7 @@ const restoreAllRoute = async (req, res) => {
     await restoreFromTrash(req, item)
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

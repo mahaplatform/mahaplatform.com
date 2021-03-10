@@ -20,7 +20,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(items, ImportItemSerializer)
+  await res.status(200).respond(items, ImportItemSerializer)
 }
 
 export default listRoute

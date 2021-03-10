@@ -15,7 +15,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load store'
   })
 
-  res.status(200).respond(store, (req, store) => ({
+  await res.status(200).respond(store, (req, store) => ({
     title: store.get('title'),
     permalink: store.get('permalink'),
     program: {

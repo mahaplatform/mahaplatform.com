@@ -37,7 +37,7 @@ const performanceRoute = async (req, res) => {
     count: parseInt(segment.count)
   })))
 
-  res.status(200).respond(orders.map(segment => ({
+  await res.status(200).respond(orders.map(segment => ({
     x: segment.date,
     y: segment.count
   })))

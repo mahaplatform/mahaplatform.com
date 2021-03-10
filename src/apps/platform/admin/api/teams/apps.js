@@ -12,7 +12,7 @@ const appsRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(apps, AppSerializer)
+  await res.status(200).respond(apps, AppSerializer)
 
 }
 

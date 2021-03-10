@@ -8,7 +8,7 @@ const checkRoute = async (req, res) => {
     availability: result.Availability
   }))
 
-  res.status(200).respond(availability)
+  await res.status(200).respond(availability)
 
 }
 

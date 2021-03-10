@@ -1,12 +1,8 @@
 const error = (error, req, res, next) => {
 
-  res.error = error
+  console.log('here')
 
-  if(error.status) return res.status(error.status).json({
-    status: error.status,
-    errors: error.errors,
-    message: error.message
-  })
+  res.error = error
 
   if(error.errors) return res.status(422).json({
     status: 422,
@@ -14,9 +10,15 @@ const error = (error, req, res, next) => {
     errors: error.toJSON()
   })
 
+  if(error.status) return res.status(error.status).json({
+    status: error.status,
+    errors: error.errors,
+    message: error.message
+  })
+
   return res.status(500).json({
     status: 500,
-    message: error.message
+    message: process.env.NODE_ENV === 'production' ? 'Application Error' : error.message
   })
 
 }

@@ -27,7 +27,7 @@ const passwordRoute = async (req, res, next) => {
     account: req.account
   })
 
-  res.status(200).respond({
+  await res.status(200).respond({
     token
   })
 

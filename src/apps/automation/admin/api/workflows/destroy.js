@@ -37,7 +37,7 @@ const destroyRoute = async (req, res) => {
     ...workflow.get('store_id') ? [`/admin/stores/stores/${workflow.get('store_id')}`] : []
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

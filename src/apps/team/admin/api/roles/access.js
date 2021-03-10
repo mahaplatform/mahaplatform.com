@@ -58,7 +58,7 @@ const accessRoute = async (req, res) => {
     return 0
   })
 
-  res.status(200).respond(access)
+  await res.status(200).respond(access)
 
 }
 

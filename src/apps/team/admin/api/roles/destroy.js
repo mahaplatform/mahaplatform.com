@@ -39,7 +39,7 @@ const destroyRoute = async (req, res) => {
 
   await socket.refresh(req, channels)
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

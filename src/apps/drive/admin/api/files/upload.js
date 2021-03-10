@@ -55,7 +55,7 @@ const uploadRoute = async (req, res) => {
 
   })
 
-  res.status(200).respond(files, FileSerializer)
+  await res.status(200).respond(files, FileSerializer)
 
 }
 

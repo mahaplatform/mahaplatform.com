@@ -8,7 +8,7 @@ const passwordRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond({
+  await res.status(200).respond({
     security_question_id: req.body.security_question_id,
     security_question_answer: req.body.security_question_answer
   })

@@ -29,7 +29,7 @@ const updateRoute = async (req, res) => {
     `/admin/events/events/${session.get('event_id')}/sessions/${session.get('id')}`
   ])
 
-  res.status(200).respond(session, SessionSerializer)
+  await res.status(200).respond(session, SessionSerializer)
 
 }
 

@@ -57,7 +57,7 @@ const activateRoute = async (req, res) => {
     `/admin/stores/stores/${store.get('id')}/products/${product.get('id')}`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 }
 
 export default activateRoute

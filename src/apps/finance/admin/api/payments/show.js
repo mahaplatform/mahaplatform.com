@@ -18,7 +18,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load payment'
   })
 
-  res.status(200).respond(payment, PaymentSerializer)
+  await res.status(200).respond(payment, PaymentSerializer)
 
 }
 

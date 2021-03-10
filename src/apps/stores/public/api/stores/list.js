@@ -6,7 +6,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(stores, (req, store) => ({
+  await res.status(200).respond(stores, (req, store) => ({
     code: store.get('code'),
     title: store.get('title')
   }))

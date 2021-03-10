@@ -31,7 +31,7 @@ const handledRoute = async (req, res) => {
     `/admin/phone/voicemails/${req.params.id}`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

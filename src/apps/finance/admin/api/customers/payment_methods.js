@@ -25,7 +25,7 @@ const paymentMethodsRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(paymentMethods, PaymentMethodSerializer)
+  await res.status(200).respond(paymentMethods, PaymentMethodSerializer)
 
 }
 

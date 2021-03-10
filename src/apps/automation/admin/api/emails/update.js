@@ -46,7 +46,7 @@ const updateRoute = async (req, res) => {
     `/admin/automation/emails/${email.id}`
   ])
 
-  res.status(200).respond(email, EmailSerializer)
+  await res.status(200).respond(email, EmailSerializer)
 
 }
 

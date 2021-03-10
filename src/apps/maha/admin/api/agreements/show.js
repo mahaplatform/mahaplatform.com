@@ -16,7 +16,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to find agreement'
   })
 
-  res.status(200).respond(agreement, AgreementSerializer)
+  await res.status(200).respond(agreement, AgreementSerializer)
 }
 
 export default showRoute

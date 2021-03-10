@@ -76,7 +76,7 @@ const updateRoute = async (req, res) => {
     }
   ])
 
-  res.status(200).respond(expense, ExpenseSerializer)
+  await res.status(200).respond(expense, ExpenseSerializer)
 
 }
 

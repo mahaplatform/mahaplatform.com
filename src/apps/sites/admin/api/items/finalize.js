@@ -91,7 +91,7 @@ const finalizeRoute = async (req, res) => {
     target: '/admin/sites/items'
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

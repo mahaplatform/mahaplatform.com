@@ -35,7 +35,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(smses, (req, sms) => {
+  await res.status(200).respond(smses, (req, sms) => {
     const email_address = sms.related('email_address')
     const contact = email_address.related('contact')
     return {

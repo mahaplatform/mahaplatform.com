@@ -22,7 +22,7 @@ const showRoute = async (req, res) => {
     })
   }
 
-  res.status(200).respond(asset, AssetSerializer)
+  await res.status(200).respond(asset, AssetSerializer)
 
 }
 

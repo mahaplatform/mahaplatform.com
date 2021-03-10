@@ -16,7 +16,7 @@ const listRoute = async (req, res) => {
     message: 'Unable to load bank'
   })
 
-  res.status(200).respond(bank.related('programs'), (req, program) => ({
+  await res.status(200).respond(bank.related('programs'), (req, program) => ({
     program: ProgramSerializer(req, program)
   }))
 

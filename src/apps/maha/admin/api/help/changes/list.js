@@ -15,7 +15,7 @@ const listRoute = async (req, res) => {
 
   const changes = await fetchReleases()
 
-  res.status(200).respond(changes, (req, change) => {
+  await res.status(200).respond(changes, (req, change) => {
     return {
       name: change.tag_name,
       body: change.body,

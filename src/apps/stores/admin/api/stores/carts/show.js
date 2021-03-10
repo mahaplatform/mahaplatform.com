@@ -30,7 +30,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load cart'
   })
 
-  res.status(200).respond(cart, CartSerializer)
+  await res.status(200).respond(cart, CartSerializer)
 
 }
 

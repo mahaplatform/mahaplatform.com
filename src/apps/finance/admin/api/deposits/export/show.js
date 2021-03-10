@@ -35,7 +35,7 @@ const showRoute = async (req, res) => {
 
   const serializer = settings.inegration === 'accpac' ? AccpacSerializer : AccumaticaSerializer
 
-  res.status(200).respond({
+  await res.status(200).respond({
     allocations,
     deposit
   }, serializer)

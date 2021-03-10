@@ -4,7 +4,7 @@ const previewRoute = async (req, res) => {
 
   const metatdata = await getMetaData(req, req.query.url)
 
-  res.status(200).respond(metatdata)
+  await res.status(200).respond(metatdata)
 
 }
 

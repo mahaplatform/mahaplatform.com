@@ -17,7 +17,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(aliases, (req, alias) => ({
+  await res.status(200).respond(aliases, (req, alias) => ({
     id: alias.get('id'),
     src: alias.get('src'),
     destination: alias.get('destination')

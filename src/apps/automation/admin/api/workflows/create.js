@@ -68,7 +68,7 @@ const createRoute = async (req, res) => {
     ...workflow.get('store_id') ? [`/admin/stores/stores/${workflow.get('store_id')}`] : []
   ])
 
-  res.status(200).respond(workflow, WorkflowSerializer)
+  await res.status(200).respond(workflow, WorkflowSerializer)
 
 }
 

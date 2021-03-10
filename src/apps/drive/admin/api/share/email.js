@@ -16,7 +16,7 @@ const emailRoute = async (req, res) => {
     html: req.body.message
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

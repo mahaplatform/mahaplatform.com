@@ -14,7 +14,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load expense type'
   })
 
-  res.status(200).respond(expense_type, ExpenseTypeSerializer)
+  await res.status(200).respond(expense_type, ExpenseTypeSerializer)
 
 }
 

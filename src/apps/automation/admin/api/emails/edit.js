@@ -14,7 +14,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load email'
   })
 
-  res.status(200).respond(email, (req, form) => ({
+  await res.status(200).respond(email, (req, form) => ({
     title: form.get('title')
   }))
 

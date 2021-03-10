@@ -17,7 +17,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load item'
   })
 
-  res.status(200).respond(item, async (req, result) => ({
+  await res.status(200).respond(item, async (req, result) => ({
     id: result.get('id'),
     ...await expandValues(req, {
       parent_type: 'sites_types',

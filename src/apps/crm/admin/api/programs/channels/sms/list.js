@@ -42,7 +42,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(smses, (req, sms) => {
+  await res.status(200).respond(smses, (req, sms) => {
     const phone_number = sms.related('phone_number')
     const contact = sms.related('contact')
     return {

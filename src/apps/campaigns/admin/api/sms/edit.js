@@ -14,7 +14,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load campaign'
   })
 
-  res.status(200).respond(sms_campaign, (req, campaign) => ({
+  await res.status(200).respond(sms_campaign, (req, campaign) => ({
     title: campaign.get('title'),
     term: campaign.get('term'),
     purpose: campaign.get('purpose'),

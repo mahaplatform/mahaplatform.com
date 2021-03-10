@@ -41,7 +41,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(enrollments, EnrollmentSerializer)
+  await res.status(200).respond(enrollments, EnrollmentSerializer)
 
 }
 

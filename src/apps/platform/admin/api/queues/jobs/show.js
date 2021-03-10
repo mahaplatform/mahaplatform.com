@@ -8,7 +8,7 @@ const jobRoute = async (req, res) => {
 
   const job = await queue.getJob(req.params.id)
 
-  res.status(200).respond({
+  await res.status(200).respond({
     ...job,
     queue: name
   })

@@ -18,7 +18,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load form'
   })
 
-  res.status(200).respond(form, FormSerializer)
+  await res.status(200).respond(form, FormSerializer)
 
 }
 

@@ -38,7 +38,7 @@ const destroyRoute = async (req, res) => {
     `/admin/stores/stores/${store.get('id')}/carts`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

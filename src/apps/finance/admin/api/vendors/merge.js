@@ -18,7 +18,7 @@ const mergeRoute = async (req, res) => {
     '/admin/finance/vendors'
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

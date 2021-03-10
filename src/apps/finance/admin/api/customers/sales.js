@@ -78,7 +78,7 @@ const salesRoute = async (req, res) => {
   results.metrics.transactions = data.transactions.reduce((total, segment) => total + segment.value, 0)
   results.metrics.average = results.metrics.revenue / results.metrics.transactions
 
-  res.status(200).respond(results)
+  await res.status(200).respond(results)
 
 }
 

@@ -59,7 +59,7 @@ const destroyRoute = async (req, res) => {
     `/admin/events/events/${event.get('id')}`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

@@ -24,7 +24,7 @@ const createRoute = async (req, res) => {
     '/admin/news'
   ])
 
-  res.status(200).respond(group, GroupSerializer)
+  await res.status(200).respond(group, GroupSerializer)
 
 }
 

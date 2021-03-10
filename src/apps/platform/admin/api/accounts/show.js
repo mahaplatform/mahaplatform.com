@@ -15,7 +15,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load account'
   })
 
-  res.status(200).respond(account, AccountSerializer)
+  await res.status(200).respond(account, AccountSerializer)
 
 }
 

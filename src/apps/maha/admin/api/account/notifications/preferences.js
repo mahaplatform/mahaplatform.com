@@ -31,7 +31,7 @@ const preferencesRoute = async (req, res) => {
     object_type: null
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

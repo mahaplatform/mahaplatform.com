@@ -29,7 +29,7 @@ const starredRoute = async (req, res) => {
 
   req.starred = items.map(star => star.get('code'))
 
-  res.status(200).respond(items, ItemSerializer)
+  await res.status(200).respond(items, ItemSerializer)
 
 }
 

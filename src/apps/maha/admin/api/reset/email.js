@@ -36,7 +36,7 @@ const emailRoute = async (req, res, next) => {
     html
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

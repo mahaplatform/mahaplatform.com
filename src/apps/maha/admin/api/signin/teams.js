@@ -47,7 +47,7 @@ const teamsRoute = async (req, res, next) => {
     return user.get('activated_at') !== null && user.get('is_active') && user.related('team').get('is_active')
   })
 
-  res.status(200).respond(users, (req, user) => {
+  await res.status(200).respond(users, (req, user) => {
     const team = user.related('team')
     return {
       id: team.get('id'),

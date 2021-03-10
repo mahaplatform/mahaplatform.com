@@ -75,7 +75,7 @@ const downloadRoute = async (req, res) => {
 
   const { fields } = form.get('config')
 
-  res.status(200).respond(responses, (req, response) => ({
+  await res.status(200).respond(responses, (req, response) => ({
     ...fields.filter(field => {
       return field.type !== 'text'
     }).reduce((row, field) => ({

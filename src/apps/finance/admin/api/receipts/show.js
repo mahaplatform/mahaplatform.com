@@ -16,7 +16,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load receipt'
   })
 
-  res.status(200).respond(receipt, ReceiptSerializer)
+  await res.status(200).respond(receipt, ReceiptSerializer)
 
 }
 

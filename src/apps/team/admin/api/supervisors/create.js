@@ -26,7 +26,7 @@ const createRoute = async (req, res) => {
     '/admin/team/supervisors'
   ])
 
-  res.status(200).respond(supervisor, SupervisorSerializer)
+  await res.status(200).respond(supervisor, SupervisorSerializer)
 
 }
 

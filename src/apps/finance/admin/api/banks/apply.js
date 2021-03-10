@@ -51,7 +51,7 @@ const applyRoute = async (req, res) => {
     `/admin/finance/banks/${bank.get('id')}`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

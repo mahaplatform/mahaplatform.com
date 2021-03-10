@@ -68,7 +68,7 @@ const updateRoute = async (req, res) => {
     `/admin/drive/folders/${item[0].code || 'drive'}`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

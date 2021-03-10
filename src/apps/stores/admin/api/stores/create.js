@@ -65,7 +65,7 @@ const createRoute = async (req, res) => {
     '/admin/stores/stores'
   ])
 
-  res.status(200).respond(store, StoreSerializer)
+  await res.status(200).respond(store, StoreSerializer)
 
 }
 

@@ -52,7 +52,7 @@ const updateRoute = async (req, res) => {
     `/admin/crm/programs/${req.params.program_id}`
   ])
 
-  res.status(200).respond(template, TemplateSerializer)
+  await res.status(200).respond(template, TemplateSerializer)
 
 }
 

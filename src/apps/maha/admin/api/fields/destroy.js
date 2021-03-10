@@ -47,7 +47,7 @@ const destroyRoute = async (req, res) => {
       `/admin/${req.params.parent_type}/fields`
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

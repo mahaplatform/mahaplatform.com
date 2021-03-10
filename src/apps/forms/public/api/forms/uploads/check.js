@@ -29,7 +29,7 @@ const uploadRoute = async (req, res) => {
     message: 'found'
   })
 
-  res.status(200).respond(asset, true)
+  await res.status(200).respond(asset, true)
 
 }
 

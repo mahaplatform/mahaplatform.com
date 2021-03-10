@@ -21,7 +21,7 @@ const rolesRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(roles, RoleSerializer)
+  await res.status(200).respond(roles, RoleSerializer)
 
 }
 

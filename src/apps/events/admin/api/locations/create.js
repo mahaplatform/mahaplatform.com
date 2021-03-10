@@ -22,7 +22,7 @@ const createRoute = async (req, res) => {
     '/admin/events/locations'
   ])
 
-  res.status(200).respond(location, LocationSerializer)
+  await res.status(200).respond(location, LocationSerializer)
 
 }
 

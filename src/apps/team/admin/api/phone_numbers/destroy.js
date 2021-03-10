@@ -34,7 +34,7 @@ const destroyRoute = async (req, res) => {
     '/admin/team/phone_numbers'
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

@@ -32,7 +32,7 @@ const availableRoute = async (req, res, next) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(teams, (req, team) => ({
+  await res.status(200).respond(teams, (req, team) => ({
     id: team.get('id'),
     logo: team.related('logo') ? team.related('logo').get('path') : null,
     title: team.get('title')

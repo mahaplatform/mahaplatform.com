@@ -21,7 +21,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(voicemails, VoicemailSerializer)
+  await res.status(200).respond(voicemails, VoicemailSerializer)
 
 }
 

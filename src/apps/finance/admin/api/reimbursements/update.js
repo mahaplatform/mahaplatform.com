@@ -77,7 +77,7 @@ const updateRoute = async (req, res) => {
     }
   ])
 
-  res.status(200).respond(reimbursement, ReimbursementSerializer)
+  await res.status(200).respond(reimbursement, ReimbursementSerializer)
 
 }
 

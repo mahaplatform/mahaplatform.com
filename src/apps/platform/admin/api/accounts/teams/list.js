@@ -14,7 +14,7 @@ const listRoute = async (req, res, next) => {
     message: 'Unable to load account'
   })
 
-  res.status(200).respond(account.related('users'), (req, user) => {
+  await res.status(200).respond(account.related('users'), (req, user) => {
     const team = user.related('team')
     return {
       id: team.get('id'),

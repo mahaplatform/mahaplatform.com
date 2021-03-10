@@ -44,7 +44,7 @@ const updateRoute = async (req, res) => {
     `/admin/platform/announcements/${announcement.id}`
   ])
 
-  res.status(200).respond(announcement, AnnouncementSerializer)
+  await res.status(200).respond(announcement, AnnouncementSerializer)
 
 }
 

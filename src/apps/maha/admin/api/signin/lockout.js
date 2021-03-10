@@ -36,7 +36,7 @@ const lockoutRoute = async (req, res) => {
     reset_url: `${process.env.WEB_HOST}/reset/${token}`
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

@@ -40,7 +40,7 @@ const actionsRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(actions, WorkflowActionSerializer)
+  await res.status(200).respond(actions, WorkflowActionSerializer)
 
 }
 

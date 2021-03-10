@@ -30,7 +30,7 @@ const showRoute = async (req, res) => {
 
   const program = event.related('program')
 
-  res.status(200).respond({
+  await res.status(200).respond({
     event: {
       id: event.get('id'),
       starttime: parseInt(moment().format('YYYYMMDDHHmmss')),

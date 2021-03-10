@@ -4,7 +4,7 @@ const listRoute = async (req, res) => {
 
   const unread = await getUnread(req, req.user.get('id'))
 
-  res.status(200).respond(unread)
+  await res.status(200).respond(unread)
 
 }
 

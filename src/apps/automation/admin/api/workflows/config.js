@@ -22,7 +22,7 @@ const configRoute = async (req, res) => {
     value: req.body
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

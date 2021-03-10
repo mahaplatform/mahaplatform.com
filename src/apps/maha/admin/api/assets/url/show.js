@@ -16,7 +16,7 @@ const urlRoute = async (req, res) => {
 
     const parsed = Url.parse(req.query.url)
 
-    res.status(200).respond({
+    await res.status(200).respond({
       ...response.headers,
       file_name: path.basename(parsed.pathname)
     })

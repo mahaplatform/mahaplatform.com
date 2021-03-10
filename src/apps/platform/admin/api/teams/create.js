@@ -86,7 +86,7 @@ const createRoute = async (req, res) => {
     '/admin/platform/teams'
   ])
 
-  res.status(200).respond(team, TeamSerializer)
+  await res.status(200).respond(team, TeamSerializer)
 
 }
 

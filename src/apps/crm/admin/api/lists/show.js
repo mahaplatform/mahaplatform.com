@@ -12,7 +12,7 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(list, ListSerializer)
+  await res.status(200).respond(list, ListSerializer)
 
 }
 

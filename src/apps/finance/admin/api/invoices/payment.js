@@ -52,7 +52,7 @@ const paymentRoute = async (req, res) => {
     `/admin/finance/invoices/${invoice.get('id')}`
   ])
 
-  res.status(200).respond(payment, PaymentSerializer)
+  await res.status(200).respond(payment, PaymentSerializer)
 
 }
 

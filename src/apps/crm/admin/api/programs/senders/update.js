@@ -40,7 +40,7 @@ const updateRoute = async (req, res) => {
     `/admin/crm/programs/${sender.get('program_id')}`
   ])
 
-  res.status(200).respond(sender, SenderSerializer)
+  await res.status(200).respond(sender, SenderSerializer)
 
 }
 

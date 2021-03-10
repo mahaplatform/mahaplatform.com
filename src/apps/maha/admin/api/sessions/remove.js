@@ -21,7 +21,7 @@ const removeRoute = async (req, res) => {
     action: 'signout'
   }])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

@@ -15,7 +15,7 @@ const seenRoute = async (req, res) => {
     target: '/admin/notifications/unread'
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

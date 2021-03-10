@@ -44,7 +44,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load variant'
   })
 
-  res.status(200).respond(variant, (req, variant) => ({
+  await res.status(200).respond(variant, (req, variant) => ({
     id: variant.get('id'),
     store_id: store.get('id'),
     product_id: product.get('id'),

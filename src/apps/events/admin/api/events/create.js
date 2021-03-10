@@ -96,7 +96,7 @@ const createRoute = async (req, res) => {
     '/admin/events/events'
   ])
 
-  res.status(200).respond(event, EventSerializer)
+  await res.status(200).respond(event, EventSerializer)
 
 }
 

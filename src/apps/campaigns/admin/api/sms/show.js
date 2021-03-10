@@ -54,7 +54,7 @@ const showRoute = async (req, res) => {
 
   }
 
-  res.status(200).respond(campaign, SMSCampaignSerializer)
+  await res.status(200).respond(campaign, SMSCampaignSerializer)
 
 }
 

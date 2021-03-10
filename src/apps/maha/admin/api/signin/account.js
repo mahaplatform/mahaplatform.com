@@ -62,7 +62,7 @@ const accountRoute = async (req, res, next) => {
     signin_id: signin.get('id')
   }))
 
-  res.status(200).respond(account, AccountSerializer)
+  await res.status(200).respond(account, AccountSerializer)
 
 }
 

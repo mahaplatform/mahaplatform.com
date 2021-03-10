@@ -21,7 +21,7 @@ const restoreRoute = async (req, res) => {
     '/admin/drive/folders/trash'
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

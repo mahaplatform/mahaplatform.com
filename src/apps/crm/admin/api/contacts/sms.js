@@ -49,7 +49,7 @@ const smsRoute = async (req, res) => {
     asset_ids: req.body.asset_ids
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

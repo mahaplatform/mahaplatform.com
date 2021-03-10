@@ -19,7 +19,7 @@ const tokenRoute = async (req, res) => {
 
   token.identity = `user_${req.user.get('id')}`
 
-  res.status(200).respond(token.toJwt())
+  await res.status(200).respond(token.toJwt())
 
 }
 

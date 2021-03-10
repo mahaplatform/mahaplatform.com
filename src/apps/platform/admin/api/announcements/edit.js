@@ -13,7 +13,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load announcement'
   })
 
-  res.status(200).respond(announcement, (req, announcement) => ({
+  await res.status(200).respond(announcement, (req, announcement) => ({
     title: announcement.get('title'),
     to: announcement.get('to')
   }))

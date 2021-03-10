@@ -17,7 +17,7 @@ const avatarRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond({
+  await res.status(200).respond({
     id: req.account.related('photo').get('id'),
     photo: req.account.related('photo').get('path')
   })

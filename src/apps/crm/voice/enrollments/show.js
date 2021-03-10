@@ -36,7 +36,7 @@ const showRoute = async (req, res) => {
     return res.status(200).type('text/xml').send(result.twiml)
   }
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

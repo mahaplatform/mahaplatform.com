@@ -45,7 +45,7 @@ const updateRoute = async (req, res) => {
     `/admin/sites/sites/${site.get('id')}`
   ])
 
-  res.status(200).respond(site, SiteSerializer)
+  await res.status(200).respond(site, SiteSerializer)
 
 }
 

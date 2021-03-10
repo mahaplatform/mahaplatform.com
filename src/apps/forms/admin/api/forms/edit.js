@@ -14,7 +14,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load form'
   })
 
-  res.status(200).respond(form, (req, form) => ({
+  await res.status(200).respond(form, (req, form) => ({
     title: form.get('title'),
     permalink: form.get('permalink')
   }))

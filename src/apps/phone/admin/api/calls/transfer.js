@@ -94,7 +94,7 @@ const transferRoute = async (req, res) => {
     return child.status === 'queued' && child.to === `client:${req.body.user_id}`
   })
 
-  res.status(200).respond(newcall)
+  await res.status(200).respond(newcall)
 
 }
 

@@ -44,7 +44,7 @@ const updateRoute = async (req, res) => {
     `/admin/${req.params.code}/filters`
   ])
 
-  res.status(200).respond(filter, FilterSerializer)
+  await res.status(200).respond(filter, FilterSerializer)
 
 }
 

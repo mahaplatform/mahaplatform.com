@@ -15,7 +15,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load session'
   })
 
-  res.status(200).respond({
+  await res.status(200).respond({
     title: session.get('title'),
     location: session.get('location_id') ? {
       id: session.related('location').get('id'),

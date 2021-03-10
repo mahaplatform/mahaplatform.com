@@ -26,7 +26,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load type'
   })
 
-  res.status(200).respond({
+  await res.status(200).respond({
     title: type.get('title')
   })
 

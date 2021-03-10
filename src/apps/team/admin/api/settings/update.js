@@ -28,7 +28,7 @@ const updateRoute = async (req, res) => {
     action: 'session'
   })
 
-  res.status(200).respond(req.team, TeamSerializer)
+  await res.status(200).respond(req.team, TeamSerializer)
 
 }
 

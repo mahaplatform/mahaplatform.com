@@ -29,7 +29,7 @@ const createRoute = async (req, res) => {
     '/admin/finance/vendors'
   ])
 
-  res.status(200).respond(vendor, VendorSerializer)
+  await res.status(200).respond(vendor, VendorSerializer)
 
 }
 

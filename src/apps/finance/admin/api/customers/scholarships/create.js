@@ -31,7 +31,7 @@ const createRoute = async (req, res) => {
     object: scholarship
   })
 
-  res.status(200).respond(scholarship, ScholarshipSerializer)
+  await res.status(200).respond(scholarship, ScholarshipSerializer)
 
 }
 

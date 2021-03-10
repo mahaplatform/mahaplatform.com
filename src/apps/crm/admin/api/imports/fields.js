@@ -29,7 +29,7 @@ const fieldsRoute = async (req, res) => {
     return program.fields.length > 0
   }))
 
-  res.status(200).respond([
+  await res.status(200).respond([
     {
       label: 'Core Fields',
       fields: [

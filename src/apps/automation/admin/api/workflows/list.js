@@ -34,7 +34,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(workflows, WorkflowSerializer)
+  await res.status(200).respond(workflows, WorkflowSerializer)
 
 }
 

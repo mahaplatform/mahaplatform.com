@@ -14,7 +14,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load revenue type'
   })
 
-  res.status(200).respond(revenue_type, RevenueTypeSerializer)
+  await res.status(200).respond(revenue_type, RevenueTypeSerializer)
 
 }
 

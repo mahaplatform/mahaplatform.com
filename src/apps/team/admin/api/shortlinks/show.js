@@ -15,7 +15,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load shortlink'
   })
 
-  res.status(200).respond(shortlink, ShortLinkSerializer)
+  await res.status(200).respond(shortlink, ShortLinkSerializer)
 
 }
 

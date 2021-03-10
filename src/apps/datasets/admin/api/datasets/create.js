@@ -43,7 +43,7 @@ const createRoute = async (req, res) => {
     '/admin/datasets/datasets'
   ])
 
-  res.status(200).respond(dataset, DatasetSerializer)
+  await res.status(200).respond(dataset, DatasetSerializer)
 
 }
 

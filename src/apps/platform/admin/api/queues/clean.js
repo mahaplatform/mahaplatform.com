@@ -13,7 +13,7 @@ const cleanRoute = async (req, res) => {
     `/admin/platform/queues/${req.params.status}`
   ])
 
-  res.status(200).respond(result)
+  await res.status(200).respond(result)
 
 }
 

@@ -18,7 +18,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load program'
   })
 
-  res.status(200).respond(program, ProgramSerializer)
+  await res.status(200).respond(program, ProgramSerializer)
 
 }
 

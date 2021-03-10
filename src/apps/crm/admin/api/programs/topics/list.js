@@ -32,7 +32,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(topics, TopicSerializer)
+  await res.status(200).respond(topics, TopicSerializer)
 
 }
 

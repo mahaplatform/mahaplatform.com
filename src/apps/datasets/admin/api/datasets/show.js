@@ -14,7 +14,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load dataset'
   })
 
-  res.status(200).respond(dataset, DatasetSerializer)
+  await res.status(200).respond(dataset, DatasetSerializer)
 
 }
 

@@ -20,7 +20,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load panel'
   })
 
-  res.status(200).respond(panel, DashboardPanelSerializer)
+  await res.status(200).respond(panel, DashboardPanelSerializer)
 
 }
 

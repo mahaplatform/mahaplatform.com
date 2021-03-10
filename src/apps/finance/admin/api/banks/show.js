@@ -15,7 +15,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load bank'
   })
 
-  res.status(200).respond(bank, BankSerializer)
+  await res.status(200).respond(bank, BankSerializer)
 
 }
 

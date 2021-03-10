@@ -9,7 +9,7 @@ const tokenRoute = async (req, res) => {
     })
   })
 
-  res.status(200).respond({
+  await res.status(200).respond({
     token: response.clientToken
   })
 

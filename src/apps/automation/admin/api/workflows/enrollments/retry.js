@@ -48,7 +48,7 @@ const cancelRoute = async (req, res) => {
     `/admin/automation/workflows/${workflow.get('id')}/enrollments/${enrollment.get('id')}`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

@@ -37,7 +37,7 @@ const showRoute = async (req, res) => {
     code: req.params.code
   })
 
-  res.status(200).respond(data)
+  await res.status(200).respond(data)
 
 }
 

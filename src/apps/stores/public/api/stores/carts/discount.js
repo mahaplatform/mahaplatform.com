@@ -41,7 +41,7 @@ const discountRoute = async (req, res) => {
     message: 'Unable to load discount'
   })
 
-  res.status(200).respond(discount, DiscountSerializer)
+  await res.status(200).respond(discount, DiscountSerializer)
 
 }
 

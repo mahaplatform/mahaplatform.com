@@ -28,7 +28,7 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(activities, CallActivitySerializer)
+  await res.status(200).respond(activities, CallActivitySerializer)
 
 }
 

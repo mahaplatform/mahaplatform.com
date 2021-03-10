@@ -72,7 +72,7 @@ const previewRoute = async (req, res) => {
     html: rendered.html
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

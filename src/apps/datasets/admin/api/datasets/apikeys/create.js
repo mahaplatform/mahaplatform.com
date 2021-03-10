@@ -43,7 +43,7 @@ const createRoute = async (req, res) => {
     `/admin/datasets/datasets/${apikey.get('id')}/apikey`
   ])
 
-  res.status(200).respond(apikey, APIKeySerializer)
+  await res.status(200).respond(apikey, APIKeySerializer)
 
 }
 

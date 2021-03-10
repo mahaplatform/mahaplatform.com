@@ -12,7 +12,7 @@ const showRoute = async (req, res) => {
 
   if(!profile) return res.status(200).send({ data: null })
 
-  res.status(200).respond(profile, ProfileSerializer)
+  await res.status(200).respond(profile, ProfileSerializer)
 
 }
 

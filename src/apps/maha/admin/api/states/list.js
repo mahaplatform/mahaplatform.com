@@ -9,7 +9,7 @@ const listRoute = async (req, res) => {
     limit: 1000
   }
 
-  res.status(200).respond(states, (req, state) => ({
+  await res.status(200).respond(states, (req, state) => ({
     short_name: state.short_name,
     full_name: state.full_name
   }))

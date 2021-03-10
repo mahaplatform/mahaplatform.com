@@ -58,7 +58,7 @@ const updateRoute = async (req, res) => {
     `/admin/crm/datasets/${req.params.program_id}`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

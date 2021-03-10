@@ -43,7 +43,7 @@ const updateRoute = async (req, res) => {
     }
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

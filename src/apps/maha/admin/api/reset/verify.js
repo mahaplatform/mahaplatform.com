@@ -17,7 +17,7 @@ const securityRoute = async (req, res, next) => {
     transacting: req.trx
   })
 
-  res.status(200).respond({
+  await res.status(200).respond({
     account: {
       id: req.account.get('id'),
       first_name: req.account.get('first_name'),

@@ -53,7 +53,7 @@ const updateRoute = async (req, res) => {
     `/admin/campaigns/voice/${voice_campaign.get('id')}`
   ])
 
-  res.status(200).respond(voice_campaign, VoiceCampaignSerializer)
+  await res.status(200).respond(voice_campaign, VoiceCampaignSerializer)
 
 }
 

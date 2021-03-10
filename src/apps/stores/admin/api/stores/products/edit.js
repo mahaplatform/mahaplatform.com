@@ -30,7 +30,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load product'
   })
 
-  res.status(200).respond(product, (req, product) => ({
+  await res.status(200).respond(product, (req, product) => ({
     store_id: product.get('store_id'),
     title: product.get('title'),
     category_ids: product.related('categories').map(category => category.get('id')),

@@ -8,7 +8,7 @@ const listRoute = async (req, res) => {
     page: req.query.$page
   })
 
-  res.status(200).respond(accounts, AccountSerializer)
+  await res.status(200).respond(accounts, AccountSerializer)
 }
 
 export default listRoute

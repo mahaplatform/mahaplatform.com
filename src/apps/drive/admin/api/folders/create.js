@@ -28,7 +28,7 @@ const createRoute = async (req, res) => {
 
   const folder = await createFolder(req, req.body)
 
-  res.status(200).respond(folder, FolderSerializer)
+  await res.status(200).respond(folder, FolderSerializer)
 
 }
 

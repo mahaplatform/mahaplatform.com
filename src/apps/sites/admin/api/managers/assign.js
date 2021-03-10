@@ -28,7 +28,7 @@ const assignRoute = async (req, res) => {
     `/admin/sites/sites/${req.params.site_id}/managers`
   ])
 
-  res.status(200).respond(managers, ManagerSerializer)
+  await res.status(200).respond(managers, ManagerSerializer)
 
 }
 

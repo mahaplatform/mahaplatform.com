@@ -37,7 +37,7 @@ const readRoute = async (req, res) => {
     `/admin/crm/programs/${program.get('id')}/channels/sms`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

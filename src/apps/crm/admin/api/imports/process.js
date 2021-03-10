@@ -28,7 +28,7 @@ const processRoute = async (req, res) => {
     `/admin/imports/${_import.id}`
   ])
 
-  res.status(200).respond(_import, ImportSerializer)
+  await res.status(200).respond(_import, ImportSerializer)
 
 }
 

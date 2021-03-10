@@ -16,7 +16,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load phone number'
   })
 
-  res.status(200).respond(phone_number, PhoneNumberSerializer)
+  await res.status(200).respond(phone_number, PhoneNumberSerializer)
 
 }
 

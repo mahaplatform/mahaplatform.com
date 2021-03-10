@@ -69,7 +69,7 @@ const createRoute = async (req, res) => {
     '/admin/crm/programs'
   ])
 
-  res.status(200).respond(program, ProgramSerializer)
+  await res.status(200).respond(program, ProgramSerializer)
 
 }
 

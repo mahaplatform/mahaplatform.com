@@ -13,7 +13,7 @@ const allocationsRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(allocations, AllocationSerializer)
+  await res.status(200).respond(allocations, AllocationSerializer)
 
 }
 

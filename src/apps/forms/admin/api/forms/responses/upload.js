@@ -29,7 +29,7 @@ const uploadRoute = async (req, res) => {
     message: 'Unable to load asset'
   })
 
-  res.status(200).respond(asset, AssetSerializer)
+  await res.status(200).respond(asset, AssetSerializer)
 
 }
 

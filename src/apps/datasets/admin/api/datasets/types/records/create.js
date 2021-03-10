@@ -70,7 +70,7 @@ const createRoute = async (req, res) => {
     `/admin/datasets/datasets/${dataset.get('id')}/types/${type.get('id')}/records`
   ])
 
-  res.status(200).respond(record, RecordSerializer)
+  await res.status(200).respond(record, RecordSerializer)
 
 }
 

@@ -16,7 +16,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load supervisor'
   })
 
-  res.status(200).respond(supervisor, SupervisorSerializer)
+  await res.status(200).respond(supervisor, SupervisorSerializer)
 
 }
 

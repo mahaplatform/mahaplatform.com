@@ -29,7 +29,7 @@ const recipientsRoute = async (req, res) => {
     page: req.query.$page
   })
 
-  res.status(200).respond(recipients, RecipientSerializer)
+  await res.status(200).respond(recipients, RecipientSerializer)
 
 }
 

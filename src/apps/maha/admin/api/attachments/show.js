@@ -18,7 +18,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to find attachment'
   })
 
-  res.status(200).respond(attachment, AttachmentSerializer)
+  await res.status(200).respond(attachment, AttachmentSerializer)
 
 }
 

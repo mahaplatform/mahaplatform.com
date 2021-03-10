@@ -66,7 +66,7 @@ const createRoute = async (req, res) => {
     `/admin/campaigns/sms/${campaign.get('direction')}`
   ])
 
-  res.status(200).respond(campaign, SMSCampaignSerializer)
+  await res.status(200).respond(campaign, SMSCampaignSerializer)
 
 }
 

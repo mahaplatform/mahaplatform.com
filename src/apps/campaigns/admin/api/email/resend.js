@@ -42,7 +42,7 @@ const resendRoute = async (req, res) => {
     `/admin/campaigns/email/${campaign.id}`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

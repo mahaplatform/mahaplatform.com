@@ -32,7 +32,7 @@ const emailsRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(emails, EmailSerializer)
+  await res.status(200).respond(emails, EmailSerializer)
 
 }
 

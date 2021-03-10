@@ -41,7 +41,7 @@ const deliveriesRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(emails, EmailDeliverySerializer)
+  await res.status(200).respond(emails, EmailDeliverySerializer)
 
 }
 

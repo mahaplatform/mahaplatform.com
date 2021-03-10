@@ -16,7 +16,7 @@ const route = async (req, res) => {
     message: 'Unable to find asset'
   })
 
-  res.status(200).respond(asset, AssetSerializer)
+  await res.status(200).respond(asset, AssetSerializer)
 
 }
 

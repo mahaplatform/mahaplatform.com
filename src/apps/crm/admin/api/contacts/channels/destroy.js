@@ -49,7 +49,7 @@ const destroyRoute = async (req, res) => {
     `/admin/crm/contacts/${contact.get('id')}`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

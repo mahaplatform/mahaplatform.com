@@ -30,7 +30,7 @@ const createRoute = async (req, res) => {
     { channel: 'user', target: '/admin/finance/items' }
   ])
 
-  res.status(200).respond(checks, CheckSerializer)
+  await res.status(200).respond(checks, CheckSerializer)
 
 }
 

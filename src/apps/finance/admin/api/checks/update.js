@@ -76,7 +76,7 @@ const updateRoute = async (req, res) => {
     }
   ])
 
-  res.status(200).respond(check, CheckSerializer)
+  await res.status(200).respond(check, CheckSerializer)
 
 }
 

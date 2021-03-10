@@ -66,7 +66,7 @@ const updateRoute = async (req, res) => {
     `/admin/team/users/${user.get('id')}`
   ])
 
-  res.status(200).respond(user, UserSerializer)
+  await res.status(200).respond(user, UserSerializer)
 
 }
 

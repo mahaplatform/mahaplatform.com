@@ -49,7 +49,7 @@ const accessRoute = async (req, res) => {
     ]
   }), {})
 
-  res.status(200).respond(apps, (req, app) => ({
+  await res.status(200).respond(apps, (req, app) => ({
     id: app.get('id'),
     ...app.get('data'),
     installed: app.get('installed'),

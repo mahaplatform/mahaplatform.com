@@ -19,7 +19,7 @@ const holdRoute = async (req, res) => {
     twiml: twiml.toString()
   })
 
-  res.status(200).respond(twcall)
+  await res.status(200).respond(twcall)
 
 }
 

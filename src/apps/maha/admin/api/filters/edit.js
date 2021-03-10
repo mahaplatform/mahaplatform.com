@@ -17,7 +17,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load filter'
   })
 
-  res.status(200).respond(filter, (req, filter) => ({
+  await res.status(200).respond(filter, (req, filter) => ({
     id: filter.get('id'),
     title: filter.get('title'),
     accesses: filter.related('accesses').map(access => ({

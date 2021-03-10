@@ -18,7 +18,7 @@ const lookupRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond({
+  await res.status(200).respond({
     parent_sid: parent.sid,
     call: CallSerializer(req, call)
   })

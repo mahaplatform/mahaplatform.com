@@ -67,7 +67,7 @@ const createRoute = async (req, res) => {
     }
   ])
 
-  res.status(200).respond(trip, TripSerializer)
+  await res.status(200).respond(trip, TripSerializer)
 
 }
 

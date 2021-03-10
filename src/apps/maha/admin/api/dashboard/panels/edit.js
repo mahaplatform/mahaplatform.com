@@ -16,7 +16,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load panel'
   })
 
-  res.status(200).respond(panel, (req, panel) => ({
+  await res.status(200).respond(panel, (req, panel) => ({
     id: panel.get('id'),
     title: panel.get('title'),
     accesses: panel.related('accesses').map(access => ({

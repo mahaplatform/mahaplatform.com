@@ -26,7 +26,7 @@ const unblockRoute = async (req, res) => {
     `/admin/platform/accounts/${account.get('id')}`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

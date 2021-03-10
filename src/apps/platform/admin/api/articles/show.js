@@ -15,7 +15,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to find article'
   })
 
-  res.status(200).respond(article, HelpArticleSerializer)
+  await res.status(200).respond(article, HelpArticleSerializer)
 
 }
 

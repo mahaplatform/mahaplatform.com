@@ -44,7 +44,7 @@ const updateRoute = async (req, res) => {
     `/admin/finance/projects/${req.params.id}`
   ])
 
-  res.status(200).respond(project, ProjectSerializer)
+  await res.status(200).respond(project, ProjectSerializer)
 
 }
 

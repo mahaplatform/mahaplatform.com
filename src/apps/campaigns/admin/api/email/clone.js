@@ -63,7 +63,7 @@ const cloneRoute = async (req, res) => {
     '/admin/campaigns/email'
   ])
 
-  res.status(200).respond(cloned, EmailCampaignSerializer)
+  await res.status(200).respond(cloned, EmailCampaignSerializer)
 
 }
 

@@ -58,7 +58,7 @@ const updateRoute = async (req, res) => {
     `/admin/team/roles/${role.get('id')}`
   ])
 
-  res.status(200).respond(role, RoleSerializer)
+  await res.status(200).respond(role, RoleSerializer)
 
 }
 

@@ -20,7 +20,7 @@ const usersRoute = async (req, res) => {
     '/admin/platform/teams'
   ])
 
-  res.status(200).respond(user, UserSerializer)
+  await res.status(200).respond(user, UserSerializer)
 
 }
 

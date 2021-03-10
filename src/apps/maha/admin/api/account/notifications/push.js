@@ -11,7 +11,7 @@ const pushRoute = async (req, res) => {
     body: 'this is a test push notification'
   }, req.trx)
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

@@ -65,7 +65,7 @@ const updateRoute = async (req, res) => {
     `/admin/stores/stores/${store.get('id')}`
   ])
 
-  res.status(200).respond(cart, CartSerializer)
+  await res.status(200).respond(cart, CartSerializer)
 
 }
 

@@ -32,7 +32,7 @@ const createRoute = async (req, res) => {
     }
   ])
 
-  res.status(200).respond(reimbursements, ReimbursementSerializer)
+  await res.status(200).respond(reimbursements, ReimbursementSerializer)
 
 }
 

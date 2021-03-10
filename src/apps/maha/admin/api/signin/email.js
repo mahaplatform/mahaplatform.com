@@ -24,7 +24,7 @@ const emailRoute = async (req, res) => {
     message: 'Your account has not been activated'
   })
 
-  res.status(200).respond({
+  await res.status(200).respond({
     account: {
       id: account.get('id'),
       full_name: account.get('full_name'),

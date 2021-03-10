@@ -34,7 +34,7 @@ const enableRoute = async (req, res) => {
     auditable: project
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

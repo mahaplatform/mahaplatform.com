@@ -36,7 +36,7 @@ const createRoute = async (req, res) => {
     `/admin/stores/stores/${store.get('id')}`
   ])
 
-  res.status(200).respond(category, CategorySerializer)
+  await res.status(200).respond(category, CategorySerializer)
 
 }
 

@@ -45,7 +45,7 @@ const updateRoute = async (req, res) => {
     `/admin/crm/programs/${topic.get('program_id')}`
   ])
 
-  res.status(200).respond(topic, TopicSerializer)
+  await res.status(200).respond(topic, TopicSerializer)
 
 }
 

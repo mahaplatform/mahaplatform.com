@@ -16,7 +16,7 @@ const performanceRoute = async (req, res) => {
     message: 'Unable to load campaign'
   })
 
-  res.status(200).respond(campaign.related('results'), EmailCampaignResultSerializer)
+  await res.status(200).respond(campaign.related('results'), EmailCampaignResultSerializer)
 
 }
 

@@ -39,7 +39,7 @@ const createRoute = async (req, res) => {
     '/admin/news/posts'
   ])
 
-  res.status(200).respond(post, PostSerializer)
+  await res.status(200).respond(post, PostSerializer)
 
 }
 

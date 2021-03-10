@@ -49,7 +49,7 @@ const createRoute = async (req, res) => {
     }
   })
 
-  res.status(200).respond(call, CallSerializer)
+  await res.status(200).respond(call, CallSerializer)
 
 }
 

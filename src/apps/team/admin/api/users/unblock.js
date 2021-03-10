@@ -33,7 +33,7 @@ const unblockRoute = async (req, res) => {
     `/admin/team/users/${user.get('id')}`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

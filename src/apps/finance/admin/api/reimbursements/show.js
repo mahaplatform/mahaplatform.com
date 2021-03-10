@@ -16,7 +16,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load reimbursement'
   })
 
-  res.status(200).respond(reimbursement, ReimbursementSerializer)
+  await res.status(200).respond(reimbursement, ReimbursementSerializer)
 
 }
 

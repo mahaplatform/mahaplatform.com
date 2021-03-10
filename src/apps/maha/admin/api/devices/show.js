@@ -7,7 +7,7 @@ const showRoute = async (req, res) => {
     fingerprint: req.body.fingerprint
   })
 
-  res.status(200).respond(device, DeviceSerializer)
+  await res.status(200).respond(device, DeviceSerializer)
 
 }
 

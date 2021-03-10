@@ -62,7 +62,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(items, async (req, result) => ({
+  await res.status(200).respond(items, async (req, result) => ({
     id: result.get('id'),
     distance: result.get('distance'),
     ...await expandValues(req, {

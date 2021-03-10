@@ -11,7 +11,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(sessions.map(session => ({
+  await res.status(200).respond(sessions.map(session => ({
     session_id: session.get('id'),
     id: session.related('device').get('id'),
     device: session.related('device').related('device_type').get('text'),

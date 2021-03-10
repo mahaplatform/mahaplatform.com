@@ -30,7 +30,7 @@ const visitedRoute = async (req, res) => {
     target: '/admin/notifications'
   })
 
-  res.status(200).respond(notification, NotificationSerializer)
+  await res.status(200).respond(notification, NotificationSerializer)
 
 }
 

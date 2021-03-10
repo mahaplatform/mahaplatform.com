@@ -30,7 +30,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load card'
   })
 
-  res.status(200).respond(card, (req, card) => ({
+  await res.status(200).respond(card, (req, card) => ({
     id: card.get('id'),
     title: card.get('title'),
     config: card.get('config')

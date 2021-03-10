@@ -77,7 +77,7 @@ const createRoute = async (req, res) => {
     object: item
   })))
 
-  res.status(200).respond(batch, BatchSerializer)
+  await res.status(200).respond(batch, BatchSerializer)
 
 }
 

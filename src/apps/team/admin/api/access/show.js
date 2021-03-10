@@ -41,7 +41,7 @@ const showRoute = async (req, res) => {
     return (a.title > b.title) ? 1 : -1
   })
 
-  res.status(200).respond(access)
+  await res.status(200).respond(access)
 
 }
 

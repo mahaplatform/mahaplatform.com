@@ -18,7 +18,7 @@ const validateRoute = async (req, res) => {
     message: 'Unable to load form'
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

@@ -31,7 +31,7 @@ const createRoute = async (req, res) => {
     object: credit
   })
 
-  res.status(200).respond(credit, CreditSerializer)
+  await res.status(200).respond(credit, CreditSerializer)
 
 }
 

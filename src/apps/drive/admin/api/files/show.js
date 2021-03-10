@@ -16,7 +16,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load file'
   })
 
-  res.status(200).respond(file, FileSerializer)
+  await res.status(200).respond(file, FileSerializer)
 
 }
 

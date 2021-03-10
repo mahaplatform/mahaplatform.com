@@ -31,7 +31,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(apikeys, APIKeySerializer)
+  await res.status(200).respond(apikeys, APIKeySerializer)
 
 }
 

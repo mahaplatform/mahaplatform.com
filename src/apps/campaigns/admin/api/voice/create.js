@@ -61,7 +61,7 @@ const createRoute = async (req, res) => {
     `/admin/campaigns/voice/${voice_campaign.get('direction')}`
   ])
 
-  res.status(200).respond(voice_campaign, VoiceCampaignSerializer)
+  await res.status(200).respond(voice_campaign, VoiceCampaignSerializer)
 
 }
 

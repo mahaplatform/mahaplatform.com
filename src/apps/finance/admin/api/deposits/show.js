@@ -18,7 +18,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load deposit'
   })
 
-  res.status(200).respond(deposit, DepositSerializer)
+  await res.status(200).respond(deposit, DepositSerializer)
 
 }
 

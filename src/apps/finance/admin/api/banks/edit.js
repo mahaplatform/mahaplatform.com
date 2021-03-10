@@ -15,7 +15,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load bank'
   })
 
-  res.status(200).respond(bank, {
+  await res.status(200).respond(bank, {
     fields: [
       'id',
       'title',

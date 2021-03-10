@@ -41,7 +41,7 @@ const lookupRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(channel, (req, channel) => {
+  await res.status(200).respond(channel, (req, channel) => {
     const contact = channel.related('contact')
     return {
       phone_number: {

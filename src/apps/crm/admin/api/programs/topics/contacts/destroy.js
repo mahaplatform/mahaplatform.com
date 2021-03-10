@@ -32,7 +32,7 @@ const destroyRoute = async (req, res) => {
     `/admin/crm/programs/${req.params.program_id}/topics/${req.params.topic_id}`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

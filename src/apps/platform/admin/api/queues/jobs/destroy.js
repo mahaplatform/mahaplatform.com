@@ -10,7 +10,7 @@ const destroyRoute = async (req, res) => {
 
   await job.remove()
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

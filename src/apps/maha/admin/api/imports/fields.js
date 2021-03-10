@@ -22,7 +22,7 @@ const fieldsRoute = async (req, res) => {
     WHERE table_name=?
   `, req.params.tablename)
 
-  res.status(200).respond(fields.rows.map(field => ({
+  await res.status(200).respond(fields.rows.map(field => ({
     name: field.column_name,
     data_type: field.data_type,
     is_nullable: field.is_nullable === 'YES',

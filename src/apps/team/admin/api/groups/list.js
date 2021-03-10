@@ -22,7 +22,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(groups, GroupSerializer)
+  await res.status(200).respond(groups, GroupSerializer)
 
 }
 

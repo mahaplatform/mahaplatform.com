@@ -29,7 +29,7 @@ const previewRoute = async (req, res) => {
     headers: req.body.headers
   })
 
-  res.status(200).respond(parsed)
+  await res.status(200).respond(parsed)
 
 }
 

@@ -25,7 +25,7 @@ const connectionsRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(connections, CallConnectionSerializer)
+  await res.status(200).respond(connections, CallConnectionSerializer)
 
 }
 

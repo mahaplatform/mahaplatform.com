@@ -1,6 +1,6 @@
 const templateRoute = async (req, res) => {
 
-  res.status(200).respond(req.query.columns.reduce((template, column) => ({
+  await res.status(200).respond(req.query.columns.reduce((template, column) => ({
     ...template,
     [column]: ''
   }), {}))

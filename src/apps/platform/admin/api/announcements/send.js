@@ -56,7 +56,7 @@ const sendRoute = async (req, res) => {
     `/admin/platform/announcements/${announcement.id}`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

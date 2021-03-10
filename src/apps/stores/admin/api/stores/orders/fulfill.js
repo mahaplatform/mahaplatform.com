@@ -48,7 +48,7 @@ const fulfillRoute = async (req, res) => {
     `/admin/stores/stores/${store.get('id')}/orders/${order.get('id')}`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

@@ -16,7 +16,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load refund'
   })
 
-  res.status(200).respond(refund, RefundSerializer)
+  await res.status(200).respond(refund, RefundSerializer)
 
 }
 

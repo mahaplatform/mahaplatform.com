@@ -26,7 +26,7 @@ const parseRoute = async (req, res) => {
     primaryKey: req.body.primaryKey
   })
 
-  res.status(200).respond(_import, ImportSerializer)
+  await res.status(200).respond(_import, ImportSerializer)
 
 }
 

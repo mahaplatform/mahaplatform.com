@@ -21,7 +21,7 @@ const editRoute = async (req, res) => {
 
   const is_admin = _.includes(access.rights, 'finance:access_expense_reports')
 
-  res.status(200).respond(check, (req, check) => ({
+  await res.status(200).respond(check, (req, check) => ({
     date_needed: check.get('date_needed'),
     vendor_id: check.get('vendor_id'),
     delivery_method: check.get('delivery_method'),

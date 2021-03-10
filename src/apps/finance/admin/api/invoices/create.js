@@ -53,7 +53,7 @@ const createRoute = async (req, res) => {
     '/admin/finance/invoices'
   ])
 
-  res.status(200).respond(invoice, InvoiceSerializer)
+  await res.status(200).respond(invoice, InvoiceSerializer)
 
 }
 

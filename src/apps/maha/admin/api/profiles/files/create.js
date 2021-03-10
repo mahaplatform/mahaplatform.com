@@ -46,7 +46,7 @@ const filesRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(newasset, AssetSerializer)
+  await res.status(200).respond(newasset, AssetSerializer)
 
 }
 

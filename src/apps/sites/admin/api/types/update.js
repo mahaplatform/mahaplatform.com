@@ -37,7 +37,7 @@ const updateRoute = async (req, res) => {
     `/admin/sites/sites/${req.params.site_id}/types/${type.get('id')}`
   ])
 
-  res.status(200).respond(type, TypeSerializer)
+  await res.status(200).respond(type, TypeSerializer)
 
 }
 

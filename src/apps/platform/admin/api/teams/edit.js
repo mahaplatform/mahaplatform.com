@@ -14,7 +14,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load team'
   })
 
-  res.status(200).respond(team, {
+  await res.status(200).respond(team, {
     fields: [
       'id',
       'title',

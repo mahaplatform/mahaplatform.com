@@ -19,7 +19,7 @@ const showRoute = async (req, res) => {
 
   req.team = invoice.related('team')
 
-  res.status(200).respond(invoice, InvoiceSerializer)
+  await res.status(200).respond(invoice, InvoiceSerializer)
 
 }
 

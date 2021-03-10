@@ -29,7 +29,7 @@ const cardsRoute = async (req, res) => {
     skip: 0
   }
 
-  res.status(200).respond(cards, (req, card) => ({
+  await res.status(200).respond(cards, (req, card) => ({
     type: card.code,
     title: card.title,
     description: card.description,

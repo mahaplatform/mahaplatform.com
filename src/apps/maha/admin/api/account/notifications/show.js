@@ -5,7 +5,7 @@ const showRoute = async (req, res) => {
 
   const preferences = req.account.get('preferences')
 
-  res.status(200).respond({
+  await res.status(200).respond({
     notifications_enabled: preferences.notifications_enabled,
     in_app_notifications_enabled: preferences.in_app_notifications_enabled,
     sounds: {

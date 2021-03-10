@@ -47,7 +47,7 @@ const activateRoute = async (req, res) => {
     channel: req.params.parent_id ? `/admin/${req.params.parent_type}/${req.params.parent_id}/fields` : `/admin/${req.params.parent_type}/fields`
   })
 
-  res.status(200).respond(field, FieldSerializer)
+  await res.status(200).respond(field, FieldSerializer)
 
 }
 

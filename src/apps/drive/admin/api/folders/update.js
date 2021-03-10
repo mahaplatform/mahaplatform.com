@@ -19,7 +19,7 @@ const updateRoute = async (req, res) => {
 
   await updateFolder(req, folder, req.body)
 
-  res.status(200).respond(folder, FolderSerializer)
+  await res.status(200).respond(folder, FolderSerializer)
 
 }
 

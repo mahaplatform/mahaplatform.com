@@ -14,7 +14,7 @@ const showRoute = async (req, res) => {
 
   const program = store.related('program')
 
-  res.status(200).respond({
+  await res.status(200).respond({
     program: {
       title: program.get('title'),
       logo: program.related('logo') ? program.related('logo').get('path') : null

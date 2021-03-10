@@ -15,7 +15,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load program'
   })
 
-  res.status(200).respond(program, {
+  await res.status(200).respond(program, {
     fields: [
       'id',
       'title',

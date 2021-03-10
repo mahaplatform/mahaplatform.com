@@ -42,7 +42,7 @@ const createRoute = async (req, res) => {
     '/admin/dashboard'
   ])
 
-  res.status(200).respond(card, DashboardCardSerializer)
+  await res.status(200).respond(card, DashboardCardSerializer)
 
 }
 

@@ -10,7 +10,7 @@ const topicsRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(topics, (req, topic) => ({
+  await res.status(200).respond(topics, (req, topic) => ({
     id: topic.get('id'),
     title: topic.get('title')
   }))

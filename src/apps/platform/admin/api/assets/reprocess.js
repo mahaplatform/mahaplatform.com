@@ -18,7 +18,7 @@ const reprocessRoute = async (req, res) => {
     id: asset.get('id')
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

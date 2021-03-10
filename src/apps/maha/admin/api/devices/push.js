@@ -29,7 +29,7 @@ const pushRoute = async (req, res) => {
     token: device.get('push_token')
   })
 
-  res.status(200).respond(result)
+  await res.status(200).respond(result)
 
 }
 

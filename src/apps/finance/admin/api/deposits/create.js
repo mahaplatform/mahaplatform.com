@@ -89,7 +89,7 @@ const createRoute = async (req, res) => {
     '/admin/finance/deposits'
   ])
 
-  res.status(200).respond(deposit, DepositSerializer)
+  await res.status(200).respond(deposit, DepositSerializer)
 
 }
 

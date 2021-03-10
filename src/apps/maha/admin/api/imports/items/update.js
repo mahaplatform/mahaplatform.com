@@ -28,7 +28,7 @@ const updateRoute = async (req, res) => {
     `/admin/imports/${item.get('import_id')}`
   ])
 
-  res.status(200).respond(item, ImportItemSerializer)
+  await res.status(200).respond(item, ImportItemSerializer)
 
 }
 

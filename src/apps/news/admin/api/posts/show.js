@@ -17,7 +17,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load post'
   })
 
-  res.status(200).respond(post, PostSerializer)
+  await res.status(200).respond(post, PostSerializer)
 
 }
 

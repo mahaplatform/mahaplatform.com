@@ -103,7 +103,7 @@ const updateRoute = async (req, res) => {
     `/admin/finance/invoices/${invoice.get('id')}`
   ])
 
-  res.status(200).respond(invoice, InvoiceSerializer)
+  await res.status(200).respond(invoice, InvoiceSerializer)
 
 }
 

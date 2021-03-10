@@ -36,7 +36,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(emails, (req, email) => {
+  await res.status(200).respond(emails, (req, email) => {
 
     if(email.get('email_campaign_id')) {
       const campaign = email.related('email_campaign')

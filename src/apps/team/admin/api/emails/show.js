@@ -27,7 +27,7 @@ const showRoute = async (req, res) => {
     email.set('html', personalized.html)
   }
 
-  res.status(200).respond(email, EmailSerializer)
+  await res.status(200).respond(email, EmailSerializer)
 
 }
 

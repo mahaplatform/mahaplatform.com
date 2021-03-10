@@ -14,7 +14,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to find article'
   })
 
-  res.status(200).respond(article, (req, article) => ({
+  await res.status(200).respond(article, (req, article) => ({
     app_id: article.get('app_id'),
     desktop_id: article.get('desktop_id'),
     desktop_small_id: article.get('desktop_small_id'),

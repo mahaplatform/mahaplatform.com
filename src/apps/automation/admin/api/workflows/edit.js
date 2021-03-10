@@ -14,7 +14,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load workflow'
   })
 
-  res.status(200).respond(workflow, (req, workflow) => ({
+  await res.status(200).respond(workflow, (req, workflow) => ({
     title: workflow.get('title')
   }))
 

@@ -206,7 +206,7 @@ const submitRoute = async (req, res) => {
     `/admin/stores/stores/${store.get('id')}/registrations`
   ])
 
-  res.status(200).respond(order, (req, order) => ({
+  await res.status(200).respond(order, (req, order) => ({
     order_id: order.get('id'),
     contact_id: order.get('contact_id')
   }))

@@ -48,7 +48,7 @@ const showRoute = async (req, res) => {
 
   campaign.set('recipients', recipient_count)
 
-  res.status(200).respond(campaign, EmailCampaignSerializer)
+  await res.status(200).respond(campaign, EmailCampaignSerializer)
 
 }
 

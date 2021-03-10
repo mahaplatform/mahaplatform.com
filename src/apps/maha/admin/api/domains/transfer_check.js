@@ -8,7 +8,7 @@ const transferCheckRoute = async (req, res) => {
     transferable: result.Transferability.Transferable
   }))
 
-  res.status(200).respond(transferable)
+  await res.status(200).respond(transferable)
 
 }
 

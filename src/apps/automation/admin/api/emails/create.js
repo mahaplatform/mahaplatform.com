@@ -77,7 +77,7 @@ const createRoute = async (req, res) => {
     '/admin/automation/emails'
   ])
 
-  res.status(200).respond(email, EmailSerializer)
+  await res.status(200).respond(email, EmailSerializer)
 
 }
 

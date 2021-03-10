@@ -49,7 +49,7 @@ const deleteAllRoute = async (req, res) => {
     `/admin/campaigns/voice/${voice_campaign.get('id')}/calls`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

@@ -12,7 +12,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(attachments, AttachmentSerializer)
+  await res.status(200).respond(attachments, AttachmentSerializer)
 
 }
 

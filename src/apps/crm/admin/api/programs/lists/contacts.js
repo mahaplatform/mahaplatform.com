@@ -21,7 +21,7 @@ const contactsRoute = async (req, res) => {
     transacting: req.trx
   }).then(result => result.toArray())
 
-  res.status(200).respond(contacts, ContactSerializer)
+  await res.status(200).respond(contacts, ContactSerializer)
 
 }
 

@@ -8,7 +8,7 @@ const unreadRoute = async (req, res) => {
       is_seen: false
     })
 
-  res.status(200).respond({
+  await res.status(200).respond({
     count: parseInt(result[0].unread)
   })
 

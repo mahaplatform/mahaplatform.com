@@ -16,7 +16,7 @@ const lookupRoute = async (req, res) => {
     message: 'Unable to lookup bank'
   })
 
-  res.status(200).respond(response)
+  await res.status(200).respond(response)
 
 }
 

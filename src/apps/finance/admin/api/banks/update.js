@@ -40,7 +40,7 @@ const updateRoute = async (req, res) => {
     `/admin/finance/banks/${req.params.id}`
   ])
 
-  res.status(200).respond(bank, BankSerializer)
+  await res.status(200).respond(bank, BankSerializer)
 
 }
 

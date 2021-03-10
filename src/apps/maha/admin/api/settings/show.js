@@ -7,7 +7,7 @@ const showRoute = async (req, res) => {
 
   const app = req.apps[req.params.code]
 
-  res.status(200).respond({
+  await res.status(200).respond({
     settings: app ? app.settings : {}
   })
 

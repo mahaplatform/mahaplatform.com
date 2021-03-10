@@ -19,7 +19,7 @@ const chatRoute = async (req, res) => {
     text: asset.get('url')
   })
 
-  res.status(200).respond(channel)
+  await res.status(200).respond(channel)
 
 }
 

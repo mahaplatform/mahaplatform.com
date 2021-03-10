@@ -33,7 +33,7 @@ const showRoute = async (req, res) => {
   const program = form.related('program')
   const team = form.related('team')
 
-  res.status(200).respond({
+  await res.status(200).respond({
     form: {
       id: form.get('id'),
       title: form.get('config').seo.title || form.get('title'),

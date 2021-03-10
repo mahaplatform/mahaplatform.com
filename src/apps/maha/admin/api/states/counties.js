@@ -21,7 +21,7 @@ const countiesRoute = async (req, res) => {
     limit: 1000
   }
 
-  res.status(200).respond(counties)
+  await res.status(200).respond(counties)
 
 }
 

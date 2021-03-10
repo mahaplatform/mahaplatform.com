@@ -16,7 +16,7 @@ const destroyRoute = async (req, res) => {
     patch: true
   })
 
-  res.status(200).respond({
+  await res.status(200).respond({
     team_id: req.team.get('id')
   })
 

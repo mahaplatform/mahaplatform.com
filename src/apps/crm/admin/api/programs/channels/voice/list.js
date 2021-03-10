@@ -33,7 +33,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(calls, (req, call) => {
+  await res.status(200).respond(calls, (req, call) => {
     const phone_number = call.related('phone_number')
     const contact = phone_number.related('contact')
     return {

@@ -15,7 +15,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load trip'
   })
 
-  res.status(200).respond(trip, {
+  await res.status(200).respond(trip, {
     fields: [
       'id',
       'date',

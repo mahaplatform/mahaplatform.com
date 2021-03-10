@@ -32,7 +32,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(calls, (req, call) => ({
+  await res.status(200).respond(calls, (req, call) => ({
     id: call.get('id'),
     direction: call.get('direction'),
     duration: call.get('duration'),

@@ -18,7 +18,7 @@ const listRoute = async (req, res) => {
     page: req.query.$page
   })
 
-  res.status(200).respond(contacts, ContactSerializer)
+  await res.status(200).respond(contacts, ContactSerializer)
 
 }
 

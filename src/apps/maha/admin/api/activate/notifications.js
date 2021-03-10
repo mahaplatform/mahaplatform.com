@@ -41,7 +41,7 @@ const notificationsRoute = async (req, res) => {
     account: req.account
   })
 
-  res.status(200).respond({
+  await res.status(200).respond({
     account: {
       id: req.account.get('id'),
       first_name: req.account.get('first_name'),

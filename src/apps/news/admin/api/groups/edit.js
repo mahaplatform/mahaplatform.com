@@ -16,7 +16,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load group'
   })
 
-  res.status(200).respond(group, (req, group) => ({
+  await res.status(200).respond(group, (req, group) => ({
     id: group.get('id'),
     title: group.get('title'),
     logo_id: group.get('logo_id'),
@@ -28,7 +28,7 @@ const editRoute = async (req, res) => {
     }))
   }))
 
-  res.status(200).respond(group, GroupSerializer)
+  await res.status(200).respond(group, GroupSerializer)
 
 }
 export default editRoute

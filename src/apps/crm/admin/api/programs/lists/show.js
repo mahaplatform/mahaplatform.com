@@ -31,7 +31,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load list'
   })
 
-  res.status(200).respond(list, ListSerializer)
+  await res.status(200).respond(list, ListSerializer)
 
 }
 

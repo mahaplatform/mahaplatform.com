@@ -73,7 +73,7 @@ const preferencesRoute = async (req, res) => {
     })
   }))
 
-  res.status(200).respond({ consent })
+  await res.status(200).respond({ consent })
 
 }
 

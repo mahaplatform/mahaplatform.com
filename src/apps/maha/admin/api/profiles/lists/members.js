@@ -25,7 +25,7 @@ const membersRoute = async (req, res) => {
 
   const records = await members(req, profile)
 
-  res.status(200).respond(records)
+  await res.status(200).respond(records)
 
 }
 

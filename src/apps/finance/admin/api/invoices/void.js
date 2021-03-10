@@ -52,7 +52,7 @@ const voidRoute = async (req, res) => {
     `/admin/finance/invoices/${invoice.get('id')}`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

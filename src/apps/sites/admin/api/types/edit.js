@@ -14,7 +14,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load advance'
   })
 
-  res.status(200).respond(type, {
+  await res.status(200).respond(type, {
     fields: [
       'id',
       'title',

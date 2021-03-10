@@ -15,7 +15,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load user'
   })
 
-  res.status(200).respond(user, {
+  await res.status(200).respond(user, {
     fields: [
       'id',
       'email_notifications_method',

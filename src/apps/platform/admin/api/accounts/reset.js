@@ -36,7 +36,7 @@ const resetRoute = async (req, res) => {
     html
   })
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

@@ -33,7 +33,7 @@ const destroyRoute = async (req, res) => {
     `/admin/campaigns/sms/${sms_campaign.get('id')}/sessions`
   ])
 
-  res.status(200).respond(true)
+  await res.status(200).respond(true)
 
 }
 

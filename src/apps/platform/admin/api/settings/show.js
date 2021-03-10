@@ -13,7 +13,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load settings'
   })
 
-  res.status(200).respond(settings.get('values'))
+  await res.status(200).respond(settings.get('values'))
 
 }
 
