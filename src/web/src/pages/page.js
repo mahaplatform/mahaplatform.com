@@ -26,9 +26,9 @@ const fetchPage = (code, permlink) => {
   }
 }
 
-export async function getServerSideProps({ params }) {
-  const site = await fetchSite(params.code)
-  const page = await fetchPage(params.code, params.permalink.join('/'))
+export async function getServerSideProps({ query }) {
+  const site = await fetchSite(query.code)
+  const page = await fetchPage(query.code, query.permalink)
   return {
     props: {
       site,
