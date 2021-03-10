@@ -15,6 +15,7 @@ const PhoneNumber = new Model(knex, {
   virtuals: {
 
     formatted() {
+      console.log(this.get('number'))
       return formatPhoneNumber(this.get('number'))
     },
 

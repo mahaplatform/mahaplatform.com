@@ -1,7 +1,5 @@
 const error = (error, req, res, next) => {
 
-  console.log('here')
-
   res.error = error
 
   if(error.errors) return res.status(422).json({
