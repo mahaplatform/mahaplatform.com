@@ -17,7 +17,7 @@
     "build": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/build/index.js",
     "collector": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/collector.js",
     "cron": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/cron.js",
-    "dev": "NODE_ENV=development NODE_OPTIONS=--max-old-space-size=8192 npx babel-node --trace-warnings --config-file=./src/core/utils/babel.config.js ./src/scripts/dev/index.js",
+    "dev": "NODE_ENV=development NODE_OPTIONS=--max-old-space-size=8192 npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/dev/index.js",
     "entities": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/entities.js",
     "env": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/env/index.js",
     "g": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/generate/index.js",
@@ -30,7 +30,8 @@
     "test": "NODE_ENV=test babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/test.js",
     "twilio": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/twilio/index.js",
     "website": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/website.js",
-    "worker": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/worker.js"
+    "worker": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/worker.js",
+    "web": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/web.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",

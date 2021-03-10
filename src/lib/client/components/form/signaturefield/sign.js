@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Loader } from '@client'
+import Loader from '../../loader'
 import Pasteur from 'pasteur'
 import React from 'react'
 

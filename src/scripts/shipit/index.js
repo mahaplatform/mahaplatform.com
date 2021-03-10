@@ -42,7 +42,7 @@ const processor = async () => {
       roles: (tags.Role || '').split(',')
     }
   }).filter(instance => {
-    return _.intersection(['analyticsserver','appserver','worker','cron','dbserver'], instance.roles).length > 0
+    return _.intersection(['analyticsserver','appserver','webserver','worker','cron','dbserver'], instance.roles).length > 0
   }).sort((a,b) => {
     return a.host < b.host ? -1 : 1
   })
@@ -125,14 +125,14 @@ const processor = async () => {
   utils.registerTask(shipit, 'cleanup', async () => {
     const revision = args[1]
     await shipit.remote(`rm -rf ${releasesDir}/${revision}`, {
-      roles: ['analyticsserver','appserver','cron','twilio','worker']
+      roles: ['analyticsserver','appserver','webserver','cron','twilio','worker']
     })
   })
 
   utils.registerTask(shipit, 'rollback', async () => {
     const revision = args[1]
     await shipit.remote(`rm -rf ${currentDir} && ln -s ${releasesDir}/${revision} ${currentDir}`, {
-      roles: ['analyticsserver','appserver','cron','twilio','worker']
+      roles: ['analyticsserver','appserver','webserver','cron','twilio','worker']
     })
   })
 
@@ -162,26 +162,26 @@ const processor = async () => {
 
   utils.registerTask(shipit, 'deploy:mkdir', async () => {
     await shipit.remote(`mkdir -p ${releaseDir}`, {
-      roles: ['analyticsserver','appserver','cron','twilio','worker']
+      roles: ['analyticsserver','appserver','webserver','cron','twilio','worker']
     })
   })
 
   utils.registerTask(shipit, 'deploy:upload', async () => {
     await shipit.copyToRemote('dist.tgz', `${releaseDir}/dist.tgz`, {
-      roles: ['analyticsserver','appserver','cron','twilio','worker']
+      roles: ['analyticsserver','appserver','webserver','cron','twilio','worker']
     })
   })
 
   utils.registerTask(shipit, 'deploy:unzip', async () => {
     await shipit.remote('tar -xzf dist.tgz && rm -rf dist.tgz', {
-      roles: ['analyticsserver','appserver','cron','twilio','worker'],
+      roles: ['analyticsserver','appserver','webserver','cron','twilio','worker'],
       cwd: releaseDir
     })
   })
 
   utils.registerTask(shipit, 'deploy:install', async () => {
     await shipit.remote('npm install --production --unsafe-perm=true --no-spin', {
-      roles: ['analyticsserver','appserver','cron','twilio','worker'],
+      roles: ['analyticsserver','appserver','webserver','cron','twilio','worker'],
       cwd: path.join(releaseDir, 'platform')
     })
   })
@@ -194,13 +194,13 @@ const processor = async () => {
       `ln -s ${sharedDir}/imagecache ${platformDir}/public/imagecache`
     ]
     await shipit.remote(commands.join(' && '), {
-      roles: ['analyticsserver','appserver','cron','twilio','worker']
+      roles: ['analyticsserver','appserver','webserver','cron','twilio','worker']
     })
   })
 
   utils.registerTask(shipit, 'deploy:webroot', async () => {
     await shipit.remote(`mkdir -p ${platformDir}/web`, {
-      roles: ['analyticsserver','appserver','cron','twilio','worker']
+      roles: ['analyticsserver','appserver','webserver','cron','twilio','worker']
     })
   })
 
@@ -220,13 +220,13 @@ const processor = async () => {
 
   utils.registerTask(shipit, 'deploy:symlink', async () => {
     await shipit.remote(`rm -rf ${currentDir} && ln -s ${releaseDir} ${currentDir}`, {
-      roles: ['analyticsserver','appserver','cron','twilio','worker']
+      roles: ['analyticsserver','appserver','webserver','cron','twilio','worker']
     })
   })
 
   utils.registerTask(shipit, 'deploy:reload_nginx', () => {
     return shipit.remote('service nginx reload', {
-      roles: ['analyticsserver','appserver']
+      roles: ['analyticsserver','appserver','webserver']
     })
   })
 
@@ -267,13 +267,13 @@ const processor = async () => {
 
   utils.registerTask(shipit, 'deploy:cache', () => {
     return shipit.remote('wget -O - http://127.0.0.1/ping', {
-      roles: 'appserver'
+      roles: ['analyticsserver','appserver','webserver']
     })
   })
 
   utils.registerTask(shipit, 'deploy:clean', () => {
     return shipit.remote(`ls -rd ${releasesDir}/*|grep -v $(readlink ${currentDir})|xargs rm -rf`, {
-      roles: ['analyticsserver','appserver','cron','twilio','worker']
+      roles: ['analyticsserver','appserver','webserver','cron','twilio','worker']
     })
   })
 

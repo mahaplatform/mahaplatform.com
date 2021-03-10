@@ -36,3 +36,4 @@ nodejs
 *.zip
 /src/platforms/desktop/dist
 /src/platforms/desktop/www
+/src/web/.next

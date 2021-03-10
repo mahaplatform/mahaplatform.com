@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Button } from '@client'
+import Button from '../../loader'
 import moment from 'moment'
 import Sign from './sign'
 import React from 'react'

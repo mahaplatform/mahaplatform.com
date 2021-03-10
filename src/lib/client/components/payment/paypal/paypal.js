@@ -1,5 +1,5 @@
 import { client, paypalCheckout } from 'braintree-web'
-import paypal from 'paypal-checkout'
+// import paypal from 'paypal-checkout'
 import PropTypes from 'prop-types'
 import React from 'react'
 
