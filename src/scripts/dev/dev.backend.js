@@ -117,8 +117,8 @@ const watchSrc = async () => {
     ignoreInitial: true,
     ignored: (absolute) => {
       const pathname = absolute.replace(srcDir,'src')
-      if(pathname.match(/web/)) return true
-      if(pathname.match(/admin\/(activities|badges|components|roots|tokens|views)/)) return true
+      if(pathname.match(/src\/apps\/[^/]*\/(db|web)/)) return true
+      if(pathname.match(/src\/apps\/[^/]*\/admin\/(activities|badges|components|roots|tokens|views)/)) return true
       if(pathname.match(/_test\.js$/)) return true
       return false
     }

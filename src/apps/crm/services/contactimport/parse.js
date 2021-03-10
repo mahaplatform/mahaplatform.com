@@ -1,14 +1,14 @@
 import ImportSerializer from '@apps/maha/serializers/import_serializer'
-import { isValid } from '@core/utils/validation'
+import { isValidNumber } from '@core/services/phone_numbers'
 import ImportItem from '@apps/maha/models/import_item'
-import socket from '@core/vendor/emitter'
-import parse from '@core/utils/parse'
+import { isValid } from '@core/utils/validation'
 import Import from '@apps/maha/models/import'
 import { parseLocation } from 'parse-address'
+import socket from '@core/vendor/emitter'
 import { matchContact } from './utils'
+import parse from '@core/utils/parse'
 import moment from 'moment'
 import _ from 'lodash'
-
 const PHONE_REGEX = /(?:(?:\+?([1-9]|[0-9][0-9]|[0-9][0-9][0-9])\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([0-9][1-9]|[0-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?/g
 
 const EMAIL_REGEX = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/i
@@ -86,7 +86,20 @@ const parseContactImport = async (req, { import_id }) => {
         ...getValue(mapping, row[i])
       }
     }, {})
+  }
 
+  const validate = async(values) => {
+    const phones = Object.keys(values).filter(key => {
+      return /phone/.test(key)
+    }).find(key => {
+      return !isValidNumber(values[key])
+    })
+    if(phones) return false
+    return isValid({
+      email_1: ['email'],
+      email_2: ['email'],
+      email_3: ['email']
+    }, values)
   }
 
   await Promise.reduce(parsed.rows, async (primarykeys, row, i) => {
@@ -106,9 +119,7 @@ const parseContactImport = async (req, { import_id }) => {
       values
     })
 
-    const is_valid = await isValid({
-      email_1: ['email']
-    }, values)
+    const is_valid = await validate(values)
 
     const is_nonunique = values.email_1 !== undefined && _.includes(primarykeys, values.email_1)
 

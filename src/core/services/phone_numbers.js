@@ -10,7 +10,6 @@ export const formatPhoneNumber = (number) => {
 
 export const spokenPhoneNumber = (number) => {
   const phoneNumber = parsePhoneNumberFromString(number, 'US')
-
   const parts = []
   parts.push('area code')
   parts.push(phoneNumber.nationalNumber.split('').join(' '))
@@ -18,5 +17,10 @@ export const spokenPhoneNumber = (number) => {
   parts.push('extension')
   parts.push(phoneNumber.ext.split('').join(' '))
   return parts.join(' ')
+}
 
+
+export const isValidNumber = (number) => {
+  const parsed = parsePhoneNumberFromString(number, 'US')
+  return parsed.isValid()
 }
