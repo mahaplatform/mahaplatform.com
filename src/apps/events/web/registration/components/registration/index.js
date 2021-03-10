@@ -5,7 +5,7 @@ import * as selectors from './selectors'
 import * as actions from './actions'
 
 export default Singleton({
-  namespace: 'registration',
+  namespace: 'events.registration',
   component: registration,
   reducer,
   selectors,

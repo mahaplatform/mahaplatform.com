@@ -5,7 +5,7 @@ import * as actions from './actions'
 import * as selectors from './selectors'
 
 export default Factory({
-  namespace: 'ach',
+  namespace: 'maha.ach',
   component: ach,
   reducer,
   actions,

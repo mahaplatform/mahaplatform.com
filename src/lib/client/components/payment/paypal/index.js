@@ -5,7 +5,7 @@ import * as actions from './actions'
 import * as selectors from './selectors'
 
 export default Factory({
-  namespace: 'paypal',
+  namespace: 'maha.paypal',
   component: PayPal,
   reducer,
   actions,

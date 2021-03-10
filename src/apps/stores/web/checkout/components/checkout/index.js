@@ -5,7 +5,7 @@ import * as selectors from './selectors'
 import * as actions from './actions'
 
 export default Singleton({
-  namespace: 'checkout',
+  namespace: 'stores.checkout',
   component: checkout,
   reducer,
   selectors,

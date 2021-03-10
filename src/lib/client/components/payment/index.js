@@ -4,7 +4,7 @@ import payment from './payment'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'payment',
+  namespace: 'maha.payment',
   component: payment,
   reducer,
   actions

@@ -4,7 +4,7 @@ import Infinite from './infinite'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'infinite',
+  namespace: 'maha.infinite',
   component: Infinite,
   reducer,
   actions

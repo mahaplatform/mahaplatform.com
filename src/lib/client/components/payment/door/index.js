@@ -4,7 +4,7 @@ import Door from './door'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'door',
+  namespace: 'maha.door',
   component: Door,
   reducer,
   actions

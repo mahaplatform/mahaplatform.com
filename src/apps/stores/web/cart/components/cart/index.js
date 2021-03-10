@@ -5,7 +5,7 @@ import * as selectors from './selectors'
 import * as actions from './actions'
 
 export default Singleton({
-  namespace: 'cart',
+  namespace: 'stores.cart',
   component: cart,
   reducer,
   selectors,

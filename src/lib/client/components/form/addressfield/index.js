@@ -4,7 +4,7 @@ import addressfield from './addressfield'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'addressfield',
+  namespace: 'maha.addressfield',
   component: addressfield,
   reducer,
   actions

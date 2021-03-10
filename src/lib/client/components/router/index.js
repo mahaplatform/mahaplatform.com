@@ -4,7 +4,7 @@ import router from './router'
 import * as actions from './actions'
 
 export default Singleton({
-  namespace: 'router',
+  namespace: 'maha.router',
   component: router,
   reducer,
   actions

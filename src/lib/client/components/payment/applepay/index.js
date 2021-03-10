@@ -5,7 +5,7 @@ import * as actions from './actions'
 import * as selectors from './selectors'
 
 export default Factory({
-  namespace: 'applepay',
+  namespace: 'maha.applepay',
   component: applepay,
   reducer,
   actions,

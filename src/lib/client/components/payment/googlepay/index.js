@@ -5,7 +5,7 @@ import * as actions from './actions'
 import * as selectors from './selectors'
 
 export default Factory({
-  namespace: 'googlepay',
+  namespace: 'maha.googlepay',
   component: GooglePay,
   reducer,
   actions,

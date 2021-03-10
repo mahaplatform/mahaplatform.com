@@ -4,7 +4,7 @@ import Payment from './payment'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'payment',
+  namespace: 'finance.payment',
   component: Payment,
   reducer,
   actions

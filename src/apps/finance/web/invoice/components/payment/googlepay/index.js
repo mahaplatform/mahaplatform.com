@@ -4,7 +4,7 @@ import GooglePay from './googlepay'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'googlepay',
+  namespace: 'finance.googlepay',
   component: GooglePay,
   reducer,
   actions

@@ -4,7 +4,7 @@ import wrapper from './wrapper'
 import * as actions from './actions'
 
 export default Singleton({
-  namespace: 'wrapper',
+  namespace: 'stores.cartwrapper',
   component: wrapper,
   reducer,
   actions

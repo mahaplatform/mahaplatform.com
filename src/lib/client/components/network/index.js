@@ -4,7 +4,7 @@ import network from './network'
 import * as actions from './actions'
 
 export default Singleton({
-  namespace: 'network',
+  namespace: 'maha.network',
   component: network,
   reducer,
   actions

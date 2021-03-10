@@ -5,7 +5,7 @@ import * as selectors from './selectors'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'webform',
+  namespace: 'forms.form',
   component: form,
   reducer,
   selectors,
