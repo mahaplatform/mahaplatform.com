@@ -34,7 +34,7 @@ const build = async () => {
     buildSdk(),
     buildEnv(environment),
     buildAdmin(environment),
-    buildWeb()
+    buildWeb(root, environment)
   ])
   await buildSubapps(environment)
   rimraf.sync(dist)

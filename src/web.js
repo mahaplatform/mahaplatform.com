@@ -5,11 +5,13 @@ import path from 'path'
 import next from 'next'
 import url from 'url'
 
+const root = path.resolve(__dirname)
+
 const processor = async () => {
 
   const app = next({
     dev: false,
-    dir: path.join('src','web')
+    dir: path.join(root,'web')
   })
 
   const handle = app.getRequestHandler()
