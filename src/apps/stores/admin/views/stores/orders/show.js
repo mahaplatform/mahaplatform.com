@@ -1,4 +1,5 @@
 import Fulfill from '@apps/stores/admin/components/fulfill'
+import Cancel from '@apps/stores/admin/components/cancel'
 import Details from './details'
 import { Page } from '@admin'
 import Items from './items'
@@ -13,6 +14,7 @@ const getTabs = ({ audits, store, order }) => ({
 
 const getTasks = ({ order, store }) => {
   const items = [
+    { label: 'Cancel / Refund Order', modal: <Cancel order={ order } store={ store } /> },
     { label: 'Fulfill Order', modal: <Fulfill order={ order } store={ store } /> }
   ]
 

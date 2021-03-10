@@ -1,0 +1,20 @@
+.finance-allocationfield {
+  .fa-circle-o {
+    color: fadeout(@black, 80);
+  }
+  .fa-check-circle {
+    color: @blue;
+  }
+  th, td {
+    padding: 0.6em 0.8em !important;
+  }
+  tbody tr {
+    cursor: pointer;
+    &:hover {
+      background-color: fadeout(@black, 97);
+    }
+  }
+  tfoot tr td {
+    border-top: 1px solid fadeout(@black, 90) !important;
+  }
+}

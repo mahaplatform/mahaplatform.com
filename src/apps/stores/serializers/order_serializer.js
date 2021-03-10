@@ -49,7 +49,29 @@ const payment = (payment) => {
     method: payment.get('method'),
     reference: payment.get('reference'),
     amount: payment.get('amount'),
-    date: payment.get('date')
+    date: payment.get('date'),
+    allocations: payment.related('allocations').map(allocation)
+  }
+}
+
+const allocation = (allocation) => {
+  if(!allocation) return null
+  return {
+    id: allocation.get('id'),
+    line_item: line_item(allocation.related('line_item')),
+    amount: allocation.get('amount'),
+    fee: allocation.get('fee'),
+    total: allocation.get('total'),
+    created_at: allocation.get('created_at')
+  }
+}
+
+const line_item = (line_item) => {
+  if(!line_item.id) return null
+  return {
+    id: line_item.get('id'),
+    description: line_item.get('description'),
+    refundable: line_item.get('refundable')
   }
 }
 

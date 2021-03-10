@@ -16,9 +16,16 @@ class Main {
     app.setName('Maha')
     app.on('ready', this._handleInit)
     app.on('certificate-error', this._handleCertificateError)
+    app.on('window-all-closed', this._handleWindowAllClosed)
     ipcMain.on('openWindow', this._handleOpenWindow)
     ipcMain.on('setBadgeCount', this._handleSetBadgeCount)
 
+  }
+
+  _handleWindowAllClosed() {
+    if(process.platform !== 'darwin') {
+      app.quit()
+    }
   }
 
   _getMenuTemplate() {

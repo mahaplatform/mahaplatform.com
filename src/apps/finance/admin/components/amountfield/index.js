@@ -55,7 +55,10 @@ class Amountfield extends React.PureComponent {
         {
           fields: [
             { type: 'segment', fields: [
-              { name: 'strategy', type: 'radiogroup', options: [{ value: 'balance', text: `Pay the balance: $${balance}` },{ value: 'other', text: 'Pay another amount' }], defaultValue: 'balance' },
+              { name: 'strategy', type: 'radiogroup', deselectable: false, options: [
+                { value: 'balance', text: `Pay the balance: $${balance}` },
+                { value: 'other', text: 'Pay another amount' }
+              ], defaultValue: 'balance' },
               ...this._getAmountField()
             ] }
           ]

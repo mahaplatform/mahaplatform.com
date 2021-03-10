@@ -1,4 +1,4 @@
-<% const t = (text,output) => '<'+(output ? '%-' : '%' )+' '+text+' %'+'>' %>
+<% const t = (text,output = '') => '<%'+output+' '+text+' %'+'>' %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -6,19 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link href="<%= process.env.WEB_ASSET_CDN_HOST %>/css/semantic.min.css" rel="stylesheet" />
     <link href="<%= process.env.WEB_ASSET_CDN_HOST %>/css/font-awesome.min.css" rel="stylesheet" />
-    <%= t('logo = program.logo || team.logo', false) %>
-    <link rel="apple-touch-icon" type="image/jpeg" sizes="180x180" href="/imagecache/fit=cover&w=180&h=180<%= t('logo', true) %>">
-    <link id="favicon" rel="shortcut icon" href="/imagecache/fit=cover&w=180&h=180<%= t('logo', true) %>">
-    <title><%= t('event.title', true) %></title>
-    <meta property="og:title" content="<%= t('event.title', true) %>" />
+    <%= t('logo = program.logo || team.logo') %>
+    <link rel="apple-touch-icon" type="image/jpeg" sizes="180x180" href="/imagecache/fit=cover&w=180&h=180<%= t('logo','-') %>">
+    <link id="favicon" rel="shortcut icon" href="/imagecache/fit=cover&w=180&h=180<%= t('logo','-') %>">
+    <title><%= t('event.title','-') %></title>
+    <meta property="og:title" content="<%= t('event.title','-') %>" />
     <meta property="og:type" content="article" />
-    <meta property="og:url" content="<%= t('event.url', true) %>" />
+    <meta property="og:url" content="<%= t('event.url','-') %>" />
     <%= t('if(event.description && event.description.length > 0) {') %>
-      <meta property="og:description" content="<%= t('event.description', true) %>" />
+      <meta property="og:description" content="<%= t('event.description','=') %>" />
     <%= t('}') %>
     <%= t('if(event.image) {') %>
-      <meta property="og:image" content="<%= process.env.WEB_HOST %>/imagecache/fit=cover&w=1200&h=630&q=100<%= t('event.image', true) %>" />
-      <meta property="og:image:secure_url" content="<%= process.env.WEB_HOST %>/imagecache/fit=cover&w=1200&h=630&q=100<%= t('event.image', true) %>" />
+      <meta property="og:image" content="<%= process.env.WEB_HOST %>/imagecache/fit=cover&w=1200&h=630&q=100<%= t('event.image','-') %>" />
+      <meta property="og:image:secure_url" content="<%= process.env.WEB_HOST %>/imagecache/fit=cover&w=1200&h=630&q=100<%= t('event.image','-') %>" />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
     <%= t('}') %>
@@ -26,8 +26,8 @@
   <body>
     <div id="app"></div>
     <script>
-      window.token = <%= t('JSON.stringify(token)', true) %>;
-      window.event = <%= t('JSON.stringify(event)', true) %>;
+      window.token = <%= t('JSON.stringify(token)','-') %>;
+      window.event = <%= t('JSON.stringify(event)','-') %>;
     </script>
   </body>
 </html>
