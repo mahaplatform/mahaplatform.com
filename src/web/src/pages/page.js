@@ -1,8 +1,16 @@
+import { useRouter } from 'next/router'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 const Page = ({ page, site }) => {
-  return <p>{site.title} : {page.title}</p>
+  const router = useRouter()
+  return (
+    <>
+      <p>Site: {site.title}</p>
+      <p>Page: {page.title}</p>
+      <p>Permalink: { router.query.permalink }</p>
+    </>
+  )
 }
 
 Page.propTypes = {
@@ -11,18 +19,22 @@ Page.propTypes = {
 }
 
 const fetchSite = (code) => {
-  console.log('fetchSite', code)
-  return {
+  return code === 'abc' ? {
     id: 1,
     title: 'CCE Tompkins'
+  } : {
+    id: 2,
+    title: 'CCE Ulster'
   }
 }
 
 const fetchPage = (code, permlink) => {
-  console.log('fetchPage', code, permlink)
-  return {
+  return permlink === 'def' ? {
     id: 1,
     title: 'HomePage'
+  } : {
+    id: 2,
+    title: 'LandingPage'
   }
 }
 
