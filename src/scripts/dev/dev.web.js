@@ -32,10 +32,6 @@ const watchWeb = async () => {
 
   const server = express()
 
-  server.get('/ping', (req, res) => {
-    res.send('pong')
-  })
-
   server.get('*', handle)
 
   server.listen(3000, (err) => {
