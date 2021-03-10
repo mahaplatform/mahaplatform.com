@@ -5,6 +5,7 @@ const showRoute = async (req, res) => {
 
   const store = await Store.query(qb => {
     qb.where('code', req.params.code)
+    qb.whereNull('deleted_at')
   }).fetch({
     withRelated: ['program.logo','team.logo','categories'],
     transacting: req.trx
@@ -15,10 +16,6 @@ const showRoute = async (req, res) => {
   const program = store.related('program')
 
   await res.status(200).respond({
-    program: {
-      title: program.get('title'),
-      logo: program.related('logo') ? program.related('logo').get('path') : null
-    },
     store: {
       id: store.get('id'),
       code: store.get('code'),
@@ -30,6 +27,10 @@ const showRoute = async (req, res) => {
         slug: category.get('slug'),
         title: category.get('title')
       }))
+    },
+    program: {
+      title: program.get('title'),
+      logo: program.related('logo') ? program.related('logo').get('path') : null
     },
     team: {
       title: team.get('title'),

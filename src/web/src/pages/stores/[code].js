@@ -1,37 +1,48 @@
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
+import Head from 'next/head'
 import axios from 'axios'
-import React from 'react'
 
-const Store = ({ store }) => {
+const Store = ({ cdn_host, host, store, program, team }) => {
   return (
-    <p>{ store.title }</p>
+    <Fragment>
+      <Head>
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link href={`${cdn_host}/css/semantic.min.css`} rel="stylesheet" />
+        <link href={`${cdn_host}/css/font-awesome.min.css`} rel="stylesheet" />
+        <title>{ store.title }</title>
+        <link rel="apple-touch-icon" type="image/jpeg" sizes="180x180" href={`${host}/imagecache/fit=cover&w=180&h=180${program.logo || team.logo}`} />
+        <link rel="shortcut icon" type="image/jpeg" sizes="180x180" href={`${host}/imagecache/fit=cover&w=180&h=180${program.logo || team.logo}`} />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta property="og:title" content={ store.title } />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={ store.url } />
+      </Head>
+      <p>{ store.title }</p>
+    </Fragment>
   )
 }
 
 Store.propTypes = {
-  store: PropTypes.object
+  cdn_host: PropTypes.string,
+  host: PropTypes.string,
+  store: PropTypes.object,
+  program: PropTypes.object,
+  team: PropTypes.object
 }
 
-export async function getStaticPaths() {
-  const result = await axios({
-    url: `${process.env.WEB_HOST}/api/stores/stores`,
-    json: true
-  })
-  return {
-    paths: result.data.data.map(form => ({
-      params: { code: form.code }
-    })),
-    fallback: false
-  }
-}
-
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const result = await axios({
     url: `${process.env.WEB_HOST}/api/stores/stores/${params.code}`,
     json: true
   })
   return {
-    props: result.data.data
+    props: {
+      cdn_host: process.env.WEB_ASSET_CDN_HOST,
+      web_host: process.env.WEB_HOST,
+      ...result.data.data
+    }
   }
 }
 

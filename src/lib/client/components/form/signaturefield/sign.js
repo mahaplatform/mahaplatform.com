@@ -74,7 +74,7 @@ class Sign extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  ...state.signaturefield[props.cid]
+  ...state.maha.signaturefield[props.cid]
 })
 
 export default connect(mapStateToProps)(Sign)

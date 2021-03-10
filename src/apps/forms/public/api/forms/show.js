@@ -15,6 +15,7 @@ const showRoute = async (req, res) => {
     qb.select('crm_forms.*','crm_form_responses.num_responses')
     qb.innerJoin('crm_form_responses','crm_form_responses.form_id','crm_forms.id')
     qb.where('crm_forms.code', req.params.code)
+    qb.whereNull('crm_forms.deleted_at')
   }).fetch({
     withRelated: ['program.logo','team.logo'],
     transacting: req.trx
@@ -44,6 +45,7 @@ const showRoute = async (req, res) => {
       isOpen: form.get('is_open'),
       settings: settings.get('values'),
       path: form.get('config').seo.permalink || `/forms/forms/${form.get('code')}`,
+      url: form.get('url'),
       config: {
         ...form.get('config'),
         program: {

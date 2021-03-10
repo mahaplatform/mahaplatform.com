@@ -8,16 +8,7 @@ const Pages = () => {
   return <p>Post: {permalink}</p>
 }
 
-export async function getStaticPaths() {
-  return {
-    paths: [
-      { params: { permalink: ['forms','forms','abc'] } }
-    ],
-    fallback: false
-  }
-}
-
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   return {
     props: {
       a: 1,

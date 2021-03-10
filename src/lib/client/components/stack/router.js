@@ -111,8 +111,8 @@ class RouterStack extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  action: state.router.action.toLowerCase(),
-  pathname: state.router.history.slice(-1)[0].pathname
+  action: state.maha.router.action.toLowerCase(),
+  pathname: state.maha.router.history.slice(-1)[0].pathname
 })
 
 export default connect(mapStateToProps)(RouterStack)

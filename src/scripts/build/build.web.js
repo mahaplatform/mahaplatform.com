@@ -21,7 +21,7 @@ const buildWeb = async (environment) => {
   await Promise.mapSeries(items, async(item) => {
     await copy(path.join(srcDir,'web',item), path.join(staged,'platform','web',item))
   })
-  // await next_build(path.join(staged,'platform','web'))
+  await next_build(path.join(staged,'platform','web'))
   log('info', 'web', 'Compiled successfully.')
 }
 
