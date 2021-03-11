@@ -16,9 +16,7 @@ import knex from '@core/vendor/knex/maha'
 // import Enrollment from '@apps/automation/models/workflow_enrollment'
 // import Team from '@apps/maha/models/team'
 
-import * as notification from '@apps/maha/cron/send_digests_cron'
-
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0
+import { cloudfront } from '@core/vendor/aws'
 
 const processor = async () => {
 
@@ -96,11 +94,12 @@ const processor = async () => {
   //   file_data: JSON.stringify(rendered)
   // })
 
-  await knex.transaction(async(trx) => {
+  const keys = await cloudfront.listPublicKeys().promise()
 
-    const req = { trx }
+  console.log(keys.PublicKeyList.Items)
 
-    await notification.processor(req)
+  // await knex.transaction(async(trx) => {
+  //
     //
     // req.team = await Team.query(qb => {
     //   qb.where('id', 1)
@@ -121,7 +120,7 @@ const processor = async () => {
     //
     // console.log(result)
 
-  })
+  // })
 
 
 }
