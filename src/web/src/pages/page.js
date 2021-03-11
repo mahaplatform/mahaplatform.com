@@ -11,7 +11,7 @@ const fetchWebsite = async (code) => {
 
 const fetchPage = async (code, permalink) => {
   const result = await axios({
-    url: `${process.env.WEB_HOST}/api/websites/${code}/pages/${permalink}`,
+    url: `${process.env.WEB_HOST}/api/websites/${code}/${permalink}`,
     method: 'get'
   })
   return result.data.data

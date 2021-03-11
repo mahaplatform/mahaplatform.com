@@ -4,7 +4,7 @@ import withLess from '@zeit/next-less'
 import path from 'path'
 
 module.exports = withLess({
-  basePath: '/sites',
+  basePath: '/websites',
   rewrites: async () => [
     { source: '/:code/:permalink*', destination: '/page?code=:code&permalink=:permalink*'}
   ],

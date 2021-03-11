@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<browserconfig>
+  <msapplication>
+    <tile>
+<% if(favicon) { -%>
+      <square70x70logo src="<%- icon(favicon.get('path'), 'webp', { dpi: 1, fit: 'cover', w: 70, h: 70 }, true) %>"/>
+      <square150x150logo src="<%- icon(favicon.get('path'), 'webp', { dpi: 1, fit: 'cover', w: 150, h: 150 }, true) %>"/>
+      <square310x310logo src="<%- icon(favicon.get('path'), 'webp', { dpi: 1, fit: 'cover', w: 310, h: 310 }, true) %>"/>
+      <wide310x150logo src="<%- icon(favicon.get('path'), 'webp', { dpi: 1, fit: 'cover', w: 310, h: 150 }, true) %>"/>
+<% } -%>
+<% if(config.favicon_background_color) { -%>
+      <TileColor><%- config.favicon_background_color %></TileColor>
+<% } -%>
+    </tile>
+  </msapplication>
+</browserconfig>

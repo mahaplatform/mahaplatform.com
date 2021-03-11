@@ -1,25 +1,17 @@
 import Website from '@apps/websites/models/website'
+import { icon } from './utils.js'
 import path from 'path'
 import ejs from 'ejs'
 import fs from 'fs'
 
-const getFavicon = (favicon) => {
-  if(!favicon) return
-  const extname = path.extname(favicon.get('path'))
-  return {
-    basename: favicon.get('path').replace(extname, ''),
-    extname: extname.substr(1)
-  }
-}
-
-const template = fs.readFileSync(path.resolve(__dirname, 'manifest.json.ejs'), 'utf8')
+const template = fs.readFileSync(path.resolve(__dirname,'templates','manifest.json.ejs'), 'utf8')
 
 const manifestMiddleware = async (req, res) => {
 
   const website = await Website.query(qb => {
     qb.where('code', req.params.code)
   }).fetch({
-    withRelated: ['domains','favicon'],
+    withRelated: ['favicon'],
     transacting: req.trx
   })
 
@@ -29,11 +21,13 @@ const manifestMiddleware = async (req, res) => {
   })
 
   const manifest = ejs.render(template, {
-    website,
-    favicon: getFavicon(website.related('favicon'))
+    config: website.get('config'),
+    favicon: website.related('favicon'),
+    icon,
+    website
   })
 
-  await res.status(200).send(manifest)
+  await res.status(200).type('application/json').send(manifest)
 
 }
 

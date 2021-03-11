@@ -6,6 +6,6 @@ const router = new Router({ mergeParams: true })
 
 router.get('/:code', show)
 
-router.use('/:code/pages', pages)
+router.use('/:code', pages)
 
 export default router

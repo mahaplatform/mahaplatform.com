@@ -58,7 +58,6 @@ const applyBackgroundGradient = (ruleset, selector, background) => {
   const { color1, color2, style } = background
   if(!color1 || !color2 || !style) return
   const getter = style === 'radial' ? getRadialGradient : getLinearGradient
-  console.log(style)
   applyRule(ruleset.standard, selector, getter(ruleset, selector, background))
 }
 

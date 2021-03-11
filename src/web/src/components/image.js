@@ -5,7 +5,9 @@ import qs from 'qs'
 class Image extends React.Component {
 
   static propTypes = {
+    height: PropTypes.number,
     images: PropTypes.object,
+    ratio: PropTypes.number,
     transforms: PropTypes.object,
     widths: PropTypes.object
   }
@@ -33,10 +35,6 @@ class Image extends React.Component {
     )
   }
 
-  _getHost() {
-    return process.env.NODE_ENV !== 'production' ? 'https://dev.mahaplatform.com:8080' : ''
-  }
-
   _getImage() {
     const { height, images, ratio, widths } = this.props
     const image = images.desktop || images.all
@@ -47,7 +45,7 @@ class Image extends React.Component {
       alt: alt || filename,
       height: h,
       loading: 'lazy',
-      src: image.src,
+      src: `/imagecache${src}`,
       width: w
     }
   }
@@ -65,7 +63,7 @@ class Image extends React.Component {
     const { w, h } = this._getSize(image, width, height, ratio)
     return [
       { media, type: 'image/webp', srcSet: this._getSrcSet(image, w, h, 'webp') },
-      { media, type: 'image/jpeg', srcSet: this._getSrcSet(image, w, h, 'jpg') },
+      { media, type: 'image/jpeg', srcSet: this._getSrcSet(image, w, h, 'jpg') }
     ]
   }
 
@@ -96,8 +94,7 @@ class Image extends React.Component {
       dpi
     }
     const query = qs.stringify(transforms, { encode: false })
-    const host = this._getHost()
-    return `${host}/imagecache/${query}/${path}/${basename}.${format} ${dpi}x`
+    return `/imagecache/${query}/${path}/${basename}.${format} ${dpi}x`
   }
 
 }

@@ -24,7 +24,8 @@ const Testdata = {
     const website = await createWebsite(req, {
       title: 'CCE Tompkins',
       tld: 'ccetompkins.org',
-      favicon_id: 19532
+      favicon_id: 19532,
+      config: {}
     })
 
     await createPage(req, {

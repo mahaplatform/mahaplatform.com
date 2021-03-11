@@ -1,5 +1,5 @@
 import '@core/services/environment'
-import manifest from '@web/lib/manifest'
+import web from '@web/lib/express'
 import log from '@core/utils/log'
 import express from 'express'
 import path from 'path'
@@ -20,7 +20,7 @@ const watchWeb = async () => {
 
   const server = express()
 
-  server.get('/sites/:code/manifest.json', manifest)
+  server.use(web)
 
   server.get('*', handle)
 

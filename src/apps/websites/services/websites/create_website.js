@@ -2,7 +2,7 @@ import generateCode from '@core/utils/generate_code'
 import Website from '@apps/websites/models/website'
 import Domain from '@apps/websites/models/domain'
 
-const createWebsite = async (req, { title, tld, favicon_id }) => {
+const createWebsite = async (req, { title, tld, favicon_id, config }) => {
 
   const code = await generateCode(req, {
     table: 'websites_websites'
@@ -12,7 +12,8 @@ const createWebsite = async (req, { title, tld, favicon_id }) => {
     team_id: req.team.get('id'),
     code,
     title,
-    favicon_id
+    favicon_id,
+    config
   }).save(null, {
     transacting: req.trx
   })
