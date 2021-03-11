@@ -17,7 +17,8 @@ module.exports = {
         '@apps': './src/apps',
         '@core': './src/core',
         '@client': './src/lib/client',
-        '@public': './src/lib/public'
+        '@public': './src/lib/public',
+        '@web': './src/web'
       }
     }]
   ]

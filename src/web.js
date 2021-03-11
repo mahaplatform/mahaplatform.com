@@ -1,4 +1,5 @@
 import '@core/services/environment'
+import manifest from '@web/lib/manifest'
 import log from '@core/utils/log'
 import express from 'express'
 import path from 'path'
@@ -23,6 +24,8 @@ const processor = async () => {
   server.get('/ping', (req, res) => {
     res.send('pong')
   })
+
+  server.get('/sites/:code/manifest.json', manifest)
 
   server.get('*', (req, res) => {
     const parsed = url.parse(req.url)

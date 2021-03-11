@@ -46,17 +46,17 @@ const renderMediaRules = (ruleset, device, resolution) => {
 }
 
 const mergeSections = (layout, page) => {
-  return layout.sections.reduce((sections, section) => [
+  return layout.config.sections.reduce((sections, section) => [
     ...sections,
-    ...section.type === 'content' ? page.sections : [section]
+    ...section.type === 'content' ? page.config.sections : [section]
   ], []).map((section, index) => {
     return { prefix: index, section }
   })
 }
 
-const parseRules = (site, sections) => {
+const parseRules = (website, sections) => {
   return sections.reduce((rules, section) => {
-    return Section(site, rules, section.section, section.prefix)
+    return Section(website, rules, section.section, section.prefix)
   }, {
     all: { standard: [], retina: [] },
     desktop: { standard: [], retina: [] },
@@ -99,11 +99,11 @@ const render = (rules) => [
   ...renderMediaRules(rules, 'mobile', 'retina')
 ].join('')
 
-const Style = ({ site, layout, page }) => {
+const Style = ({ website, layout, page }) => {
 
   const sections = mergeSections(layout, page)
 
-  const rules = parseRules(site, sections)
+  const rules = parseRules(website, sections)
 
   const merged = process.env.NODE_ENV === 'production' ? mergeRules(rules) : rules
 
@@ -116,7 +116,7 @@ const Style = ({ site, layout, page }) => {
 }
 
 Style.propTypes = {
-  site: PropTypes.object,
+  website: PropTypes.object,
   layout: PropTypes.object,
   page: PropTypes.object
 }

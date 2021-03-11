@@ -14,23 +14,25 @@ class Page extends React.Component {
   }
 
   static propTypes = {
-    site: PropTypes.object,
+    website: PropTypes.object,
     layout: PropTypes.object,
     page: PropTypes.object
   }
 
   render() {
-    const { site, layout, page } = this.props
+    const { website, layout, page } = this.props
     const sections = this._getSections()
     return (
       <>
         <Head>
-          <link rel="manifest" href="/manifest.json" />
+          <link rel="manifest" href={`/sites/${website.code}/manifest.json`} />
           <meta name="theme-color" content="#FFFFFF" />
         </Head>
-        <Favicons favicon={ site.favicon } />
-        <Seo site={ site } page={ page } />
-        <Style site={ site } layout={ layout } page={ page } />
+        { website.favicon &&
+          <Favicons favicon={ website.favicon } />
+        }
+        <Seo website={ website } page={ page } />
+        <Style website={ website } layout={ layout } page={ page } />
         <article>
           <header />
           <main>
@@ -44,14 +46,14 @@ class Page extends React.Component {
   }
 
   componentDidMount() {
-    this.context.analytics.view()
+    // this.context.analytics.view()
   }
 
   _getSections() {
     const { layout, page } = this.props
-    return layout.sections.reduce((sections, section) => [
+    return layout.config.sections.reduce((sections, section) => [
       ...sections,
-      ...section.type === 'content' ? page.sections : [section]
+      ...section.type === 'content' ? page.config.sections : [section]
     ], [])
   }
 

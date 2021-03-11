@@ -1,50 +1,110 @@
-import { useRouter } from 'next/router'
-import PropTypes from 'prop-types'
-import React from 'react'
+import Page from '../components/page'
+import axios from 'axios'
 
-const Page = ({ page, site }) => {
-  const router = useRouter()
-  return (
-    <>
-      <p>Site: {site.title}</p>
-      <p>Page: {page.title}</p>
-      <p>Permalink: { router.query.permalink }</p>
-    </>
-  )
+const fetchWebsite = async (code) => {
+  const result = await axios({
+    url: `${process.env.WEB_HOST}/api/websites/${code}`,
+    method: 'get'
+  })
+  return result.data.data
 }
 
-Page.propTypes = {
-  page: PropTypes.object,
-  site: PropTypes.object
+const fetchPage = async (code, permalink) => {
+  const result = await axios({
+    url: `${process.env.WEB_HOST}/api/websites/${code}/pages/${permalink}`,
+    method: 'get'
+  })
+  return result.data.data
 }
 
-const fetchSite = (code) => {
-  return code === 'abc' ? {
+const fetchLayout = async () => {
+  return {
     id: 1,
-    title: 'CCE Tompkins'
-  } : {
-    id: 2,
-    title: 'CCE Ulster'
-  }
-}
-
-const fetchPage = (code, permlink) => {
-  return permlink === 'def' ? {
-    id: 1,
-    title: 'HomePage'
-  } : {
-    id: 2,
-    title: 'LandingPage'
+    title: 'Basic Page',
+    config: {
+      sections: [
+        {
+          styles: {
+            background: {
+              background: {
+                type: 'color',
+                color: 'red'
+              }
+            }
+          },
+          content: {
+            rows: [
+              {
+                content: {
+                  layout: [1],
+                  columns: [
+                    {
+                      content: {
+                        blocks: [
+                          {
+                            type: 'text',
+                            content: {
+                              text: 'foo'
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          type: 'content'
+        },{
+          styles: {
+            background: {
+              background: {
+                type: 'color',
+                color: 'red'
+              }
+            }
+          },
+          content: {
+            rows: [
+              {
+                content: {
+                  layout: [1],
+                  columns: [
+                    {
+                      content: {
+                        blocks: [
+                          {
+                            type: 'text',
+                            content: {
+                              text: 'foo'
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
   }
 }
 
 export async function getServerSideProps({ query }) {
-  const site = await fetchSite(query.code)
+  const website = await fetchWebsite(query.code)
   const page = await fetchPage(query.code, query.permalink)
+  const layout = await fetchLayout()
   return {
     props: {
-      site,
-      page
+      page,
+      website,
+      layout
     }
   }
 }

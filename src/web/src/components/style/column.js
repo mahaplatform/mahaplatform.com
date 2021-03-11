@@ -28,7 +28,7 @@ const applyLayout = (ruleset, namespace, layout, cindex) => {
   applyRule(ruleset.standard, namespace, getColumn(layout, cindex))
 }
 
-export default function Column(site, rules, column, layout, cindex, namespace) {
+export default function Column(website, rules, column, layout, cindex, namespace) {
 
   const styles = column.styles || {}
 
@@ -40,7 +40,7 @@ export default function Column(site, rules, column, layout, cindex, namespace) {
 
   if(column.content.blocks) {
     rules = column.content.blocks.reduce((config, block, bindex) => {
-      return Block(site, config, block, `${namespace}${bindex}`)
+      return Block(website, config, block, `${namespace}${bindex}`)
     }, rules)
   }
 

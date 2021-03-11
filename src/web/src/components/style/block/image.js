@@ -1,6 +1,6 @@
 import { applyBoxModel } from '../utils'
 
-export default function ImageBlock(site, rulesets, styles, namespace) {
+export default function ImageBlock(website, rulesets, styles, namespace) {
 
   if(styles.caption) applyBoxModel(rulesets, `${namespace} .bic`, styles.caption)
 

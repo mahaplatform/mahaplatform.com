@@ -14,7 +14,7 @@ const getSizing = (config) => {
   return { flex: fullWidth ? 1 : `0 0 ${withUnits(customWidth || 980, 'px')}` }
 }
 
-export default function Row(site, rules, row, namespace) {
+export default function Row(website, rules, row, namespace) {
 
   const styles = row.styles || {}
 
@@ -26,11 +26,11 @@ export default function Row(site, rules, row, namespace) {
 
   if(row.content && row.content.template && row.content.data) {
     rules = row.content.data.reduce((rules, record, cindex) => {
-      return Column(site, rules, row.content.template, row.content.layout, cindex, `${namespace}${cindex}`)
+      return Column(website, rules, row.content.template, row.content.layout, cindex, `${namespace}${cindex}`)
     }, rules)
   } else if(row.content && row.content.columns) {
     rules = row.content.columns.reduce((rules, column, cindex) => {
-      return Column(site, rules, column, row.content.layout, cindex, `${namespace}${cindex}`)
+      return Column(website, rules, column, row.content.layout, cindex, `${namespace}${cindex}`)
     }, rules)
   }
 

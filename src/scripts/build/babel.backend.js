@@ -19,7 +19,8 @@ module.exports = (root) => ({
         '@apps': path.resolve(root,'apps'),
         '@core': path.resolve(root,'core'),
         '@client': path.resolve(root,'lib','client'),
-        '@public': path.resolve(root,'lib','public')
+        '@public': path.resolve(root,'lib','public'),
+        '@web': path.resolve(root,'web')
       }
     }]
   ],

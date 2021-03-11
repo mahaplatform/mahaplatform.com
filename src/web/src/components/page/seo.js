@@ -21,18 +21,18 @@ const getPrimaryDomain = (domains) => {
   return domains[Math.max(index, 0)].name
 }
 
-const Seo = ({ site, page }) => {
+const Seo = ({ website, page }) => {
 
-  const domain = getPrimaryDomain(site.domains)
+  const domain = getPrimaryDomain(website.domains)
 
   const seo = {
-    title: `${page.title} | ${site.title}`,
+    title: `${page.title} | ${website.title}`,
     description: page.description,
     canonical: `https://${domain}/${page.permalink}`,
     openGraph: {
       type: 'article',
       locale: 'en_us',
-      site_name: site.title,
+      website_name: website.title,
       title: page.title,
       url: `https://${domain}/${page.permalink}`,
       description: page.description,
@@ -52,7 +52,7 @@ const Seo = ({ site, page }) => {
     },
     twitter: {
       handle: '@handle',
-      site: '@site',
+      website: '@website',
       cardType: 'summary_large_image'
     }
   }
@@ -62,7 +62,7 @@ const Seo = ({ site, page }) => {
 }
 
 Seo.propTypes = {
-  site: PropTypes.object,
+  website: PropTypes.object,
   page: PropTypes.object
 }
 

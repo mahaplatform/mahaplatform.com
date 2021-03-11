@@ -2679,6 +2679,50 @@ const schema = {
       table.USER-DEFINED('type')
     })
 
+    await knex.schema.createTable('websites_aliases', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('website_id').unsigned()
+      table.integer('page_id').unsigned()
+      table.string('path', 255)
+      table.boolean('is_primary')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('websites_domains', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('website_id').unsigned()
+      table.string('name', 255)
+      table.boolean('is_primary')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('websites_pages', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('website_id').unsigned()
+      table.string('title', 255)
+      table.string('code', 255)
+      table.timestamp('deleted_at')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('websites_websites', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('favicon_id').unsigned()
+      table.string('title', 255)
+      table.string('code', 255)
+      table.jsonb('config')
+      table.timestamp('deleted_at')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
 
     await knex.schema.table('appraisals_appraisals', table => {
       table.foreign('employee_id').references('maha_users.id')
@@ -3864,6 +3908,27 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('websites_websites', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('favicon_id').references('maha_assets.id')
+    })
+
+    await knex.schema.table('websites_domains', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('website_id').references('websites_websites.id')
+    })
+
+    await knex.schema.table('websites_pages', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('website_id').references('websites_websites.id')
+    })
+
+    await knex.schema.table('websites_aliases', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('website_id').references('websites_websites.id')
+      table.foreign('page_id').references('websites_pages.id')
     })
 
 

@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import websites from './websites'
+import show from './show'
 
 const router = new Router({ mergeParams: true })
 
-router.use('/websites', websites)
+router.get('*', show)
 
 export default router

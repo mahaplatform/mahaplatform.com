@@ -1,8 +1,11 @@
 import '@core/services/environment'
+import manifest from '@web/lib/manifest'
 import log from '@core/utils/log'
 import express from 'express'
 import path from 'path'
 import next from 'next'
+import https from 'https'
+import fs from 'fs'
 
 const watchWeb = async () => {
 
@@ -17,11 +20,18 @@ const watchWeb = async () => {
 
   const server = express()
 
+  server.get('/sites/:code/manifest.json', manifest)
+
   server.get('*', handle)
 
-  server.listen(3000, (err) => {
-    if (err) throw err
-    log('error', 'web', 'Listening on 3000')
+  const httpsServer = https.createServer({
+    key: fs.readFileSync(path.join('keys','dev.mahaplatform.com.key')),
+    cert: fs.readFileSync(path.join('keys','dev.mahaplatform.com.crt')),
+    ca: fs.readFileSync(path.join('keys','digicert.pem'))
+  }, server)
+
+  httpsServer.listen(process.env.WEB_PORT, () => {
+    log('error', 'web', `Listening on ${process.env.WEB_PORT}`)
   })
 
 }

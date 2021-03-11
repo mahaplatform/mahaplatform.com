@@ -8,7 +8,7 @@ const applyColor = (ruleset, namespace, color) => {
   applyRule(ruleset.standard, namespace, { color })
 }
 
-export default function ButtonBlock(site, rulesets, styles, namespace) {
+export default function ButtonBlock(website, rulesets, styles, namespace) {
   const { button } = styles
   if(button.custom !== true) return
   namespace = `${namespace}>.bb`

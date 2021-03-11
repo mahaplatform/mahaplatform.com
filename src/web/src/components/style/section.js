@@ -1,7 +1,7 @@
 import { applyBoxModel } from './utils'
 import Row from './row'
 
-export default function Section(site, rules, section, namespace) {
+export default function Section(website, rules, section, namespace) {
 
   const styles = section.styles || {}
 
@@ -9,7 +9,7 @@ export default function Section(site, rules, section, namespace) {
 
   if(section.content && section.content.rows) {
     rules = section.content.rows.reduce((config, row, rindex) => {
-      return Row(site, config, row, `${namespace}${rindex}`)
+      return Row(website, config, row, `${namespace}${rindex}`)
     }, rules)
   }
 
