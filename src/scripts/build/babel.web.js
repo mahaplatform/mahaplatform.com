@@ -13,10 +13,12 @@ export default (root) => ({
     '@babel/plugin-proposal-export-default-from',
     '@babel/plugin-proposal-export-namespace-from',
     '@babel/plugin-proposal-class-properties',
-    // ['module-resolver', {
-    //   alias: {
-    //     '@client': path.resolve('src','lib','client')
-    //   }
-    // }]
+    ['module-resolver', {
+      alias: {
+        '@apps': path.resolve(root,'apps'),
+        '@core': path.resolve(root,'core'),
+        '@web': path.resolve(root,'web')
+      }
+    }]
   ]
 })

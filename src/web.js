@@ -25,8 +25,7 @@ const processor = async () => {
 
   server.get('*', (req, res) => {
     const parsed = url.parse(req.url)
-    const { pathname, query } = parsed
-    handle(req, res, pathname, query)
+    handle(req, res, parsed)
   })
 
   server.listen(process.env.WEB_PORT, () => {

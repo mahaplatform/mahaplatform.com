@@ -4,9 +4,11 @@ import withLess from '@zeit/next-less'
 import path from 'path'
 
 module.exports = withLess({
-  basePath: '/websites',
   rewrites: async () => [
-    { source: '/:code/:permalink*', destination: '/page?code=:code&permalink=:permalink*'}
+    { source: '/websites/:code/:permalink*', destination: '/page?code=:code&permalink=:permalink*'},
+    { source: '/events/:code', destination: '/event?code=:code'},
+    { source: '/forms/:code', destination: '/form?code=:code'},
+    { source: '/stores/:code', destination: '/store?code=:code'}
   ],
   webpack: (config, {dev, isServer}) => {
     config.node.fs = 'empty'
