@@ -21,7 +21,8 @@ const showRoute = async (req, res) => {
     domains: website.related('domains').map(domain => ({
       name: domain.get('name'),
       is_primary: domain.get('is_primary')
-    }))
+    })),
+    config: website.get('config')
   }))
 
 }
