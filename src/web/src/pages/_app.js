@@ -14,7 +14,7 @@ class App extends React.Component {
     const { Component, pageProps } = this.props
     return (
       <>
-        <Analytics site={ pageProps.site }>
+        <Analytics website={ pageProps.website }>
           <Component {...pageProps} />
         </Analytics>
       </>

@@ -10,8 +10,8 @@ class Analytics extends React.Component {
   }
 
   static propTypes = {
-    site: PropTypes.object,
-    children: PropTypes.any
+    children: PropTypes.any,
+    website: PropTypes.object
   }
 
   render() {
@@ -33,7 +33,7 @@ class Analytics extends React.Component {
         setUserId: this._handleEvent.bind(this, 'setUserId'),
         trackAddToCart: this._handleEvent.bind(this, 'trackAddToCart'),
         trackRemoveFromCart: this._handleEvent.bind(this, 'trackRemoveFromCart'),
-        trackSiteSearch: this._handleEvent.bind(this, 'trackSiteSearch'),
+        trackwebsiteSearch: this._handleEvent.bind(this, 'trackwebsiteSearch'),
         trackAdImpression: this._handleEvent.bind(this, 'trackAdImpression'),
         trackAdClick: this._handleEvent.bind(this, 'trackAdClick'),
         trackAdConversion: this._handleEvent.bind(this, 'trackAdConversion'),
@@ -53,19 +53,19 @@ class Analytics extends React.Component {
   }
 
   _handleLoadGA(id) {
-    const { ga_tracking_id } = this.props.site
+    const { ga_tracking_id } = this.props.website
     if(!ga_tracking_id) return
     ga.initialize(ga_tracking_id)
   }
 
   _handleLoadMT(id) {
-    const { mt_tracking_id } = this.props.site
+    const { mt_tracking_id } = this.props.website
     if(!mt_tracking_id) return
     mt.initialize(mt_tracking_id)
   }
 
   _handleEvent() {
-    const { ga_tracking_id, mt_tracking_id } = this.props.site
+    const { ga_tracking_id, mt_tracking_id } = this.props.website
     if(!this._isProduction()) return
     const args = Array.prototype.slice.call(arguments)
     if(mt_tracking_id) mt[args[0]](...args.slice(1))
