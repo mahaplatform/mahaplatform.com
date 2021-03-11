@@ -25,7 +25,7 @@ class Page extends React.Component {
     return (
       <>
         <Head>
-          <link rel="manifest" href={`/sites/${website.code}/manifest.json`} />
+          <link rel="manifest" href={`/websites/${website.code}/manifest.json`} />
           <meta name="theme-color" content="#FFFFFF" />
         </Head>
         { website.favicon &&

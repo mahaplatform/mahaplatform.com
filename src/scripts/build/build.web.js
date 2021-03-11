@@ -14,6 +14,8 @@ const buildWeb = async (root, environment) => {
   log('info', 'web', 'Compiling...')
   const babelrc = babel(root)
   mkdirp.sync(path.join(staged,'platform','web'))
+  await buildDir(path.join('web','lib'), babelrc)
+  await buildDir(path.join('web','public'), babelrc)
   await buildDir(path.join('web','src'), babelrc)
   await buildEntry(path.join('web','babel.config.js'), babelrc)
   await buildEntry(path.join('web','next.config.js'), babelrc)
