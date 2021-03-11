@@ -33,7 +33,6 @@ Store.propTypes = {
 }
 
 export async function getServerSideProps({ query }) {
-  console.log('story', query)
   const result = await axios({
     url: `${process.env.WEB_HOST}/api/stores/stores/${query.code}`,
     json: true
