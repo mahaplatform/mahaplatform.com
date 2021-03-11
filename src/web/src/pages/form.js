@@ -43,9 +43,10 @@ Form.propTypes = {
   team: PropTypes.object
 }
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ query }) {
+  console.log('form', query)
   const result = await axios({
-    url: `${process.env.WEB_HOST}/api/forms/forms/${params.code}`,
+    url: `${process.env.WEB_HOST}/api/forms/forms/${query.code}`,
     json: true
   })
   return {

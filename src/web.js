@@ -26,6 +26,7 @@ const processor = async () => {
   server.get('*', (req, res) => {
     const parsed = url.parse(req.url)
     const { pathname, query } = parsed
+    console.log('express', parsed)
     handle(req, res, pathname, query)
   })
 

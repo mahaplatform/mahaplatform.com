@@ -97,6 +97,7 @@ const fetchLayout = async () => {
 }
 
 export async function getServerSideProps({ query }) {
+  console.log('page', query)
   const website = await fetchWebsite(query.code)
   const page = await fetchPage(query.code, query.permalink)
   const layout = await fetchLayout()

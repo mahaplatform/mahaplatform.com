@@ -32,9 +32,10 @@ Store.propTypes = {
   team: PropTypes.object
 }
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ query }) {
+  console.log('story', query)
   const result = await axios({
-    url: `${process.env.WEB_HOST}/api/stores/stores/${params.code}`,
+    url: `${process.env.WEB_HOST}/api/stores/stores/${query.code}`,
     json: true
   })
   return {

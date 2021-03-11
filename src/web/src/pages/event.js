@@ -43,9 +43,10 @@ Event.propTypes = {
   team: PropTypes.object
 }
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ query }) {
+  console.log('event', query)
   const result = await axios({
-    url: `${process.env.WEB_HOST}/api/events/events/${params.code}`,
+    url: `${process.env.WEB_HOST}/api/events/events/${query.code}`,
     json: true
   })
   return {
