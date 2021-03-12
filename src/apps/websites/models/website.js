@@ -32,6 +32,13 @@ const Website = new Model(knex, {
 
   pages() {
     return this.hasMany(Page, 'page_id')
+  },
+
+  primary_domain() {
+    return this.hasOne(Domain, 'website_id').query(qb => {
+      qb.where('is_primary', true)
+    })
+
   }
 
 })
