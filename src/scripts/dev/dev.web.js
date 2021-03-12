@@ -1,5 +1,6 @@
 import '@core/services/environment'
 import { createProxyMiddleware } from 'http-proxy-middleware'
+import { normalizeUrl } from '@web/utils/urls'
 import web from '@web/lib/express'
 import log from '@core/utils/log'
 import express from 'express'
@@ -27,6 +28,7 @@ const watchNext = async () => {
   server.use(web)
 
   server.get('*', (req, res) => {
+    req.url = normalizeUrl(req.url)
     const { pathname, query } = url.parse(req.url)
     handle(req, res, pathname, query)
   })
