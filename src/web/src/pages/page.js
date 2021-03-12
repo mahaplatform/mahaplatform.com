@@ -5,7 +5,6 @@ import Error from 'next/error'
 import React from 'react'
 
 export default function Page({ errorCode, page, layout, website }) {
-  console.log(errorCode)
   if (errorCode) return <Error statusCode={ errorCode } />
   return <PageComponent page={ page } layout={ layout } website={ website } />
 }

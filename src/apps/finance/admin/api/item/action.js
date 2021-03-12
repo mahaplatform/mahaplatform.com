@@ -85,7 +85,7 @@ const actionRoute = async (req, res) => {
   })
 
   await notifications(req, {
-    type: `expenses:item_${story}`,
+    type: `finance:item_${story}`,
     listenable: item,
     subject_id: req.user.get('id'),
     story: `${story} {object}`,
