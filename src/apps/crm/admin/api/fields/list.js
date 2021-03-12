@@ -21,6 +21,7 @@ const listRoute = async (req, res) => {
     qb.where('parent_type', 'crm_programs')
     qb.whereIn('parent_id', Object.keys(programs))
     qb.where('team_id', req.team.get('id'))
+    qb.whereNull('deleted_at')
   }).fetchAll({
     transacting: req.trx
   })

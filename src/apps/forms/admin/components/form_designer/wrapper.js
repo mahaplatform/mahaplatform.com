@@ -46,6 +46,7 @@ class FormDesignerWrapper extends React.Component {
           label: field.config.label,
           name: field.name,
           contactfield: {
+            name: `values.${field.code}`,
             type: field.type,
             ...field.config
           }

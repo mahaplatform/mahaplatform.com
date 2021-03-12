@@ -89,9 +89,12 @@ class Field extends React.Component {
     if(type === 'addressfield') return 'map-marker'
     if(type === 'phonefield') return 'phone'
     if(type === 'datefield') return 'calendar'
+    if(type === 'dropdown') return 'caret-down'
     if(type === 'timefield') return 'clock-o'
     if(type === 'moneyfield') return 'dollar'
     if(type === 'radiogroup') return 'circle-o'
+    if(type === 'numberfield') return 'hashtag'
+    if(type === 'lookup') return 'search'
   }
 
   _handleTasks(id) {
