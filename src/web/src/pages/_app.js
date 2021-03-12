@@ -16,7 +16,7 @@ class App extends React.Component {
 
   componentDidMount() {
     if(process.env.NODE_ENV !== 'production') return
-    const wb = new Workbox('sw.js', { scope: '/' })
+    const wb = new Workbox('/sw.js', { scope: '/' })
     wb.register()
   }
 
