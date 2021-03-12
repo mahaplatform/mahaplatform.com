@@ -42,7 +42,7 @@ export const createPage = async (req, { website, title, permalink, config }) => 
 
 }
 
-export const createHome = async (req, { website }) => {
+export const createHomePage = async (req, { website }) => {
   return await createPage(req, {
     website,
     title: 'Home Page',
@@ -51,7 +51,7 @@ export const createHome = async (req, { website }) => {
   })
 }
 
-export const createNotFound = async (req, { website }) => {
+export const createNotFoundPage = async (req, { website }) => {
   return await createPage(req, {
     website,
     title: 'Not Found',

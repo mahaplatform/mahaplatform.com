@@ -3,20 +3,15 @@ import moment from 'moment'
 
 const createDistibution = async (req, params) => {
 
-  const { code, aliases, aws_certificate_arn } = params
+  const { code, aliases } = params
 
-  const name = `${code}.${process.env.DOMAIN}`
-
-  const distribution = await cloudfront.createDistribution({
+  const { Id } = await cloudfront.createDistribution({
     DistributionConfig: {
       CallerReference: moment().format('x'),
       DefaultRootObject: 'index',
       Aliases: {
-        Quantity: aliases.length + 1,
-        Items: [
-          name,
-          ...aliases || []
-        ]
+        Quantity: aliases.length,
+        Items: aliases
       },
       CacheBehaviors: {
         Quantity: 3,
@@ -77,7 +72,7 @@ const createDistibution = async (req, params) => {
             DefaultTTL: 86400
           }, {
             PathPattern: '_next*',
-            TargetOriginId: `${code}`,
+            TargetOriginId: `${code}-next`,
             ViewerProtocolPolicy: 'https-only',
             AllowedMethods: {
               Quantity: 2,
@@ -96,7 +91,7 @@ const createDistibution = async (req, params) => {
               },
               Headers: {
                 Quantity: 1,
-                Items: [ 'Origin' ]
+                Items: ['Origin']
               }
             },
             MinTTL: 0,
@@ -106,25 +101,15 @@ const createDistibution = async (req, params) => {
         ]
       },
       Origins: {
-        Quantity: 3,
+        Quantity: 4,
         Items: [
           {
-            Id: `${code}`,
-            DomainName: `${process.env.AWS_WEB_BUCKET}.s3-website-us-east-1.amazonaws.com`,
-            OriginPath: `/${code}`,
+            Id: `${code}-api`,
+            DomainName: 'mahaplatform.com',
             CustomOriginConfig: {
               HTTPPort: '80',
               HTTPSPort: '443',
-              OriginProtocolPolicy: 'http-only'
-            }
-          }, {
-            Id: `${code}-current`,
-            DomainName: `${process.env.AWS_WEB_BUCKET}.s3-website-us-east-1.amazonaws.com`,
-            OriginPath: `/${code}/current`,
-            CustomOriginConfig: {
-              HTTPPort: '80',
-              HTTPSPort: '443',
-              OriginProtocolPolicy: 'http-only'
+              OriginProtocolPolicy: 'https-only'
             }
           }, {
             Id: `${code}-cdn`,
@@ -135,8 +120,17 @@ const createDistibution = async (req, params) => {
               OriginProtocolPolicy: 'https-only'
             }
           }, {
-            Id: `${code}-api`,
-            DomainName: 'mahaplatform.com',
+            Id: `${code}-next`,
+            DomainName: 'web.mahaplatform.com',
+            CustomOriginConfig: {
+              HTTPPort: '80',
+              HTTPSPort: '443',
+              OriginProtocolPolicy: 'https-only'
+            }
+          }, {
+            Id: `${code}-web`,
+            DomainName: 'web.mahaplatform.com',
+            OriginPath: `/websites/${code}`,
             CustomOriginConfig: {
               HTTPPort: '80',
               HTTPSPort: '443',
@@ -146,7 +140,7 @@ const createDistibution = async (req, params) => {
         ]
       },
       DefaultCacheBehavior: {
-        TargetOriginId: `${code}-current`,
+        TargetOriginId: `${code}-web`,
         ViewerProtocolPolicy: 'redirect-to-https',
         AllowedMethods: {
           Quantity: 2,
@@ -189,7 +183,7 @@ const createDistibution = async (req, params) => {
       Comment: code,
       Enabled: true,
       ViewerCertificate: {
-        ACMCertificateArn: aws_certificate_arn,
+        ACMCertificateArn: process.env.AWS_CERTIFICATE_ARN,
         CloudFrontDefaultCertificate: false,
         MinimumProtocolVersion: 'TLSv1.2_2019',
         SSLSupportMethod: 'sni-only'
@@ -198,11 +192,16 @@ const createDistibution = async (req, params) => {
   }).promise()
 
   await cloudfront.waitFor('distributionDeployed', {
-    Id: distribution.Id
+    Id
+  }).promise()
+
+  const distribution = await cloudfront.getDistribution({
+    Id
   }).promise()
 
   return {
-    aws_cloudfront_id: distribution.Id
+    aws_cloudfront_id: distribution.Id,
+    aws_cloudfront_subdomain: distribution.DomainName.replace('.cloudfront.net','')
   }
 
 }

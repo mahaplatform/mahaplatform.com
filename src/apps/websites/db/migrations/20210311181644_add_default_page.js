@@ -10,6 +10,7 @@ const AddDefaultPage = {
       table.integer('notfound_id').unsigned()
       table.foreign('notfound_id').references('websites_pages.id')
     })
+    
   },
 
   down: async (knex) => {

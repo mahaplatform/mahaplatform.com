@@ -9,7 +9,13 @@ const Domain = new Model(knex, {
 
   rules: {},
 
-  virtuals: {}
+  virtuals: {
+
+
+    maha_domain() {
+
+    }
+  }
 
 })
 

@@ -1,7 +1,8 @@
-import { createHome, createNotFound } from '@apps/websites/models/page'
+import CreateDistributionQueue from '@apps/websites/queues/create_distribution_queue'
+import { createHomePage, createNotFoundPage } from '@apps/websites/services/pages'
+import { createDomain } from '@apps/websites/services/domains'
 import generateCode from '@core/utils/generate_code'
 import Website from '@apps/websites/models/website'
-import Domain from '@apps/websites/models/domain'
 
 const createWebsite = async (req, { title, tld, favicon_id, config }) => {
 
@@ -19,20 +20,27 @@ const createWebsite = async (req, { title, tld, favicon_id, config }) => {
     transacting: req.trx
   })
 
-  await Domain.forge({
-    team_id: req.team.get('id'),
-    website_id: website.get('id'),
-    name: tld,
-    is_primary: true
-  }).save(null, {
-    transacting: req.trx
+  await createDomain(req, {
+    website,
+    name: `${tld.replace(/\./g, '-')}.mahaplatform.com`,
+    is_system: true,
+    is_primary: true,
+    zone: null
   })
 
-  const home = await createHome(req, {
+  await createDomain(req, {
+    website,
+    name: tld,
+    is_system: false,
+    is_primary: false,
+    zone: []
+  })
+
+  const home = await createHomePage(req, {
     website
   })
 
-  const notfound = await createNotFound(req, {
+  const notfound = await createNotFoundPage(req, {
     website
   })
 
@@ -41,6 +49,10 @@ const createWebsite = async (req, { title, tld, favicon_id, config }) => {
     notfound_id: notfound.get('id')
   }, {
     transacting: req.trx
+  })
+
+  await CreateDistributionQueue.enqueue(req, {
+    website_id: website.get('id')
   })
 
   return website

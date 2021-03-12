@@ -2698,6 +2698,9 @@ const schema = {
       table.boolean('is_primary')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.boolean('is_system')
+      table.string('aws_zone_id', 255)
+      table.jsonb('config')
     })
 
     await knex.schema.createTable('websites_pages', (table) => {
@@ -2709,8 +2712,6 @@ const schema = {
       table.timestamp('deleted_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
-      table.integer('home_id').unsigned()
-      table.integer('notfound_id').unsigned()
     })
 
     await knex.schema.createTable('websites_websites', (table) => {
@@ -2725,6 +2726,8 @@ const schema = {
       table.timestamp('updated_at')
       table.integer('home_id').unsigned()
       table.integer('notfound_id').unsigned()
+      table.string('aws_cloudfront_id', 255)
+      table.string('aws_cloudfront_subdomain', 255)
     })
 
 
@@ -3928,15 +3931,13 @@ const schema = {
     await knex.schema.table('websites_pages', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('website_id').references('websites_websites.id')
-      table.foreign('home_id').references('websites_pages.id')
-      table.foreign('notfound_id').references('websites_pages.id')
     })
 
     await knex.schema.table('websites_websites', table => {
       table.foreign('favicon_id').references('maha_assets.id')
-      table.foreign('team_id').references('maha_teams.id')
       table.foreign('home_id').references('websites_pages.id')
       table.foreign('notfound_id').references('websites_pages.id')
+      table.foreign('team_id').references('maha_teams.id')
     })
 
 
