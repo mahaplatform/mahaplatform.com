@@ -7,7 +7,7 @@ import fs from 'fs'
 
 const template = fs.readFileSync(path.resolve(__dirname,'templates','manifest.json.ejs'), 'utf8')
 
-const manifestMiddleware = async (req, res) => {
+const manifestRoute = async (req, res) => {
 
   knex.transaction(async (maha) => {
 
@@ -40,4 +40,4 @@ const manifestMiddleware = async (req, res) => {
 
 }
 
-export default manifestMiddleware
+export default manifestRoute

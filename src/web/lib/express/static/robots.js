@@ -6,7 +6,7 @@ import fs from 'fs'
 
 const template = fs.readFileSync(path.resolve(__dirname,'templates','robots.txt.ejs'), 'utf8')
 
-const browserconfigMiddleware = async (req, res) => {
+const robotsRoute = async (req, res) => {
 
   knex.transaction(async (maha) => {
 
@@ -38,4 +38,4 @@ const browserconfigMiddleware = async (req, res) => {
 
 }
 
-export default browserconfigMiddleware
+export default robotsRoute

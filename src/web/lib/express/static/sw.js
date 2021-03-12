@@ -3,7 +3,7 @@ import fs from 'fs'
 
 const swPath = path.resolve(__dirname,'..','..','..','public','sw.js')
 
-const swMiddleware = async (req, res) => {
+const swRoute = async (req, res) => {
 
   const data = fs.readFileSync(swPath, 'utf8')
 
@@ -11,4 +11,4 @@ const swMiddleware = async (req, res) => {
 
 }
 
-export default swMiddleware
+export default swRoute

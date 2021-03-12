@@ -101,7 +101,7 @@ const fetchLayout = async () => {
 function getPageEndpoint(website, query) {
   const { code, id, permalink } = query
   if(query.permalink) return `/api/websites/${code}/${permalink}`
-  if(query.permalink) return `/api/websites/${code}/pages/${id}`
+  if(query.id) return `/api/websites/${code}/pages/${id}`
   if(website.home_id)  return `/api/websites/${code}/pages/${website.home_id}`
 }
 

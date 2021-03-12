@@ -7,6 +7,7 @@ import path from 'path'
 module.exports = withLess({
   rewrites: async () => [
     { source: '/websites/:code', destination: '/page?code=:code'},
+    { source: '/websites/:code/index.maha', destination: '/page?code=:code'},
     { source: '/websites/:code/pages/:id', destination: '/page?code=:code&id=:id'},
     { source: '/websites/:code/:permalink*', destination: '/page?code=:code&permalink=:permalink*'},
     { source: '/events/:code', destination: '/event?code=:code'},

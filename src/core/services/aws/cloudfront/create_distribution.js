@@ -8,7 +8,7 @@ const createDistibution = async (req, params) => {
   const { Id } = await cloudfront.createDistribution({
     DistributionConfig: {
       CallerReference: moment().format('x'),
-      DefaultRootObject: 'index',
+      DefaultRootObject: 'index.maha',
       Aliases: {
         Quantity: aliases.length,
         Items: aliases
