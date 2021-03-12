@@ -17,6 +17,7 @@ const buildWeb = async (root, environment) => {
   await buildDir(path.join('web','lib'), babelrc)
   await buildDir(path.join('web','public'), babelrc)
   await buildDir(path.join('web','src'), babelrc)
+  await buildDir(path.join('web','utils'), babelrc)
   await buildEntry(path.join('web','babel.config.js'), babelrc)
   await buildEntry(path.join('web','next.config.js'), babelrc)
   await next_build(path.join(staged,'platform','web'))
