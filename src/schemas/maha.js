@@ -2709,6 +2709,8 @@ const schema = {
       table.timestamp('deleted_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('home_id').unsigned()
+      table.integer('notfound_id').unsigned()
     })
 
     await knex.schema.createTable('websites_websites', (table) => {
@@ -2721,6 +2723,8 @@ const schema = {
       table.timestamp('deleted_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('home_id').unsigned()
+      table.integer('notfound_id').unsigned()
     })
 
 
@@ -3910,9 +3914,10 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('websites_websites', table => {
+    await knex.schema.table('websites_aliases', table => {
+      table.foreign('page_id').references('websites_pages.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('favicon_id').references('maha_assets.id')
+      table.foreign('website_id').references('websites_websites.id')
     })
 
     await knex.schema.table('websites_domains', table => {
@@ -3923,12 +3928,15 @@ const schema = {
     await knex.schema.table('websites_pages', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('website_id').references('websites_websites.id')
+      table.foreign('home_id').references('websites_pages.id')
+      table.foreign('notfound_id').references('websites_pages.id')
     })
 
-    await knex.schema.table('websites_aliases', table => {
+    await knex.schema.table('websites_websites', table => {
+      table.foreign('favicon_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('website_id').references('websites_websites.id')
-      table.foreign('page_id').references('websites_pages.id')
+      table.foreign('home_id').references('websites_pages.id')
+      table.foreign('notfound_id').references('websites_pages.id')
     })
 
 

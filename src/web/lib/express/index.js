@@ -2,24 +2,30 @@ import { createProxyMiddleware } from 'http-proxy-middleware'
 import staticMiddleware from './static'
 import { Router } from 'express'
 
-const router = new Router({ mergeParams: true })
+const getWebRouter = () => {
 
-router.get('/ping', (req, res) => {
-  res.send('pong')
-})
+  const router = new Router({ mergeParams: true })
 
-router.use('/api', createProxyMiddleware({
-  secure: false,
-  target: process.env.WEB_HOST,
-  changeOrigin: true
-}))
+  router.get('/ping', (req, res) => {
+    res.send('pong')
+  })
 
-router.use('/imagecache', createProxyMiddleware({
-  secure: false,
-  target: process.env.WEB_HOST,
-  changeOrigin: true
-}))
+  router.use('/api', createProxyMiddleware({
+    secure: false,
+    target: process.env.WEB_HOST,
+    changeOrigin: true
+  }))
 
-router.use('/websites/:code', staticMiddleware)
+  router.use('/imagecache', createProxyMiddleware({
+    secure: false,
+    target: process.env.WEB_HOST,
+    changeOrigin: true
+  }))
 
-export default router
+  router.use('/websites/:code', staticMiddleware)
+
+  return router
+
+}
+
+export default getWebRouter

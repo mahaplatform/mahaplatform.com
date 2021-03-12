@@ -1,1 +1,1 @@
-export createPage from './create_page'
+export { createPage, createHome, createNotFound } from './create_page'

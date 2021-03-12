@@ -22,7 +22,9 @@ const showRoute = async (req, res) => {
       name: domain.get('name'),
       is_primary: domain.get('is_primary')
     })),
-    config: website.get('config')
+    config: website.get('config'),
+    home_id: website.get('home_id'),
+    notfound_id: website.get('notfound_id')
   }))
 
 }

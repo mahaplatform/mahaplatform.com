@@ -1,5 +1,5 @@
 import '@core/services/environment'
-import web from '@web/lib/express'
+import webRouter from '@web/lib/express'
 import log from '@core/utils/log'
 import express from 'express'
 import path from 'path'
@@ -8,6 +8,8 @@ import https from 'https'
 import fs from 'fs'
 
 const watchWeb = async () => {
+
+  const web = webRouter()
 
   const app = next({
     dev: process.env.NODE_ENV !== 'production',

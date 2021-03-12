@@ -2,8 +2,10 @@ import { createVersion } from '@apps/maha/services/versions'
 import generateCode from '@core/utils/generate_code'
 import Alias from '@apps/websites/models/alias'
 import Page from '@apps/websites/models/page'
+import notFound from './templates/notfound'
+import home from './templates/home'
 
-const createPage = async (req, { website, title, permalink, config }) => {
+export const createPage = async (req, { website, title, permalink, config }) => {
 
   const code = await generateCode(req, {
     table: 'websites_pages'
@@ -38,6 +40,24 @@ const createPage = async (req, { website, title, permalink, config }) => {
 
   return page
 
+}
+
+export const createHome = async (req, { website }) => {
+  return await createPage(req, {
+    website,
+    title: 'Home Page',
+    permalink: '/home',
+    config: home
+  })
+}
+
+export const createNotFound = async (req, { website }) => {
+  return await createPage(req, {
+    website,
+    title: 'Not Found',
+    permalink: '/404',
+    config: notFound
+  })
 }
 
 export default createPage

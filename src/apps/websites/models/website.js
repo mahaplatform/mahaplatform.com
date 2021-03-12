@@ -22,6 +22,14 @@ const Website = new Model(knex, {
     return this.belongsTo(Asset, 'favicon_id')
   },
 
+  home() {
+    return this.hasOne(Page, 'home_id')
+  },
+
+  notfound() {
+    return this.hasOne(Page, 'notfound_id')
+  },
+
   pages() {
     return this.hasMany(Page, 'page_id')
   }

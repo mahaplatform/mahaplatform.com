@@ -14,13 +14,15 @@ class Page extends React.Component {
   }
 
   static propTypes = {
+    error: PropTypes.string,
     website: PropTypes.object,
     layout: PropTypes.object,
     page: PropTypes.object
   }
 
   render() {
-    const { website, layout, page } = this.props
+    const { error, website, layout, page } = this.props
+    if(error) return <div>{ error }</div>
     const sections = this._getSections()
     return (
       <>

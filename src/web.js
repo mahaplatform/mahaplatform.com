@@ -1,5 +1,5 @@
 import '@core/services/environment'
-import web from '@web/lib/express'
+import webRouter from '@web/lib/express'
 import log from '@core/utils/log'
 import express from 'express'
 import path from 'path'
@@ -9,6 +9,8 @@ import url from 'url'
 const root = path.resolve(__dirname)
 
 const processor = async () => {
+
+  const web = webRouter()
 
   const app = next({
     dev: false,

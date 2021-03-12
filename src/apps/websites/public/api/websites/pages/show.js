@@ -1,6 +1,30 @@
 import { getPublished } from '@apps/maha/services/versions'
 import Website from '@apps/websites/models/website'
 import Alias from '@apps/websites/models/alias'
+import Page from '@apps/websites/models/page'
+
+const getPage = async (req, { id, website }) => {
+
+  if(id) {
+    return await Page.query(qb => {
+      qb.where('website_id', website.get('id'))
+      qb.where('id', id)
+    }).fetch({
+      transacting: req.trx
+    })
+  }
+
+  const alias = await Alias.query(qb => {
+    qb.where('website_id', website.get('id'))
+    qb.where('path', req.path)
+  }).fetch({
+    withRelated: ['page'],
+    transacting: req.trx
+  })
+
+  return alias.related('page')
+
+}
 
 const showRoute = async (req, res) => {
 
@@ -16,22 +40,19 @@ const showRoute = async (req, res) => {
     message: 'Unable to load website'
   })
 
-  const alias = await Alias.query(qb => {
-    qb.where('website_id', website.get('id'))
-    qb.where('path', req.path)
-  }).fetch({
-    withRelated: ['page'],
-    transacting: req.trx
+  const page = await getPage(req, {
+    id: req.params.id,
+    website
   })
 
-  if(!alias) return res.status(404).respond({
+  if(!page) return res.status(404).respond({
     code: 404,
-    message: 'Unable to load alias'
+    message: 'Unable to load page'
   })
 
   const version = await getPublished(req, {
     versionable_type: 'websites_pages',
-    versionable_id: alias.get('page_id'),
+    versionable_id: page.get('id'),
     key: 'config'
   })
 
@@ -39,8 +60,6 @@ const showRoute = async (req, res) => {
     code: 404,
     message: 'Unable to load version'
   })
-
-  const page = alias.related('page')
 
   await res.status(200).respond(version, (req, version) => ({
     title: page.get('title'),
