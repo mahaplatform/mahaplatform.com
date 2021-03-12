@@ -22,6 +22,8 @@ const getPage = async (req, { id, website }) => {
     transacting: req.trx
   })
 
+  if(!alias) return null
+
   return alias.related('page')
 
 }

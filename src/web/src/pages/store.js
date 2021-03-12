@@ -27,7 +27,7 @@ const Store = ({ errorCode, store, program, team }) => {
 }
 
 Store.propTypes = {
-  errorCode: PropTypes.string,
+  errorCode: PropTypes.number,
   store: PropTypes.object,
   program: PropTypes.object,
   team: PropTypes.object

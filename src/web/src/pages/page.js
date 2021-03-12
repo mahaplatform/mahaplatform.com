@@ -5,12 +5,13 @@ import Error from 'next/error'
 import React from 'react'
 
 export default function Page({ errorCode, page, layout, website }) {
+  console.log(errorCode)
   if (errorCode) return <Error statusCode={ errorCode } />
   return <PageComponent page={ page } layout={ layout } website={ website } />
 }
 
 Page.propTypes = {
-  errorCode: PropTypes.string,
+  errorCode: PropTypes.number,
   page: PropTypes.object,
   layout: PropTypes.object,
   website: PropTypes.object
@@ -99,7 +100,6 @@ const fetchLayout = async () => {
 }
 
 function getPageEndpoint(website, query) {
-  console.log(website)
   const { code, id, permalink } = query
   if(query.permalink) return `/api/websites/${code}/${permalink}`
   if(query.permalink) return `/api/websites/${code}/pages/${id}`

@@ -38,7 +38,7 @@ const Form = ({ errorCode, form, program, team }) => {
 }
 
 Form.propTypes = {
-  errorCode: PropTypes.string,
+  errorCode: PropTypes.number,
   form: PropTypes.object,
   program: PropTypes.object,
   team: PropTypes.object

@@ -1,5 +1,6 @@
 import '@core/services/environment'
-import webRouter from '@web/lib/express'
+import { normalizeUrl } from '@web/utils/urls'
+import web from '@web/lib/express'
 import log from '@core/utils/log'
 import express from 'express'
 import path from 'path'
@@ -9,8 +10,6 @@ import url from 'url'
 const root = path.resolve(__dirname)
 
 const processor = async () => {
-
-  const web = webRouter()
 
   const app = next({
     dev: false,
@@ -26,8 +25,8 @@ const processor = async () => {
   server.use(web)
 
   server.get('*', (req, res) => {
-    const parsed = url.parse(req.url)
-    const { pathname, query } = parsed
+    req.url = normalizeUrl(req.url)
+    const { pathname, query } = url.parse(req.url)
     handle(req, res, pathname, query)
   })
 
