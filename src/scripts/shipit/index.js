@@ -80,8 +80,6 @@ const processor = async () => {
 
   const releaseDir = path.join(releasesDir,timestamp)
 
-  const platformDir = path.join(releaseDir,'platform')
-
   const sharedDir = path.join(deployDir,'shared')
 
   const currentDir = path.join(deployDir,'current')
@@ -136,8 +134,10 @@ const processor = async () => {
     })
   })
 
-  utils.registerTask(shipit, 'servers:appserver:restart', async () => {
-    await shipit.remote('systemctl restart nginx', { roles: 'appserver' })
+  utils.registerTask(shipit, 'servers:nginx:restart', async () => {
+    await shipit.remote('systemctl restart nginx', {
+      roles: ['analyticsserver','appserver','webserver']
+    })
   })
 
   utils.registerTask(shipit, 'servers:pm2:deleteall', async () => {
@@ -152,7 +152,7 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'deploy:build', async () => {
-    await shipit.local(`NODE_ENV=production npm run build ${environment} ${platformDir}`)
+    await shipit.local(`NODE_ENV=production npm run build ${environment} ${releaseDir}`)
   })
 
 
@@ -182,16 +182,16 @@ const processor = async () => {
   utils.registerTask(shipit, 'deploy:install', async () => {
     await shipit.remote('npm install --production --unsafe-perm=true --no-spin', {
       roles: ['analyticsserver','appserver','webserver','cron','twilio','worker'],
-      cwd: path.join(releaseDir, 'platform')
+      cwd: releaseDir
     })
   })
 
   utils.registerTask(shipit, 'deploy:link_shared', async () => {
     const commands = [
-      `ln -s ${sharedDir}/maxmind ${platformDir}/maxmind`,
-      `ln -s ${sharedDir}/logs ${platformDir}/logs`,
-      `ln -s ${sharedDir}/tmp ${platformDir}/tmp`,
-      `ln -s ${sharedDir}/imagecache ${platformDir}/public/imagecache`
+      `ln -s ${sharedDir}/maxmind ${releaseDir}/maxmind`,
+      `ln -s ${sharedDir}/logs ${releaseDir}/logs`,
+      `ln -s ${sharedDir}/tmp ${releaseDir}/tmp`,
+      `ln -s ${sharedDir}/imagecache ${releaseDir}/public/imagecache`
     ]
     await shipit.remote(commands.join(' && '), {
       roles: ['analyticsserver','appserver','webserver','cron','twilio','worker']
@@ -199,7 +199,7 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'deploy:webroot', async () => {
-    await shipit.remote(`mkdir -p ${platformDir}/web`, {
+    await shipit.remote(`mkdir -p ${releaseDir}/web`, {
       roles: ['analyticsserver','appserver','webserver','cron','twilio','worker']
     })
   })
@@ -207,14 +207,14 @@ const processor = async () => {
   utils.registerTask(shipit, 'deploy:bootstrap', async () => {
     await shipit.remote('NODE_ENV=production node ./core/services/bootstrap/index.js', {
       roles: ['controller'],
-      cwd: path.join(releaseDir, 'platform')
+      cwd: releaseDir
     })
   })
 
   utils.registerTask(shipit, 'deploy:migrate', async () => {
     await shipit.remote('NODE_ENV=production node ./core/services/db/index.js migrate:up', {
       roles: ['controller'],
-      cwd: path.join(releaseDir, 'platform')
+      cwd: releaseDir
     })
   })
 
@@ -238,28 +238,28 @@ const processor = async () => {
   ])
 
   utils.registerTask(shipit, 'deploy:restart_analytics', () => {
-    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/platform/ecosystem.config.js --only analytics_production', {
+    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/ecosystem.config.js --only analytics_production', {
       cwd: deployDir,
       roles: ['analyticsserver']
     })
   })
 
   utils.registerTask(shipit, 'deploy:restart_cron', () => {
-    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/platform/ecosystem.config.js --only cron_production', {
+    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/ecosystem.config.js --only cron_production', {
       cwd: deployDir,
       roles: ['cron']
     })
   })
 
   utils.registerTask(shipit, 'deploy:restart_twilio', () => {
-    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/platform/ecosystem.config.js --only twilio_production', {
+    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/ecosystem.config.js --only twilio_production', {
       cwd: deployDir,
       roles: ['twilio']
     })
   })
 
   utils.registerTask(shipit, 'deploy:restart_worker', () => {
-    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/platform/ecosystem.config.js --only worker_production', {
+    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/ecosystem.config.js --only worker_production', {
       cwd: deployDir,
       roles: ['worker']
     })
