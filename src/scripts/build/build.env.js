@@ -9,7 +9,7 @@ const staged = `${dist}.staged`
 
 const buildEnv = async(environment) => {
   log('info', 'environment', 'Compiling...')
-  await env(path.join(staged, 'platform'), environment)
+  await env(path.join(staged), environment)
   log('info', 'environment', 'Compiled successfully.')
 }
 

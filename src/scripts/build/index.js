@@ -25,10 +25,10 @@ const getDuration = (start) => {
 const build = async () => {
   const args = process.argv.slice(2)
   const environment = args[0] || 'production'
-  const root = args[1] || path.join(dist, 'platform')
+  const root = args[1] || path.join(dist)
   const start = process.hrtime()
   rimraf.sync(staged)
-  mkdirp.sync(path.join(staged,'platform','public'))
+  mkdirp.sync(path.join(staged,'public'))
   await Promise.all([
     buildBackend(root, environment),
     buildSdk(),

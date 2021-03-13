@@ -13,14 +13,14 @@ const staged = `${dist}.staged`
 const buildWeb = async (root, environment) => {
   log('info', 'web', 'Compiling...')
   const babelrc = babel(root)
-  mkdirp.sync(path.join(staged,'platform','web'))
+  mkdirp.sync(path.join(staged,'web'))
   await buildDir(path.join('web','lib'), babelrc)
   await buildDir(path.join('web','public'), babelrc)
   await buildDir(path.join('web','src'), babelrc)
   await buildDir(path.join('web','utils'), babelrc)
   await buildEntry(path.join('web','babel.config.js'), babelrc)
   await buildEntry(path.join('web','next.config.js'), babelrc)
-  await next_build(path.join(staged,'platform','web'))
+  await next_build(path.join(staged,'web'))
   log('info', 'web', 'Compiled successfully.')
 }
 

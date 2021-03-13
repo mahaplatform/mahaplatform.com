@@ -58,13 +58,13 @@ const buildItem = async (item, srcPath, destPath, babelrc) => {
 
 export const buildEntry = async (entry, babelrc) => {
   const srcPath = path.resolve('src',entry)
-  const destPath = path.join(staged,'platform',entry)
+  const destPath = path.join(staged,entry)
   await transpileFile(srcPath, destPath, babelrc)
 }
 
 export const buildDir = async (dir, babelrc) => {
   const srcPath = path.resolve('src',dir)
-  const destPath = path.join(staged,'platform',dir)
+  const destPath = path.join(staged,dir)
   mkdirp.sync(destPath)
   const items = listItems(srcPath)
   await Promise.mapSeries(items, item => {

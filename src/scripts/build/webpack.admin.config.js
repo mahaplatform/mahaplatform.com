@@ -76,7 +76,7 @@ const webpackConfig = {
     }
   },
   output: {
-    path: path.resolve('dist.staged','platform','public'),
+    path: path.resolve('dist.staged','public'),
     filename: 'js/[name]-[chunkhash].min.js',
     publicPath: process.env.WEB_ASSET_CDN_HOST
   },
@@ -87,7 +87,7 @@ const webpackConfig = {
     }),
     new CopyWebpackPlugin([{
       from: path.resolve('src','public'),
-      to: path.resolve('dist.staged','platform','public')
+      to: path.resolve('dist.staged','public')
     }]),
     new HtmlWebpackPlugin({
       template: path.resolve('src','admin','index.html')

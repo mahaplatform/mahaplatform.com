@@ -16,6 +16,8 @@ const staged = `${dist}.staged`
 
 const copy = Promise.promisify(ncp)
 
+const ecosystem = fs.readFileSync(path.join(__dirname,'templates','ecosystem.config.js.ejs'), 'utf8')
+
 const buildBackend = async (root, environment) => {
   log('info', 'server', 'Compiling...')
   const babelrc = babel(root)
@@ -29,11 +31,10 @@ const buildBackend = async (root, environment) => {
   await Promise.map(entries, async (entry) => {
     buildEntry(entry, babelrc)
   })
-  const template = fs.readFileSync(path.join(__dirname, 'ecosystem.config.js.ejs'), 'utf8')
-  const data = ejs.render(template, { environment })
-  fs.writeFileSync(path.join(staged,'platform','ecosystem.config.js'), data, 'utf8')
-  await copy(path.join('package.json'), path.join(staged,'platform','package.json'))
-  await copy(path.join('package-lock.json'), path.join(staged,'platform','package-lock.json'))
+  const data = ejs.render(ecosystem, { environment })
+  fs.writeFileSync(path.join(staged,'ecosystem.config.js'), data, 'utf8')
+  await copy(path.join('package.json'), path.join(staged,'package.json'))
+  await copy(path.join('package-lock.json'), path.join(staged,'package-lock.json'))
   log('info', 'server', 'Compiled successfully.')
 }
 
