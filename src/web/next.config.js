@@ -5,6 +5,7 @@ import webpack from 'webpack'
 import path from 'path'
 
 module.exports = withLess({
+  compress: false,
   rewrites: async () => [
     { source: '/websites/:code', destination: '/page?code=:code'},
     { source: '/websites/:code/index.maha', destination: '/page?code=:code'},

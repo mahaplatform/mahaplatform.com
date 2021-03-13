@@ -47,6 +47,7 @@ const createDistibution = async (req, params) => {
             PathPattern: 'imagecache*',
             TargetOriginId: `${code}-cdn`,
             ViewerProtocolPolicy: 'https-only',
+            CachePolicyId: '658327ea-f89d-4fab-a63d-7e88639e58f6',
             AllowedMethods: {
               Quantity: 2,
               Items: ['GET','HEAD']
@@ -56,24 +57,12 @@ const createDistibution = async (req, params) => {
               Enabled: false,
               Quantity: 0,
               Items: []
-            },
-            ForwardedValues: {
-              QueryString: false,
-              Cookies: {
-                Forward: 'none'
-              },
-              Headers: {
-                Quantity: 0,
-                Items: []
-              }
-            },
-            MinTTL: 0,
-            MaxTTL: 31536000,
-            DefaultTTL: 86400
+            }
           }, {
             PathPattern: '_next*',
             TargetOriginId: `${code}-next`,
             ViewerProtocolPolicy: 'https-only',
+            CachePolicyId: '658327ea-f89d-4fab-a63d-7e88639e58f6',
             AllowedMethods: {
               Quantity: 2,
               Items: ['GET','HEAD']
@@ -83,20 +72,7 @@ const createDistibution = async (req, params) => {
               Enabled: false,
               Quantity: 0,
               Items: []
-            },
-            ForwardedValues: {
-              QueryString: false,
-              Cookies: {
-                Forward: 'none'
-              },
-              Headers: {
-                Quantity: 1,
-                Items: ['Origin']
-              }
-            },
-            MinTTL: 0,
-            MaxTTL: 31536000,
-            DefaultTTL: 86400
+            }
           }
         ]
       },
@@ -142,6 +118,7 @@ const createDistibution = async (req, params) => {
       DefaultCacheBehavior: {
         TargetOriginId: `${code}-web`,
         ViewerProtocolPolicy: 'redirect-to-https',
+        CachePolicyId: '658327ea-f89d-4fab-a63d-7e88639e58f6',
         AllowedMethods: {
           Quantity: 2,
           Items: ['GET','HEAD']
@@ -151,18 +128,7 @@ const createDistibution = async (req, params) => {
           Enabled: false,
           Quantity: 0,
           Items: []
-        },
-        ForwardedValues: {
-          QueryString: false,
-          Cookies: {
-            Forward: 'none'
-          },
-          Headers: {
-            Quantity: 1,
-            Items: [ 'Origin' ]
-          }
-        },
-        MinTTL: 0
+        }
       },
       CustomErrorResponses: {
         Quantity: 2,
