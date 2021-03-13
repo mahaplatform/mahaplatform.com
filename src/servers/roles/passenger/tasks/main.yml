@@ -7,9 +7,17 @@
     cmd: 'bash -lc "gem install passenger -v 6.0.4"'
     creates: /usr/local/rvm/gems/ruby-2.5.3/bin/passenger-install-nginx-module
 
+- name: clone ngx_brotli
+  git:
+    repo: https://github.com/google/ngx_brotli
+    dest: /opt/ngx_brotli
+    update: yes
+    force: no
+
 - name: install nginx
   shell:
-    cmd: 'bash -lc "passenger-install-nginx-module --auto --auto-download --languages nodejs"'
+    cmd: |
+        passenger-install-nginx-module --auto --auto-download --languages nodejs --extra-configure-flags="--add-module='/opt/ngx_brotli'"
     creates: /opt/nginx/conf/nginx.conf
 
 - name: copy nginx
