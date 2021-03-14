@@ -12,7 +12,9 @@
   "bin": {
     "maha": "./src/scripts/maha.js"
   },
-  "scripts": {},
+  "scripts": {
+    "maha": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/maha.js"
+  },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
