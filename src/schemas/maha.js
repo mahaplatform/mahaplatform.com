@@ -1836,6 +1836,16 @@ const schema = {
       table.boolean('is_published')
     })
 
+    await knex.schema.createTable('maha_images', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('asset_id').unsigned()
+      table.jsonb('transforms')
+      table.jsonb('attributions')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('maha_import_items', (table) => {
       table.increments('id').primary()
       table.integer('import_id').unsigned()
@@ -2701,6 +2711,19 @@ const schema = {
       table.boolean('is_system')
       table.string('aws_zone_id', 255)
       table.jsonb('config')
+      table.boolean('auto_renew')
+      table.integer('duration')
+      table.jsonb('admin_contact')
+      table.jsonb('registrant_contact')
+      table.jsonb('tech_contact')
+      table.string('aws_registration_id', 255)
+      table.string('aws_transfer_id', 255)
+      table.USER-DEFINED('type')
+      table.USER-DEFINED('registration_status')
+      table.USER-DEFINED('transfer_status')
+      table.USER-DEFINED('dns_status')
+      table.USER-DEFINED('status')
+      table.timestamp('expires_on')
     })
 
     await knex.schema.createTable('websites_pages', (table) => {
@@ -3938,6 +3961,11 @@ const schema = {
       table.foreign('home_id').references('websites_pages.id')
       table.foreign('notfound_id').references('websites_pages.id')
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_images', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('asset_id').references('maha_assets.id')
     })
 
 

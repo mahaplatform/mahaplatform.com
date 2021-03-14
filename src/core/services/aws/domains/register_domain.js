@@ -10,24 +10,23 @@ const expandContact = (contact) => ({
   ZipCode: contact.zip
 })
 
-const transferDomain = async(req, params) => {
+const registerDomain = async(req, params) => {
 
-  const { domain, duration, admin, registrant, tech, auth_code, auto_renew } = params
+  const { domain, duration, admin, registrant, tech, auto_renew } = params
 
-  const transfer = await route53Domains.transferDomain({
+  const registration = await route53Domains.transferDomain({
     AdminContact: expandContact(admin),
     RegistrantContact: expandContact(registrant),
     TechContact: expandContact(tech),
     DomainName: domain,
     DurationInYears: duration,
-    AuthCode: auth_code,
     AutoRenew: auto_renew
   }).promise()
 
   return {
-    aws_transfer_id: transfer.data.OperationId
+    aws_registration_id: registration.data.OperationId
   }
 
 }
 
-export default transferDomain
+export default registerDomain
