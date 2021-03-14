@@ -26,7 +26,7 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      - run: npm run maha test
+      - run: NODE_ENV=test npm run maha test
   deploy:
     executor: node-postgres
     resource_class: medium
