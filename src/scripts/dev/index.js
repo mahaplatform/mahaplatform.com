@@ -19,9 +19,8 @@ const includes = (a, b) => {
   return a.some(r => b.includes(r))
 }
 
-const processor = async () => {
-  const argv = process.argv.slice(2)
-  const entities = argv.length > 0 ? argv[0].split(',') : ['admin']
+const dev = async (args) => {
+  const entities = args.length > 0 ? args[0].split(',') : ['admin']
   if(includes(entities, ['admin','backend'])) await bootstrap()
   if(includes(entities, ['admin','backend'])) await connectNgrok()
   if(includes(entities, ['admin','backend'])) await watchBackend()
@@ -32,4 +31,4 @@ const processor = async () => {
   if(includes(entities, ['web'])) await watchWeb()
 }
 
-processor()
+export default dev

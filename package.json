@@ -9,30 +9,10 @@
   "engines": {
     "node": ">=14.15.1"
   },
-  "scripts": {
-    "collect": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/collect/index.js",
-    "analytics": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/analytics.js",
-    "assets": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/assets.js",
-    "bootstrap": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/bootstrap.js",
-    "build": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/build/index.js",
-    "collector": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/collector.js",
-    "cron": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/cron.js",
-    "dev": "NODE_ENV=development NODE_OPTIONS=--max-old-space-size=8192 npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/dev/index.js",
-    "entities": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/entities.js",
-    "env": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/env/index.js",
-    "g": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/generate/index.js",
-    "knex": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/knex.js",
-    "maxmind": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/maxmind.js",
-    "queues": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/queues.js",
-    "sandbox": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/sandbox.js",
-    "server": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/server.js",
-    "shipit": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/shipit/index.js",
-    "test": "NODE_ENV=test babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/test.js",
-    "twilio": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/twilio/index.js",
-    "website": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/website.js",
-    "worker": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/worker.js",
-    "web": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/web.js"
+  "bin": {
+    "maha": "./src/scripts/maha.js"
   },
+  "scripts": {},
   "devDependencies": {
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
@@ -87,6 +67,7 @@
     "address-rfc2822": "^2.0.1",
     "adm-zip": "^0.5.1",
     "archiver": "^3.0.0",
+    "arg": "^5.0.0",
     "atob": "^2.1.2",
     "autoprefixer": "^9.6.1",
     "aws-sdk": "^2.554.0",
@@ -209,6 +190,7 @@
     "reselect": "^3.0.1",
     "resumablejs": "^1.1.0",
     "rollbar": "^2.15.2",
+    "save-dev": "0.0.1-security",
     "sharp": "^0.27.0",
     "simple-oauth2": "^1.5.2",
     "socket.io": "^3.0.4",

@@ -175,10 +175,9 @@ const page = async (args) => {
   createFile(data.pagePath, 'page/page.js', data)
 }
 
-const generate = async () => {
-  const argv = process.argv.slice(2)
-  const template = argv[0]
-  const args = argv.slice(1)
+const generate = async (cargs) => {
+  const template = cargs[0]
+  const args = cargs.slice(1)
   if(template === 'app') return app(args)
   if(template === 'route') return route(args)
   if(template === 'model') return model(args)
@@ -190,4 +189,4 @@ const generate = async () => {
   if(template === 'page') return page(args)
 }
 
-generate().then(() => process.exit())
+export default generate

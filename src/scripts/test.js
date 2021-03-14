@@ -1,14 +1,11 @@
-import '@core/services/environment'
 import { setup } from '@core/services/db/utils'
 import knex from '@core/vendor/knex/maha'
 import Mocha from 'mocha'
 import glob from 'glob'
 
-const test = async () => {
+const test = async (args) => {
 
   const mocha = new Mocha()
-
-  const args = process.argv.slice(2)
 
   const root = args[0] || 'src/web'
 
@@ -36,4 +33,4 @@ const test = async () => {
 
 }
 
-test().then(process.exit)
+export default test

@@ -1,4 +1,4 @@
 import '@core/services/environment'
-import { startQueues } from '@core/services/queues'
+import twilio from '@core/entities/twilio'
 
-startQueues('twilio')
+twilio()

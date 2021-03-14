@@ -18,7 +18,7 @@ import knex from '@core/vendor/knex/maha'
 
 import { cloudfront } from '@core/vendor/aws'
 
-const processor = async () => {
+const sandbox = async () => {
 
   // const config = await cloudfront.getDistributionConfig({
   //   Id: 'E3OCSGHWCPV74A'
@@ -125,5 +125,4 @@ const processor = async () => {
 
 }
 
-
-processor().then(process.exit)
+export default sandbox

@@ -1,4 +1,4 @@
 import '@core/services/environment'
-import { startQueues } from '@core/services/queues'
+import worker from '@core/entities/worker'
 
-startQueues('worker')
+worker()

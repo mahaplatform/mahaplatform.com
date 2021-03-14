@@ -7,9 +7,7 @@ import moment from 'moment'
 import path from 'path'
 import _ from 'lodash'
 
-const processor = async () => {
-
-  const args = process.argv.slice(2)
+const shipit = async (args) => {
 
   const task = args[0]
 
@@ -148,11 +146,11 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'deploy:env', async () => {
-    await shipit.local(`NODE_ENV=production npm run env ${environment}`)
+    await shipit.local(`NODE_ENV=production npm maha env ${environment}`)
   })
 
   utils.registerTask(shipit, 'deploy:build', async () => {
-    await shipit.local(`NODE_ENV=production npm run build ${environment} ${releaseDir}`)
+    await shipit.local(`NODE_ENV=production npm maha build ${environment} ${releaseDir}`)
   })
 
 
@@ -361,4 +359,4 @@ const processor = async () => {
 
 }
 
-processor()
+export default shipit

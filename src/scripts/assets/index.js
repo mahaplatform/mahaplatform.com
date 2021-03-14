@@ -4,7 +4,7 @@ import sharp from 'sharp'
 import path from 'path'
 import fs from 'fs'
 
-const icons = async () => {
+const assets = async (args) => {
 
   const src = path.join(__dirname,'icon.png')
 
@@ -80,4 +80,4 @@ const icons = async () => {
   })
 }
 
-icons().then(process.exit)
+export default assets

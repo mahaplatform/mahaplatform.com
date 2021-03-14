@@ -1,4 +1,4 @@
 import '@core/services/environment'
-import { startQueues } from '@core/services/queues'
+import cron from '@core/entities/cron'
 
-startQueues('cron')
+cron()
