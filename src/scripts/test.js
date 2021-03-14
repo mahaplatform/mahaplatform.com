@@ -31,6 +31,8 @@ const test = async (args) => {
 
   await new Promise((resolve, reject) => mocha.run(resolve))
 
+  process.exit()
+
 }
 
 export default test

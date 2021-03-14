@@ -17,4 +17,4 @@ const paths = [
 
 const envPath = paths.find(path => fs.existsSync(path))
 
-if(process.env.NODE_ENV !== 'test' && envPath) dotenv.load({ path: envPath })
+if(envPath) dotenv.load({ path: envPath })
