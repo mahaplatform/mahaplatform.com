@@ -26,7 +26,12 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      - run: chmod 755 ./src/scripts/maha.js && ./src/scripts/maha.js test
+      - run:
+          name: Link binary
+          command: npm link
+      - run:
+          name: Run tests
+          command: maha test
   deploy:
     executor: node-postgres
     resource_class: medium
@@ -44,6 +49,9 @@ jobs:
       - run:
           name: Install rsync
           command: sudo apt-get install rsync
+      - run:
+          name: Link binary
+          command: npm link
       - run:
           name: Deploy code
           command: NODE_ENV=production npx --no-install maha shipit deploy
