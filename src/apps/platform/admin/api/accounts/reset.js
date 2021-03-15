@@ -24,7 +24,7 @@ const resetRoute = async (req, res) => {
     template: 'team:reset',
     data: {
       first_name: account.get('first_name'),
-      reset_url: `${process.env.WEB_HOST}/reset/${token}`
+      reset_url: `${process.env.ADMIN_HOST}/reset/${token}`
     }
   })
 

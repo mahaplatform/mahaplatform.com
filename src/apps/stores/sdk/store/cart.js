@@ -108,7 +108,7 @@ class Cart extends Emitter {
     this.cart.className = 'maha-store-cart'
     document.body.appendChild(this.cart)
     this.iframe = document.createElement('iframe')
-    this.iframe.src = `${process.env.WEB_HOST}/stores/stores/${this.code}/cart`
+    this.iframe.src = `${process.env.ADMIN_HOST}/stores/stores/${this.code}/cart`
     this.iframe.frameBorder = 0
     this.cart.appendChild(this.iframe)
     this.pasteur = new Pasteur({

@@ -52,7 +52,7 @@ const webpackConfig = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'WEB_HOST': JSON.stringify(process.env.WEB_HOST)
+        'ADMIN_HOST': JSON.stringify(process.env.ADMIN_HOST)
       }
     })
   ]

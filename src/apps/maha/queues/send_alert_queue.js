@@ -40,7 +40,7 @@ const processor = async (req, job) => {
     moment,
     numeral,
     pluralize,
-    host: process.env.WEB_HOST,
+    host: process.env.ADMIN_HOST,
     maha: true,
     ...job.data.data || {}
   }

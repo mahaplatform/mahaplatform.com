@@ -29,7 +29,7 @@ const corsMiddleware = async (req, res, next) => {
     const whitelist = await Promise.reduce(originFiles, async(whitelist, originFile) => _.uniq([
       ...whitelist,
       ...await originFile.default(req)
-    ]), [...ips, process.env.WEB_HOST])
+    ]), [...ips, process.env.ADMIN_HOST])
 
     if(_.includes(whitelist, origin)) return callback(null, true)
 

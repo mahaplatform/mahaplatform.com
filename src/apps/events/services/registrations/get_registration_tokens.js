@@ -20,7 +20,7 @@ const getRegistrationTokens = async (req, { registration_id }) => {
   return {
     ...tokens,
     ...payment_tokens,
-    maha_url: `${process.env.WEB_HOST}${tokens.path}`
+    maha_url: `${process.env.ADMIN_HOST}${tokens.path}`
   }
 
 }

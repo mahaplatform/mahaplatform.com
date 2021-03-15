@@ -34,7 +34,7 @@ const Invoice = new Model(knex, {
     },
 
     url() {
-      return `${process.env.WEB_HOST}/finance/invoices/${this.get('code')}`
+      return `${process.env.ADMIN_HOST}/finance/invoices/${this.get('code')}`
     }
 
   },

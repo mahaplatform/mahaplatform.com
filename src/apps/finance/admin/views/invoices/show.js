@@ -37,8 +37,8 @@ const getTasks = ({ invoice }, { admin }) => {
     items.push({ label: 'Receive Payment', modal: <Payment invoice={ invoice } /> })
   }
   items.push({ label: `Send ${entity}`, modal: <Send invoice={ invoice } />  })
-  items.push({ label: `View Public ${entity}`, link: `${process.env.WEB_HOST}/finance/invoices/${invoice.code}` })
-  items.push({ label: 'Download Invoice', url: `${process.env.WEB_HOST}/finance/invoices/${invoice.code}/download` })
+  items.push({ label: `View Public ${entity}`, link: `${process.env.ADMIN_HOST}/finance/invoices/${invoice.code}` })
+  items.push({ label: 'Download Invoice', url: `${process.env.ADMIN_HOST}/finance/invoices/${invoice.code}/download` })
   return { items }
 }
 

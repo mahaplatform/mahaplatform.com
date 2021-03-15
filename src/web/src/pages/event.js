@@ -14,8 +14,8 @@ const Event = ({ errorCode, event, program, team }) => {
         <link href={`${process.env.ASSET_CDN_HOST}/css/semantic.min.css`} rel="stylesheet" />
         <link href={`${process.env.ASSET_CDN_HOST}/css/font-awesome.min.css`} rel="stylesheet" />
         <title>{ event.title }</title>
-        <link rel="apple-touch-icon" type="image/jpeg" sizes="180x180" href={`${process.env.WEB_HOST}/imagecache/fit=cover&w=180&h=180${program.logo || team.logo}`} />
-        <link rel="shortcut icon" type="image/jpeg" sizes="180x180" href={`${process.env.WEB_HOST}/imagecache/fit=cover&w=180&h=180${program.logo || team.logo}`} />
+        <link rel="apple-touch-icon" type="image/jpeg" sizes="180x180" href={`${process.env.ADMIN_HOST}/imagecache/fit=cover&w=180&h=180${program.logo || team.logo}`} />
+        <link rel="shortcut icon" type="image/jpeg" sizes="180x180" href={`${process.env.ADMIN_HOST}/imagecache/fit=cover&w=180&h=180${program.logo || team.logo}`} />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta property="og:title" content={ event.title } />
         <meta property="og:type" content="article" />
@@ -25,8 +25,8 @@ const Event = ({ errorCode, event, program, team }) => {
         }
         { event.image &&
           <Fragment>
-            <meta property="og:image" content={`${process.env.WEB_HOST}/imagecache/fit=cover&w=1200&h=630&q=100${event.image}`} />
-            <meta property="og:secure_url" content={`${process.env.WEB_HOST}/imagecache/fit=cover&w=1200&h=630&q=100${event.image}`} />
+            <meta property="og:image" content={`${process.env.ADMIN_HOST}/imagecache/fit=cover&w=1200&h=630&q=100${event.image}`} />
+            <meta property="og:secure_url" content={`${process.env.ADMIN_HOST}/imagecache/fit=cover&w=1200&h=630&q=100${event.image}`} />
             <meta property="og:image:width" content="1200" />
             <meta property="og:image:height" content="630" />
           </Fragment>

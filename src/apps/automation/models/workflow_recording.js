@@ -14,7 +14,7 @@ const WorkflowRecording = new Model(knex, {
   virtuals: {
 
     url() {
-      return `${process.env.WEB_HOST}/crm/recordings/${this.get('code')}`
+      return `${process.env.ADMIN_HOST}/crm/recordings/${this.get('code')}`
     }
 
   },

@@ -148,7 +148,7 @@ const processor = async (req, { incoming_email }) => {
         message: `
           <p>
             Your ${singular} is now available
-            <a href="${process.env.WEB_HOST}${item.get('object_url')}">
+            <a href="${process.env.ADMIN_HOST}${item.get('object_url')}">
               here
             </a>
           </p>

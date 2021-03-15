@@ -18,7 +18,7 @@ class Checkout extends Emitter {
 
   begin() {
     this.emit('begin')
-    this.iframe.src = `${process.env.WEB_HOST}/stores/stores/${this.code}/checkout`
+    this.iframe.src = `${process.env.ADMIN_HOST}/stores/stores/${this.code}/checkout`
     setTimeout(() => {
       this.overlay.classList.add('open')
       this.checkout.classList.add('open')

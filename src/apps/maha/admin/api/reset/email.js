@@ -24,7 +24,7 @@ const emailRoute = async (req, res, next) => {
     template: 'team:reset',
     data: {
       first_name: account.get('first_name'),
-      reset_url: `${process.env.WEB_HOST}/reset/${token}`
+      reset_url: `${process.env.ADMIN_HOST}/reset/${token}`
     }
   })
 

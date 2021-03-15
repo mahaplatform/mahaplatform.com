@@ -11,7 +11,7 @@ const pushBrowser = () => {
     projectId: process.env.FIREBASE_PROJECT_ID,
     messagingSenderId: process.env.FIREBASE_MESSAGE_SENDER_ID,
     appId: process.env.FIREBASE_APP_ID,
-    host: process.env.WEB_HOST
+    host: process.env.ADMIN_HOST
   }
 
   const serviceWorkerFile = `/notifications.js?${qs.stringify(firebaseConfig)}`

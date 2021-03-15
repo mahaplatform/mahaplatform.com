@@ -34,7 +34,7 @@ const Store = new Model(knex, {
     },
 
     url() {
-      return `${process.env.WEB_HOST}${this.get('path')}`
+      return `${process.env.ADMIN_HOST}${this.get('path')}`
     }
 
   },

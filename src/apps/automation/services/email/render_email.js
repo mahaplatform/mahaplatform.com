@@ -281,7 +281,7 @@ const renderEmail = async (req, { config, data }) => {
     objects,
     config,
     style: getStyle(config),
-    host: process.env.WEB_HOST,
+    host: process.env.ADMIN_HOST,
     _
   })
   return rendered.replace(/&lt;%/g,'<%').replace(/%&gt;/g,'%>')

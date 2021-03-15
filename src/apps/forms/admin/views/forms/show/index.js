@@ -22,7 +22,7 @@ const getTasks = ({ form }) => {
       code into your html.</p>
     ),
     code: `<div data-form="${form.code}"></div>
-<script src="${process.env.WEB_HOST}/maha.js"></script>
+<script src="${process.env.ADMIN_HOST}/maha.js"></script>
 <script>
 new Maha.Forms.Form({
   code: '${form.code}'

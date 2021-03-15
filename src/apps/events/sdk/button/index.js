@@ -21,7 +21,7 @@ class Event {
     const stylesheet = document.createElement('link')
     stylesheet.rel = 'stylesheet'
     stylesheet.type = 'text/css'
-    stylesheet.href = `${process.env.WEB_HOST}/css/button.css`
+    stylesheet.href = `${process.env.ADMIN_HOST}/css/button.css`
     document.head.appendChild(stylesheet)
 
     const buttons = document.querySelectorAll(`[data-event="${this.code}"]`)
@@ -47,7 +47,7 @@ class Event {
   _handleOpen() {
     this.body.className = 'maha-events-button open'
     this.iframe = document.createElement('iframe')
-    this.iframe.src = `${process.env.WEB_HOST}/events/${this.code}`
+    this.iframe.src = `${process.env.ADMIN_HOST}/events/${this.code}`
     this.iframe.frameBorder = 0
     this.modal.appendChild(this.iframe)
   }

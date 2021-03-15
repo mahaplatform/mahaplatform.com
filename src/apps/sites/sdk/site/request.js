@@ -16,7 +16,7 @@ class Request {
     try {
       const result = await this.client({
         method: 'get',
-        path: `${process.env.WEB_HOST}${path}`
+        path: `${process.env.ADMIN_HOST}${path}`
       })
       return result.entity
     } catch(err) {

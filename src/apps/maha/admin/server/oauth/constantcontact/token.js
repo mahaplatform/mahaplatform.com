@@ -9,7 +9,7 @@ const token = async ({ code }, scope) => {
       grant_type: 'authorization_code',
       client_id: process.env.CONSTANTCONTACT_API_KEY,
       client_secret: process.env.CONSTANTCONTACT_API_SECRET,
-      redirect_uri: `${process.env.WEB_HOST}/admin/oauth/constantcontact/token`,
+      redirect_uri: `${process.env.ADMIN_HOST}/admin/oauth/constantcontact/token`,
       code
     }
   }).then(result => JSON.parse(result))

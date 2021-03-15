@@ -17,7 +17,7 @@ const Response = new Model(knex, {
   virtuals: {
 
     url() {
-      return `${process.env.WEB_HOST}/admin/forms/forms/${this.get('form_id')}/responses/${this.get('id')}`
+      return `${process.env.ADMIN_HOST}/admin/forms/forms/${this.get('form_id')}/responses/${this.get('id')}`
     }
 
   },

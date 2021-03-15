@@ -18,7 +18,7 @@ const sendActivation = async (req, { user }) => {
     template: 'team:activation',
     data: {
       first_name: user.get('first_name'),
-      activation_url: `${process.env.WEB_HOST}/activate/${token}`
+      activation_url: `${process.env.ADMIN_HOST}/activate/${token}`
     }
   })
 

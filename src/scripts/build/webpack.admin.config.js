@@ -115,7 +115,7 @@ const webpackConfig = {
         'SERVER_PORT': JSON.stringify(process.env.SERVER_PORT),
         'ASSET_CDN_HOST': JSON.stringify(process.env.ASSET_CDN_HOST),
         'ASSET_HOST': JSON.stringify(process.env.ASSET_HOST),
-        'WEB_HOST': JSON.stringify(process.env.WEB_HOST)
+        'ADMIN_HOST': JSON.stringify(process.env.ADMIN_HOST)
       }
     }),
     new webpack.SourceMapDevToolPlugin({

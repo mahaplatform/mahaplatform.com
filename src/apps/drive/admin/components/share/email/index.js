@@ -23,7 +23,7 @@ class Email extends React.Component {
 
   _getForm() {
     const { item } = this.props
-    const message = `Check out this ${item.type}:\n\n${process.env.WEB_HOST}/drive/share/${item.code}`
+    const message = `Check out this ${item.type}:\n\n${process.env.ADMIN_HOST}/drive/share/${item.code}`
     return {
       title: 'Share via Email',
       method: 'post',

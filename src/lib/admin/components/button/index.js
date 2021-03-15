@@ -152,7 +152,7 @@ class Button extends React.Component {
   }
 
   _handleRoute(route, metaKey) {
-    if(metaKey) return this._handleLink(`${process.env.WEB_HOST}${route}`)
+    if(metaKey) return this._handleLink(`${process.env.ADMIN_HOST}${route}`)
     this.context.router.history.push(route)
   }
 

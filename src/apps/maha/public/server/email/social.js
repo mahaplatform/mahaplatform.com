@@ -27,7 +27,7 @@ const socialRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.redirect(301, `${service.url}${process.env.WEB_HOST}/w${email.get('code')}`)
+  res.redirect(301, `${service.url}${process.env.ADMIN_HOST}/w${email.get('code')}`)
 
 }
 

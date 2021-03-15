@@ -20,7 +20,7 @@ const Order = new Model(knex, {
   virtuals: {
 
     url() {
-      return `${process.env.WEB_HOST}/admin/stores/stores/${this.get('store_id')}/orders/${this.get('id')}`
+      return `${process.env.ADMIN_HOST}/admin/stores/stores/${this.get('store_id')}/orders/${this.get('id')}`
     }
 
   },

@@ -62,7 +62,7 @@ const generateScreenshot = async(req, params) => {
   const html = await renderEmail(req, {
     config: object.get('config'),
     data: {
-      host: process.env.WEB_HOST
+      host: process.env.ADMIN_HOST
     }
   })
 

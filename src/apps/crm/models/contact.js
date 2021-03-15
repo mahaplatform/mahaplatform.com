@@ -77,7 +77,7 @@ const Contact = new Model(knex, {
     },
 
     url() {
-      return `${process.env.WEB_HOST}/admin/crm/contacts/${this.get('id')}`
+      return `${process.env.ADMIN_HOST}/admin/crm/contacts/${this.get('id')}`
     },
 
     list_ids: function() {

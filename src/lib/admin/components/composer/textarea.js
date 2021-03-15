@@ -226,7 +226,7 @@ class TextArea extends React.Component {
     // }))
     // if(urls.length === 0) return
     // const url = urls[0]
-    // if(url.startsWith(process.env.WEB_HOST)) return
+    // if(url.startsWith(process.env.ADMIN_HOST)) return
     // this._handleFetchLink(url)
   }
 

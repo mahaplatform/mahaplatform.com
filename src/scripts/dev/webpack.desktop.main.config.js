@@ -39,7 +39,7 @@ const config = {
       'process.env': {
         'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
         'API_HOST': JSON.stringify(process.env.API_HOST),
-        'WEB_HOST': JSON.stringify(process.env.WEB_HOST),
+        'ADMIN_HOST': JSON.stringify(process.env.ADMIN_HOST),
         'ASSET_HOST': JSON.stringify(process.env.ASSET_HOST),
         'CDN_ASSET_HOST': JSON.stringify(process.env.CDN_ASSET_HOST)
       }

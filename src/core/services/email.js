@@ -5,7 +5,7 @@ import moment from 'moment'
 export const sendMail = async (email) => {
 
   const html = await inline(email.html, {
-    url: process.env.WEB_HOST,
+    url: process.env.ADMIN_HOST,
     preserveMediaQueries: true
   })
 

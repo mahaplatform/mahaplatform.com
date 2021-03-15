@@ -234,7 +234,7 @@ const saveResults = async (req, params) => {
       recording_data
     })
 
-    params.action.data[step.get('config').code] = `${process.env.WEB_HOST}/admin/campaigns/voice/${enrollment.get('voice_campaign_id')}/voicemails/${recording.get('id')}`
+    params.action.data[step.get('config').code] = `${process.env.ADMIN_HOST}/admin/campaigns/voice/${enrollment.get('voice_campaign_id')}/voicemails/${recording.get('id')}`
 
   }
 

@@ -6,14 +6,14 @@ const getData = (req, { code, data, email_address }) => ({
     ...data.email || {},
     ...code ? {
       code,
-      facebook_link: `${process.env.WEB_HOST}/so/fb/${code}`,
-      twitter_link: `${process.env.WEB_HOST}/so/tw/${code}`,
-      forward_link: `${process.env.WEB_HOST}/fo/${code}`,
-      linkedin_link: `${process.env.WEB_HOST}/so/li/${code}`,
-      pinterest_link: `${process.env.WEB_HOST}/so/pi/${code}`,
-      web_link: `${process.env.WEB_HOST}/wv/${code}`,
+      facebook_link: `${process.env.ADMIN_HOST}/so/fb/${code}`,
+      twitter_link: `${process.env.ADMIN_HOST}/so/tw/${code}`,
+      forward_link: `${process.env.ADMIN_HOST}/fo/${code}`,
+      linkedin_link: `${process.env.ADMIN_HOST}/so/li/${code}`,
+      pinterest_link: `${process.env.ADMIN_HOST}/so/pi/${code}`,
+      web_link: `${process.env.ADMIN_HOST}/wv/${code}`,
       ...email_address ? {
-        preferences_link: `${process.env.WEB_HOST}/crm/p${code}${email_address.get('code')}`
+        preferences_link: `${process.env.ADMIN_HOST}/crm/p${code}${email_address.get('code')}`
       } : {}
     } : {}
   }

@@ -17,7 +17,7 @@ const list = async (req, profile) => {
   const records = result.value.map(entry => ({
     first_name: entry.givenName,
     last_name: entry.surname,
-    photo: `${process.env.WEB_HOST}/api/admin/profiles/${profile.get('id')}/contacts/${entry.id}/preview?token=${req.token}`,
+    photo: `${process.env.ADMIN_HOST}/api/admin/profiles/${profile.get('id')}/contacts/${entry.id}/preview?token=${req.token}`,
     organization: entry.companyName,
     position: entry.jobTitle,
     birthday: entry.birthday ? moment(entry.birthday).format('YYYY-MM-DD') : '',

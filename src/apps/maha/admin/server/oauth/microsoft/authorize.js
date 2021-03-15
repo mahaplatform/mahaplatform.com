@@ -15,7 +15,7 @@ const oauth2 = OAuth2.create({
 const authorize = async (req, { scope, state }) => {
 
   const url = await oauth2.authorizationCode.authorizeURL({
-    redirect_uri: `${process.env.WEB_HOST}/admin/oauth/microsoft/token`,
+    redirect_uri: `${process.env.ADMIN_HOST}/admin/oauth/microsoft/token`,
     scope: [
       ...scope,
       'offline_access'

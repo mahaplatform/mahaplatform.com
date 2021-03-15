@@ -129,7 +129,7 @@ class Browser extends React.Component {
   }
 
   _handlePlaySound(sound) {
-    const audio = new Audio(`${process.env.WEB_HOST}/audio/${sound}.mp3`)
+    const audio = new Audio(`${process.env.ADMIN_HOST}/audio/${sound}.mp3`)
     audio.play()
   }
 
@@ -141,7 +141,7 @@ class Browser extends React.Component {
     if(sound) this._handlePlaySound(sound)
     const notification = new Notification(title, {
       body,
-      iconUrl: `${process.env.WEB_HOST}${image}`
+      iconUrl: `${process.env.ADMIN_HOST}${image}`
     })
     if(route) {
       notification.onclick = () => {
