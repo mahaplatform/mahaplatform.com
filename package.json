@@ -15,7 +15,6 @@
   "scripts": {
     "build": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/build/index.js",
     "env": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/env/index.js",
-    "maha": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/maha.js",
     "shipit": "npx babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/shipit/index.js",
     "test": "NODE_ENV=test babel-node --config-file=./src/core/utils/babel.config.js ./src/scripts/test.js"
   },
