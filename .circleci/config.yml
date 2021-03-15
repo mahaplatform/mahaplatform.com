@@ -46,11 +46,8 @@ jobs:
           name: Installing rsync
           command: sudo apt-get install rsync
       - run:
-          name: Loading environment
-          command: npm run env production
-      - run:
           name: Deploying code
-          command: NODE_ENV=production npm run maha shipit deploy
+         command: NODE_ENV=production npm run shipit deploy
 workflows:
   test-stage-deploy:
     jobs:
