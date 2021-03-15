@@ -3,6 +3,8 @@ executors:
   node-postgres:
     docker:
       - image: circleci/node:14.15.1
+        environment:
+          DATABASE_URL: postgresql://root@localhost/circle_test
       - image: circleci/postgres:10-alpine-ram
       - image: circleci/redis:6.0-alpine3.13
     working_directory: ~/repo
