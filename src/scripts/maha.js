@@ -8,7 +8,6 @@ import assets from './assets'
 import shipit from './shipit'
 import build from './build'
 import start from './start'
-import test from './test'
 import env from './env'
 import dev from './dev'
 
@@ -29,7 +28,6 @@ const processor = async () => {
   if(command === 'sandbox') await sandbox(cargs)
   if(command === 'shipit') await shipit(cargs)
   if(command === 'start') await start(cargs)
-  if(command === 'test') await test(cargs)
 
 }
 

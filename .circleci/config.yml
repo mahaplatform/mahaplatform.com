@@ -17,18 +17,15 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
       - run:
-          name: Install modules
+          name: Installing modules
           command: npm install
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run:
-          name: Load environment
-          command: npm run env test
-      - run:
-          name: Load environment
-          command: npm run maha test
+          name: Running tests
+          command: npm run test
   deploy:
     executor: node-postgres
     resource_class: medium
@@ -44,13 +41,13 @@ jobs:
       - attach_workspace:
           at: ~/repo/root
       - run:
-          name: Install rsync
+          name: Installing rsync
           command: sudo apt-get install rsync
       - run:
-          name: Load environment
-          command: npm run env 
+          name: Loading environment
+          command: npm run env production
       - run:
-          name: Deploy code
+          name: Deploying code
           command: NODE_ENV=production npm run maha shipit deploy
 workflows:
   test-stage-deploy:
