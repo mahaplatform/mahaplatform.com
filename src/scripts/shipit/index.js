@@ -146,11 +146,11 @@ const shipit = async (args) => {
   })
 
   utils.registerTask(shipit, 'deploy:env', async () => {
-    await shipit.local(`NODE_ENV=production npm run maha env ${environment}`)
+    await shipit.local(`NODE_ENV=production npm run env ${environment}`)
   })
 
   utils.registerTask(shipit, 'deploy:build', async () => {
-    await shipit.local(`NODE_ENV=production npm run maha build ${environment} ${releaseDir}`)
+    await shipit.local(`NODE_ENV=production npm run build ${environment} ${releaseDir}`)
   })
 
 
