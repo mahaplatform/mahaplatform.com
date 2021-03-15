@@ -1,3 +1,4 @@
+import '@core/services/environment'
 import buildBackend from './build.backend'
 import buildSubapps from './build.subapps'
 import buildAdmin from './build.admin'
@@ -21,7 +22,8 @@ const getDuration = (start) => {
   return `${duration}s`
 }
 
-const build = async (args) => {
+const build = async () => {
+  const args = process.argv.slice(2)
   const environment = args[0] || 'production'
   const root = args[1] || path.join(dist)
   const start = process.hrtime()
@@ -40,4 +42,4 @@ const build = async (args) => {
   log('info', 'build', `Finished in ${getDuration(start)}`)
 }
 
-export default build
+build().then(process.exit)
