@@ -1,9 +1,8 @@
-import DomainTypeToken from '@apps/websites/admin/tokens/domain_type'
 import PropTypes from 'prop-types'
 import { Form } from '@admin'
 import React from 'react'
 
-class Register extends React.Component {
+class Dns extends React.Component {
 
   static propTypes = {
     formdata: PropTypes.object,
@@ -30,13 +29,13 @@ class Register extends React.Component {
       showHeader: false,
       buttons: [
         { label: 'Prev', color: 'red', handler: this._handleBack },
-        { label: 'Next', color: 'red', handler: this._handleSubmit }
+        { label: 'Save', color: 'red', handler: this._handleSubmit }
       ],
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { name: 'type', type: 'radiogroup', deselectable: false, options: ['register','transfer','dns'], format: DomainTypeToken, defaultValue: 'register' }
+            { label: 'Domain Name', name: 'name', type: 'textfield', placeholder: 'Enter Domain Name' }
           ]
         }
       ]
@@ -57,4 +56,4 @@ class Register extends React.Component {
 
 }
 
-export default Register
+export default Dns

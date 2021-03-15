@@ -33,9 +33,9 @@ class Contact extends React.Component {
           fields: [
             { label: 'First Name', name: 'first_name', type: 'textfield', required: true, placeholder: 'Enter First Name', defaultValue: contact.first_name },
             { label: 'Last Name', name: 'last_name', type: 'textfield', required: true, placeholder: 'Enter Last Name', defaultValue: contact.last_name },
-            { label: 'Email', name: 'email', type: 'emailfield', required: true, placeholder: 'Enter Email', defaultValue: contact.email },
-            { label: 'Phone', name: 'phone', type: 'phonefield', required: true, placeholder: 'Enter Phone', defaultValue: contact.phone },
-            { label: 'Address', name: 'address', type: 'addressfield', required: true, placeholder: 'Enter Address', defaultValue: contact.address }
+            { label: 'Email', name: 'email', type: 'emailfield', placeholder: 'Enter Email', defaultValue: contact.email },
+            { label: 'Phone', name: 'phone', type: 'phonefield', placeholder: 'Enter Phone', defaultValue: contact.phone },
+            { label: 'Address', name: 'address', type: 'addressfield', placeholder: 'Enter Address', defaultValue: contact.address }
           ]
         }
       ]

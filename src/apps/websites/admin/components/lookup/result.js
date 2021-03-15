@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import { Button } from '@admin'
 import numeral from 'numeral'
 import React from 'react'
 
@@ -17,33 +16,35 @@ class Result extends React.Component {
   render() {
     const { domain } = this.props
     return (
-      <div className="websites-domain-lookup-result">
+      <div className={ this._getClass() } onClick={ this._handleChoose.bind(this, domain) }>
         <div className="websites-domain-lookup-result-name">
           <strong>{ domain.name }</strong><br />
           { numeral(domain.price).format('$0.00') }
         </div>
         <div className="websites-domain-lookup-result-status">
-          { domain.status === 'available' ?
-            <Button { ...this._getButton() } /> :
+          { domain.status !== 'available' &&
             <span>unavailable</span>
+          }
+        </div>
+        <div className="websites-domain-lookup-result-proceed">
+          { domain.status === 'available' &&
+            <i className="fa fa-chevron-right" />
           }
         </div>
       </div>
     )
   }
 
-  _getButton() {
+  _getClass() {
     const { domain } = this.props
-    return {
-      label: 'Register',
-      color: 'green',
-      size: 'tiny',
-      handler: this._handleChoose.bind(this, domain.name)
-    }
+    const classes = ['websites-domain-lookup-result']
+    if(domain.status !== 'available') classes.push('unavailable')
+    return classes.join(' ')
   }
 
-  _handleChoose(name) {
-    this.props.onChoose(name)
+  _handleChoose(domain) {
+    if(domain.status !== 'available') return
+    this.props.onChoose(domain.name)
   }
 
 }

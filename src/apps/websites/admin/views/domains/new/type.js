@@ -20,7 +20,6 @@ class Type extends React.Component {
     domain: {}
   }
 
-  _handleBack = this._handleBack.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
@@ -34,7 +33,7 @@ class Type extends React.Component {
       reference: node => this.form = node,
       showHeader: false,
       buttons: [
-        { label: 'Prev', color: 'red', handler: this._handleBack },
+        { label: 'Prev', disabled: true },
         { label: 'Next', color: 'red', handler: this._handleSubmit }
       ],
       onChange: this._handleChange,
@@ -47,10 +46,6 @@ class Type extends React.Component {
         }
       ]
     }
-  }
-
-  _handleBack() {
-    this.props.onBack()
   }
 
   _handleChange(domain) {

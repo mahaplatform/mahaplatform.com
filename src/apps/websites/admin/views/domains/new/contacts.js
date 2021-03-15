@@ -36,7 +36,7 @@ class Contacts extends React.Component {
       showHeader: false,
       buttons: [
         { label: 'Prev', color: 'red', handler: this._handleBack },
-        { label: 'Next', color: 'red', handler: this._handleSubmit }
+        { label: 'Save', color: 'red', handler: this._handleSubmit }
       ],
       onChange: this._handleChange,
       onSuccess: this._handleSuccess,

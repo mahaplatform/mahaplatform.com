@@ -24,7 +24,7 @@ class New extends React.Component {
 
   _getMultiForm() {
     return {
-      title: 'New Domain',
+      title: 'Add a Domain',
       action: '/api/admin/websites/domains',
       method: 'post',
       formatData: this._getData,
@@ -48,7 +48,9 @@ class New extends React.Component {
       ]
     }
     if(type === 'dns') {
-      return []
+      return [
+        { label: 'Name', component: Dns }
+      ]
     }
     return [
       { label: 'Name', component: Register },
@@ -60,8 +62,7 @@ class New extends React.Component {
     const data = formdata || {}
     return [
       { label: 'Type', component: Type },
-      ...this._getDetails(data.type),
-      { label: 'Confirmation', component: Confirmation }
+      ...this._getDetails(data.type)
     ]
   }
 

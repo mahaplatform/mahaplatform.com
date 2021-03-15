@@ -16,7 +16,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: 'No Domains',
       text: 'You have not yet created any domains',
       buttons: [
-        { label: 'Create Domain', modal: New }
+        { label: 'Add a Domain', modal: New }
       ]
     },
     entity: 'site',
@@ -25,7 +25,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   tasks: {
     icon: 'plus',
     items: [
-      { label: 'Add Domain', modal: New }
+      { label: 'Add a Domain', modal: New }
     ]
   }
 })

@@ -2,6 +2,9 @@ import { Loader, Message, Searchbox } from '@admin'
 import PropTypes from 'prop-types'
 import Result from './result'
 import React from 'react'
+import _ from 'lodash'
+
+const tlds = ['ac', 'academy', 'accountants', 'adult', 'agency', 'apartments', 'associates', 'auction', 'band', 'bargains', 'be', 'berlin', 'bike', 'bingo', 'biz', 'black', 'blue', 'boutique', 'builders', 'business', 'buzz', 'ca', 'cab', 'cafe', 'camera', 'camp', 'capital', 'cards', 'care', 'careers', 'cash', 'casino', 'catering', 'cc', 'center', 'ceo', 'ch', 'chat', 'cheap', 'church', 'city', 'cloud', 'claims', 'cleaning', 'click', 'clinic', 'clothing', 'club', 'co', 'co.nz', 'co.uk', 'co.za', 'coach', 'codes', 'coffee', 'college', 'com', 'com.au', 'com.mx', 'community', 'company', 'computer', 'condos', 'construction', 'consulting', 'contractors', 'cool', 'coupons', 'credit', 'creditcard', 'cruises', 'dance', 'dating', 'de', 'deals', 'delivery', 'democrat', 'dental', 'diamonds', 'digital', 'direct', 'directory', 'discount', 'dog', 'domains', 'education', 'email', 'energy', 'engineering', 'enterprises', 'equipment', 'es', 'estate', 'eu', 'events', 'exchange', 'expert', 'exposed', 'express', 'fail', 'farm', 'fi', 'finance', 'financial', 'fish', 'fitness', 'flights', 'florist', 'flowers', 'fm', 'football', 'forsale', 'foundation', 'fr', 'fund', 'furniture', 'futbol', 'fyi', 'gallery', 'gg', 'gift', 'gifts', 'glass', 'global', 'gold', 'golf', 'graphics', 'gratis', 'green', 'gripe', 'guide', 'guru', 'haus', 'healthcare', 'help', 'hiv', 'hockey', 'holdings', 'holiday', 'host', 'house', 'im', 'immo', 'immobilien', 'in', 'industries', 'info', 'ink', 'institute', 'insure', 'international', 'investments', 'io', 'irish', 'it', 'jewelry', 'jp', 'kaufen', 'kim', 'kitchen', 'kiwi', 'land', 'lease', 'legal', 'lgbt', 'life', 'lighting', 'limited', 'limo', 'link', 'live', 'loan', 'loans', 'lol', 'maison', 'management', 'marketing', 'mba', 'me', 'me.uk', 'media', 'memorial', 'mobi', 'moda', 'money', 'mortgage', 'movie', 'mx', 'name', 'net', 'net.au', 'net.nz', 'network', 'news', 'ninja', 'nl', 'onl', 'online', 'org', 'org.nz', 'org.uk', 'partners', 'parts', 'photo', 'photography', 'photos', 'pics', 'pictures', 'pink', 'pizza', 'place', 'plumbing', 'plus', 'poker', 'porn', 'pro', 'productions', 'properties', 'pub', 'qpon', 'recipes', 'red', 'reise', 'reisen', 'rentals', 'repair', 'report', 'republican', 'restaurant', 'reviews', 'rip', 'rocks', 'ruhr', 'run', 'sale', 'sarl', 'school', 'schule', 'se', 'services', 'sex', 'sexy', 'sh', 'shiksha', 'shoes', 'show', 'singles', 'soccer', 'social', 'solar', 'solutions', 'studio', 'style', 'sucks', 'supplies', 'supply', 'support', 'surgery', 'systems', 'tattoo', 'tax', 'taxi', 'team', 'technology', 'tennis', 'theater', 'tienda', 'tips', 'tires', 'today', 'tools', 'tours', 'town', 'toys', 'trade', 'training', 'tv', 'uk', 'university', 'uno', 'us', 'vacations', 'vc', 'vegas', 'ventures', 'vg', 'viajes', 'video', 'villas', 'vision', 'voyage', 'watch', 'website', 'wien', 'wiki', 'works', 'world', 'wtf', 'xyz', 'zone']
 
 class Lookup extends React.Component {
 
@@ -37,15 +40,13 @@ class Lookup extends React.Component {
               <div className="websites-domain-lookup-results-header">
                 Suggestions
               </div>
-              <div className="websites-domain-lookup-results-suggestions">
-                { result.suggestions.map((suggestion, index) => (
-                  <Result { ...this._getResult(suggestion) } key={`suggestion_${index}`} />
-                )) }
-              </div>
+              { result.suggestions.map((suggestion, index) => (
+                <Result { ...this._getResult(suggestion) } key={`suggestion_${index}`} />
+              )) }
             </div>
           }
           { status === 'loading' &&
-            <Loader />
+            <Loader { ...this._getLoader() } />
           }
           { status === 'pending' &&
             <Message { ...this._getMessage() } />
@@ -62,9 +63,17 @@ class Lookup extends React.Component {
     }
   }
 
+  _getLoader() {
+    return {
+      label: 'Checking domain availability'
+    }
+  }
+
   _getMessage() {
     return {
-      title: 'Lookup Domain'
+      icon: 'search',
+      title: 'Lookup Domain',
+      text: 'Enter a domain name above to check its availability'
     }
   }
 
@@ -121,6 +130,10 @@ class Lookup extends React.Component {
   }
 
   _handleType(name) {
+    const { status } = this.state
+    const tld = name.split('.').slice(1).join('.')
+    const valid =_.includes(tlds, tld)
+    if(!valid) return
     this.setState({ name })
   }
 

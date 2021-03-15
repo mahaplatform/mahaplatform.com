@@ -37,6 +37,7 @@ class Register extends React.Component {
   }
 
   _handleSuccess(name) {
+    console.log(name)
     this.props.onNext({ name })
   }
 
