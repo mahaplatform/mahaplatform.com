@@ -1,9 +1,3 @@
-import path from 'path'
-import env from './env'
+import environment from './env'
 
-const environment = async (args) => {
-  const root = path.resolve('.')
-  await env(root, args[0])
-}
-
-export default environment
+environment().then(process.exit)

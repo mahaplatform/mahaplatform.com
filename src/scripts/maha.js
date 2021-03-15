@@ -1,6 +1,6 @@
 #!/usr/bin/env npx babel-node --config-file=./src/core/utils/babel.config.js
 import '@core/services/environment'
-import { bootstrap } from '@core/services/bootstrap/bootstrap'
+import bootstrap from '@core/services/bootstrap/bootstrap'
 import db from '@core/services/db/db'
 import generate from './generate'
 import sandbox from '../sandbox'

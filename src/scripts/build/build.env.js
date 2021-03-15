@@ -1,6 +1,6 @@
 import '@core/services/environment'
 import log from '@core/utils/log'
-import env from '../env/env'
+import { env } from '../env/env'
 import path from 'path'
 
 const dist = path.resolve('dist')

@@ -1,4 +1,4 @@
-import '../../core/services/environment'
+import '@core/services/environment'
 import aws from 'aws-sdk'
 import path from 'path'
 import ejs from 'ejs'
@@ -10,14 +10,14 @@ aws.config.constructor({
   region: process.env.AWS_REGION || ''
 })
 
-const env = async (root, environment) => {
+export const env = async (root, environment) => {
 
   const client = new aws.SecretsManager({
     region: process.env.AWS_REGION
   })
 
   const secret = await client.getSecretValue({
-    SecretId: process.env.NODE_ENV
+    SecretId: environment
   }).promise()
 
   const envvars = JSON.parse(secret.SecretString)
@@ -38,4 +38,10 @@ const env = async (root, environment) => {
 
 }
 
-export default env
+const environment = async () => {  
+  const args = process.argv.slice(2)
+  const root = path.resolve('.')
+  await env(root, args[0])
+}
+
+export default environment
