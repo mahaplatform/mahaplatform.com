@@ -143,7 +143,7 @@ const collectObjects = async (pattern) => {
 }
 
 
-export const bootstrap = async () => {
+const bootstrap = async () => {
 
   await bootstrapApps()
 
@@ -171,3 +171,5 @@ export const bootstrap = async () => {
   ])
 
 }
+
+export default bootstrap

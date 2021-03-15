@@ -1,5 +1,5 @@
 import '@core/services/environment'
-import { bootstrap } from '@core/services/bootstrap/bootstrap'
+import bootstrap from '@core/services/bootstrap/bootstrap'
 import { watchDesktop, watchMobile } from './dev.platform'
 import { watchFrontend, watchSdk } from './dev.frontend'
 import watchBackend from './dev.backend'
