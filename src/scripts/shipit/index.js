@@ -7,7 +7,9 @@ import moment from 'moment'
 import path from 'path'
 import _ from 'lodash'
 
-const shipit = async (args) => {
+const shipit = async () => {
+
+  const args = process.argv.slice(2)
 
   const task = args[0]
 
@@ -359,4 +361,4 @@ const shipit = async (args) => {
 
 }
 
-export default shipit
+shipit().then(process.exit)
