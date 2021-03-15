@@ -12,7 +12,7 @@ const message = (req, res, twiml) => {
 
   if(assets) {
     assets.map(asset => {
-      msg.media(`${process.env.WEB_ASSET_HOST}/imagecache/w=350/${asset.key}`)
+      msg.media(`${process.env.ASSET_HOST}/imagecache/w=350/${asset.key}`)
     })
   }
 

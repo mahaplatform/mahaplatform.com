@@ -106,7 +106,7 @@ class HtmlField extends React.Component {
 
 const dependencies = {
   styles: [
-    { url: `${process.env.WEB_ASSET_CDN_HOST}/css/quill.snow.css` }
+    { url: `${process.env.ASSET_CDN_HOST}/css/quill.snow.css` }
   ]
 }
 

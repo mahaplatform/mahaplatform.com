@@ -73,8 +73,8 @@ const webpackConfig = {
         'PAYPAL_ENVIRONMENT': JSON.stringify(process.env.PAYPAL_ENVIRONMENT || ''),
         'ROLLBAR_CLIENT_TOKEN': JSON.stringify(process.env.ROLLBAR_CLIENT_TOKEN),
         'SERVER_PORT': JSON.stringify(process.env.SERVER_PORT),
-        'WEB_ASSET_CDN_HOST': JSON.stringify(process.env.WEB_ASSET_CDN_HOST),
-        'WEB_ASSET_HOST': JSON.stringify(process.env.WEB_ASSET_HOST),
+        'ASSET_CDN_HOST': JSON.stringify(process.env.ASSET_CDN_HOST),
+        'ASSET_HOST': JSON.stringify(process.env.ASSET_HOST),
         'WEB_HOST': JSON.stringify(process.env.WEB_HOST)
       }
     })
