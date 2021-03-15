@@ -8,10 +8,14 @@ export const fetch = (endpoint, defaults) => ({
   failure: 'FETCH_FAILURE'
 })
 
-export const submitForm = (method, endpoint, body) => ({
+export const submitForm = (method, endpoint, data) => ({
   type: 'API_REQUEST',
   method,
-  body,
+  ...method.toLowerCase() === 'get' ? {
+    query: data
+  } : {
+    body: data
+  },
   endpoint,
   request: 'SUBMIT_REQUEST',
   success: 'SUBMIT_SUCCESS',

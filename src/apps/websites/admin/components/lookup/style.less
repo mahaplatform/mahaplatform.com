@@ -1,0 +1,50 @@
+.websites-domain-lookup {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.websites-domain-lookup-header {
+  border-bottom: 1px solid fadeout(@black, 90);
+}
+.websites-domain-lookup-body {
+  display: flex;
+  flex: 1;
+}
+.websites-domain-lookup-results {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.websites-domain-lookup-results-suggestions {
+  .scrollable();
+  flex: 1;
+}
+.websites-domain-lookup-results-header {
+  border-bottom: 1px solid fadeout(@black, 90);
+  background-color: lighten(@black, 95);
+  color: fadeout(@black, 70);
+  font-weight: bold;
+  padding: 0.4em 0.8em;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 0.8em;
+}
+.websites-domain-lookup-result {
+  border-bottom: 1px solid fadeout(@black, 90);
+  display: flex;
+}
+.websites-domain-lookup-result-name {
+  padding: 0.8em 0 0.8em 0.8em;
+  flex: 1;
+}
+.websites-domain-lookup-result-status {
+  padding: 0.8em;
+  display: flex;
+  div.ui.button, span {
+    display: inline-block;
+    margin: auto;
+  }
+  span {
+    color: @red;
+  }
+}

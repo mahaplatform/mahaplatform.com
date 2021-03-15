@@ -18,6 +18,7 @@ class MultiForm extends React.Component {
     method: PropTypes.string,
     status: PropTypes.string,
     step: PropTypes.number,
+    steps: PropTypes.array,
     title: PropTypes.string,
     props: PropTypes.object,
     onCancel: PropTypes.func,
@@ -57,7 +58,6 @@ class MultiForm extends React.Component {
   componentDidUpdate(prevProps) {
     const { formdata, status } = this.props
     if(status !== prevProps.status && status === 'success') {
-      console.log('here')
       this.props.onSuccess(formdata)
     }
   }
@@ -72,17 +72,17 @@ class MultiForm extends React.Component {
   }
 
   _getMain() {
-    const { action, endpoint, formdata, formatData, getSteps, method, props, status, step, title, onCancel, onSave, onSetStep, onSuccess, onUpdateData } = this.props
+    const { action, endpoint, formdata, formatData, method, props, status, step, steps, title, onCancel, onSave, onSetStep, onSuccess, onUpdateData } = this.props
     return {
       action,
       endpoint,
       formdata,
       formatData,
-      getSteps,
       method,
       props,
       status,
       step,
+      steps,
       title,
       onCancel,
       onSave,

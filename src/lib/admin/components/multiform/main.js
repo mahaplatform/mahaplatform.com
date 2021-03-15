@@ -19,11 +19,11 @@ class Main extends React.Component {
     endpoint: PropTypes.string,
     formdata: PropTypes.object,
     formatData: PropTypes.func,
-    getSteps: PropTypes.func,
     method: PropTypes.string,
     props: PropTypes.object,
     status: PropTypes.string,
     step: PropTypes.number,
+    steps: PropTypes.array,
     title: PropTypes.string,
     onCancel: PropTypes.func,
     onSave: PropTypes.func,
@@ -69,8 +69,7 @@ class Main extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { formdata, step } = this.props
-    const steps = this.props.getSteps(formdata)
+    const { step, steps } = this.props
     if(step > prevProps.step ) {
       this._handlePush(steps[step].component, this._getStep.bind(this))
     } else if(step < prevProps.step ) {
@@ -111,8 +110,7 @@ class Main extends React.Component {
   }
 
   _getSteps() {
-    const { formdata, step } = this.props
-    const steps = this.props.getSteps(formdata)
+    const { step, steps } = this.props
     return {
       completable: false,
       steps: steps.map(step => {
@@ -131,12 +129,12 @@ class Main extends React.Component {
     this.props.onCancel()
   }
 
-  _handleChange(formdata) {
-    const { getSteps } = this.props
-    this.setState({
-      formdata,
-      steps: getSteps(formdata)
-    })
+  _handleChange(data) {
+    const { step, formdata } = this.props
+    this.props.onUpdateData({
+      ...formdata,
+      ...data
+    }, step)
   }
 
   _handleNext(data) {

@@ -1,0 +1,79 @@
+import Confirmation from './confirmation'
+import { MultiForm } from '@admin'
+import PropTypes from 'prop-types'
+import Register from './register'
+import Transfer from './transfer'
+import Contacts from './contacts'
+import Type from './type'
+import React from 'react'
+import Dns from './dns'
+
+class New extends React.Component {
+
+  static contextTypes = {
+    modal: PropTypes.object,
+    router: PropTypes.object
+  }
+
+  _handleCancel = this._handleCancel.bind(this)
+  _handleSuccess = this._handleSuccess.bind(this)
+
+  render() {
+    return <MultiForm { ...this._getMultiForm() } />
+  }
+
+  _getMultiForm() {
+    return {
+      title: 'New Domain',
+      action: '/api/admin/websites/domains',
+      method: 'post',
+      formatData: this._getData,
+      getSteps: this._getSteps.bind(this),
+      onCancel: this._handleCancel,
+      onSuccess: this._handleSuccess
+    }
+  }
+
+  _getData(domain) {
+    return {
+      ...domain
+    }
+  }
+
+  _getDetails(type) {
+    if(type === 'transfer') {
+      return [
+        { label: 'Name', component: Transfer },
+        { label: 'Contacts', component: Contacts }
+      ]
+    }
+    if(type === 'dns') {
+      return []
+    }
+    return [
+      { label: 'Name', component: Register },
+      { label: 'Contacts', component: Contacts }
+    ]
+  }
+
+  _getSteps(formdata) {
+    const data = formdata || {}
+    return [
+      { label: 'Type', component: Type },
+      ...this._getDetails(data.type),
+      { label: 'Confirmation', component: Confirmation }
+    ]
+  }
+
+  _handleCancel() {
+    this.context.modal.close()
+  }
+
+  _handleSuccess(domain) {
+    this.context.router.history.push(`/websites/domains/${domain.id}`)
+    this.context.modal.close()
+  }
+
+}
+
+export default New
