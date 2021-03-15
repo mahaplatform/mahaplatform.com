@@ -33,7 +33,7 @@ const renderTemplate = async (req, options) => {
     _,
     team: req.team ? req.team.toJSON() : null,
     maha: options.maha !== undefined ? options.maha : true,
-    host: process.env.WEB_HOST,
+    host: process.env.ADMIN_HOST,
     ...options.data || {}
   }
 

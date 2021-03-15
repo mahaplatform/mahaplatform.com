@@ -33,7 +33,7 @@ const lockoutRoute = async (req, res) => {
 
   await sendAlert(req, account, 'maha:lockout', {
     first_name: account.get('first_name'),
-    reset_url: `${process.env.WEB_HOST}/reset/${token}`
+    reset_url: `${process.env.ADMIN_HOST}/reset/${token}`
   })
 
   await res.status(200).respond(true)

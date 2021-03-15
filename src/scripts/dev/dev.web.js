@@ -51,25 +51,25 @@ const watchCloudFront = async () => {
 
   server.use('/api', createProxyMiddleware({
     secure: false,
-    target: process.env.WEB_HOST,
+    target: process.env.ADMIN_HOST,
     changeOrigin: true
   }))
 
   server.use('/imagecache', createProxyMiddleware({
     secure: false,
-    target: process.env.WEB_HOST,
+    target: process.env.ADMIN_HOST,
     changeOrigin: true
   }))
 
   server.use('/_next*', createProxyMiddleware({
     secure: false,
-    target: process.env.WEB_HOST.replace(8080,nextPort),
+    target: process.env.ADMIN_HOST.replace(8080,nextPort),
     changeOrigin: true
   }))
 
   server.use('*', createProxyMiddleware({
     secure: false,
-    target: process.env.WEB_HOST.replace(8080,nextPort),
+    target: process.env.ADMIN_HOST.replace(8080,nextPort),
     pathRewrite: (pathname, req) => {
       return `/websites/ocyg5ng5dz${pathname}`
     },

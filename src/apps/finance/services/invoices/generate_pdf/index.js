@@ -14,7 +14,7 @@ const generatePDF = async (req, { invoice }) => {
   console.log('generate', invoice.get('id'))
 
   const html = ejs.render(template, {
-    host: process.env.WEB_HOST,
+    host: process.env.ADMIN_HOST,
     pluralize,
     numeral,
     moment,

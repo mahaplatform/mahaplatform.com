@@ -18,7 +18,7 @@ const Registration = new Model(knex, {
   virtuals: {
 
     url() {
-      return `${process.env.WEB_HOST}/admin/events/events/${this.get('event_id')}/registrations/${this.get('id')}`
+      return `${process.env.ADMIN_HOST}/admin/events/events/${this.get('event_id')}/registrations/${this.get('id')}`
     }
 
   },

@@ -26,7 +26,7 @@ class List extends React.Component {
     const { token } = this.props
     const timestamp = moment().format('x')
 
-    host.openWindow(`${process.env.WEB_HOST}/admin/oauth/qualtrics/authorize?type=surveys&timestamp=${timestamp}&token=${token}`)
+    host.openWindow(`${process.env.ADMIN_HOST}/admin/oauth/qualtrics/authorize?type=surveys&timestamp=${timestamp}&token=${token}`)
   }
 
 }

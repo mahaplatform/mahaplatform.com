@@ -24,7 +24,7 @@ const getTasks = ({ event }) => {
       website by pasting this code into your html.</p>
     ),
     code: `<div data-event="${event.code}"></div>
-<script src="${process.env.WEB_HOST}/maha.js"></script>
+<script src="${process.env.ADMIN_HOST}/maha.js"></script>
 <script>
 new Maha.Events.Button({
   code: '${event.code}',

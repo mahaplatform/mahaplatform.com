@@ -5,7 +5,7 @@ const authorize = async (req, { scope, state }) => {
   const query = qs.stringify({
     response_type: 'code',
     client_id: process.env.CONSTANTCONTACT_API_KEY,
-    redirect_uri: `${process.env.WEB_HOST}/admin/oauth/constantcontact/token`,
+    redirect_uri: `${process.env.ADMIN_HOST}/admin/oauth/constantcontact/token`,
     scope: 'account_read+contact_data+campaign_data',
     state
   })

@@ -6,7 +6,7 @@ const root = path.resolve(__dirname,'..','..','..','..','..','public','apps')
 
 export const readFile = async (filename) => {
   if(process.env.NODE_ENV === 'development') {
-    const response = await request.get(`${process.env.WEB_HOST}/apps/${filename}`, {
+    const response = await request.get(`${process.env.ADMIN_HOST}/apps/${filename}`, {
       resolveWithFullResponse: true,
       encoding: null,
       rejectUnauthorized: false,

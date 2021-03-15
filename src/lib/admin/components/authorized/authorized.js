@@ -70,7 +70,7 @@ class Authorized extends React.Component {
       text: `In order to access ${label}, you must authorize the Maha Platform to access your account`,
       button: {
         label: 'Authorize',
-        link: `${process.env.WEB_HOST}/admin/oauth/${service}/authorize?type=${type}&token=${token}`
+        link: `${process.env.ADMIN_HOST}/admin/oauth/${service}/authorize?type=${type}&token=${token}`
       }
     }
   }

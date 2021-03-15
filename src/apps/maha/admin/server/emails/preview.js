@@ -30,12 +30,12 @@ const previewRoute = async (req, res) => {
   const html = await renderEmail(req, {
     config: object.get('config'),
     data: {
-      host: process.env.WEB_HOST
+      host: process.env.ADMIN_HOST
     }
   })
 
   const inlined = await inline(html, {
-    url: process.env.WEB_HOST,
+    url: process.env.ADMIN_HOST,
     preserveMediaQueries: true
   })
 

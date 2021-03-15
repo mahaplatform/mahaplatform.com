@@ -20,7 +20,7 @@ const getOrderTokens = async (req, { order_id }) => {
   return {
     ...tokens,
     ...payment_tokens,
-    maha_url: `${process.env.WEB_HOST}${tokens.path}`
+    maha_url: `${process.env.ADMIN_HOST}${tokens.path}`
   }
 
 }

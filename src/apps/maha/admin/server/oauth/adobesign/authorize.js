@@ -2,7 +2,7 @@ import qs from 'qs'
 
 const authorize = async (req, { scope, state }) => {
 
-  const host = process.env.WEB_HOST
+  const host = process.env.ADMIN_HOST
 
   const redirect_uri = `${host}/admin/oauth/adobesign/token`
 

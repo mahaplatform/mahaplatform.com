@@ -97,7 +97,7 @@ const createDistibution = async (req, params) => {
             }
           }, {
             Id: `${code}-next`,
-            DomainName: 'web.mahaplatform.com',
+            DomainName: process.env.WEB_DOMAIN,
             CustomOriginConfig: {
               HTTPPort: '80',
               HTTPSPort: '443',
@@ -105,7 +105,7 @@ const createDistibution = async (req, params) => {
             }
           }, {
             Id: `${code}-web`,
-            DomainName: 'web.mahaplatform.com',
+            DomainName: process.env.WEB_DOMAIN,
             OriginPath: `/websites/${code}`,
             CustomOriginConfig: {
               HTTPPort: '80',

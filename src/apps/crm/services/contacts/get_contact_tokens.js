@@ -6,8 +6,8 @@ const getContactTokens = async(req, { contact_id }) => {
 
   return {
     ...tokens.tokens,
-    maha_url: `${process.env.WEB_HOST}${tokens.tokens.path}`,
-    url: `${process.env.WEB_HOST}${tokens.tokens.path}`
+    maha_url: `${process.env.ADMIN_HOST}${tokens.tokens.path}`,
+    url: `${process.env.ADMIN_HOST}${tokens.tokens.path}`
   }
 
 }

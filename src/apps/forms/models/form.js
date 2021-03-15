@@ -34,11 +34,11 @@ const Form = new Model(knex, {
 
     path() {
       return this.get('permalink') ? `/forms/${this.get('permalink')}` : `/forms/${this.get('code')}`
-      return `${process.env.WEB_HOST}${path}`
+      return `${process.env.ADMIN_HOST}${path}`
     },
 
     url() {
-      return `${process.env.WEB_HOST}${this.get('path')}`
+      return `${process.env.ADMIN_HOST}${this.get('path')}`
     },
 
     is_open() {

@@ -50,13 +50,13 @@ const sendEmail = async (req, params) => {
     contact: contact.get('contact_tokens'),
     program: contact.get('program_tokens'),
     email: {
-      facebook_link: `${process.env.WEB_HOST}/so/fb/${code}`,
-      twitter_link: `${process.env.WEB_HOST}/so/tw/${code}`,
-      forward_link: `${process.env.WEB_HOST}/fo/${code}`,
-      linkedin_link: `${process.env.WEB_HOST}/so/li/${code}`,
-      pinterest_link: `${process.env.WEB_HOST}/so/pi/${code}`,
-      web_link: `${process.env.WEB_HOST}/wv/${code}`,
-      preferences_link: `${process.env.WEB_HOST}/crm/p${code}${email_address.get('code')}`
+      facebook_link: `${process.env.ADMIN_HOST}/so/fb/${code}`,
+      twitter_link: `${process.env.ADMIN_HOST}/so/tw/${code}`,
+      forward_link: `${process.env.ADMIN_HOST}/fo/${code}`,
+      linkedin_link: `${process.env.ADMIN_HOST}/so/li/${code}`,
+      pinterest_link: `${process.env.ADMIN_HOST}/so/pi/${code}`,
+      web_link: `${process.env.ADMIN_HOST}/wv/${code}`,
+      preferences_link: `${process.env.ADMIN_HOST}/crm/p${code}${email_address.get('code')}`
     }
   }
 

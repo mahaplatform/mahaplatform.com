@@ -16,7 +16,7 @@ const getProfile = async ({ access_token }) => {
 
 const token = async ({ code }, scope) => {
 
-  const host = process.env.WEB_HOST
+  const host = process.env.ADMIN_HOST
 
   const redirect_uri = `${host}/admin/oauth/qualtrics/token`
 

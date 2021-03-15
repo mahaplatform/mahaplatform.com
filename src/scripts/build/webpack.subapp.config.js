@@ -96,7 +96,7 @@ const webpackConfig = (app, name, root, port) => ({
         'RECAPTCHA_SITE_KEY': JSON.stringify(process.env.RECAPTCHA_SITE_KEY || ''),
         'ROLLBAR_CLIENT_TOKEN': JSON.stringify(process.env.ROLLBAR_CLIENT_TOKEN),
         'ASSET_CDN_HOST': JSON.stringify(process.env.ASSET_CDN_HOST),
-        'WEB_HOST': JSON.stringify(process.env.WEB_HOST)
+        'ADMIN_HOST': JSON.stringify(process.env.ADMIN_HOST)
       }
     }),
     new webpack.SourceMapDevToolPlugin({

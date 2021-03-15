@@ -65,7 +65,7 @@ class Store extends Emitter {
     const stylesheet = document.createElement('link')
     stylesheet.rel = 'stylesheet'
     stylesheet.type = 'text/css'
-    stylesheet.href = `${process.env.WEB_HOST}/maha.css`
+    stylesheet.href = `${process.env.ADMIN_HOST}/maha.css`
     document.head.appendChild(stylesheet)
   }
 

@@ -35,7 +35,7 @@ const encodeEmail = async(req, { code, header, html }) => {
 
   if(header) await parsed(header).prependTo('body')
 
-  await parsed(`<img src="${process.env.WEB_HOST}/op/${code}" alt="spacer.gif" />`).appendTo('body')
+  await parsed(`<img src="${process.env.ADMIN_HOST}/op/${code}" alt="spacer.gif" />`).appendTo('body')
 
   const links = await parsed('a').map((i, elem) => ({
     text: parsed(elem).text().trim(),
@@ -55,7 +55,7 @@ const encodeEmail = async(req, { code, header, html }) => {
       url: link.url
     })
 
-    return rendered.replace(`href="${link.url}"`, `href="${process.env.WEB_HOST}/li/${code}${emailLink.get('code')}"`)
+    return rendered.replace(`href="${link.url}"`, `href="${process.env.ADMIN_HOST}/li/${code}${emailLink.get('code')}"`)
 
   }, decoded)
 

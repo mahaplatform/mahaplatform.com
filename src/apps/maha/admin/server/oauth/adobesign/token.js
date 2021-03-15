@@ -2,7 +2,7 @@ import request from 'request-promise'
 
 const token = async ({ api_access_point, code }, scope) => {
 
-  const host = process.env.WEB_HOST
+  const host = process.env.ADMIN_HOST
 
   const redirect_uri = `${host}/admin/oauth/adobesign/token`
 

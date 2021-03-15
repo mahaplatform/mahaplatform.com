@@ -84,7 +84,7 @@ class CodeField extends React.Component {
 
 const dependencies = {
   scripts: [
-    { url: `${process.env.WEB_HOST}/js/ace.min.js`, check: 'ace' }
+    { url: `${process.env.ADMIN_HOST}/js/ace.min.js`, check: 'ace' }
   ]
 }
 

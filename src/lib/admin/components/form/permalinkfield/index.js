@@ -84,7 +84,7 @@ class PermalinkField extends React.Component {
 
   _getHost() {
     const { team } = this.context.admin
-    return process.env.WEB_HOST.replace('mahaplatform', `${team.subdomain}.mahaplatform`)
+    return process.env.ADMIN_HOST.replace('mahaplatform', `${team.subdomain}.mahaplatform`)
   }
 
   _getInput() {

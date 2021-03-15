@@ -14,8 +14,8 @@ const Store = ({ errorCode, store, program, team }) => {
         <link href={`${process.env.ASSET_CDN_HOST}/css/semantic.min.css`} rel="stylesheet" />
         <link href={`${process.env.ASSET_CDN_HOST}/css/font-awesome.min.css`} rel="stylesheet" />
         <title>{ store.title }</title>
-        <link rel="apple-touch-icon" type="image/jpeg" sizes="180x180" href={`${process.env.WEB_HOST}/imagecache/fit=cover&w=180&h=180${program.logo || team.logo}`} />
-        <link rel="shortcut icon" type="image/jpeg" sizes="180x180" href={`${process.env.WEB_HOST}/imagecache/fit=cover&w=180&h=180${program.logo || team.logo}`} />
+        <link rel="apple-touch-icon" type="image/jpeg" sizes="180x180" href={`${process.env.ADMIN_HOST}/imagecache/fit=cover&w=180&h=180${program.logo || team.logo}`} />
+        <link rel="shortcut icon" type="image/jpeg" sizes="180x180" href={`${process.env.ADMIN_HOST}/imagecache/fit=cover&w=180&h=180${program.logo || team.logo}`} />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta property="og:title" content={ store.title } />
         <meta property="og:type" content="article" />

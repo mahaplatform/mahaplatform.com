@@ -43,11 +43,11 @@ const Event = new Model(knex, {
     },
 
     url() {
-      return `${process.env.WEB_HOST}${this.get('path')}`
+      return `${process.env.ADMIN_HOST}${this.get('path')}`
     },
 
     ics() {
-      return `${process.env.WEB_HOST}/events/${this.get('code')}.ics`
+      return `${process.env.ADMIN_HOST}/events/${this.get('code')}.ics`
     }
 
   },

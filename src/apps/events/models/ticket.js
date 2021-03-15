@@ -15,7 +15,7 @@ const Ticket = new Model(knex, {
   virtuals: {
 
     eticket() {
-      return `${process.env.WEB_HOST}/events/tickets/${this.get('code')}`
+      return `${process.env.ADMIN_HOST}/events/tickets/${this.get('code')}`
     }
 
   },

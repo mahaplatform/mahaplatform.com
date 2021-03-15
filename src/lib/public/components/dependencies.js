@@ -49,7 +49,7 @@ const Creator = (dependencies) => (Component) => {
     }
 
     _getNormalized(path) {
-      return path[0] === '/' ? `${process.env.WEB_HOST}${path}` : path
+      return path[0] === '/' ? `${process.env.ADMIN_HOST}${path}` : path
     }
 
     _handleCheck(load = false) {

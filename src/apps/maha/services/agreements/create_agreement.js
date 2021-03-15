@@ -64,7 +64,7 @@ const createAgreement = async (req, { profile, asset, email }) => {
       },
       postSignOption: {
         redirectDelay: 0,
-        redirectUrl: `${process.env.WEB_HOST}/adobesign/complete`
+        redirectUrl: `${process.env.ADMIN_HOST}/adobesign/complete`
       },
       externalId: {
         id: agreement.get('id')

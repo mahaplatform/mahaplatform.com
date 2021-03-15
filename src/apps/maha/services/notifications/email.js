@@ -12,7 +12,7 @@ export const sendNotificationEmail = async (req, { digest }) => {
 
   const content = ejs.render(messageTemplate, {
     account: digest.account,
-    host: process.env.WEB_HOST,
+    host: process.env.ADMIN_HOST,
     teams: digest.teams,
     moment
   })
@@ -20,7 +20,7 @@ export const sendNotificationEmail = async (req, { digest }) => {
   const subject = 'Here\'s what you\'ve missed!'
 
   const html = ejs.render(envelopeTemplate, {
-    host: process.env.WEB_HOST,
+    host: process.env.ADMIN_HOST,
     maha: true,
     content,
     subject,

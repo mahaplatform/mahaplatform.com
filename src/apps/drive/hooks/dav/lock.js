@@ -48,7 +48,7 @@ const lockRoute = async (req, res) => {
             { 'D:href': `urn:uuid:${file.get('lock_token')}` }
           ] },
           { 'D:lockroot': [
-            { 'D:href': `${process.env.WEB_HOST}/${req.originalUrl}` }
+            { 'D:href': `${process.env.ADMIN_HOST}/${req.originalUrl}` }
           ] },
           { 'D:owner': [owner] },
           { 'D:timeout': 'Second-3600' }

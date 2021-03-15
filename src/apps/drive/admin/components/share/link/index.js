@@ -18,7 +18,7 @@ class Link extends React.Component {
 
   render() {
     const { item } = this.props
-    const link = process.env.WEB_HOST + '/drive/share/' + item.code
+    const link = process.env.ADMIN_HOST + '/drive/share/' + item.code
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="drive-share-header">

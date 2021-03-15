@@ -21,7 +21,7 @@ module.exports = withLess({
       new webpack.DefinePlugin({
         'process.env': {
           'ASSET_CDN_HOST': JSON.stringify(process.env.ASSET_CDN_HOST),
-          'WEB_HOST': JSON.stringify(process.env.WEB_HOST)
+          'ADMIN_HOST': JSON.stringify(process.env.ADMIN_HOST)
         }
       })
     )
