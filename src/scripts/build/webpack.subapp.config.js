@@ -70,7 +70,7 @@ const webpackConfig = (app, name, root, port) => ({
     } : {
       filename: path.join('js', '[name].js')
     },
-    publicPath: `${process.env.WEB_ASSET_CDN_HOST}/apps/${app}/${name}/`
+    publicPath: `${process.env.ASSET_CDN_HOST}/apps/${app}/${name}/`
   },
   plugins: [
     gitRevisionPlugin,
@@ -95,12 +95,12 @@ const webpackConfig = (app, name, root, port) => ({
         'PAYPAL_ENVIRONMENT': JSON.stringify(process.env.PAYPAL_ENVIRONMENT || ''),
         'RECAPTCHA_SITE_KEY': JSON.stringify(process.env.RECAPTCHA_SITE_KEY || ''),
         'ROLLBAR_CLIENT_TOKEN': JSON.stringify(process.env.ROLLBAR_CLIENT_TOKEN),
-        'WEB_ASSET_CDN_HOST': JSON.stringify(process.env.WEB_ASSET_CDN_HOST),
+        'ASSET_CDN_HOST': JSON.stringify(process.env.ASSET_CDN_HOST),
         'WEB_HOST': JSON.stringify(process.env.WEB_HOST)
       }
     }),
     new webpack.SourceMapDevToolPlugin({
-      publicPath: `${process.env.WEB_ASSET_CDN_HOST}/apps/${app}/${name}/`,
+      publicPath: `${process.env.ASSET_CDN_HOST}/apps/${app}/${name}/`,
       filename: '[file].map',
       columns: true
     })

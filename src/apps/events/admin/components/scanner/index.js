@@ -173,7 +173,7 @@ class Scanner extends React.Component {
 
 const dependencies = {
   scripts: [
-    { url: `${process.env.WEB_ASSET_CDN_HOST}/js/jsqr.min.js`, check: 'jsQR' }
+    { url: `${process.env.ASSET_CDN_HOST}/js/jsqr.min.js`, check: 'jsQR' }
   ]
 }
 
