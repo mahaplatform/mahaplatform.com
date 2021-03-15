@@ -10,7 +10,7 @@ aws.config.constructor({
   region: process.env.AWS_REGION || ''
 })
 
-export const env = async (root, environment) => {
+const env = async (root, environment) => {
 
   const client = new aws.SecretsManager({
     region: process.env.AWS_REGION
@@ -38,10 +38,4 @@ export const env = async (root, environment) => {
 
 }
 
-const environment = async () => {  
-  const args = process.argv.slice(2)
-  const root = path.resolve('.')
-  await env(root, args[0])
-}
-
-export default environment
+export default env

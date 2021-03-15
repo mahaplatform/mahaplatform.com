@@ -361,4 +361,4 @@ const shipit = async () => {
 
 }
 
-shipit().then(process.exit)
+shipit()
