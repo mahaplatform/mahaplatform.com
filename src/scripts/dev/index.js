@@ -3,10 +3,12 @@ import bootstrap from '@core/services/bootstrap/bootstrap'
 import { watchDesktop, watchMobile } from './dev.platform'
 import { watchFrontend, watchSdk } from './dev.frontend'
 import watchBackend from './dev.backend'
+import log from '@core/utils/log'
 import watchWeb from './dev.web'
 import ngrok from 'ngrok'
 
 const connectNgrok = async () => {
+  log('info', 'ngrok', 'Loading ngrok')
   await ngrok.connect({
     authtoken: process.env.NGROK_AUTHTOKEN,
     addr: process.env.SERVER_PORT,

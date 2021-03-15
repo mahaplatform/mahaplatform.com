@@ -1,13 +1,10 @@
 #!/usr/bin/env npx babel-node --config-file=./src/core/utils/babel.config.js
 import '@core/services/environment'
-import bootstrap from '@core/services/bootstrap/bootstrap'
-import db from '@core/services/db/db'
-import generate from './generate'
-import sandbox from '../sandbox'
-import assets from './assets'
-import start from './start'
-import env from './env'
-import dev from './dev'
+
+const run = async (filepath, args) => {
+  const script = require(filepath).default
+  await script(args)
+}
 
 const processor = async () => {
 
@@ -16,14 +13,13 @@ const processor = async () => {
   const command = args[0] || 'console'
   const cargs = args.slice(1)
 
-  if(command === 'assets') await assets(cargs)
-  if(command === 'bootstrap') await bootstrap(cargs)
-  if(command === 'dev') await dev(cargs)
-  if(command === 'env') await env(cargs)
-  if(command === 'g') await generate(cargs)
-  if(command === 'knex') await db(cargs)
-  if(command === 'sandbox') await sandbox(cargs)
-  if(command === 'start') await start(cargs)
+  if(command === 'assets') await run('./assets', cargs)
+  if(command === 'bootstrap') await run('./bootstrap', cargs)
+  if(command === 'dev') await run('./dev', cargs)
+  if(command === 'g') await run('./generate', cargs)
+  if(command === 'knex') await run('./knex', cargs)
+  // if(command === 'sandbox') await sandbox(cargs)
+  if(command === 'start') await run('./start', cargs)
 
 }
 
