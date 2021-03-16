@@ -2700,18 +2700,24 @@ const schema = {
       table.timestamp('updated_at')
     })
 
+    await knex.schema.createTable('websites_certificate_domains', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('certificate_id').unsigned()
+      table.integer('domain_id').unsigned()
+      table.USER-DEFINED('status')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('websites_certificates', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('website_id').unsigned()
       table.string('aws_certificate_arn', 255)
+      table.USER-DEFINED('status')
       table.timestamp('created_at')
       table.timestamp('updated_at')
-    })
-
-    await knex.schema.createTable('websites_certificates_domains', (table) => {
-      table.integer('certificate_id').unsigned()
-      table.integer('domain_id').unsigned()
     })
 
     await knex.schema.createTable('websites_domains', (table) => {
@@ -2725,18 +2731,17 @@ const schema = {
       table.string('aws_zone_id', 255)
       table.boolean('auto_renew')
       table.boolean('auth_code')
-      table.integer('duration')
       table.jsonb('admin_contact')
       table.jsonb('registrant_contact')
       table.jsonb('tech_contact')
-      table.string('aws_registration_id', 255)
-      table.string('aws_transfer_id', 255)
       table.USER-DEFINED('type')
       table.USER-DEFINED('registration_status')
       table.USER-DEFINED('transfer_status')
       table.USER-DEFINED('dns_status')
       table.USER-DEFINED('status')
       table.timestamp('expires_on')
+      table.string('aws_operation_id', 255)
+      table.USER-DEFINED('registrant_status')
     })
 
     await knex.schema.createTable('websites_pages', (table) => {
@@ -2778,6 +2783,7 @@ const schema = {
       table.integer('notfound_id').unsigned()
       table.string('aws_cloudfront_id', 255)
       table.string('aws_cloudfront_subdomain', 255)
+      table.string('slug', 255)
     })
 
 
@@ -4005,7 +4011,8 @@ const schema = {
       table.foreign('website_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('websites_certificates_domains', table => {
+    await knex.schema.table('websites_certificate_domains', table => {
+      table.foreign('team_id').references('maha_teams.id')
       table.foreign('certificate_id').references('websites_certificates.id')
       table.foreign('domain_id').references('websites_domains.id')
     })

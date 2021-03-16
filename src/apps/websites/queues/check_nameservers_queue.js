@@ -1,4 +1,4 @@
-import { confirmNameservers } from '@apps/websites/services/domains'
+import { checkNameservers } from '@apps/websites/services/domains'
 import Domain from '@apps/websites/models/domain'
 import Queue from '@core/objects/queue'
 
@@ -10,16 +10,16 @@ const processor = async (req, job) => {
     transacting: req.trx
   })
 
-  await confirmNameservers(req, {
+  await checkNameservers(req, {
     domain
   })
 
 }
 
-const ConfirmNameserversQueue = new Queue({
+const CheckNameserversQueue = new Queue({
   queue: 'worker',
-  name: 'confirm_nameservers',
+  name: 'check_nameservers',
   processor
 })
 
-export default ConfirmNameserversQueue
+export default CheckNameserversQueue

@@ -41,7 +41,7 @@ class Type extends React.Component {
       sections: [
         {
           fields: [
-            { name: 'type', type: 'radiogroup', deselectable: false, options: ['register','transfer','dns'], format: DomainTypeToken, defaultValue: 'register' }
+            { name: 'type', type: 'radiogroup', deselectable: false, options: ['registration','transfer','dns'], format: DomainTypeToken, defaultValue: 'registration' }
           ]
         }
       ]

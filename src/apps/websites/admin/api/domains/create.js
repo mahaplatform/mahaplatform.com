@@ -8,7 +8,11 @@ const createRoute = async (req, res) => {
 
   const domain = await createDomain(req, {
     name: req.body.name,
-    type: req.body.type
+    type: req.body.type,
+    auth_code: req.body.auth_code,
+    registrant_contact: req.body.registrant_contact,
+    admin_contact: req.body.admin_contact,
+    tech_contact: req.body.tech_contact
   })
 
   await audit(req, {

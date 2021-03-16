@@ -21,7 +21,7 @@ const processor = async (req, job) => {
   })
 
   await domain.save({
-    aws_transfer_id: transfer.aws_transfer_id,
+    aws_operation_id: transfer.aws_operation_id,
     transfer_status: 'inprogress'
   }, {
     transacting: req.trx,

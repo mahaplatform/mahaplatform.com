@@ -1,4 +1,4 @@
-import { confirmNameservers } from '@apps/websites/services/domains'
+import { checkNameservers } from '@apps/websites/services/domains'
 import Domain from '@apps/websites/models/domain'
 
 const dnsRoute = async (req, res) => {
@@ -15,10 +15,10 @@ const dnsRoute = async (req, res) => {
     message: 'Unable to load domain'
   })
 
-  await confirmNameservers(req, {
+  await checkNameservers(req, {
     domain
   })
-  
+
   await res.status(200).respond(true)
 
 }

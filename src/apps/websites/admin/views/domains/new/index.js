@@ -1,4 +1,3 @@
-import Confirmation from './confirmation'
 import { MultiForm } from '@admin'
 import PropTypes from 'prop-types'
 import Register from './register'
@@ -35,9 +34,17 @@ class New extends React.Component {
   }
 
   _getData(domain) {
-    console.log('save', domain)
     return {
-      ...domain
+      name: domain.name,
+      type: domain.type,
+      ...domain.type !== 'dns' ? {
+        registrant_contact: domain.registrant_contact,
+        admin_contact: domain.admin_strategy === 'custom' ? domain.admin_contact : domain.registrant_contact,
+        tech_contact: domain.tech_strategy === 'custom' ? domain.tech_contact : domain.registrant_contact
+      } : {},
+      ...domain.type !== 'transfer' ? {
+        auth_code: domain.auth_code
+      } : {}
     }
   }
 

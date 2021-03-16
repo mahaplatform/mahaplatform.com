@@ -11,21 +11,14 @@ const CreateCertificate = {
       table.integer('website_id').unsigned()
       table.foreign('website_id').references('maha_teams.id')
       table.string('aws_certificate_arn')
+      table.enum('status', ['pending','success','failed'], { useNative: true, enumName: 'websites_certificate_statuses' })
       table.timestamps()
-    })
-
-    await knex.schema.createTable('websites_certificates_domains', (table) => {
-      table.integer('certificate_id').unsigned()
-      table.foreign('certificate_id').references('websites_certificates.id')
-      table.integer('domain_id').unsigned()
-      table.foreign('domain_id').references('websites_domains.id')
     })
 
   },
 
   down: async (knex) => {
     await knex.schema.dropTable('websites_certificates')
-    await knex.schema.dropTable('websites_certificates_domains')
   }
 
 }

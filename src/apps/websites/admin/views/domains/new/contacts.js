@@ -43,23 +43,23 @@ class Contacts extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Registrant Contact', name: 'registrant', type: ContactField  },
+            { label: 'Registrant Contact', name: 'registrant_contact', type: ContactField, required: true  },
             { label: 'Admin Contact', type: 'segment', fields: [
               { name: 'admin_strategy', type: 'radiogroup', deselectable: false, options: [
-                { value: 'use', text: 'Use registrant contact' },
+                { value: 'registrant', text: 'Use registrant contact' },
                 { value: 'custom', text: 'Custom contact' }
-              ], defaultValue: 'use' },
+              ], defaultValue: 'registrant' },
               ...domain.admin_strategy === 'custom' ? [
-                { name: 'admin', type: ContactField  }
+                { name: 'admin_contact', type: ContactField  }
               ] : []
             ] },
             { label: 'Technical Contact', type: 'segment', fields: [
               { name: 'tech_strategy', type: 'radiogroup', deselectable: false, options: [
-                { value: 'use', text: 'Use registrant contact' },
+                { value: 'registrant', text: 'Use registrant contact' },
                 { value: 'custom', text: 'Custom contact' }
-              ], defaultValue: 'use' },
+              ], defaultValue: 'registrant' },
               ...domain.tech_strategy === 'custom' ? [
-                { name: 'tech', type: ContactField  }
+                { name: 'tech_contact', type: ContactField  }
               ] : []
             ] }
           ]
@@ -81,7 +81,7 @@ class Contacts extends React.Component {
   }
 
   _handleSuccess(store) {
-    this.props.onNext(store)
+    this.props.onSave(store)
   }
 
 }

@@ -1,6 +1,5 @@
 import CreateDistributionQueue from '@apps/websites/queues/create_distribution_queue'
 import { createHomePage, createNotFoundPage } from '@apps/websites/services/pages'
-import { createDomain } from '@apps/websites/services/domains'
 import generateCode from '@core/utils/generate_code'
 import Website from '@apps/websites/models/website'
 
@@ -14,6 +13,7 @@ const createWebsite = async (req, { title, favicon_id, config }) => {
     team_id: req.team.get('id'),
     code,
     title,
+    slug: title.toLowerCase().replace(/\s/g,'-').replace(/[^a-z0-9-]/g, ''),
     favicon_id,
     config
   }).save(null, {

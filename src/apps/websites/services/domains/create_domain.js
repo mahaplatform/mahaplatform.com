@@ -1,29 +1,31 @@
-import ConfirmNameserversQueue from '@apps/websites/queues/confirm_nameservers_queue'
 import RegisterDomainQueue from '@apps/websites/queues/register_domain_queue'
 import TransferDomainQueue from '@apps/websites/queues/transfer_domain_queue'
+import SetupZoneQueue from '@apps/websites/queues/setup_zone_queue'
 import { createZone } from '@core/services/aws/route53'
 import Domain from '@apps/websites/models/domain'
-import Record from '@apps/websites/models/record'
 
 const createDomain = async (req, params) => {
 
-  const { name, type } = params
+  const { admin_contact, name, registrant_contact, tech_contact, type } = params
 
   const domain = await Domain.forge({
     team_id: req.team.get('id'),
     type,
     name,
-    is_primary: false,
-    is_system: false
+    is_primary: false
   }).save(null, {
     transacting: req.trx
   })
 
-  if(type === 'regster') {
+  if(type === 'registration') {
 
     await domain.save({
+      admin_contact,
+      registrant_contact,
+      tech_contact,
       status: 'registering',
-      registration_status: 'pending'
+      registration_status: 'pending',
+      registrant_status: 'pending'
     }, {
       transacting: req.trx,
       patch: true
@@ -33,13 +35,15 @@ const createDomain = async (req, params) => {
       domain_id: domain.get('id')
     })
 
-  }
-
-  if(type === 'transfer') {
+  } else if(type === 'transfer') {
 
     await domain.save({
+      admin_contact,
+      registrant_contact,
+      tech_contact,
       status: 'transfering',
-      transfer_status: 'pending'
+      transfer_status: 'pending',
+      registrant_status: 'pending'
     }, {
       transacting: req.trx,
       patch: true
@@ -49,38 +53,26 @@ const createDomain = async (req, params) => {
       domain_id: domain.get('id')
     })
 
-  }
+  } else if (type === 'dns') {
 
-  const zone = await createZone(req, {
-    name
-  })
-
-  await domain.save({
-    aws_zone_id: zone.aws_zone_id,
-    dns_status: 'pending'
-  }, {
-    transacting: req.trx,
-    patch: true
-  })
-
-  await Promise.map(zone.records, async (record) => {
-    await Record.forge({
-      team_id: req.team.get('id'),
-      domain_id: domain.get('id'),
-      is_system: true,
-      name: record.name,
-      type: record.type,
-      ttl: record.ttl,
-      alias: record.alias,
-      records: record.records
-    }).save(null, {
-      transacting: req.trx
+    const zone = await createZone(req, {
+      name: domain.get('name')
     })
-  })
 
-  await ConfirmNameserversQueue.enqueue(req, {
-    domain_id: domain.get('id')
-  })
+    await domain.save({
+      aws_zone_id: zone.aws_zone_id,
+      status: 'mapping',
+      dns_status: 'pending'
+    }, {
+      transacting: req.trx,
+      patch: true
+    })
+
+    await SetupZoneQueue.enqueue(req, {
+      domain_id: domain.get('id')
+    })
+
+  }
 
   return domain
 

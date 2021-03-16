@@ -78,9 +78,8 @@ class Queue {
   }
 
   _getDelay(options) {
-    if(options.until) console.log('diff', options.until.diff(moment()))
     if(options.until) return options.until.diff(moment())
-    if(this.delay) return this.delay
+    if(options.delay) return options.delay
     return 2000
   }
 
