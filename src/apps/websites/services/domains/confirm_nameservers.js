@@ -15,9 +15,9 @@ const confirmNameservers = async (req, { domain }) => {
     type: 'NS'
   })
 
-  const mapped = record.get('value').records.find(record => {
+  const mapped = record.get('records').find(record => {
     return nameservers.find(nameserver => {
-      return nameserver === record
+      return nameserver === record.value
     }) === undefined
   }) === undefined
 

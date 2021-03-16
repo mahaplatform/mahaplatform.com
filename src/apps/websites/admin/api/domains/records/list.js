@@ -23,7 +23,7 @@ const showRoute = async (req, res) => {
     },
     sort: {
       params: req.query.$sort,
-      defaults: 'name'
+      defaults: 'created_at'
     },
     transacting: req.trx
   })

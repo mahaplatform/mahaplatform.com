@@ -17,7 +17,7 @@
 
 // import { cloudfront } from '@core/vendor/aws'
 
-import { lookup } from '@core/services/dns'
+import { route53 } from '@core/vendor/aws'
 
 const sandbox = async () => {
 
@@ -123,12 +123,17 @@ const sandbox = async () => {
 
   // })
 
-  const result = await lookup({
-    name: 'mahaplatform.com',
-    type: 'A'
+  const result = await route53.listResourceRecordSets({
+    HostedZoneId: 'Z20LCP3RBYGGKM'
+  }).promise()
+
+  const apex = result.ResourceRecordSets.find(record => {
+    console.log(record.Type, record.Name)
+    return record.Type === 'A' && record.Name === 'mahaplatform.com.'
   })
 
-  console.log(result)
+
+  console.log(apex)
 
 
 }

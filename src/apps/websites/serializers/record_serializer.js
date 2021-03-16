@@ -5,7 +5,7 @@ const recordSerializer = (req, result) => ({
   type: result.get('type'),
   ttl: result.get('ttl'),
   alias: result.get('alias'),
-  value: result.get('value'),
+  records: result.get('records'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

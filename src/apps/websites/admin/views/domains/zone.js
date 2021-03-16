@@ -21,6 +21,7 @@ class Zone extends React.Component {
         <table>
           <thead>
             <tr>
+              <td className="collapsing" />
               <td>Name</td>
               <td className="collapsing">Type</td>
               <td>Value</td>
@@ -30,14 +31,23 @@ class Zone extends React.Component {
           <tbody>
             { records.map((record, index) => (
               <tr key={`record_${index}`}>
+                <td>
+                  { record.is_system &&
+                    <span className="alert">*</span>
+                  }
+                </td>
                 <td>{ this._getName(record) }</td>
                 <td>{ record.type }</td>
-                <td>{ record.value.records.map((value, rindex) => (
+                <td>{ record.records.map((record, rindex) => (
                   <Fragment key={`value_${rindex}`}>
-                    { value }<br />
+                    { record.value }<br />
                   </Fragment>
                 )) }</td>
-                <td><Button { ...this._getEdit(record) } /></td>
+                <td>
+                  { !record.is_system &&
+                    <Button { ...this._getTasks(record) } />
+                  }
+                </td>
               </tr>
             )) }
           </tbody>
@@ -52,16 +62,7 @@ class Zone extends React.Component {
     return `${record.name}.${domain.name}`
   }
 
-  _getDelete(record) {
-    return {
-      icon: 'times',
-      className: '',
-      disabled: record.is_system,
-      handler: this._handleDelete.bind(this, record)
-    }
-  }
-
-  _getEdit(record) {
+  _getTasks(record) {
     const { domain } = this.props
     return {
       icon: 'ellipsis-v',

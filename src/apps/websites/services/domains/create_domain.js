@@ -72,7 +72,7 @@ const createDomain = async (req, params) => {
       type: record.type,
       ttl: record.ttl,
       alias: record.alias,
-      value: record.value
+      records: record.records
     }).save(null, {
       transacting: req.trx
     })

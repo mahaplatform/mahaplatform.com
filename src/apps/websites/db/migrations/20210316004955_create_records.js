@@ -14,8 +14,8 @@ const CreateRecord = {
       table.string('name')
       table.enum('type', ['A','CNAME','MX','NS','SOA','TXT'], { useNative: true, enumName: 'websites_record_types' })
       table.integer('ttl')
-      table.integer('alias')
-      table.jsonb('value')
+      table.jsonb('alias')
+      table.specificType('records', 'jsonb[]')
       table.timestamps()
     })
 

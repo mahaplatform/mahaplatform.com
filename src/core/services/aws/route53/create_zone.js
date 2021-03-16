@@ -8,18 +8,39 @@ const createZone = async (req, { name }) => {
     CallerReference: moment().format('x')
   }).promise()
 
-  const Id = result.HostedZone.Id.replace('/hostedzone/', '')
+  const aws_zone_id = result.HostedZone.Id.replace('/hostedzone/', '')
 
-  const zone = await route53.getHostedZone({
-    Id
+  const records = await route53.listResourceRecordSets({
+    HostedZoneId: aws_zone_id
   }).promise()
 
+  const soa = records.ResourceRecordSets.find(recordset => {
+    return recordset.Type === 'SOA'
+  })
+
+  const ns = records.ResourceRecordSets.find(recordset => {
+    return recordset.Type === 'NS'
+  })
+
   return {
-    aws_zone_id: result.HostedZone.Id.replace('/hostedzone/', ''),
+    aws_zone_id,
     records: [
-      { name: null, type: 'NS', ttl: 60, alias: null, value: {
-        records: zone.DelegationSet.NameServers
-      } }
+      {
+        name: null,
+        type: soa.Type,
+        ttyl: soa.TTL,
+        records: soa.ResourceRecords.map(record => ({
+          value: record.Value
+        }))
+      },
+      {
+        name: null,
+        type: ns.Type,
+        ttyl: ns.TTL,
+        records: ns.ResourceRecords.map(record => ({
+          value: record.Value
+        }))
+      }
     ]
   }
 

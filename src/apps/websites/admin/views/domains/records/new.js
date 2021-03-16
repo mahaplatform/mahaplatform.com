@@ -32,8 +32,9 @@ class New extends React.Component {
         {
           fields: [
             { label: 'Name', name: 'name', type: 'textfield', suffix: `.${domain.name}` },
-            { label: 'Type', name: 'type', type: 'dropdown', options: ['A','CNAME','MX','TXT'], required: true },
-            { label: 'Value', name: 'value', type: 'textfield', required: true }
+            { label: 'Type', name: 'type', type: 'dropdown', options: ['A','CNAME','MX','TXT'], required: true, defaultValue: 'A' },
+            { label: 'TTL', name: 'ttl', type: 'textfield', required: true, defaultValue: 300 },
+            { label: 'Value', name: 'value', type: 'textarea', required: true }
           ]
         }
       ]

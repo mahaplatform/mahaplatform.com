@@ -23,11 +23,11 @@ const createRoute = async (req, res) => {
     domain_id: domain.get('id'),
     name: req.body.name,
     type: req.body.type,
-    value: {
-      records: [
-        req.body.value
-      ]
-    }
+    records: req.body.value.split('\n').filter(value => {
+      return value.length > 0
+    }).map(value => {
+      return { value }
+    })
   }).save(null, {
     transacting: req.trx
   })
