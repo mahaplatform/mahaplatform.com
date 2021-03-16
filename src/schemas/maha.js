@@ -2700,6 +2700,20 @@ const schema = {
       table.timestamp('updated_at')
     })
 
+    await knex.schema.createTable('websites_certificates', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('website_id').unsigned()
+      table.string('aws_certificate_arn', 255)
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('websites_certificates_domains', (table) => {
+      table.integer('certificate_id').unsigned()
+      table.integer('domain_id').unsigned()
+    })
+
     await knex.schema.createTable('websites_domains', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -2708,7 +2722,6 @@ const schema = {
       table.boolean('is_primary')
       table.timestamp('created_at')
       table.timestamp('updated_at')
-      table.boolean('is_system')
       table.string('aws_zone_id', 255)
       table.boolean('auto_renew')
       table.boolean('auth_code')
@@ -3984,6 +3997,16 @@ const schema = {
 
     await knex.schema.table('websites_records', table => {
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('domain_id').references('websites_domains.id')
+    })
+
+    await knex.schema.table('websites_certificates', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('website_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('websites_certificates_domains', table => {
+      table.foreign('certificate_id').references('websites_certificates.id')
       table.foreign('domain_id').references('websites_domains.id')
     })
 

@@ -20,8 +20,11 @@ const CreateRecord = {
     })
 
     await knex.schema.table('websites_domains', (table) => {
+      table.dropColumn('is_system')
       table.dropColumn('config')
     })
+
+    await knex('websites_domains').whereIn('id', [1,2]).delete()
 
   },
 

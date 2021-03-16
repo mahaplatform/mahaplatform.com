@@ -12,7 +12,13 @@ const Website = new Model(knex, {
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    slug() {
+      return this.get('title').replace(/\./g, '-')
+    }
+
+  },
 
   domains() {
     return this.hasMany(Domain, 'website_id')

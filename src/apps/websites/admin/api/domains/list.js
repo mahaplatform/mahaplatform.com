@@ -6,7 +6,6 @@ const listRoute = async (req, res) => {
   const domain = await Domain.filterFetch({
     scope: qb => {
       qb.where('team_id', req.team.get('id'))
-      qb.where('is_system', false)
     },
     filter: {
       params: req.query.$filter,
