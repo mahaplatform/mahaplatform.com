@@ -1,7 +1,6 @@
 // ssh -i ~/.ssh/mahaplatform -L 127.0.0.1:1234:127.0.0.1:5432 centos@3.208.31.159
 
-import '@core/services/environment'
-import knex from '@core/vendor/knex/maha'
+// import knex from '@core/vendor/knex/maha'
 // import { buildWebsite, publishWebsite } from '@apps/websites/services/websites'
 // import moment from 'moment'
 // import _ from 'lodash'
@@ -16,7 +15,9 @@ import knex from '@core/vendor/knex/maha'
 // import Enrollment from '@apps/automation/models/workflow_enrollment'
 // import Team from '@apps/maha/models/team'
 
-import { cloudfront } from '@core/vendor/aws'
+// import { cloudfront } from '@core/vendor/aws'
+
+import { lookup } from '@core/services/dns'
 
 const sandbox = async () => {
 
@@ -94,33 +95,40 @@ const sandbox = async () => {
   //   file_data: JSON.stringify(rendered)
   // })
 
-  const keys = await cloudfront.listPublicKeys().promise()
-
-  console.log(keys.PublicKeyList.Items)
+  // const keys = await cloudfront.listPublicKeys().promise()
+  //
+  // console.log(keys.PublicKeyList.Items)
 
   // await knex.transaction(async(trx) => {
   //
-    //
-    // req.team = await Team.query(qb => {
-    //   qb.where('id', 1)
-    // }).fetch({
-    //   transacting: req.trx
-    // })
-    //
-    // const enrollment = await Enrollment.query(qb => {
-    //   qb.where('id', 133904)
-    // }).fetch({
-    //   transacting: req.trx
-    // })
-    //
-    // const result = await executeEnrollment(req, {
-    //   enrollment_id: enrollment.get('id'),
-    //   state: 'steps.0'
-    // })
-    //
-    // console.log(result)
+  //
+  // req.team = await Team.query(qb => {
+  //   qb.where('id', 1)
+  // }).fetch({
+  //   transacting: req.trx
+  // })
+  //
+  // const enrollment = await Enrollment.query(qb => {
+  //   qb.where('id', 133904)
+  // }).fetch({
+  //   transacting: req.trx
+  // })
+  //
+  // const result = await executeEnrollment(req, {
+  //   enrollment_id: enrollment.get('id'),
+  //   state: 'steps.0'
+  // })
+  //
+  // console.log(result)
 
   // })
+
+  const result = await lookup({
+    name: 'mahaplatform.com',
+    type: 'A'
+  })
+
+  console.log(result)
 
 
 }

@@ -18,7 +18,7 @@ const processor = async () => {
   if(command === 'dev') await run('./dev', cargs)
   if(command === 'g') await run('./generate', cargs)
   if(command === 'knex') await run('./knex', cargs)
-  // if(command === 'sandbox') await sandbox(cargs)
+  if(command === 'sandbox') await run('../sandbox', cargs)
   if(command === 'start') await run('./start', cargs)
 
 }

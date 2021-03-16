@@ -1,13 +1,19 @@
 import { route53 } from '@core/vendor/aws'
-import { getRecordType } from './utils'
 
-const deleteRecord = async (req, { aws_zone_id, records }) => {
+const deleteRecords = async (req, { aws_zone_id, records }) => {
 
   const result = await route53.changeResourceRecordSets({
     ChangeBatch: {
       Changes: records.map(record => ({
         Action: 'DELETE',
-        ResourceRecordSet: getRecordType(record)
+        ResourceRecordSet: {
+          Name: record.name,
+          Type: record.type,
+          TTL: 60,
+          ResourceRecords: [
+            { Value: record.value }
+          ]
+        }
       }))
     },
     HostedZoneId: aws_zone_id
@@ -18,4 +24,4 @@ const deleteRecord = async (req, { aws_zone_id, records }) => {
 
 }
 
-export default deleteRecord
+export default deleteRecords

@@ -8,8 +8,19 @@ const createZone = async (req, { name }) => {
     CallerReference: moment().format('x')
   }).promise()
 
+  const Id = result.HostedZone.Id.replace('/hostedzone/', '')
+
+  const zone = await route53.getHostedZone({
+    Id
+  }).promise()
+
   return {
-    aws_zone_id: result.HostedZone.Id.replace('/hostedzone/', '')
+    aws_zone_id: result.HostedZone.Id.replace('/hostedzone/', ''),
+    records: [
+      { name: null, type: 'NS', ttl: 60, alias: null, value: {
+        records: zone.DelegationSet.NameServers
+      } }
+    ]
   }
 
 }

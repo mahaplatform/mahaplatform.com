@@ -1,5 +1,5 @@
 const getARecord = ({ name, value }) => ({
-  Name: name,
+  Name: name || '@',
   ResourceRecords: [
     { Value: value }
   ],
@@ -13,12 +13,12 @@ const getALIASRecord = ({ name, value }) => ({
     EvaluateTargetHealth: false,
     HostedZoneId: 'Z2FDTNDATAQYW2'
   },
-  Name: name,
+  Name: name || '@',
   Type: 'A'
 })
 
 const getCNAMERecord = ({ name, value }) => ({
-  Name: name,
+  Name: name || '@',
   ResourceRecords: [
     { Value: value }
   ],

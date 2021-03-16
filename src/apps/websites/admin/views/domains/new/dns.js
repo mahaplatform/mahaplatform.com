@@ -50,8 +50,8 @@ class Dns extends React.Component {
     this.form.submit()
   }
 
-  _handleSuccess(store) {
-    this.props.onNext(store)
+  _handleSuccess(domain) {
+    this.props.onSave(domain)
   }
 
 }

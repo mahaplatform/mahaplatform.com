@@ -13,6 +13,8 @@ const createRecords = async (req, { aws_zone_id, records }) => {
     HostedZoneId: aws_zone_id
   }).promise()
 
+  console.log(result)
+
   return {
   }
 

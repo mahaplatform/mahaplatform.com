@@ -14,7 +14,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     empty: {
       icon: 'globe',
       title: 'No Domains',
-      text: 'You have not yet created any domains',
+      text: 'You have not yet added any domains',
       buttons: [
         { label: 'Add a Domain', modal: New }
       ]

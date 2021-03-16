@@ -35,6 +35,7 @@ class New extends React.Component {
   }
 
   _getData(domain) {
+    console.log('save', domain)
     return {
       ...domain
     }
