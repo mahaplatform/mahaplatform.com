@@ -1,3 +1,5 @@
+import DomainStatusToken from '@apps/websites/admin/tokens/domain_status'
+import ContactToken from '@apps/websites/admin/tokens/contact'
 import { Audit, Button, Comments, List } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -15,55 +17,26 @@ const Details = ({ audits, domain }, { flash }) => {
 
   if(domain.type === 'registration') {
     list.items.push({ label: 'Registration Status', content: (
-      <span>
-        { domain.registration_status === 'pending' ?
-          <i className="fa fa-fw fa-circle-o-notch fa-spin" /> :
-          <i className="fa fa-fw fa-check-circle-o" />
-        }
-        { domain.registration_status }
-      </span>
+      <DomainStatusToken status={ domain.registration_status } />
     ) })
   }
 
   if(domain.type === 'transfer') {
     list.items.push({ label: 'Transfer Status', content: (
-      <span>
-        { domain.transfer_status === 'pending' ?
-          <i className="fa fa-fw fa-circle-o-notch fa-spin" /> :
-          <i className="fa fa-fw fa-check-circle-o" />
-        }
-        { domain.transfer_status }
-      </span>
+      <DomainStatusToken status={ domain.transfer_status } />
     ) })
   }
 
   if(domain.type === 'dns') {
-    if(_.includes(['pending','inprogress'], domain.dns_status)) {
+    list.items.push({ label: 'DNS Status', content: (
+      <DomainStatusToken status={ domain.dns_status } />
+    ) })
+  }
 
-      const dns_status = {
-        label: 'check',
-        className: 'link',
-        request: {
-          endpoint: `/api/admin/websites/domains/${domain.id}/dns`,
-          method: 'patch',
-          onFailure: () => flash.set('error', 'Unable to confirm nameservers')
-        }
-      }
-
-      list.items.push({ label: 'DNS Status', content: (
-        <span>
-          <i className="fa fa-circle-o-notch fa-spin fa-fw" /> awaiting pointer (
-          <Button { ...dns_status } />)
-        </span>
-      ) })
-
-    } else if(domain.dns_status === 'success') {
-      list.items.push({ label: 'DNS Status', content: (
-        <span>
-          <i className="fa fa-check-circle-o" /> mapped
-        </span>
-      ) })
-    }
+  if(domain.type !== 'dns') {
+    list.items.push({ label: 'Registrant Contact', content: <ContactToken contact={ domain.registrant_contact } /> })
+    list.items.push({ label: 'Admin Contact', content:  <ContactToken contact={ domain.admin_contact } /> })
+    list.items.push({ label: 'Tech Contact', content:  <ContactToken contact={ domain.tech_contact } /> })
   }
 
   list.items.push({ component: <Audit entries={ audits } /> })

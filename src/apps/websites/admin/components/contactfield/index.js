@@ -1,4 +1,4 @@
-import { parsePhoneNumberFromString } from 'libphonenumber-js'
+import ContactToken from '@apps/websites/admin/tokens/contact'
 import PropTypes from 'prop-types'
 import Contact from './contact'
 import React from 'react'
@@ -36,16 +36,7 @@ class ContactField extends React.PureComponent {
           { contact ?
             <div className="maha-input-tokens">
               <div className="maha-input-token">
-                <strong>{ this._getName() }</strong>
-                { contact.email &&
-                  <div>{ contact.email }</div>
-                }
-                { contact.phone &&
-                  <div>{ this._getFormatted(contact.phone) }</div>
-                }
-                { contact.address &&
-                  <div>{ contact.address.description }</div>
-                }
+                <ContactToken contact={ contact } />
               </div>
             </div> :
             <div className="maha-input-placeholder">
@@ -71,19 +62,6 @@ class ContactField extends React.PureComponent {
     if(!_.isEqual(contact, prevState.contact)) {
       this._handleChange()
     }
-  }
-
-  _getFormatted(number) {
-    const parsed = parsePhoneNumberFromString(number, 'US')
-    const matches = parsed.number.match(/^\+1(\d{3})(\d{3})(\d{4})/)
-    if(!matches) return number
-    const formatted = matches.slice(1,4).join('-')
-    return parsed.ext ? `${formatted} ext. ${parsed.ext}` : formatted
-  }
-
-  _getName() {
-    const { first_name, last_name } = this.state.contact
-    return [first_name, last_name].join(' ')
   }
 
   _getContact() {

@@ -4,7 +4,7 @@ import CheckOperationQueue from '@apps/websites/queues/check_operation_queue'
 
 const checkRegistrant = async(req, { domain }) => {
 
-  const result = await getContactReachabilityStatus({
+  const result = await getContactReachabilityStatus(req, {
     name: domain.get('name')
   })
 

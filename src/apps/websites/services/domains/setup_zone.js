@@ -24,18 +24,27 @@ const setupZone = async (req, { domain }) => {
     })
   })
 
-  await domain.save({
-    dns_status: 'inprogress'
-  }, {
-    transacting: req.trx,
-    patch: true
-  })
+  if(domain.get('type') === 'dns') {
+    await domain.save({
+      dns_status: 'inprogress'
+    }, {
+      transacting: req.trx,
+      patch: true
+    })
 
-  await CheckNameserversQueue.enqueue(req, {
-    domain_id: domain.get('id')
-  }, {
-    delay: 5 * 60 * 1000
-  })
+    await CheckNameserversQueue.enqueue(req, {
+      domain_id: domain.get('id')
+    }, {
+      delay: 5 * 60 * 1000
+    })
+  } else {
+    await domain.save({
+      status: 'active'
+    }, {
+      transacting: req.trx,
+      patch: true
+    })
+  }
 
 }
 

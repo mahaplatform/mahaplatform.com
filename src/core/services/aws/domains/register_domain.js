@@ -16,17 +16,6 @@ const expandContact = (contact) => ({
 
 const registerDomain = async(req, { name, admin_contact, registrant_contact, tech_contact }) => {
 
-  console.log({
-    DomainName: name,
-    AdminContact: expandContact(admin_contact),
-    RegistrantContact: expandContact(registrant_contact),
-    TechContact: expandContact(tech_contact),
-    DurationInYears: 1,
-    AutoRenew: true
-  })
-
-  throw new Error()
-
   const registration = await route53Domains.registerDomain({
     DomainName: name,
     AdminContact: expandContact(admin_contact),

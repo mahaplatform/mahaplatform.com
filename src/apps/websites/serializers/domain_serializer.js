@@ -7,6 +7,9 @@ const domainSerializer = (req, result) => ({
   registrant_status: result.get('registrant_status'),
   transfer_status: result.get('transfer_status'),
   dns_status: result.get('dns_status'),
+  admin_contact: result.get('admin_contact'),
+  registrant_contact: result.get('registrant_contact'),
+  tech_contact: result.get('tech_contact'),
   expires_at: result.get('expires_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')

@@ -1,15 +1,13 @@
 import { route53Domains } from '@core/vendor/aws'
 
-const getOperationDetail = async(req, { operation_id }) => {
+const getOperationDetail = async(req, { aws_operation_id }) => {
 
   const operation = await route53Domains.getOperationDetail({
-    OperationId: operation_id
+    OperationId: aws_operation_id
   }).promise()
 
-  console.log({ operation })
-
   return {
-    status: operation.Status
+    status: operation.Status.toLowerCase()
   }
 
 }
