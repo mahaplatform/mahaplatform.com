@@ -8,8 +8,7 @@ const Details = ({ audits, domain, records }, { flash }) => {
 
   const list = {
     items: [
-      { label: 'Name', content: domain.name },
-      { label: 'Type', content: domain.type }
+      { label: 'Name', content: domain.name }
     ],
     footer: <Comments entity={`websites_domains/${domain.id}`} />
   }

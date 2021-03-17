@@ -6,21 +6,6 @@ const CreateRecord = {
 
     await knex.raw('alter type websites_dns_statuses add value \'inprogress\'')
 
-    await knex.schema.createTable('websites_records', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.foreign('team_id').references('maha_teams.id')
-      table.integer('domain_id').unsigned()
-      table.foreign('domain_id').references('websites_domains.id')
-      table.boolean('is_system')
-      table.string('name')
-      table.enum('type', ['A','CNAME','MX','NS','SOA','TXT'], { useNative: true, enumName: 'websites_record_types' })
-      table.integer('ttl')
-      table.jsonb('alias')
-      table.specificType('records', 'jsonb[]')
-      table.timestamps()
-    })
-
     await knex.schema.table('websites_domains', (table) => {
       table.dropColumn('aws_registration_id')
       table.dropColumn('aws_transfer_id')
@@ -46,9 +31,7 @@ const CreateRecord = {
     })
   },
 
-  down: async (knex) => {
-    await knex.schema.dropTable('websites_records')
-  }
+  down: async (knex) => {}
 
 }
 

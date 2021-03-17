@@ -14,7 +14,7 @@ const DomainStatusToken = ({ check, status }) => (
       }
     </div>
     <div className="domain-status-token-details">
-      { status } { check &&
+      { status } { _.includes(['pending','inprogress'], status) && check &&
         <>
           (<Button { ...check } />)
         </>

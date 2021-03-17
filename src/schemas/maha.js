@@ -2730,7 +2730,6 @@ const schema = {
       table.timestamp('updated_at')
       table.string('aws_zone_id', 255)
       table.boolean('auto_renew')
-      table.boolean('auth_code')
       table.jsonb('admin_contact')
       table.jsonb('registrant_contact')
       table.jsonb('tech_contact')
@@ -2752,20 +2751,6 @@ const schema = {
       table.string('title', 255)
       table.string('code', 255)
       table.timestamp('deleted_at')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-    })
-
-    await knex.schema.createTable('websites_records', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('domain_id').unsigned()
-      table.boolean('is_system')
-      table.string('name', 255)
-      table.USER-DEFINED('type')
-      table.integer('ttl')
-      table.jsonb('alias')
-      table.specificType('records', 'jsonb[]')
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
@@ -4000,11 +3985,6 @@ const schema = {
       table.foreign('home_id').references('websites_pages.id')
       table.foreign('notfound_id').references('websites_pages.id')
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('websites_records', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('domain_id').references('websites_domains.id')
     })
 
     await knex.schema.table('websites_certificates', table => {

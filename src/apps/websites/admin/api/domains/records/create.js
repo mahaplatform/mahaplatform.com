@@ -1,8 +1,6 @@
-import RecordSerializer from '@apps/websites/serializers/record_serializer'
 import { createRecords } from '@core/services/aws/route53'
 import socket from '@core/services/routes/emitter'
 import Domain from '@apps/websites/models/domain'
-import Record from '@apps/websites/models/record'
 
 const createRoute = async (req, res) => {
 
@@ -16,20 +14,6 @@ const createRoute = async (req, res) => {
   if(!domain) return res.status(404).respond({
     code: 404,
     message: 'Unable to load domain'
-  })
-
-  const record = await Record.forge({
-    team_id: req.team.get('id'),
-    domain_id: domain.get('id'),
-    name: req.body.name,
-    type: req.body.type,
-    records: req.body.value.split('\n').filter(value => {
-      return value.length > 0
-    }).map(value => {
-      return { value }
-    })
-  }).save(null, {
-    transacting: req.trx
   })
 
   await createRecords(req, {
@@ -47,7 +31,7 @@ const createRoute = async (req, res) => {
     `/admin/websites/domains/${domain.get('id')}`
   ])
 
-  await res.status(200).respond(record, RecordSerializer)
+  await res.status(200).respond(true) //record, RecordSerializer)
 
 }
 

@@ -1,14 +1,16 @@
 import SetupDomainQueue from '@apps/websites/queues/setup_domain_queue'
-import Record from '@apps/websites/models/record'
+import { listRecords } from '@core/services/aws/route53'
 import { lookup } from '@core/services/dns'
 
-const checkNameservers = async (req, { domain }) => {
+const checkNameservers = async (req, { domain, queue = true }) => {
 
-  const record = await Record.query(qb => {
-    qb.where('domain_id', domain.get('id'))
-    qb.where('type', 'NS')
-  }).fetch({
-    transacting: req.trx
+  const records = await listRecords({
+    aws_zone_id: domain.get('aws_zone_id'),
+    name: domain.get('name')
+  })
+
+  const ns = records.find(record => {
+    return record.type === 'NS'
   })
 
   const nameservers = await lookup({
@@ -16,13 +18,13 @@ const checkNameservers = async (req, { domain }) => {
     type: 'NS'
   })
 
-  const mapped = record.get('records').find(record => {
+  const mapped = ns.records.find(record => {
     return nameservers.find(nameserver => {
       return `${nameserver}.` === record.value
     }) === undefined
   }) === undefined
 
-  if(!mapped) {
+  if(!mapped && queue) {
     return await SetupDomainQueue.enqueue(req, {
       domain_id: domain.get('id'),
       action: 'check_nameservers'

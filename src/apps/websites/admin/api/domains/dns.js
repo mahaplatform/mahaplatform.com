@@ -17,7 +17,8 @@ const dnsRoute = async (req, res) => {
   })
 
   await checkNameservers(req, {
-    domain
+    domain,
+    queue: false
   })
 
   await socket.refresh(req, [

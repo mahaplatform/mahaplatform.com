@@ -21,10 +21,8 @@ class Zone extends React.Component {
         <table>
           <thead>
             <tr>
-              <td className="collapsing" />
               <td>Name</td>
               <td className="collapsing">Type</td>
-              <td>Value</td>
               <td className="collapsing" />
             </tr>
           </thead>
@@ -32,17 +30,14 @@ class Zone extends React.Component {
             { records.map((record, index) => (
               <tr key={`record_${index}`}>
                 <td>
-                  { record.is_system &&
-                    <span className="alert">*</span>
-                  }
+                  <strong>{ record.name }</strong><br />
+                  { record.records.map((record, rindex) => (
+                    <Fragment key={`value_${rindex}`}>
+                      { record.value }<br />
+                    </Fragment>
+                  )) }
                 </td>
-                <td>{ this._getName(record) }</td>
                 <td>{ record.type }</td>
-                <td>{ record.records.map((record, rindex) => (
-                  <Fragment key={`value_${rindex}`}>
-                    { record.value }<br />
-                  </Fragment>
-                )) }</td>
                 <td>
                   { !record.is_system &&
                     <Button { ...this._getTasks(record) } />
@@ -56,12 +51,6 @@ class Zone extends React.Component {
     )
   }
 
-  _getName(record) {
-    const { domain } = this.props
-    if(!record.name) return domain.name
-    return `${record.name}.${domain.name}`
-  }
-
   _getTasks(record) {
     const { domain } = this.props
     return {
@@ -73,8 +62,9 @@ class Zone extends React.Component {
           label: 'Delete Record',
           confirm: 'Are you sure you want to delete this record?',
           request: {
-            endpoint: `/api/admin/websites/domains/${domain.id}/records/${record.id}`,
+            endpoint: `/api/admin/websites/domains/${domain.id}/records`,
             method: 'delete',
+            body: { record },
             onFailure: () => this.context.flash.set('error', 'Unable to delete record'),
             onSuccess: () => {}
           }

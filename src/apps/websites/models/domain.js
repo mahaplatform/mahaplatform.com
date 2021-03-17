@@ -1,6 +1,5 @@
 import knex from '@core/vendor/knex/maha'
 import Model from '@core/objects/model'
-import Record from './record'
 
 const Domain = new Model(knex, {
 
@@ -10,11 +9,7 @@ const Domain = new Model(knex, {
 
   rules: {},
 
-  virtuals: {},
-
-  records() {
-    return this.hasMany(Record, 'domain_id')
-  }
+  virtuals: {}
 
 })
 

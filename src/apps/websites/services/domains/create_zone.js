@@ -1,5 +1,5 @@
+import SetupDomainQueue from '@apps/websites/queues/setup_domain_queue'
 import * as route53 from '@core/services/aws/route53'
-import setupZone from './setup_zone'
 
 const createZone = async (req, { domain }) => {
 
@@ -16,8 +16,11 @@ const createZone = async (req, { domain }) => {
     patch: true
   })
 
-  await setupZone(req, {
-    domain
+  await SetupDomainQueue.enqueue(req, {
+    domain_id: domain.get('id'),
+    action: 'check_nameservers'
+  }, {
+    delay: 60 * 60 * 1000
   })
 
 }

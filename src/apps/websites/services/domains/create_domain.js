@@ -1,6 +1,7 @@
 import SetupDomainQueue from '@apps/websites/queues/setup_domain_queue'
 import { createZone } from '@core/services/aws/route53'
 import Domain from '@apps/websites/models/domain'
+import moment from 'moment'
 
 const createDomain = async (req, params) => {
 
@@ -21,6 +22,7 @@ const createDomain = async (req, params) => {
       admin_contact,
       registrant_contact,
       tech_contact,
+      expires_on: moment().add(1,'year'),
       status: 'registering',
       registration_status: 'pending',
       registrant_status: 'pending'
@@ -40,6 +42,7 @@ const createDomain = async (req, params) => {
       admin_contact,
       registrant_contact,
       tech_contact,
+      expires_on: moment().add(1,'year'),
       status: 'transfering',
       transfer_status: 'pending',
       registrant_status: 'pending'

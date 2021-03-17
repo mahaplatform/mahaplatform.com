@@ -1,6 +1,5 @@
-import RecordSerializer from '@apps/websites/serializers/record_serializer'
+import { listRecords } from '@core/services/aws/route53'
 import Domain from '@apps/websites/models/domain'
-import Record from '@apps/websites/models/record'
 
 const showRoute = async (req, res) => {
 
@@ -16,19 +15,12 @@ const showRoute = async (req, res) => {
     message: 'Unable to load domain'
   })
 
-  const records = await Record.filterFetch({
-    scope: qb => {
-      qb.where('team_id', req.team.get('id'))
-      qb.where('domain_id', domain.get('id'))
-    },
-    sort: {
-      params: req.query.$sort,
-      defaults: 'created_at'
-    },
-    transacting: req.trx
+  const records = await listRecords({
+    name: domain.get('name'),
+    aws_zone_id: domain.get('aws_zone_id')
   })
 
-  await res.status(200).respond(records, RecordSerializer)
+  await res.status(200).respond(records)
 
 }
 

@@ -46,12 +46,6 @@ const processor = async (req, job) => {
       domain
     })
 
-  } else if(action === 'setup_zone') {
-
-    await domains.setupZone(req, {
-      domain
-    })
-
   }
 
 }
