@@ -1,11 +1,10 @@
 import SetupDomainQueue from '@apps/websites/queues/setup_domain_queue'
-import { createZone } from '@core/services/aws/route53'
 import Domain from '@apps/websites/models/domain'
-import moment from 'moment'
+import createZone from './create_zone'
 
 const createDomain = async (req, params) => {
 
-  const { admin_contact, name, registrant_contact, tech_contact, type } = params
+  const { name, type } = params
 
   const domain = await Domain.forge({
     team_id: req.team.get('id'),
@@ -19,13 +18,8 @@ const createDomain = async (req, params) => {
   if(type === 'registration') {
 
     await domain.save({
-      admin_contact,
-      registrant_contact,
-      tech_contact,
-      expires_on: moment().add(1,'year'),
       status: 'registering',
-      registration_status: 'pending',
-      registrant_status: 'pending'
+      registration_status: 'pending'
     }, {
       transacting: req.trx,
       patch: true
@@ -39,13 +33,8 @@ const createDomain = async (req, params) => {
   } else if(type === 'transfer') {
 
     await domain.save({
-      admin_contact,
-      registrant_contact,
-      tech_contact,
-      expires_on: moment().add(1,'year'),
       status: 'transfering',
-      transfer_status: 'pending',
-      registrant_status: 'pending'
+      transfer_status: 'pending'
     }, {
       transacting: req.trx,
       patch: true
@@ -58,22 +47,8 @@ const createDomain = async (req, params) => {
 
   } else if (type === 'dns') {
 
-    const zone = await createZone(req, {
-      name: domain.get('name')
-    })
-
-    await domain.save({
-      aws_zone_id: zone.aws_zone_id,
-      status: 'mapping',
-      dns_status: 'pending'
-    }, {
-      transacting: req.trx,
-      patch: true
-    })
-
-    await SetupDomainQueue.enqueue(req, {
-      domain_id: domain.get('id'),
-      action: 'create_zone'
+    await createZone(req, {
+      domain
     })
 
   }

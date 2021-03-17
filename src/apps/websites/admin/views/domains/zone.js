@@ -1,6 +1,8 @@
+import RecordToken from '@apps/websites/admin/tokens/record'
 import PropTypes from 'prop-types'
-import React, { Fragment } from 'react'
 import { Button } from '@admin'
+import React from 'react'
+import _ from 'lodash'
 
 class Zone extends React.Component {
 
@@ -11,7 +13,7 @@ class Zone extends React.Component {
 
   static propTypes = {
     domain: PropTypes.object,
-    records: PropTypes.object
+    records: PropTypes.array
   }
 
   render() {
@@ -30,16 +32,11 @@ class Zone extends React.Component {
             { records.map((record, index) => (
               <tr key={`record_${index}`}>
                 <td>
-                  <strong>{ record.name }</strong><br />
-                  { record.records.map((record, rindex) => (
-                    <Fragment key={`value_${rindex}`}>
-                      { record.value }<br />
-                    </Fragment>
-                  )) }
+                  <RecordToken record={ record } />
                 </td>
                 <td>{ record.type }</td>
                 <td>
-                  { !record.is_system &&
+                  { !_.includes(['SOA','NS'], record.type) &&
                     <Button { ...this._getTasks(record) } />
                   }
                 </td>

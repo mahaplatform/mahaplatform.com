@@ -5,7 +5,8 @@ const AddLocks = {
   up: async (knex) => {
 
     await knex.schema.table('websites_domains', (table) => {
-      table.string('is_locked')
+      table.boolean('is_locked')
+      table.string('auth_code')
     })
 
   },

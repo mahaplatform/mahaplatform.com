@@ -12,8 +12,11 @@ const CreateRecord = {
       table.dropColumn('is_system')
       table.dropColumn('duration')
       table.dropColumn('config')
+      table.dropColumn('auth_code')
+      table.dropColumn('admin_contact')
+      table.dropColumn('registrant_contact')
+      table.dropColumn('tech_contact')
       table.string('aws_operation_id')
-      table.enum('registrant_status', ['pending','success','failed'], { useNative: true, enumName: 'websites_domain_registrant_statuses' })
     })
 
     await knex('websites_domains').whereIn('id', [1,2]).delete()

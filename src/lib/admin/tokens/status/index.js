@@ -1,7 +1,7 @@
 import React from 'react'
 
 const StatusToken = ({ value }) => (
-  <div className={`crm-status-token ${value}`}>
+  <div className={`maha-status-token ${value}`}>
     { value }
   </div>
 )

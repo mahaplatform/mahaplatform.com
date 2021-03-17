@@ -1,7 +1,7 @@
 import { testHandler } from '../../../../../core/utils/test'
 import { expect } from 'chai'
-import dns from './dns'
+import check from './check'
 
-describe('src/apps/websites/admin/api/domains/dns.js', () => {
+describe('src/apps/websites/admin/api/domains/check.js', () => {
 
 })

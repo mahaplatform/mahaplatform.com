@@ -15,6 +15,10 @@ const showRoute = async (req, res) => {
     message: 'Unable to load domain'
   })
 
+  if(!domain.get('aws_zone_id')) {
+    return await res.status(200).respond([])
+  }
+
   const records = await listRecords({
     name: domain.get('name'),
     aws_zone_id: domain.get('aws_zone_id')

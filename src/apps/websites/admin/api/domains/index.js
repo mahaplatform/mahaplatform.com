@@ -4,11 +4,11 @@ import records from './records'
 import lookup from './lookup'
 import create from './create'
 import update from './update'
+import check from './check'
 import edit from './edit'
 import list from './list'
 import show from './show'
 import auth from './auth'
-import dns from './dns'
 
 const router = new Router({ mergeParams: true })
 
@@ -26,7 +26,7 @@ router.get('/:id/edit', edit)
 
 router.patch('/:id', update)
 
-router.patch('/:id/dns', dns)
+router.get('/:id/check', check)
 
 router.delete('/:id', destroy)
 

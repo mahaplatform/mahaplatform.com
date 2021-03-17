@@ -1,8 +1,7 @@
-import { checkNameservers } from '@apps/websites/services/domains'
+import { checkNameservers, checkOperation } from '@apps/websites/services/domains'
 import Domain from '@apps/websites/models/domain'
-import socket from '@core/services/routes/emitter'
 
-const dnsRoute = async (req, res) => {
+const checkRoute = async (req, res) => {
 
   const domain = await Domain.query(qb => {
     qb.where('team_id', req.team.get('id'))
@@ -16,18 +15,20 @@ const dnsRoute = async (req, res) => {
     message: 'Unable to load domain'
   })
 
-  await checkNameservers(req, {
-    domain,
-    queue: false
-  })
-
-  await socket.refresh(req, [
-    '/admin/websites/domains',
-    `/admin/websites/domains/${domain.get('id')}`
-  ])
+  if(domain.get('type') === 'dns') {
+    await checkNameservers(req, {
+      domain,
+      queue: false
+    })
+  } else {
+    await checkOperation(req, {
+      domain,
+      queue: false
+    })
+  }
 
   await res.status(200).respond(true)
 
 }
 
-export default dnsRoute
+export default checkRoute

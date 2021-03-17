@@ -2730,9 +2730,6 @@ const schema = {
       table.timestamp('updated_at')
       table.string('aws_zone_id', 255)
       table.boolean('auto_renew')
-      table.jsonb('admin_contact')
-      table.jsonb('registrant_contact')
-      table.jsonb('tech_contact')
       table.USER-DEFINED('type')
       table.USER-DEFINED('registration_status')
       table.USER-DEFINED('transfer_status')
@@ -2740,8 +2737,8 @@ const schema = {
       table.USER-DEFINED('status')
       table.timestamp('expires_on')
       table.string('aws_operation_id', 255)
-      table.USER-DEFINED('registrant_status')
-      table.string('is_locked', 255)
+      table.boolean('is_locked')
+      table.string('auth_code', 255)
     })
 
     await knex.schema.createTable('websites_pages', (table) => {

@@ -1,4 +1,4 @@
-.crm-status-token {
+.maha-status-token {
   flex: none !important;
   margin: 10px;
   padding: 10px;
@@ -12,18 +12,22 @@
   text-transform: uppercase;
   width: 7.5em;
   &.draft { background-color: fadeout(@black, 60); }
+  &.mapping,
+  &.registering,
+  &.transfering,
+  &.scheduled,
+  &.changed,
   &.pending { background-color: @teal; }
-  &.scheduled { background-color: @teal; }
-  &.changed { background-color: @teal; }
   &.sending { background-color: @yellow; }
-  &.sent { background-color: @green; }
-  &.active { background-color: @green; }
-  &.published { background-color: @green; }
+  &.sent,
+  &.active,
+  &.published,
+  &.completed,
   &.approved { background-color: @green; }
-  &.lost { background-color: @red; }
-  &.inactive { background-color: @red; }
-  &.retired { background-color: @red; }
-  &.archived { background-color: @red; }
-  &.rejected { background-color: @red; }
-  &.completed { background-color: @green; }
+  &.lost,
+  &.inactive,
+  &.retired,
+  &.archived,
+  &.rejected,
+  &.red { background-color: @red; }
 }

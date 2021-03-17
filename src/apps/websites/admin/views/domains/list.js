@@ -1,4 +1,4 @@
-import { Page } from '@admin'
+import { Page, StatusToken } from '@admin'
 import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
@@ -8,7 +8,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', collapsing: true, visible: false },
       { label: 'Name', key: 'name', primary: true },
-      { label: 'Status', key: 'status' }
+      { label: 'Status', key: 'status', collapsing: true, format:  StatusToken }
     ],
     defaultSort: { key: 'name', order: 'asc' },
     empty: {

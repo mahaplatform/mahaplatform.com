@@ -1,5 +1,6 @@
 import SetupDomainQueue from '@apps/websites/queues/setup_domain_queue'
 import { listRecords } from '@core/services/aws/route53'
+import socket from '@core/services/routes/emitter'
 import { lookup } from '@core/services/dns'
 
 const checkNameservers = async (req, { domain, queue = true }) => {
@@ -24,22 +25,31 @@ const checkNameservers = async (req, { domain, queue = true }) => {
     }) === undefined
   }) === undefined
 
-  if(!mapped && queue) {
-    return await SetupDomainQueue.enqueue(req, {
+  if(mapped) {
+
+    await domain.save({
+      dns_status: 'success',
+      status: 'active'
+    }, {
+      transacting: req.trx,
+      patch: true
+    })
+
+    await socket.refresh(req, [
+      '/admin/websites/domains',
+      `/admin/websites/domains/${domain.get('id')}`
+    ])
+
+  }
+
+  if(queue) {
+    await SetupDomainQueue.enqueue(req, {
       domain_id: domain.get('id'),
       action: 'check_nameservers'
     }, {
       delay: 60 * 60 * 1000
     })
   }
-
-  await domain.save({
-    dns_status: 'success',
-    status: 'active'
-  }, {
-    transacting: req.trx,
-    patch: true
-  })
 
 }
 

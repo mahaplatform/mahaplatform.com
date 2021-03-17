@@ -28,7 +28,6 @@ const createRoute = async (req, res) => {
     team_id: req.team.get('id'),
     dataset_id: dataset.get('id'),
     title: req.body.title,
-    description: req.body.description,
     access_token
   }).save(null, {
     transacting: req.trx

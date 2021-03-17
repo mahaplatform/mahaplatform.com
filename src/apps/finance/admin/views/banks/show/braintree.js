@@ -1,5 +1,5 @@
-import { Button } from '@admin'
 import PropTypes from 'prop-types'
+import { Button } from '@admin'
 import React from 'react'
 
 const Braintree = ({ bank }, { flash }) => {
@@ -7,21 +7,17 @@ const Braintree = ({ bank }, { flash }) => {
   if(bank.braintree_id) {
 
     return (
-      <div className="finance-braintree-signup success">
-        <div className="finance-braintree-signup-text">
-          Your bank account is connected to Braintree
-        </div>
+      <div className="maha-list-status success">
+        Your bank account is connected to Braintree
       </div>
     )
 
   } else if(bank.applied_on) {
 
     return (
-      <div className="finance-braintree-signup warning">
-        <div className="finance-braintree-signup-text">
-          Thank you for completing the signup process for this account. We&apos;ll
-          connect it as soon as we receive notice from Braintree.
-        </div>
+      <div className="maha-list-status warning">
+        Thank you for completing the signup process for this account. We&apos;ll
+        connect it as soon as we receive notice from Braintree.
       </div>
     )
 
@@ -43,15 +39,13 @@ const Braintree = ({ bank }, { flash }) => {
     }
 
     return (
-      <div className="finance-braintree-signup warning">
-        <div className="finance-braintree-signup-text">
-          Before you can begin accepting digital payments and depositing the
-          funds into this this bank account, you must first create a merchant
-          account with Braintree (a PayPal Company). This involves a small
-          underwriting process in which you will be asked to provide supporting
-          documentation as well as name a authorized individual for your
-          organization.
-        </div>
+      <div className="maha-list-status warning">
+        Before you can begin accepting digital payments and depositing the
+        funds into this this bank account, you must first create a merchant
+        account with Braintree (a PayPal Company). This involves a small
+        underwriting process in which you will be asked to provide supporting
+        documentation as well as name a authorized individual for your
+        organization.
         <Button { ...signup } />
         <Button { ...complete } />
       </div>

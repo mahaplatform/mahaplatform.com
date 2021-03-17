@@ -20,7 +20,7 @@ const createZone = async (req, { domain }) => {
     domain_id: domain.get('id'),
     action: 'check_nameservers'
   }, {
-    delay: 60 * 60 * 1000
+    delay: 5 * 60 * 1000
   })
 
 }

@@ -154,3 +154,18 @@
     padding: 0.8em;
   }
 }
+
+
+.maha-list-status {
+  padding: 0.8em;
+  line-height: 1.6em;
+  &.warning {
+    background-color: fadeout(@yellow, 80);
+  }
+  &.success {
+    background-color: fadeout(@green, 80);
+  }
+  .ui.button {
+    margin: 0 0.5em 0.5em 0;
+  }
+}

@@ -2,7 +2,6 @@ import { MultiForm } from '@admin'
 import PropTypes from 'prop-types'
 import Register from './register'
 import Transfer from './transfer'
-import Contacts from './contacts'
 import Type from './type'
 import React from 'react'
 import Dns from './dns'
@@ -51,8 +50,7 @@ class New extends React.Component {
   _getDetails(type) {
     if(type === 'transfer') {
       return [
-        { label: 'Name', component: Transfer },
-        { label: 'Contacts', component: Contacts }
+        { label: 'Name', component: Transfer }
       ]
     }
     if(type === 'dns') {
@@ -61,8 +59,7 @@ class New extends React.Component {
       ]
     }
     return [
-      { label: 'Name', component: Register },
-      { label: 'Contacts', component: Contacts }
+      { label: 'Name', component: Register }
     ]
   }
 

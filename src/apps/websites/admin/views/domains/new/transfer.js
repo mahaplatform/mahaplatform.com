@@ -32,7 +32,7 @@ class Transfer extends React.Component {
       showHeader: false,
       buttons: [
         { label: 'Prev', color: 'red', handler: this._handleBack },
-        { label: 'Next', color: 'red', handler: this._handleSubmit }
+        { label: 'Save', color: 'red', handler: this._handleSubmit }
       ],
       onSuccess: this._handleSuccess,
       sections: [
@@ -55,7 +55,7 @@ class Transfer extends React.Component {
   }
 
   _handleSuccess(store) {
-    this.props.onNext(store)
+    this.props.onSave(store)
   }
 
 }

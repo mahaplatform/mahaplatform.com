@@ -5,7 +5,7 @@ const Apikey = new Model(knex, {
 
   databaseName: 'maha',
 
-  tableName: 'apikeys',
+  tableName: 'datasets_apikeys',
 
   rules: {},
 

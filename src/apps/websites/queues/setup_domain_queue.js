@@ -12,13 +12,7 @@ const processor = async (req, job) => {
     transacting: req.trx
   })
 
-  if(action === 'create_zone') {
-
-    await domains.createZone(req, {
-      domain
-    })
-
-  } else if(action === 'check_nameservers') {
+  if(action === 'check_nameservers') {
 
     await domains.checkNameservers(req, {
       domain
@@ -33,12 +27,6 @@ const processor = async (req, job) => {
   } else if(action === 'transfer_domain') {
 
     // tranfer
-
-  } else if(action === 'check_registrant') {
-
-    await domains.checkRegistrant(req, {
-      domain
-    })
 
   } else if(action === 'check_operation') {
 

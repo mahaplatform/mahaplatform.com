@@ -1,6 +1,5 @@
-import AccessToken from '@apps/datasets/admin/components/access_token'
 import New from '@apps/datasets/admin/views/apikeys/new'
-import { Container } from '@admin'
+import { Container, SensitiveText } from '@admin'
 import PropTypes from 'prop-types'
 import { Button } from '@admin'
 import React from 'react'
@@ -35,7 +34,7 @@ class APIKeys extends React.PureComponent {
                   <tr key={`apikey_${index}`}>
                     <td>{ apikey.title }</td>
                     <td>
-                      <AccessToken access_token={ apikey.access_token } />
+                      <SensitiveText text={ apikey.access_token } />
                     </td>
                     <td>
                       <Button { ...this._getTasks(apikey) } />

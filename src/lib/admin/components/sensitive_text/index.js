@@ -1,11 +1,11 @@
-import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Button } from '@admin'
+import React from 'react'
 
-class APIKey extends React.PureComponent {
+class SensitiveText extends React.PureComponent {
 
   static propTypes = {
-    access_token: PropTypes.string
+    text: PropTypes.string
   }
 
   state = {
@@ -16,17 +16,17 @@ class APIKey extends React.PureComponent {
 
   render() {
     return (
-      <div className="datasets-access-token">
-        { this._getToken() }
+      <div className="sensitive">
+        { this._getText() }
         (<Button { ...this._getToggle() } />)
       </div>
     )
   }
 
-  _getToken() {
-    const { access_token } = this.props
+  _getText() {
+    const { text } = this.props
     const { visible } = this.state
-    return visible ? access_token : access_token.split('').map(letter => '*').join('')
+    return visible ? text : text.split('').map(letter => '*').join('')
   }
 
   _getToggle() {
@@ -47,4 +47,4 @@ class APIKey extends React.PureComponent {
 
 }
 
-export default APIKey
+export default SensitiveText
