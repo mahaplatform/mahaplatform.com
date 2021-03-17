@@ -1,6 +1,5 @@
 import { getContactReachabilityStatus } from '@core/services/aws/domains'
-import CheckRegistrantQueue from '@apps/websites/queues/check_registrant_queue'
-import CheckOperationQueue from '@apps/websites/queues/check_operation_queue'
+import SetupDomainQueue from '@apps/websites/queues/setup_domain_queue'
 
 const checkRegistrant = async(req, { domain }) => {
 
@@ -17,14 +16,16 @@ const checkRegistrant = async(req, { domain }) => {
       patch: true
     })
 
-    CheckOperationQueue.enqueue(req, {
-      domain_id: domain.get('id')
+    SetupDomainQueue.enqueue(req, {
+      domain_id: domain.get('id'),
+      action: 'check_operation'
     })
 
   } else if(result.status === 'pending') {
 
-    CheckRegistrantQueue.enqueue(req, {
-      domain_id: domain.get('id')
+    SetupDomainQueue.enqueue(req, {
+      domain_id: domain.get('id'),
+      action: 'check_registrant'
     }, {
       delay: 5 * 60 * 1000
     })

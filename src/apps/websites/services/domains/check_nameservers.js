@@ -1,5 +1,4 @@
-import CheckNameserversQueue from '@apps/websites/queues/check_nameservers_queue'
-import SetupZoneQueue from '@apps/websites/queues/setup_zone_queue'
+import SetupDomainQueue from '@apps/websites/queues/setup_domain_queue'
 import Record from '@apps/websites/models/record'
 import { lookup } from '@core/services/dns'
 
@@ -24,8 +23,9 @@ const checkNameservers = async (req, { domain }) => {
   }) === undefined
 
   if(!mapped) {
-    return await CheckNameserversQueue.enqueue(req, {
-      domain_id: domain.get('id')
+    return await SetupDomainQueue.enqueue(req, {
+      domain_id: domain.get('id'),
+      action: 'check_nameservers'
     }, {
       delay: 60 * 60 * 1000
     })

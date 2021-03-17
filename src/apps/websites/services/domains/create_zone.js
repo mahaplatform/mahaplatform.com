@@ -11,11 +11,13 @@ const createZone = async (req, { domain }) => {
   })
 
   await domain.save({
-    aws_zone_id: zone.aws_zone_id
+    aws_zone_id: zone.aws_zone_id,
+    status: 'mapping',
+    dns_status: 'pending'
   }, {
-    transacting: req.trx
+    transacting: req.trx,
+    patch: true
   })
-
 
 }
 

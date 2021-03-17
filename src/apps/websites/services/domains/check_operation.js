@@ -1,4 +1,4 @@
-import SetupZoneQueue from '@apps/websites/queues/setup_zone_queue'
+import SetupDomainQueue from '@apps/websites/queues/setup_domain_queue'
 import { getOperationDetail } from '@core/services/aws/domains'
 import { listZones } from '@core/services/aws/route53'
 import _ from 'lodash'
@@ -30,8 +30,9 @@ const checkOperation = async(req, { domain }) => {
       patch: true
     })
 
-    await SetupZoneQueue.enqueue(req, {
-      domain_id: domain.get('id')
+    await SetupDomainQueue.enqueue(req, {
+      domain_id: domain.get('id'),
+      action: 'setup_zone'
     })
 
   }

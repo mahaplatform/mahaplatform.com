@@ -1,4 +1,4 @@
-import CheckRegistrantQueue from '@apps/websites/queues/check_registrant_queue'
+import SetupDomainQueue from '@apps/websites/queues/setup_domain_queue'
 import * as domains from '@core/services/aws/domains'
 
 const expandContact = (contact) => ({
@@ -31,8 +31,9 @@ const registerDomain = async(req, { domain }) => {
     patch: true
   })
 
-  await CheckRegistrantQueue.enqueue(req, {
-    domain_id: domain.get('id')
+  await SetupDomainQueue.enqueue(req, {
+    domain_id: domain.get('id'),
+    action: 'check_registrant'
   }, {
     delay: 5 * 60 * 1000
   })

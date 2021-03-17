@@ -1,6 +1,4 @@
-import RegisterDomainQueue from '@apps/websites/queues/register_domain_queue'
-import TransferDomainQueue from '@apps/websites/queues/transfer_domain_queue'
-import SetupZoneQueue from '@apps/websites/queues/setup_zone_queue'
+import SetupDomainQueue from '@apps/websites/queues/setup_domain_queue'
 import { createZone } from '@core/services/aws/route53'
 import Domain from '@apps/websites/models/domain'
 
@@ -31,8 +29,9 @@ const createDomain = async (req, params) => {
       patch: true
     })
 
-    await RegisterDomainQueue.enqueue(req, {
-      domain_id: domain.get('id')
+    await SetupDomainQueue.enqueue(req, {
+      domain_id: domain.get('id'),
+      action: 'register_domain'
     })
 
   } else if(type === 'transfer') {
@@ -49,8 +48,9 @@ const createDomain = async (req, params) => {
       patch: true
     })
 
-    await TransferDomainQueue.enqueue(req, {
-      domain_id: domain.get('id')
+    await SetupDomainQueue.enqueue(req, {
+      domain_id: domain.get('id'),
+      action: 'transfer_domain'
     })
 
   } else if (type === 'dns') {
@@ -68,8 +68,9 @@ const createDomain = async (req, params) => {
       patch: true
     })
 
-    await SetupZoneQueue.enqueue(req, {
-      domain_id: domain.get('id')
+    await SetupDomainQueue.enqueue(req, {
+      domain_id: domain.get('id'),
+      action: 'create_zone'
     })
 
   }
