@@ -25,8 +25,7 @@ const registerDomain = async(req, { domain }) => {
 
   await domain.save({
     aws_operation_id: registration.aws_operation_id,
-    registration_status: 'inprogress',
-    is_locked: true
+    registration_status: 'inprogress'
   }, {
     transacting: req.trx,
     patch: true

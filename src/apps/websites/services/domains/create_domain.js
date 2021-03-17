@@ -18,6 +18,8 @@ const createDomain = async (req, params) => {
   if(type === 'registration') {
 
     await domain.save({
+      auto_renew: true,
+      is_locked: true,
       status: 'registering',
       registration_status: 'pending'
     }, {
@@ -33,6 +35,8 @@ const createDomain = async (req, params) => {
   } else if(type === 'transfer') {
 
     await domain.save({
+      auto_renew: true,
+      is_locked: true,
       status: 'transfering',
       transfer_status: 'pending'
     }, {

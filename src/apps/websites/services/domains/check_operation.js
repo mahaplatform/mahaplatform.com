@@ -28,8 +28,6 @@ const checkOperation = async(req, { domain, queue = true }) => {
     await domain.save({
       expires_on: moment().add(1,'year'),
       aws_zone_id: zone.id,
-      is_locked: true,
-      auto_renew: true,
       ...domain.get('type') === 'registration' ? {
         registration_status: 'success'
       } : {},

@@ -17,8 +17,8 @@ const Details = ({ audits, domain, records }, { flash }) => {
   if(domain.type !== 'dns') {
     list.items.push({ label: 'Auto Renew', content: domain.auto_renew ? 'enabled' : 'diabled' })
     list.items.push({ label: 'Transfer Lock', content: domain.is_locked ? 'enabled' : 'diabled' })
-    if(!domain.is_locked) {
-      list.items.push({ label: 'Auth Code', content: <SensitiveText text={domain.auth_code} /> })
+    if(domain.auth_code) {
+      list.items.push({ label: 'Auth Code', content: <SensitiveText text={ domain.auth_code } /> })
     }
   }
 
