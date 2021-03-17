@@ -79,6 +79,10 @@ const criteria = (programfields) => [
       { value: '$cl', text: 'clicked link in the email' },
       { value: '$ncl', text: 'did not click link in the email' }
     ] },
+    { name: 'Store', key: 'store_id', type: ListCriteria, endpoint: '/api/admin/stores/stores', text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
+      { value: '$jeq', text: 'ordered from' },
+      { value: '$njeq', text: 'did not order from' }
+    ] },
     { name: 'Event', key: 'event_id', type: ListCriteria, endpoint: '/api/admin/events/events', text: 'title', value: 'id', multiple: false, subject: false, comparisons: [
       { value: '$jeq', text: 'registered for' },
       { value: '$njeq', text: 'did not registered for' }

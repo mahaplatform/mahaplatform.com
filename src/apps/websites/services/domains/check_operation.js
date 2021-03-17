@@ -1,5 +1,6 @@
 import { getOperationDetail, enableDomainTransferLock, updateDomainContactPrivacy} from '@core/services/aws/domains'
 import { listZones } from '@core/services/aws/route53'
+import socket from '@core/services/routes/emitter'
 import moment from 'moment'
 import _ from 'lodash'
 
@@ -40,6 +41,11 @@ const checkOperation = async(req, { domain, queue = true }) => {
       transacting: req.trx,
       patch: true
     })
+
+    await socket.refresh(req, [
+      '/admin/websites/domains',
+      `/admin/websites/domains/${domain.get('id')}`
+    ])
 
   }
 
