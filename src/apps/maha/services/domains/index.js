@@ -1,6 +1,0 @@
-export createZone from './create_zone'
-export deleteZone from './delete_zone'
-export registerDomain from './register_domain'
-export transferDomain from './transfer_domain'
-export requestCertificate from './request_certificate'
-export describeCertificate from './describe_certificate'

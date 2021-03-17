@@ -14,7 +14,7 @@ const expandContact = (contact) => ({
   ContactType: 'PERSON'
 })
 
-const registerDomain = async(req, { name, admin_contact, registrant_contact, tech_contact }) => {
+const registerDomain = async({ name, admin_contact, registrant_contact, tech_contact }) => {
 
   const registration = await route53Domains.registerDomain({
     DomainName: name,

@@ -6,8 +6,10 @@ import Zone from './zone'
 
 const getTabs = ({ audits, domain, records }) => ({
   items: [
-    { label: 'Details', component: <Details audits={ audits } domain={ domain } /> },
-    { label: 'DNS', component: <Zone domain={ domain } records={ records } /> }
+    { label: 'Details', component: <Details audits={ audits } domain={ domain } records={ records } /> },
+    ...domain.dns_status === 'success' ? [
+      { label: 'DNS', component: <Zone domain={ domain } records={ records } /> }
+    ] : []
   ]
 })
 

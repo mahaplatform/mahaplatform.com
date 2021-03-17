@@ -2,7 +2,7 @@ import { checkTransferability } from '@core/services/aws/domains'
 
 const authRoute = async (req, res) => {
 
-  const transferability = await checkTransferability(req, {
+  const transferability = await checkTransferability({
     name: req.query.name,
     auth_code: req.query.auth_code
   })

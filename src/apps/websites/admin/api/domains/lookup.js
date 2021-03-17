@@ -2,7 +2,7 @@ import { lookupDomain } from '@core/services/aws/domains'
 
 const lookupRoute = async (req, res) => {
 
-  const domains = await lookupDomain(req, {
+  const domains = await lookupDomain({
     name: req.query.name
   })
 

@@ -15,7 +15,7 @@ const getStatus = (availability) => {
   return  availability === 'AVAILABLE' ? 'available' : 'unavailable'
 }
 
-const lookupDomain = async(req, { name }) => {
+const lookupDomain = async({ name }) => {
 
   const availability = await route53Domains.checkDomainAvailability({
     DomainName: name

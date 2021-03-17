@@ -1,11 +1,11 @@
 import SetupDomainQueue from '@apps/websites/queues/setup_domain_queue'
-import { getOperationDetail } from '@core/services/aws/domains'
+import { getOperationDetail, enableDomainTransferLock } from '@core/services/aws/domains'
 import { listZones } from '@core/services/aws/route53'
 import _ from 'lodash'
 
 const checkOperation = async(req, { domain }) => {
 
-  const result = await getOperationDetail(req, {
+  const result = await getOperationDetail({
     aws_operation_id: domain.get('aws_operation_id')
   })
 
@@ -17,8 +17,13 @@ const checkOperation = async(req, { domain }) => {
       return zone.name === domain.get('name')
     })
 
+    await enableDomainTransferLock({
+      name: domain.name
+    })
+
     await domain.save({
       aws_zone_id: zone.id,
+      is_locked: true,
       ...domain.type === 'registration' ? {
         registration_status: 'success'
       } : {},

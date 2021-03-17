@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
+import { Button } from '@admin'
 import React from 'react'
 import _ from 'lodash'
 
-const DomainStatusToken = ({ status }) => (
+const DomainStatusToken = ({ check, status }) => (
   <div className="domain-status-token">
     <div className="domain-status-token-icon">
       { _.includes(['pending','inprogress'], status) &&
@@ -13,12 +14,17 @@ const DomainStatusToken = ({ status }) => (
       }
     </div>
     <div className="domain-status-token-details">
-      { status }
+      { status } { check &&
+        <>
+          (<Button { ...check } />)
+        </>
+      }
     </div>
   </div>
 )
 
 DomainStatusToken.propTypes = {
+  check: PropTypes.object,
   status: PropTypes.string
 }
 

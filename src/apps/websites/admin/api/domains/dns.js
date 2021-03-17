@@ -1,5 +1,6 @@
 import { checkNameservers } from '@apps/websites/services/domains'
 import Domain from '@apps/websites/models/domain'
+import socket from '@core/services/routes/emitter'
 
 const dnsRoute = async (req, res) => {
 
@@ -18,6 +19,11 @@ const dnsRoute = async (req, res) => {
   await checkNameservers(req, {
     domain
   })
+
+  await socket.refresh(req, [
+    '/admin/websites/domains',
+    `/admin/websites/domains/${domain.get('id')}`
+  ])
 
   await res.status(200).respond(true)
 

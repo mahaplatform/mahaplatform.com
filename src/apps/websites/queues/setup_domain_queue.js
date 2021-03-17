@@ -15,7 +15,7 @@ const processor = async (req, job) => {
   if(action === 'create_zone') {
 
     await domains.createZone(req, {
-      name: domain.get('name')
+      domain
     })
 
   } else if(action === 'check_nameservers') {

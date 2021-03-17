@@ -3,7 +3,7 @@ import SetupDomainQueue from '@apps/websites/queues/setup_domain_queue'
 
 const checkRegistrant = async(req, { domain }) => {
 
-  const result = await getContactReachabilityStatus(req, {
+  const result = await getContactReachabilityStatus({
     name: domain.get('name')
   })
 

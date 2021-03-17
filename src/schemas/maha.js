@@ -2742,6 +2742,7 @@ const schema = {
       table.timestamp('expires_on')
       table.string('aws_operation_id', 255)
       table.USER-DEFINED('registrant_status')
+      table.string('is_locked', 255)
     })
 
     await knex.schema.createTable('websites_pages', (table) => {

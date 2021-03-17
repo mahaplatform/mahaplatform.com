@@ -16,7 +16,7 @@ const expandContact = (contact) => ({
 
 const registerDomain = async(req, { domain }) => {
 
-  const registration = await domains.registerDomain(req, {
+  const registration = await domains.registerDomain({
     name: domain.get('name'),
     admin_contact: expandContact(domain.get('admin_contact')),
     registrant_contact: expandContact(domain.get('registrant_contact')),

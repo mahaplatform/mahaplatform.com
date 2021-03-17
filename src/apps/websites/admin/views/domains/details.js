@@ -1,11 +1,10 @@
 import DomainStatusToken from '@apps/websites/admin/tokens/domain_status'
 import ContactToken from '@apps/websites/admin/tokens/contact'
-import { Audit, Button, Comments, List } from '@admin'
+import { Audit, Comments, List } from '@admin'
 import PropTypes from 'prop-types'
 import React from 'react'
-import _ from 'lodash'
 
-const Details = ({ audits, domain }, { flash }) => {
+const Details = ({ audits, domain, records }, { flash }) => {
 
   const list = {
     items: [
@@ -28,8 +27,29 @@ const Details = ({ audits, domain }, { flash }) => {
   }
 
   if(domain.type === 'dns') {
+    const check = {
+      label: 'check',
+      className: 'link',
+      request: {
+        endpoint: `/api/admin/websites/domains/${domain.id}/dns`,
+        method: 'patch',
+        onFailure: () => flash.set('error', 'Unable to confirm nameservers')
+      }
+    }
     list.items.push({ label: 'DNS Status', content: (
-      <DomainStatusToken status={ domain.dns_status } />
+      <DomainStatusToken status={ domain.dns_status } check={ check } />
+    ) })
+    const ns = records.find(record => {
+      return record.type === 'NS'
+    })
+    list.items.push({ label: 'Name Servers', content: (
+      <>
+        { ns.records.map((record, index) => (
+          <div key={`record_${index}`}>
+            { record.value }
+          </div>
+        ))}
+      </>
     ) })
   }
 
@@ -48,7 +68,8 @@ const Details = ({ audits, domain }, { flash }) => {
 
 Details.propTypes = {
   audits: PropTypes.array,
-  domain: PropTypes.object
+  domain: PropTypes.object,
+  records: PropTypes.array
 }
 
 Details.contextTypes = {

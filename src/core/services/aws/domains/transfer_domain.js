@@ -14,7 +14,7 @@ const expandContact = (contact) => ({
   ContactType: 'PERSON'
 })
 
-const transferDomain = async(req, { name, admin_contact, registrant_contact, tech_contact, auth_code }) => {
+const transferDomain = async({ name, admin_contact, registrant_contact, tech_contact, auth_code }) => {
 
   const transfer = await route53Domains.transferDomain({
     DomainName: name,

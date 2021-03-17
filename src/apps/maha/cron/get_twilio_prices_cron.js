@@ -18,6 +18,8 @@ export const processor = async (req) => {
 
     try {
 
+      console.log(sms.get('sid'))
+
       const twsms = await twilio.messages(sms.get('sid')).fetch()
 
       if(!twsms.price) return

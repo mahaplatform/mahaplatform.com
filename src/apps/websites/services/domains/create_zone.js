@@ -1,13 +1,10 @@
 import * as route53 from '@core/services/aws/route53'
+import setupZone from './setup_zone'
 
 const createZone = async (req, { domain }) => {
 
   const zone = await route53.createZone(req, {
-    name
-  })
-
-  await route53.createRecords(req, {
-    aws_zone_id: zone.aws_zone_id
+    name: domain.get('name')
   })
 
   await domain.save({
@@ -17,6 +14,10 @@ const createZone = async (req, { domain }) => {
   }, {
     transacting: req.trx,
     patch: true
+  })
+
+  await setupZone(req, {
+    domain
   })
 
 }
