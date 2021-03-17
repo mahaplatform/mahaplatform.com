@@ -3,14 +3,13 @@ import { Audit, Comments, Button, List } from '@admin'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import React from 'react'
-import _ from 'lodash'
 
 const Details = ({ audits, campaign }) => {
 
   const config = {}
 
   const design = {
-    label: _.includes(['active','draft','inactive'], campaign.status) ? 'Design Email' : 'View Email',
+    label: 'Design Email',
     className: 'link',
     route: `/admin/campaigns/email/${campaign.id}/design`
   }

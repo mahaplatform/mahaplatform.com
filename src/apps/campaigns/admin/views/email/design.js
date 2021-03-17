@@ -2,7 +2,6 @@ import EmailDesigner from '@apps/automation/admin/components/email_designer/wrap
 import PropTypes from 'prop-types'
 import { Page } from '@admin'
 import React from 'react'
-import _ from 'lodash'
 
 class Designer extends React.Component {
 
@@ -18,7 +17,7 @@ class Designer extends React.Component {
     const { campaign } = this.props
     return {
       defaultValue: campaign.config,
-      editable: _.includes(['active','draft','inactive'], campaign.status),
+      editable: true,
       endpoint: `/api/admin/campaigns/email/${campaign.id}`,
       program: campaign.program
     }
